@@ -1,15 +1,18 @@
 ---
 import { t } from '../i18n/helper';
 import type { Locale } from '../i18n/messages';
+import { Button } from './ui/button';
 
 const locale = (Astro.currentLocale as Locale) || 'en';
 ---
 
 <div style="text-align: center; margin-top: 2rem;">
   <h1>{t(locale, 'home.title')}</h1>
-  <button>{t(locale, 'home.button')}</button>
+  <Button>{t(locale, 'home.button')}</Button>
 
   <nav style="margin-top: 1rem;">
     <a href="/">EN</a> | <a href="/vi/">VI</a>
   </nav>
+
+  <p class="text-sm mt-4">Test</p>
 </div>

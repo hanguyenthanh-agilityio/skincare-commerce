@@ -62,6 +62,7 @@ export default [
     },
     rules: {
       ...astroPlugin.configs.recommended.rules,
+      'react/no-unknown-property': 'off',
     },
   },
 

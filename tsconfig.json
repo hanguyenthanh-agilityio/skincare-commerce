@@ -1,5 +1,16 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "include": [".astro/types.d.ts", "**/*", "../sanity/sanity.config.ts", "../astro.config.mjs"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "types": ["node", "vitest/globals", "astro/client"],
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "jsx": "preserve",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }
