@@ -7,7 +7,7 @@ const locale = (Astro.currentLocale as Locale) || 'en';
 ---
 
 <div style="text-align: center; margin-top: 2rem;">
-  <h1>{t(locale, 'home.title')}</h1>
+  <h1 class="text-3xl font-bold">{t(locale, 'home.title')}</h1>
   <Button>{t(locale, 'home.button')}</Button>
 
   <nav style="margin-top: 1rem;">
