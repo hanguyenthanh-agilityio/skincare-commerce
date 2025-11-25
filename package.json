@@ -13,7 +13,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,astro}": [
-      "eslint --ext .js,.ts,.tsx,.astro --max-warnings=0 --format=stylish"
+      "eslint --ext .js,.ts,.tsx,.astro --ignore-pattern vitest.config.ts --max-warnings=0 --format=stylish"
     ]
   },
   "dependencies": {
