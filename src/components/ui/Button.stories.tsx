@@ -1,5 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
+// UIs
 import { Button } from './button';
 
 const meta = {
@@ -21,7 +23,6 @@ const meta = {
     children: 'Click me',
     variant: 'default',
     size: 'default',
-    className: 'text-white',
   },
 } satisfies Meta<typeof Button>;
 
@@ -33,14 +34,10 @@ export const Default: Story = {};
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <Button variant="default" className="text-white">
-        Default
-      </Button>
+      <Button variant="default">Default</Button>
       <Button variant="destructive">Destructive</Button>
       <Button variant="outline">Outline</Button>
-      <Button variant="secondary" className="text-white">
-        Secondary
-      </Button>
+      <Button variant="secondary">Secondary</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="link">Link</Button>
     </div>
@@ -49,7 +46,7 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex items-center gap-4 text-white">
+    <div className="flex items-center gap-4">
       <Button size="sm">Small</Button>
       <Button size="default">Default</Button>
       <Button size="lg">Large</Button>

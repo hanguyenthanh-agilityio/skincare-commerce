@@ -2,3 +2,6 @@
 
 echo "🔍 Running lint-staged..."
 pnpm lint-staged
+
+echo "Running build..."
+pnpm build

@@ -1,6 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*", "../sanity/sanity.config.ts", "../astro.config.mjs"],
+  "include": [".astro/types.d.ts", "**/*", "../astro.config.mjs"],
   "exclude": ["dist"],
   "compilerOptions": {
     "types": ["node", "vitest/globals", "astro/client"],
