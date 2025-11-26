@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import '@fontsource/inter/index.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -114,6 +115,8 @@
 }
 
 @theme inline {
+  --font-sans: 'InterVariable', sans-serif;
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -172,7 +175,7 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: inherit;
+    font-family: var(--font-sans);
     line-height: 1.5;
   }
 
