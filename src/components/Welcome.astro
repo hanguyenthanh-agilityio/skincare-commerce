@@ -6,13 +6,44 @@ import { Button } from './ui/button';
 const locale = (Astro.currentLocale as Locale) || 'en';
 ---
 
-<div style="text-align: center; margin-top: 2rem;">
-  <h1 class="text-3xl font-bold">{t(locale, 'home.title')}</h1>
-  <Button>{t(locale, 'home.button')}</Button>
+<div class="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
+  <!-- Title -->
+  <h1 class="text-4xl font-extrabold tracking-tight text-primary mb-4">
+    {t(locale, 'home.title')}
+  </h1>
 
-  <nav style="margin-top: 1rem;">
-    <a href="/">EN</a> | <a href="/vi/">VI</a>
-  </nav>
+  <!-- Subtitle -->
+  <p class="text-muted-foreground max-w-md mb-6">
+    Welcome to our skincare collection crafted for natural beauty and healthy glowing skin.
+  </p>
 
-  <p class="text-sm mt-4">Test</p>
+  <!-- CTA Button -->
+  <Button
+    className="px-8 py-5 text-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+  >
+    {t(locale, 'home.button')}
+  </Button>
+
+  <!-- Language Switch -->
+  <div class="flex items-center gap-3 mt-8 text-sm text-muted-foreground">
+    <span>🌐 Language</span>
+
+    <a
+      href="/"
+      class="px-3 py-1 rounded-md border hover:bg-accent hover:text-accent-foreground transition"
+    >
+      EN
+    </a>
+
+    <a
+      href="/vi/"
+      class="px-3 py-1 rounded-md border hover:bg-accent hover:text-accent-foreground transition"
+    >
+      VI
+    </a>
+  </div>
+
+  <p class="text-xs text-muted-foreground mt-6 opacity-70">
+    Skincare crafted with science & nature 🌿
+  </p>
 </div>
