@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 *storybook.log
 storybook-static
+
+# Coverage directory used by testing tools
+/coverage
