@@ -36,7 +36,7 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-// Default
+// Default Button
 export const Default: Story = {
   args: {
     variant: 'default',
@@ -44,61 +44,60 @@ export const Default: Story = {
   },
 };
 
-/* --------------------------------------------
- * FULL VARIANTS SHOWCASE (YOUR UI)
- * -------------------------------------------- */
-export const FullShowcase: Story = {
+// Outline Soft
+export const OutlineSoft: Story = {
   render: () => (
-    <div className="flex flex-col gap-10">
-      {/* Row 1: Outline Soft */}
-      <div>
-        <h3 className="font-semibold mb-3">Button “More” (outlineSoft)</h3>
-        <Button variant="outlineSoft" className="gap-10">
-          Read More <ArrowIcon />
+    <div>
+      <h3 className="font-semibold mb-3">Button “More” (outlineSoft)</h3>
+      <Button variant="outlineSoft" className="gap-10">
+        Read More <ArrowIcon />
+      </Button>
+    </div>
+  ),
+};
+
+// Dark
+export const Dark: Story = {
+  render: () => (
+    <div>
+      <h3 className="font-semibold mb-3">Add to Cart (dark)</h3>
+      <Button variant="dark" className="px-10 py-6">
+        Add to your cart
+      </Button>
+    </div>
+  ),
+};
+
+// Light
+export const Light: Story = {
+  render: () => (
+    <div>
+      <h3 className="font-semibold mb-3">Add to Cart (light)</h3>
+      <Button variant="light" className="px-10 py-6">
+        Add to your cart
+      </Button>
+    </div>
+  ),
+};
+
+// Outline White (on image)
+export const OutlineWhite: Story = {
+  render: () => (
+    <div>
+      <h3 className="font-semibold mb-3">Discover More (outlineWhite)</h3>
+      <div className="p-10 rounded-xl bg-cover bg-black bg-center">
+        <Button variant="outlineWhite" className="gap-10 py-7">
+          Discover More <ArrowIcon />
         </Button>
-      </div>
-
-      {/* Row 2: Add to cart (dark) */}
-      <div>
-        <h3 className="font-semibold mb-3">Add to Cart (dark)</h3>
-        <Button variant="dark">Add to your cart</Button>
-      </div>
-
-      {/* Row 3: Add to cart (light) */}
-      <div>
-        <h3 className="font-semibold mb-3">Add to Cart (light)</h3>
-        <Button variant="light">Add to your cart</Button>
-      </div>
-
-      {/* Row 4: Discover More (white outline on image) */}
-      <div>
-        <h3 className="font-semibold mb-3">Discover More (outlineWhite)</h3>
-        <div
-          className="p-10 rounded-xl bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1200')",
-          }}
-        >
-          <Button variant="outlineWhite">Discover More →</Button>
-        </div>
       </div>
     </div>
   ),
 };
 
-/* --------------------------------------------
- * INDIVIDUAL VARIANT GALLERY
- * -------------------------------------------- */
+// Individual variant gallery
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <Button variant="outlineSoft">More →</Button>
-      <Button variant="dark">Add to your cart</Button>
-      <Button variant="light">Add to your cart</Button>
-      <Button variant="outlineWhite">Discover More →</Button>
-
-      {/* Default shadcn variants if you still use them */}
       <Button variant="default">Default</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="ghost">Ghost</Button>

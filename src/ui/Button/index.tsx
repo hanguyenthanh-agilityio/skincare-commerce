@@ -17,19 +17,12 @@ const buttonVariants = cva(
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
 
-        // ---- CUSTOM BUTTONS (your UI spec) ----
-
-        // 1️⃣ Button “More”
+        // Custom button
         outlineSoft: 'border border-muted rounded-none text-primary text-sm hover:bg-[#ecebe5]',
-
-        // 2️⃣ Add to cart
-        dark: 'bg-black text-white hover:bg-black/80',
-
-        // 3️⃣ Add to cart
-        light: 'bg-white text-black border border-black hover:bg-black/5',
-
-        // 4️⃣ Discover More (white outline)
-        outlineWhite: 'border border-white text-white hover:bg-white/10 backdrop-blur-sm',
+        dark: 'bg-primary rounded-none text-sm text-white hover:bg-black/80',
+        light: 'bg-white rounded-none text-sm text-black border border-muted hover:bg-black/5',
+        outlineWhite:
+          'border border-white rounded-none text-sm text-white hover:bg-white/10 backdrop-blur-sm',
       },
 
       size: {
