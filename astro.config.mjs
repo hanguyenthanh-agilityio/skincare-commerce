@@ -20,4 +20,6 @@ export default defineConfig({
       fallbackType: 'rewrite',
     },
   },
+
+  output: 'static',
 });
