@@ -87,7 +87,7 @@ export const OutlineWhite: Story = {
       <h3 className="font-semibold mb-3">Discover More (outlineWhite)</h3>
       <div className="p-10 rounded-xl bg-cover bg-black bg-center">
         <Button variant="outlineWhite" className="gap-10 py-7">
-          Discover More <ArrowIcon />
+          Discover More <ArrowIcon color="white" />
         </Button>
       </div>
     </div>

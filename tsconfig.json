@@ -6,7 +6,7 @@
     "types": ["node", "vitest/globals", "astro/client"],
     "moduleResolution": "bundler",
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
