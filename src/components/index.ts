@@ -1,3 +1,2 @@
 export * from './icons';
-export * from './Typography';
-export * from './Heading';
+export * from './Blocks';
