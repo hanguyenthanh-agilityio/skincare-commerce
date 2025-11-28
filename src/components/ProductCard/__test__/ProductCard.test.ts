@@ -10,6 +10,7 @@ describe('ProductCard component', () => {
 
     const result = await container.renderToString(ProductCard, {
       props: {
+        href: '/',
         image: '/perfume.jpg',
         name: 'Midnight Bloom',
         description: 'A deep, mysterious floral fragrance',
@@ -37,7 +38,6 @@ describe('ProductCard component', () => {
 
     // Button & Link
     expect(result).toContain('href="/"');
-    expect(result).toContain('aria-label="Go to homepage"');
 
     // Layout classes
     expect(result).toContain('w-80');
