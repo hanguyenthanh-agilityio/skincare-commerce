@@ -16,6 +16,7 @@
   --popover-foreground: oklch(0.145 0 0);
 
   --primary: oklch(0.249 0 0); /* charcoal */
+  --primary-hover: oklch(0.35 0 0);
   --primary-foreground: oklch(0.985 0 0);
 
   --secondary: oklch(0.97 0 0); /* gray */
@@ -193,7 +194,7 @@
   }
 
   a:hover {
-    color: var(--secondary);
+    color: var(--primary-hover);
   }
 }
 

@@ -2,48 +2,51 @@
 import { t } from '../i18n/helper';
 import type { Locale } from '../i18n/messages';
 import { Button } from '@/ui';
-
+import Navbar from '@/components/Navbar/index.astro';
 const locale = (Astro.currentLocale as Locale) || 'en';
 ---
 
-<div class="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
-  <!-- Title -->
-  <h1 class="text-4xl font-extrabold tracking-tight text-primary mb-4">
-    {t(locale, 'home.title')}
-  </h1>
+<>
+  <Navbar />
+  <div class="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
+    <!-- Title -->
+    <h1 class="text-4xl font-extrabold tracking-tight text-primary mb-4">
+      {t(locale, 'home.title')}
+    </h1>
 
-  <!-- Subtitle -->
-  <p class="text-muted-foreground max-w-md mb-6">
-    Welcome to our skincare collection crafted for natural beauty and healthy glowing skin.
-  </p>
+    <!-- Subtitle -->
+    <p class="text-muted-foreground max-w-md mb-6">
+      Welcome to our skincare collection crafted for natural beauty and healthy glowing skin.
+    </p>
 
-  <!-- CTA Button -->
-  <Button
-    className="px-8 py-5 text-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
-  >
-    {t(locale, 'home.button')}
-  </Button>
-
-  <!-- Language Switch -->
-  <div class="flex items-center gap-3 mt-8 text-sm text-muted-foreground">
-    <span>🌐 Language</span>
-
-    <a
-      href="/"
-      class="px-3 py-1 rounded-md border hover:bg-accent hover:text-accent-foreground transition"
+    <!-- CTA Button -->
+    <Button
+      className="px-8 py-5 text-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
     >
-      EN
-    </a>
+      {t(locale, 'home.button')}
+    </Button>
 
-    <a
-      href="/vi/"
-      class="px-3 py-1 rounded-md border hover:bg-accent hover:text-accent-foreground transition"
-    >
-      VI
-    </a>
+    <!-- Language Switch -->
+    <div class="flex items-center gap-3 mt-8 text-sm text-muted-foreground">
+      <span>🌐 Language</span>
+
+      <a
+        href="/"
+        class="px-3 py-1 rounded-md border hover:bg-accent hover:text-accent-foreground transition"
+      >
+        EN
+      </a>
+
+      <a
+        href="/vi/"
+        class="px-3 py-1 rounded-md border hover:bg-accent hover:text-accent-foreground transition"
+      >
+        VI
+      </a>
+    </div>
+
+    <p class="text-xs text-muted-foreground mt-6 opacity-70">
+      Skincare crafted with science & nature 🌿
+    </p>
   </div>
-
-  <p class="text-xs text-muted-foreground mt-6 opacity-70">
-    Skincare crafted with science & nature 🌿
-  </p>
-</div>
+</>
