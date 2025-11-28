@@ -64,6 +64,7 @@ describe('Link component', () => {
       },
       slots: { default: 'Privacy' },
     });
+
     expect(none).not.toContain('hover:underline');
   });
 
