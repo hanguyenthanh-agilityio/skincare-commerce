@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '.';
-import { Icons } from '@/icons';
+import { Icons } from '@/components';
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',
