@@ -38,6 +38,8 @@
   /* custom tokens */
   --line: #dddddd;
   --date: #9a9a9a;
+  --narvik: #f2f3ec;
+  --quill-grey: #cdcbc0;
 
   --radius: 0.625rem;
 
@@ -140,6 +142,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-narvik: var(--narvik);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-quill-grey: var(--quill-grey);
 
   --color-ring: var(--ring);
   --color-input: var(--input);

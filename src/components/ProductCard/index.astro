@@ -1,0 +1,45 @@
+---
+import { Link, NormalBlock } from '@/components';
+
+interface Props {
+  image: string;
+  name: string;
+  description: string;
+  volume: string;
+  price: string;
+  href: string;
+  badge?: string;
+}
+
+const { image, name, description, volume, price, href, badge } = Astro.props;
+---
+
+<div class="w-80 h-[580px] transition-shadow duration-200 hover:shadow-md">
+  <div class="flex flex-col gap-10 text-center px-4 hover:bg-narvik">
+    <!-- Product Image + Badge -->
+    <div class="relative">
+      {badge && <span class="absolute top-4 right-2 text-xs uppercase text-black">{badge}</span>}
+
+      <img src={image} alt={name} class="mx-auto w-80 h-72 object-contain" />
+    </div>
+
+    <!-- Product Info -->
+    <div class="space-y-1.5">
+      <NormalBlock className="font-bold tracking-[-2%] text-black">
+        {name}
+      </NormalBlock>
+      <NormalBlock>{description}</NormalBlock>
+    </div>
+
+    <!-- Volume + Price -->
+    <div class="space-y-3.5">
+      <NormalBlock>{volume}</NormalBlock>
+      <NormalBlock>${price}</NormalBlock>
+    </div>
+  </div>
+
+  <!-- CTA Button -->
+  <Link href={href} ariaLabel={`Go to ${name} product detail`} className="w-full">
+    <button class="w-full h-16 bg-black text-white text-sm/6">Add to your cart</button>
+  </Link>
+</div>

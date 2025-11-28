@@ -8,6 +8,6 @@ interface Props {
 const { className } = Astro.props;
 ---
 
-<p class={cn('text-sm/6 tracking-[-1%]', className)}>
+<p class={cn('text-sm/6 tracking-[-1%] text-destructive-foreground', className)}>
   <slot />
 </p>
