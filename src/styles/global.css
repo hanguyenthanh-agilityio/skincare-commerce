@@ -168,6 +168,10 @@
     line-height: 1.5;
   }
 
+  .leading-100 {
+    line-height: 100%;
+  }
+
   /* Heading reset */
   h1,
   h2,

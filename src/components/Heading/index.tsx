@@ -18,7 +18,7 @@ export const Heading = ({ variant = 'h2', className, children }: HeadingProps) =
   };
 
   const Element = variant;
-  const baseStyles = 'font-normal text-orange-600';
+  const baseStyles = 'font-normal';
   const combinedStyles = cn(baseStyles, headingStyles[variant], className);
 
   return <Element className={combinedStyles}>{children}</Element>;
