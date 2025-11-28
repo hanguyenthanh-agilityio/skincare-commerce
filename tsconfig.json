@@ -3,10 +3,10 @@
   "include": [".astro/types.d.ts", "**/*", "../astro.config.mjs"],
   "exclude": ["dist"],
   "compilerOptions": {
-    "types": ["node", "vitest/globals", "astro/client"],
+    "types": ["node", "vitest/globals", "astro/client", "storybook__react"],
     "moduleResolution": "bundler",
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
