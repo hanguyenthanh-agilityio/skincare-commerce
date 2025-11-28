@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '.';
-import { ArrowIcon } from '@/icons';
+import { Icons } from '@/icons';
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',
@@ -50,7 +50,7 @@ export const OutlineSoft: Story = {
     <div>
       <h3 className="font-semibold mb-3">Button “More” (outlineSoft)</h3>
       <Button variant="outlineSoft" className="gap-10">
-        Read More <ArrowIcon />
+        Read More <Icons.Arrow />
       </Button>
     </div>
   ),
@@ -87,7 +87,7 @@ export const OutlineWhite: Story = {
       <h3 className="font-semibold mb-3">Discover More (outlineWhite)</h3>
       <div className="p-10 rounded-xl bg-cover bg-black bg-center">
         <Button variant="outlineWhite" className="gap-10 py-7">
-          Discover More <ArrowIcon color="white" />
+          Discover More <Icons.Arrow color="white" />
         </Button>
       </div>
     </div>
