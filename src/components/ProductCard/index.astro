@@ -15,32 +15,32 @@ const { image, name, description, volume, price, href, badge } = Astro.props;
 ---
 
 <div class="w-331 h-586 transition-shadow duration-200 hover:shadow-md hover:bg-narvik">
-  <div class="flex flex-col gap-10 text-center px-4 mb-10">
-    <!-- Product Image + Badge -->
-    <div class="relative">
-      {badge && <span class="absolute top-4 right-2 text-xs uppercase text-black">{badge}</span>}
+  <Link href={href} ariaLabel={`Go to ${name} product detail`} className="w-full">
+    <div class="flex flex-col gap-10 text-center px-4 mb-10">
+      <!-- Product Image + Badge -->
+      <div class="relative">
+        {badge && <span class="absolute top-4 right-2 text-xs uppercase text-black">{badge}</span>}
 
-      <img src={image} alt={name} class="mx-auto w-331 h-72 object-contain" />
+        <img src={image} alt={name} class="mx-auto w-331 h-72 object-contain" />
+      </div>
+
+      <!-- Product Info -->
+      <div class="space-y-1.5">
+        <NormalBlock className="font-bold tracking-[-2%] text-black line-clamp-1">
+          {name}
+        </NormalBlock>
+
+        <NormalBlock className="line-clamp-1">{description}</NormalBlock>
+      </div>
+
+      <!-- Volume + Price -->
+      <div class="space-y-3.5">
+        <NormalBlock>{volume}</NormalBlock>
+        <NormalBlock>${price}</NormalBlock>
+      </div>
     </div>
-
-    <!-- Product Info -->
-    <div class="space-y-1.5">
-      <NormalBlock className="font-bold tracking-[-2%] text-black line-clamp-1">
-        {name}
-      </NormalBlock>
-
-      <NormalBlock className="line-clamp-1">{description}</NormalBlock>
-    </div>
-
-    <!-- Volume + Price -->
-    <div class="space-y-3.5">
-      <NormalBlock>{volume}</NormalBlock>
-      <NormalBlock>${price}</NormalBlock>
-    </div>
-  </div>
+  </Link>
 
   <!-- CTA Button -->
-  <Link href={href} ariaLabel={`Go to ${name} product detail`} className="w-full">
-    <button class="w-full h-62 bg-black text-white text-sm/6">Add to your cart</button>
-  </Link>
+  <button class="w-full h-62 bg-black text-white text-sm/6">Add to your cart</button>
 </div>

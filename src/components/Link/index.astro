@@ -17,9 +17,7 @@ const { href, ariaLabel, className, target = '_self', rel } = Astro.props;
   aria-label={ariaLabel}
   target={target}
   rel={rel}
-  class={cn(
-    `inline-flex items-center gap-2.5 text-destructive-foreground hover:underline ${className}`,
-  )}
+  class={cn(`inline-flex items-center gap-2.5 text-destructive-foreground ${className}`)}
 >
   <slot />
 </a>
