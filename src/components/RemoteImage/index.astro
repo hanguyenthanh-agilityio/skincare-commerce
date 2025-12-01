@@ -1,0 +1,17 @@
+---
+export interface Props {
+  src: string;
+  alt?: string;
+  width?: number;
+  aspectRatio?: string;
+  class?: string;
+}
+
+const { src, alt = '', width, aspectRatio, class: className } = Astro.props;
+
+const style = aspectRatio
+  ? `aspect-ratio:${aspectRatio}; width:${width ? width + 'px' : '100%'};`
+  : `width:${width ? width + 'px' : '100%'};`;
+---
+
+<img src={src} alt={alt} class={className} loading="lazy" style={style} />
