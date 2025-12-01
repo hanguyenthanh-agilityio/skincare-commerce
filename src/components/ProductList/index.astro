@@ -1,37 +1,56 @@
 ---
 import type { TProduct } from '@/types';
-
-// Components
 import { ProductCard } from '@/components';
 
 interface Props {
   products: TProduct[];
-  limit?: number;
+  limitDesktop: number;
+  limitMobile: number;
 }
 
-const { products, limit } = Astro.props;
+const { products, limitDesktop, limitMobile } = Astro.props;
 
-const displayProducts = limit ? products.slice(0, limit) : products;
+// Mobile first
+const displayProductsMobile = products.slice(0, limitMobile);
+const displayProductsDesktop = products.slice(0, limitDesktop);
 ---
 
-<div
-  class="h-10 md:h-20 xl:h-150 flex justify-between items-center pt-1 md:pt-3 md:pb-2 xl:pt-5 xl:pb-2.5 gap-3 md:gap-6 xl:gap-12"
->
-  {
-    displayProducts && displayProducts.length > 0 ? (
-      displayProducts.map(({ image, name, description, href, price, badge, volume }) => (
-        <ProductCard
-          name={name}
-          href={href}
-          badge={badge}
-          price={price}
-          image={image}
-          volume={volume}
-          description={description}
-        />
-      ))
-    ) : (
-      <p class="text-center w-full text-gray-500">No Products Available</p>
-    )
-  }
+<div class="w-full">
+  <div class="flex flex-wrap gap-4">
+    {products.length === 0 && <p class="text-center w-full text-gray-500">No Products Available</p>}
+
+    {/* Mobile view */}
+    <div class="flex md:hidden flex-wrap gap-3.5">
+      {
+        displayProductsMobile.map(({ image, name, description, href, price, badge, volume }) => (
+          <ProductCard
+            name={name}
+            href={href}
+            badge={badge}
+            price={price}
+            image={image}
+            volume={volume}
+            description={description}
+          />
+        ))
+      }
+    </div>
+
+    {/* Desktop view */}
+    <div class="hidden md:flex flex-wrap gap-4">
+      {
+        displayProductsDesktop.map((item) => (
+          <ProductCard
+            name={item.name}
+            href={item.href}
+            badge={item.badge}
+            price={item.price}
+            image={item.image}
+            volume={item.volume}
+            description={item.description}
+          />
+        ))
+      }
+    </div>
+  </div>
 </div>
