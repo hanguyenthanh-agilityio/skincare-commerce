@@ -57,6 +57,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* custom spacing */
+  --spacing-custom-62: 62px;
+  --spacing-custom-331: 331px;
+  --spacing-custom-461: 461px;
+  --spacing-custom-586: 586px;
 }
 
 .dark {
@@ -127,6 +133,12 @@
   --container-padding: 1rem;
   --container-padding-md: 2rem;
 
+  /* expose spacing */
+  --spacing-62: var(--spacing-custom-62);
+  --spacing-331: var(--spacing-custom-331);
+  --spacing-461: var(--spacing-custom-461);
+  --spacing-586: var(--spacing-custom-586);
+
   /* expose colors */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -188,12 +200,6 @@
   h6 {
     color: var(--foreground);
     font-weight: 600;
-  }
-
-  /* Paragraph reset */
-  p {
-    color: var(--foreground);
-    margin: 0 0 1rem 0;
   }
 
   /* Links */

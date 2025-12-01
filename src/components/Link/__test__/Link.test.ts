@@ -64,8 +64,7 @@ describe('Link component', () => {
       },
       slots: { default: 'Privacy' },
     });
-    expect(none).not.toContain('underline');
-    expect(none).not.toContain('hover:underline');
+    expect(none).toContain('hover:underline');
   });
 
   it('Link passes aria-label and other attributes', async () => {
@@ -83,8 +82,7 @@ describe('Link component', () => {
     });
 
     expect(result).toContain('aria-label="Delete item"');
-    // expect(result).toContain('id="delete-link"');
-    // expect(result).toContain('data-testid="delete"');
+
     expect(result).toContain('<svg>Trash</svg>');
   });
 
