@@ -10,8 +10,7 @@ import { megaMenuData } from '@/data/navigation';
 import MenuItem from '@/components/MenuItem';
 
 // UIs
-import { Icons } from '@/ui';
-
+import { Button, Icons } from '@/ui';
 interface NavLink {
   label: string;
   href: string;
@@ -31,21 +30,28 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
   return (
     <>
       {/* Hamburger button */}
-      <button
-        className="p-2 focus:outline-none"
+      <Button
+        data-testid="hamburger-btn"
+        variant="ghost"
+        className="p-2 focus:outline-none hover:bg-[none] cursor-pointer"
         onClick={() => setOpen(true)}
         aria-label="Open Menu"
       >
         <Icons.Hamburger />
-      </button>
+      </Button>
 
       {/* Overlay */}
       {open && (
-        <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setOpen(false)}></div>
+        <div
+          data-testid="overlay"
+          className="fixed inset-0 bg-black/50 z-50"
+          onClick={() => setOpen(false)}
+        ></div>
       )}
 
       {/* Menu drawer */}
       <div
+        data-testid="drawer"
         className={`fixed top-0 left-0 w-full h-full bg-card z-50 transform transition-transform duration-300 flex flex-col ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
@@ -53,7 +59,7 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-black">
           {activeMenu ? (
-            <button onClick={handleBack} className="p-2">
+            <button onClick={handleBack} className="p-2" aria-label="Back">
               <ChevronLeft />
             </button>
           ) : (
@@ -62,7 +68,12 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
           <a href="/">
             <img src="/logo.png" alt="CEIN Logo" className="h-5 w-auto" />
           </a>
-          <button onClick={() => setOpen(false)} className="p-2">
+
+          <button
+            onClick={() => setOpen(false)}
+            className="p-2 cursor-pointer"
+            aria-label="Close Menu"
+          >
             <X />
           </button>
         </div>
