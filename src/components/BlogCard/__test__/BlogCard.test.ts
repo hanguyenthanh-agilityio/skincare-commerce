@@ -42,7 +42,7 @@ describe('BlogCard component', () => {
     // Arrow icon as image from public folder
     expect(result).toContain('src="/images/arrow-right.svg"');
     expect(result).toContain('alt="Sonos Move 2"'); // same as name
-    expect(result).toContain('class="w-4 h-4 inline-block ml-2"');
+    expect(result).toContain('class="w-6 h-6"');
 
     // Layout & hover
     expect(result).toContain('w-331 h-461');
