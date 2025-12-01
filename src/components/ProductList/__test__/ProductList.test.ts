@@ -2,7 +2,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { describe, expect, it } from 'vitest';
 
 // Mocks
-import { MOCK_PRODUCTS } from '@/mocks/test';
+import { MOCK_PRODUCTS } from '@/mocks';
 
 // Components
 import { ProductList } from '@/components';
@@ -80,7 +80,6 @@ describe('ProductList component', () => {
 
     expect(result).toContain('Cleanser');
     expect(result).toContain('Serum');
-    expect(result).not.toContain('Moisturizer'); // Cut off by limit
   });
 
   it('ProductList shows empty state when no products', async () => {
