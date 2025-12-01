@@ -1,5 +1,7 @@
 ---
 import type { TProduct } from '@/types';
+
+// Components
 import { ProductCard } from '@/components';
 
 interface Props {
@@ -10,47 +12,30 @@ interface Props {
 
 const { products, limitDesktop, limitMobile } = Astro.props;
 
-// Mobile first
-const displayProductsMobile = products.slice(0, limitMobile);
-const displayProductsDesktop = products.slice(0, limitDesktop);
+const displayMobile = products.slice(0, limitMobile);
+const displayDesktop = products.slice(0, limitDesktop);
 ---
 
 <div class="w-full">
-  <div class="flex flex-wrap gap-4">
-    {products.length === 0 && <p class="text-center w-full text-gray-500">No Products Available</p>}
+  {
+    products.length === 0 ? (
+      <p class="text-center w-full text-gray-500">No Products Available</p>
+    ) : (
+      <>
+        {/* Mobile */}
+        <div class="flex md:hidden flex-wrap gap-3.5">
+          {displayMobile.map((product) => (
+            <ProductCard {...product} />
+          ))}
+        </div>
 
-    {/* Mobile view */}
-    <div class="flex md:hidden flex-wrap gap-3.5">
-      {
-        displayProductsMobile.map(({ image, name, description, href, price, badge, volume }) => (
-          <ProductCard
-            name={name}
-            href={href}
-            badge={badge}
-            price={price}
-            image={image}
-            volume={volume}
-            description={description}
-          />
-        ))
-      }
-    </div>
-
-    {/* Desktop view */}
-    <div class="hidden md:flex flex-wrap gap-4">
-      {
-        displayProductsDesktop.map(({ image, name, description, href, price, badge, volume }) => (
-          <ProductCard
-            name={name}
-            href={href}
-            badge={badge}
-            price={price}
-            image={image}
-            volume={volume}
-            description={description}
-          />
-        ))
-      }
-    </div>
-  </div>
+        {/* Desktop */}
+        <div class="hidden md:flex flex-wrap gap-4">
+          {displayDesktop.map((product) => (
+            <ProductCard {...product} />
+          ))}
+        </div>
+      </>
+    )
+  }
 </div>
