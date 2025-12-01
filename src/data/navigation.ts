@@ -7,7 +7,7 @@ export const megaMenuData = [
       { heading: 'Body', items: ['Shop All', 'Body Creams', 'Shower Gel', 'Balms'] },
       { heading: 'Fragrances', items: ['Shop All', 'Sauna', 'Essential Oils'] },
     ],
-    imageUrl: '/public/serum.png',
+    imageUrl: '/serum.png',
   },
 ];
 

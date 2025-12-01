@@ -41,7 +41,7 @@ const megaMenuData = [
         items: ['Shop All', 'Sauna', 'Essential Oils'],
       },
     ],
-    imageUrl: '/public/serum.png',
+    imageUrl: '/serum.png',
   },
 ];
 
@@ -94,7 +94,7 @@ export const MegaMenu: Story = {
 
             {/* Image column */}
             <div className="col-span-1 flex items-center justify-center">
-              <img src={menu.imageUrl} alt="Product" className="max-h-64 object-contain" />
+              <img src={menu.imageUrl} alt="Product" className="mega-image" />
             </div>
           </HoverCardContent>
         </HoverCard>

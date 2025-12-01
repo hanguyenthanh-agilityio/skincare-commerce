@@ -44,7 +44,7 @@ const MegaMenu: React.FC<Props> = ({ data }) => {
 
               {/* Image */}
               <div className="w-1/4 flex items-stretch justify-end p-0">
-                <img src={menu.imageUrl} alt="Product" className="h-full w-full object-contain" />
+                <img src={menu.imageUrl} alt="Product" className="mega-image" />
               </div>
             </div>
           </HoverCardContent>

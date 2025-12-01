@@ -7,7 +7,7 @@ import { X, ChevronLeft } from 'lucide-react';
 import { megaMenuData } from '@/data/navigation';
 
 // Components
-import { MenuItem } from '@/components';
+import MenuItem from '@/components/MenuItem';
 
 interface NavLink {
   label: string;
