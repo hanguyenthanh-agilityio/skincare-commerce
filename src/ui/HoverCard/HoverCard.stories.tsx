@@ -41,7 +41,7 @@ const megaMenuData = [
         items: ['Shop All', 'Sauna', 'Essential Oils'],
       },
     ],
-    imageUrl: '/assets/cein-product.png', // demo image, replace với real path
+    imageUrl: '/public/serum.png',
   },
 ];
 

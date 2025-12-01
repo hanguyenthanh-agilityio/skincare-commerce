@@ -1,6 +1,6 @@
 import React from 'react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/ui';
-import Image from '../Image/index.tsx';
+import { Image } from '@/components';
 
 interface Column {
   heading: string;
