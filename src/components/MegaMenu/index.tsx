@@ -1,7 +1,5 @@
 import React from 'react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/ui';
-import { Image } from '@/components';
-
 interface Column {
   heading: string;
   items: string[];
@@ -46,7 +44,7 @@ const MegaMenu: React.FC<Props> = ({ data }) => {
 
               {/* Image */}
               <div className="w-1/4 flex items-stretch justify-end p-0">
-                <Image src={menu.imageUrl} alt="Product" className="mega-image h-full" />
+                <img src={menu.imageUrl} alt="Product" className="h-full w-full object-contain" />
               </div>
             </div>
           </HoverCardContent>
