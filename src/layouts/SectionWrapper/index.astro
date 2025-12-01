@@ -1,0 +1,46 @@
+---
+import { Heading2, Link, NormalBlock } from '@/components';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+  ctaLabel: string;
+  ctaHref: string;
+  className?: string;
+}
+
+const { title, subtitle, description, ctaHref, ctaLabel, className } = Astro.props;
+---
+
+<section class={className}>
+  <div class="text-left max-w-651 mb-8">
+    <span class="text-sm/6 tracking-[-1%] text-destructive-foreground mb-1">
+      {subtitle}
+    </span>
+
+    <Heading2 className="mb-5">
+      {title}
+    </Heading2>
+
+    <NormalBlock className="text-base/7">
+      {description}
+    </NormalBlock>
+  </div>
+
+  <slot />
+
+  <div class="mt-8 flex flex-col gap-8">
+    <hr class="border" />
+
+    <!-- CTA Button -->
+    <Link
+      href={ctaHref}
+      ariaLabel={`Go to ${ctaLabel} page`}
+      className="w-full text-sm/6 text-left hover:text-chart-2 hover:underline"
+    >
+      {ctaLabel}
+      <img src="/images/arrow-right.svg" alt="Arrow right icon" class="w-6 h-6" />
+    </Link>
+  </div>
+</section>
