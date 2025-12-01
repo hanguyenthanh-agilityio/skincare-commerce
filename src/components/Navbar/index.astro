@@ -1,19 +1,23 @@
 ---
-import MegaMenu from '@/components/MegaMenu';
-import Link from '@/components/Link/index.astro';
+// Components
+import { Link, MobileMenu, MegaMenu } from '@/components';
+
+// Data
 import { megaMenuData, navLinks } from '@/data/navigation';
 ---
 
 <nav class="bg-white">
   <div class="mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16 items-center text-sm text-primary">
-      {/* Navigation */}
-      <div class="flex items-center gap-6">
-        {/* Shop with MegaMenu */}
+      {/* Desktop Menu */}
+      <div class="hidden md:flex items-center gap-6">
         <MegaMenu client:load data={megaMenuData} />
-
-        {/* Other links */}
         {navLinks.map((link) => <Link href={link.href}>{link.label}</Link>)}
+      </div>
+
+      {/* Mobile Menu */}
+      <div class="md:hidden">
+        <MobileMenu data={megaMenuData} navLinks={navLinks} client:load />
       </div>
     </div>
   </div>
