@@ -1,0 +1,37 @@
+---
+import type { TProduct } from '@/types';
+
+// Components
+import { ProductCard } from '@/components';
+
+interface Props {
+  products: TProduct[];
+  limit?: number;
+}
+
+const { products, limit } = Astro.props;
+
+const displayProducts = limit ? products.slice(0, limit) : products;
+---
+
+<div
+  class="h-10 md:h-20 xl:h-150 flex justify-between items-center pt-1 md:pt-3 md:pb-2 xl:pt-5 xl:pb-2.5 gap-3 md:gap-6 xl:gap-12"
+>
+  {
+    displayProducts && displayProducts.length > 0 ? (
+      displayProducts.map(({ image, name, description, href, price, badge, volume }) => (
+        <ProductCard
+          name={name}
+          href={href}
+          badge={badge}
+          price={price}
+          image={image}
+          volume={volume}
+          description={description}
+        />
+      ))
+    ) : (
+      <p class="text-center w-full text-gray-500">No Products Available</p>
+    )
+  }
+</div>
