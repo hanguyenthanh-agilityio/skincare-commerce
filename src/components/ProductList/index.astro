@@ -39,15 +39,15 @@ const displayProductsDesktop = products.slice(0, limitDesktop);
     {/* Desktop view */}
     <div class="hidden md:flex flex-wrap gap-4">
       {
-        displayProductsDesktop.map((item) => (
+        displayProductsDesktop.map(({ image, name, description, href, price, badge, volume }) => (
           <ProductCard
-            name={item.name}
-            href={item.href}
-            badge={item.badge}
-            price={item.price}
-            image={item.image}
-            volume={item.volume}
-            description={item.description}
+            name={name}
+            href={href}
+            badge={badge}
+            price={price}
+            image={image}
+            volume={volume}
+            description={description}
           />
         ))
       }
