@@ -63,7 +63,6 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
           ) : (
             <span></span>
           )}
-          <span className="font-bold text-lg">CEIN.</span>
           <button onClick={() => setOpen(false)} className="p-2">
             <X />
           </button>

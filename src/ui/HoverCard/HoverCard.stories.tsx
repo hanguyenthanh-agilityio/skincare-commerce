@@ -79,7 +79,7 @@ export const MegaMenu: Story = {
             <span className="cursor-pointer font-medium">{menu.title}</span>
           </HoverCardTrigger>
 
-          <HoverCardContent className="w-[700px] grid grid-cols-5 gap-6 p-6 bg-white shadow-lg">
+          <HoverCardContent className="w-full grid grid-cols-5 gap-6 p-6 bg-white shadow-lg">
             {/* Columns */}
             {menu.columns.map((col) => (
               <div key={col.heading} className="space-y-2">
