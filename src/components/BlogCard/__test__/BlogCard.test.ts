@@ -20,7 +20,7 @@ describe('BlogCard component', () => {
     // Image (product)
     expect(result).toContain('src="/products/sonos-move-2.jpg"');
     expect(result).toContain('alt="Sonos Move 2"');
-    expect(result).toContain('w-331 h-72 object-contain');
+    expect(result).toContain('w-166 h-350 md:w-331 md:h-461');
 
     // Category
     expect(result).toContain('Portable Speakers');
@@ -45,7 +45,6 @@ describe('BlogCard component', () => {
     expect(result).toContain('class="w-4 h-4 inline-block ml-2"');
 
     // Layout & hover
-    expect(result).toContain('w-331 h-461');
     expect(result).toContain('hover:shadow-lg');
     expect(result).toContain('flex flex-col gap-10');
   });
@@ -81,7 +80,6 @@ describe('BlogCard component', () => {
       },
     });
 
-    expect(result).toContain('space-y-1.5 text-left');
-    expect(result).toContain('transition-shadow duration-200');
+    expect(result).toContain('hover:shadow-lg flex flex-col');
   });
 });

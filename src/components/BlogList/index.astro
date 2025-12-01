@@ -1,6 +1,8 @@
 ---
+import type { TBlog } from '@/types';
+
+// Components
 import { BlogCard } from '@/components';
-import type { TBlog } from '@/types/blogs';
 
 interface Props {
   blogs: TBlog[];
@@ -10,31 +12,30 @@ interface Props {
 
 const { blogs, limitDesktop, limitMobile } = Astro.props;
 
-// Mobile first
-const displayBlogsMobile = blogs.slice(0, limitMobile);
-const displayBlogsDesktop = blogs.slice(0, limitDesktop);
+const displayMobile = blogs.slice(0, limitMobile);
+const displayDesktop = blogs.slice(0, limitDesktop);
 ---
 
 <div class="w-full">
-  <div class="flex flex-wrap gap-4">
-    {blogs.length === 0 && <p class="text-center w-full text-gray-500">No Blogs Available</p>}
+  {
+    blogs.length === 0 ? (
+      <p class="text-center w-full text-gray-500">No Blogs Available</p>
+    ) : (
+      <>
+        {/* Mobile */}
+        <div class="flex md:hidden flex-wrap gap-[3px]">
+          {displayMobile.map((blog) => (
+            <BlogCard {...blog} />
+          ))}
+        </div>
 
-    {/* Mobile view */}
-    <div class="flex md:hidden flex-wrap gap-3.5">
-      {
-        displayBlogsMobile.map(({ image, name, category, href }) => (
-          <BlogCard name={name} href={href} image={image} category={category} />
-        ))
-      }
-    </div>
-
-    {/* Desktop view */}
-    <div class="hidden md:flex flex-wrap gap-4">
-      {
-        displayBlogsDesktop.map(({ image, name, category, href }) => (
-          <BlogCard name={name} href={href} image={image} category={category} />
-        ))
-      }
-    </div>
-  </div>
+        {/* Desktop */}
+        <div class="hidden md:flex flex-wrap gap-[3px]">
+          {displayDesktop.map((blog) => (
+            <BlogCard {...blog} />
+          ))}
+        </div>
+      </>
+    )
+  }
 </div>
