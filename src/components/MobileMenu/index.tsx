@@ -9,6 +9,9 @@ import { megaMenuData } from '@/data/navigation';
 // Components
 import MenuItem from '@/components/MenuItem';
 
+// UIs
+import { Icons } from '@/ui';
+
 interface NavLink {
   label: string;
   href: string;
@@ -33,14 +36,7 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
         onClick={() => setOpen(true)}
         aria-label="Open Menu"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
+        <Icons.Hamburger />
       </button>
 
       {/* Overlay */}
@@ -50,12 +46,12 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
 
       {/* Menu drawer */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-50 transform transition-transform duration-300 flex flex-col ${
+        className={`fixed top-0 left-0 w-full h-full bg-card z-50 transform transition-transform duration-300 flex flex-col ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b border-black">
           {activeMenu ? (
             <button onClick={handleBack} className="p-2">
               <ChevronLeft />
@@ -63,6 +59,9 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
           ) : (
             <span></span>
           )}
+          <a href="/">
+            <img src="/logo.png" alt="CEIN Logo" className="h-5 w-auto" />
+          </a>
           <button onClick={() => setOpen(false)} className="p-2">
             <X />
           </button>

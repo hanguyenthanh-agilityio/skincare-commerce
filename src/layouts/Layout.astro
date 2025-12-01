@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Header from './Header/index.astro';
 ---
 
 <html lang={Astro.currentLocale || 'en'}>
@@ -11,6 +12,7 @@ import '../styles/global.css';
     <title>Astro Basics</title>
   </head>
   <body>
+    <Header />
     <slot />
   </body>
 </html>

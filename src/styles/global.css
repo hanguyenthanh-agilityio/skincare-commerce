@@ -6,13 +6,13 @@
 
 :root {
   /* colors */
-  --background: oklch(1 0 0); /* mistWhite */
+  --background: oklch(99.39% 0.005 145.54); /* mistWhite */
   --foreground: oklch(0.145 0 0); /* charcoal */
 
-  --card: oklch(1 0 0);
+  --card: oklch(99.39% 0.005 145.54);
   --card-foreground: oklch(0.145 0 0);
 
-  --popover: oklch(1 0 0);
+  --popover: oklch(99.39% 0.005 145.54);
   --popover-foreground: oklch(0.145 0 0);
 
   --primary: oklch(0.249 0 0); /* charcoal */

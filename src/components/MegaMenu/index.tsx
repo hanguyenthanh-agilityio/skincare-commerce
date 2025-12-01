@@ -22,7 +22,7 @@ const MegaMenu: React.FC<Props> = ({ data }) => {
             <span className="cursor-pointer font-medium">{menu.title}</span>
           </HoverCardTrigger>
 
-          <HoverCardContent className="absolute top-full left-0 w-screen bg-white shadow-lg z-50 p-0">
+          <HoverCardContent className="absolute top-full left-0 w-screen shadow-lg z-50 p-0">
             <div className="flex justify-center items-center w-full">
               {/* Columns */}
               <div className="grid grid-cols-4 xl:gap-x-16 gap-x-10 px-8 py-6 w-3/4">
