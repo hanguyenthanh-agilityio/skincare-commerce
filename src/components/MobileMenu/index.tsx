@@ -9,6 +9,8 @@ import { megaMenuData } from '@/data/navigation';
 // Components
 import MenuItem from '@/components/MenuItem';
 
+// UIs
+import { Button, Icons } from '@/ui';
 interface NavLink {
   label: string;
   href: string;
@@ -28,42 +30,47 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
   return (
     <>
       {/* Hamburger button */}
-      <button
-        className="p-2 focus:outline-none"
+      <Button
+        data-testid="hamburger-btn"
+        variant="ghost"
+        className="p-2 focus:outline-none hover:bg-[none] cursor-pointer"
         onClick={() => setOpen(true)}
         aria-label="Open Menu"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
+        <Icons.Hamburger />
+      </Button>
 
       {/* Overlay */}
       {open && (
-        <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setOpen(false)}></div>
+        <div
+          data-testid="overlay"
+          className="fixed inset-0 bg-black/50 z-50"
+          onClick={() => setOpen(false)}
+        ></div>
       )}
 
       {/* Menu drawer */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-50 transform transition-transform duration-300 flex flex-col ${
+        data-testid="drawer"
+        className={`fixed top-0 left-0 w-full h-full bg-card z-50 transform transition-transform duration-300 flex flex-col ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b border-black">
           {activeMenu ? (
-            <button onClick={handleBack} className="p-2">
+            <button onClick={handleBack} className="p-2" aria-label="Back">
               <ChevronLeft />
             </button>
           ) : (
             <span></span>
           )}
-          <button onClick={() => setOpen(false)} className="p-2">
+
+          <button
+            onClick={() => setOpen(false)}
+            className="p-2 cursor-pointer"
+            aria-label="Close Menu"
+          >
             <X />
           </button>
         </div>
