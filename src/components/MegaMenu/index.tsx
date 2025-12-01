@@ -1,5 +1,6 @@
 import React from 'react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/ui';
+import Image from '../Image/index.tsx';
 
 interface Column {
   heading: string;
@@ -24,11 +25,11 @@ const MegaMenu: React.FC<Props> = ({ data }) => {
           </HoverCardTrigger>
 
           <HoverCardContent className="absolute top-full left-0 w-screen bg-white shadow-lg z-50 p-0">
-            <div className="flex justify-center">
+            <div className="flex justify-center items-center w-full">
               {/* Columns */}
-              <div className="grid grid-cols-4 gap-x-16 px-8 py-6 w-3/4">
+              <div className="grid grid-cols-4 xl:gap-x-16 gap-x-10 px-8 py-6 w-3/4">
                 {menu.columns.map((col) => (
-                  <div key={col.heading} className="space-y-2">
+                  <div key={col.heading} className="space-y-4">
                     <h4 className="font-semibold">{col.heading}</h4>
                     {col.items.map((item) => (
                       <a
@@ -44,8 +45,8 @@ const MegaMenu: React.FC<Props> = ({ data }) => {
               </div>
 
               {/* Image */}
-              <div className="w-1/4 flex items-stretch">
-                <img src={menu.imageUrl} alt="Product" className="h-full w-full object-contain" />
+              <div className="w-1/4 flex items-stretch justify-end p-0">
+                <Image src={menu.imageUrl} alt="Product" className="mega-image h-full" />
               </div>
             </div>
           </HoverCardContent>

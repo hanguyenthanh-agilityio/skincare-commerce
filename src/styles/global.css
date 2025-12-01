@@ -196,6 +196,13 @@
   a:hover {
     color: var(--primary-hover);
   }
+
+  /* MegaMenu image size reusable classes */
+  .mega-image {
+    max-height: 500px;
+    max-width: 320px;
+    object-fit: contain;
+  }
 }
 
 @layer base {
