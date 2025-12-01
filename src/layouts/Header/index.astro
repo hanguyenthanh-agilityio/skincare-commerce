@@ -3,28 +3,38 @@
 import { Link, Navbar } from '@/components';
 
 // UIs
-import { Icons } from '@/ui';
+import { Icons, Button } from '@/ui';
 ---
 
-<header class="border-b border-black">
+<header class="border-b border-black" role="banner">
   <div class="mx-auto px-4 sm:px-6 lg:px-8 sm:py-2">
     <div class="flex items-center h-16">
+      <!-- Left: Navbar -->
       <div class="flex-1">
         <Navbar />
       </div>
 
       <!-- Center: Logo -->
       <div class="flex-shrink-0 mx-auto">
-        <Link href="/">
-          <img src="/logo.png" alt="CEIN Logo" class="h-5 w-auto" />
-        </Link>
+        <h1 class="mx-auto">
+          <Link href="/" aria-label="Home">
+            <img src="/logo.png" alt="CEIN Logo" class="h-5 w-auto" />
+          </Link>
+        </h1>
       </div>
 
       <!-- Right: Icons -->
-      <div class="flex-1 flex justify-end items-center gap-6 text-gray-700">
-        <Icons.User width={14} height={14} />
-        <Icons.Lock width={14} height={14} />
-      </div>
+      <nav class="flex-1 flex justify-end items-center gap-2 text-gray-700" aria-label="User menu">
+        <!-- User Profile -->
+        <Button variant="ghost" size="icon" aria-label="User profile">
+          <Icons.User width={14} height={14} />
+        </Button>
+
+        <!-- Cart -->
+        <Button variant="ghost" size="icon" aria-label="Cart">
+          <Icons.Cart width={14} height={14} />
+        </Button>
+      </nav>
     </div>
   </div>
 </header>

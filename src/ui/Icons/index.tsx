@@ -47,8 +47,8 @@ export const Icons = {
     </svg>
   ),
 
-  /** Lock */
-  Lock: (props: IconProps) => (
+  /** Cart */
+  Cart: (props: IconProps) => (
     <svg
       width="14"
       height="14"
