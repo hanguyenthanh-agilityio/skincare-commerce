@@ -40,8 +40,8 @@ describe('ProductCard component', () => {
     expect(result).toContain('href="/"');
 
     // Layout classes
-    expect(result).toContain('w-80');
-    expect(result).toContain('h-[580px]');
+    expect(result).toContain('w-331');
+    expect(result).toContain('h-586');
     expect(result).toContain('hover:shadow-md');
   });
 

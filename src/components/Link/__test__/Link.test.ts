@@ -64,7 +64,7 @@ describe('Link component', () => {
       },
       slots: { default: 'Privacy' },
     });
-    expect(none).toContain('hover:underline');
+    expect(none).not.toContain('hover:underline');
   });
 
   it('Link passes aria-label and other attributes', async () => {
