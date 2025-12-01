@@ -1,0 +1,38 @@
+---
+import { Link, NormalBlock } from '@/components';
+
+interface Props {
+  image: string;
+  name: string;
+  category: string;
+  href: string;
+}
+
+const { image, name, category, href } = Astro.props;
+---
+
+<div class="w-331 h-461 transition-shadow duration-200 hover:shadow-lg flex flex-col gap-10">
+  <!-- Product Image + Badge -->
+  <img src={image} alt={name} class="w-331 h-72 object-contain" />
+
+  <!-- Blog Info -->
+  <div class="space-y-1.5 text-left">
+    <NormalBlock className="text-quill-grey tracking-[2%] uppercase">
+      {category}
+    </NormalBlock>
+
+    <NormalBlock className="font-bold line-clamp-2">
+      {name}
+    </NormalBlock>
+  </div>
+
+  <!-- CTA Button -->
+  <Link
+    href={href}
+    ariaLabel={`Go to ${name} blog detail`}
+    className="text-sm text-left hover:text-chart-2"
+  >
+    Read more
+    <img src="/images/arrow-right.svg" alt={name} class="w-6 h-6" />
+  </Link>
+</div>
