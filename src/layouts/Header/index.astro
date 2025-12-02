@@ -1,9 +1,11 @@
 ---
 // Components
-import { Link, Navbar } from '@/components';
+import { Image, Link, Navbar } from '@/components';
 
 // UIs
 import { Icons, Button } from '@/ui';
+
+import logo from '@/assets/images/logo.png';
 ---
 
 <header class="border-b border-black" role="banner">
@@ -18,7 +20,7 @@ import { Icons, Button } from '@/ui';
       <div class="flex-shrink-0 mx-auto">
         <h1 class="mx-auto">
           <Link href="/" aria-label="Home">
-            <img src="/logo.png" alt="CEIN Logo" class="h-5 w-auto" />
+            <Image src={logo} alt="CEIN Logo" class="h-5 w-auto" />
           </Link>
         </h1>
       </div>
