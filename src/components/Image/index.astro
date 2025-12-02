@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { cn } from '@/lib/utils';
+
+type AstroImageProps = Parameters<typeof Image>[0];
+type StaticImageSrc = Exclude<AstroImageProps['src'], string | Promise<unknown>>;
+
+export interface Props {
+  src?: StaticImageSrc | null;
+  alt?: string;
+  class?: string;
+  widths?: number[];
+  sizes?: string;
+  aspectRatio?: string | number;
+  loading?: 'lazy' | 'eager';
+  isLCP?: boolean;
+}
+
+const {
+  src,
+  alt = '',
+  class: className,
+  aspectRatio,
+  loading = 'lazy',
+  widths = [320, 640, 960, 1200, 1600],
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
+  isLCP = false,
+} = Astro.props;
+
+const finalLoading = isLCP ? 'eager' : loading;
+const finalFetchPriority = isLCP ? 'high' : undefined;
+
+const aspectStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : undefined;
+---
+
+{
+  src ? (
+    <Image
+      src={src}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      class={cn('object-contain', className)}
+      loading={finalLoading}
+      fetchpriority={finalFetchPriority}
+      style={aspectStyle}
+    />
+  ) : (
+    <div class={cn('bg-gray-100 rounded-xl', className)} style={aspectStyle} role="presentation" />
+  )
+}
