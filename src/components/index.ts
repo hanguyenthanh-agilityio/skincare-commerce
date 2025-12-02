@@ -1,2 +1,2 @@
 export * from './icons';
-export * from './Blocks';
+export { default as Typography } from './Typography/index.astro';
