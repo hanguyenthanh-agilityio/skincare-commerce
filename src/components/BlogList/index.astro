@@ -2,7 +2,7 @@
 import type { TBlog } from '@/types';
 
 // Components
-import { BlogCard } from '@/components';
+import { BlogCard, NormalBlock } from '@/components';
 
 interface Props {
   blogs: TBlog[];
@@ -19,7 +19,9 @@ const displayDesktop = blogs.slice(0, limitDesktop);
 <div class="w-full">
   {
     blogs.length === 0 ? (
-      <p class="text-center w-full text-gray-500">No Blogs Available</p>
+      <NormalBlock className="text-center w-full text-gray-500 text-xl">
+        No Blogs Available
+      </NormalBlock>
     ) : (
       <>
         {/* Mobile */}
