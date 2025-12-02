@@ -12,20 +12,18 @@ interface Props {
 const { src, alt, link } = Astro.props;
 ---
 
-<Link href={link ?? '#'} class="group overflow-hidden">
-  <div class="relative w-[250px] h-[250px]">
-    <RemoteImage
-      src={src}
-      alt={alt}
-      width={250}
-      height={250}
-      class="object-cover transition-transform duration-300 group-hover:scale-105"
-      aspectRatio="1/1"
-    />
+<Link
+  href={link || '#'}
+  class="relative group overflow-hidden block max-w-[104px] max-h-[104px] md:max-w-[250px] md:max-h-[250px]"
+>
+  <RemoteImage
+    src={src}
+    alt={alt}
+    aspectRatio="1/1"
+    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+  />
 
-    <!-- Instagram icon -->
-    <div class="absolute bottom-2 right-2 text-white pointer-events-none z-50">
-      <Icons.Instagram />
-    </div>
+  <div class="absolute bottom-2 right-2 text-white pointer-events-none">
+    <Icons.Instagram className="w-3.5 h-3.5 md:w-6 md:h-6" />
   </div>
 </Link>

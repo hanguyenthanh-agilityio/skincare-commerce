@@ -1,26 +1,26 @@
 export const userVoiceImages = [
   {
-    src: '/images/uservoice/img1.jpg',
+    src: '/serum.png',
     alt: 'Product bottle placed on stones with leaves.',
   },
   {
-    src: '/images/uservoice/img2.jpg',
+    src: '/serum.png',
     alt: 'Cream texture close-up.',
   },
   {
-    src: '/images/uservoice/img3.jpg',
+    src: '/serum.png',
     alt: 'Serum bottle against warm background.',
   },
   {
-    src: '/images/uservoice/img4.jpg',
+    src: '/serum.png',
     alt: 'Hands applying serum.',
   },
   {
-    src: '/images/uservoice/img5.jpg',
+    src: '/serum.png',
     alt: 'Model with cream on cheek.',
   },
   {
-    src: '/images/uservoice/img6.jpg',
+    src: '/serum.png',
     alt: 'Hand holding serum bottle.',
   },
 ];
