@@ -1,5 +1,11 @@
 import React from 'react';
+
+// UIs
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/ui';
+
+// Components
+import LinkWrapper from '@/components/LinkWrapper';
+
 interface Column {
   heading: string;
   items: string[];
@@ -30,13 +36,13 @@ const MegaMenu: React.FC<Props> = ({ data }) => {
                   <div key={col.heading} className="space-y-4">
                     <h4 className="font-semibold">{col.heading}</h4>
                     {col.items.map((item) => (
-                      <a
+                      <LinkWrapper
                         key={item}
                         href="#"
                         className="block text-sm hover:text-primary transition-colors"
                       >
                         {item}
-                      </a>
+                      </LinkWrapper>
                     ))}
                   </div>
                 ))}
