@@ -202,7 +202,7 @@
     color: var(--primary-hover);
   }
 
-  /* HeaderMenu image size reusable classes */
+  /* DropdownMenu image size reusable classes */
   .mega-image {
     max-height: 500px;
     max-width: 320px;

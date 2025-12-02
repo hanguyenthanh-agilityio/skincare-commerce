@@ -8,9 +8,9 @@ import LinkWrapper from '@/components/LinkWrapper';
 import StrapiImage from '@/components/StrapiImage';
 
 // Types
-import type { HeaderMenuProps } from '@/types/navigation';
+import type { DropdownMenuProps } from '@/types/navigation';
 
-const HeaderMenu = memo(({ data }: HeaderMenuProps) => {
+const DropdownMenu = memo(({ data }: DropdownMenuProps) => {
   return (
     <nav className="flex items-center gap-6" aria-label="Primary Mega Navigation" role="navigation">
       {data.map((menu) => (
@@ -21,7 +21,7 @@ const HeaderMenu = memo(({ data }: HeaderMenuProps) => {
               variant="ghost"
               type="button"
               role="menuitem"
-              className="cursor-pointer font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm px-0 hover:bg-[none]"
+              className="px-0"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -74,5 +74,5 @@ const HeaderMenu = memo(({ data }: HeaderMenuProps) => {
   );
 });
 
-HeaderMenu.displayName = 'HeaderMenu';
-export default HeaderMenu;
+DropdownMenu.displayName = 'DropdownMenu';
+export default DropdownMenu;

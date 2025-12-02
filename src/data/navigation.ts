@@ -1,4 +1,4 @@
-export const HeaderMenuData = [
+export const DropdownMenuData = [
   {
     title: 'Shop',
     columns: [
