@@ -47,6 +47,11 @@ const StrapiImage: React.FC<StrapiImageProps> = ({
 
   const srcSet = srcSetWidths.map((w) => `${imageNode.url}?w=${w} ${w}w`).join(', ');
 
+  const style: React.CSSProperties = {};
+  if (fallbackAspectRatio !== 0) {
+    style.aspectRatio = intrinsicWidth / intrinsicHeight;
+  }
+
   return (
     <img
       src={imageNode.url}
@@ -56,11 +61,11 @@ const StrapiImage: React.FC<StrapiImageProps> = ({
       height={intrinsicHeight}
       alt={imageNode.alternativeText || ''}
       title={imageNode.alternativeText || undefined}
-      className={className}
+      className={cn('w-full h-full object-contain', className)}
       decoding="async"
       fetchPriority={priority ? 'high' : 'auto'}
       loading={priority ? 'eager' : 'lazy'}
-      style={{ aspectRatio: intrinsicWidth / intrinsicHeight }}
+      style={style}
     />
   );
 };
