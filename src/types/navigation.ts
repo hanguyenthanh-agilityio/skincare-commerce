@@ -9,6 +9,6 @@ export interface MenuItem {
   imageUrl: string;
 }
 
-export interface HeaderMenuProps {
+export interface DropdownMenuProps {
   data: MenuItem[];
 }

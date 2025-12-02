@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import MobileMenu from '..';
+import DrawerMenu from '..';
 import { HeaderMenuData } from '@/data/navigation';
 
 const navLinks = [
@@ -7,9 +7,9 @@ const navLinks = [
   { label: 'About', href: '/about' },
 ];
 
-describe('MobileMenu', () => {
+describe('DrawerMenu', () => {
   beforeEach(() => {
-    render(<MobileMenu data={HeaderMenuData} navLinks={navLinks} />);
+    render(<DrawerMenu data={HeaderMenuData} navLinks={navLinks} />);
   });
 
   it('renders hamburger button', () => {

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { X, ChevronLeft } from 'lucide-react';
 
 // Data
-import { HeaderMenuData } from '@/data/navigation';
+import { DropdownMenuData } from '@/data/navigation';
 
 // Components
 import MenuItem from '@/components/MenuItem';
@@ -17,13 +17,13 @@ interface NavLink {
 }
 
 interface Props {
-  data: typeof HeaderMenuData;
+  data: typeof DropdownMenuData;
   navLinks: NavLink[];
 }
 
-const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
+const DrawerMenu: React.FC<Props> = ({ data, navLinks }) => {
   const [open, setOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<(typeof HeaderMenuData)[0] | null>(null);
+  const [activeMenu, setActiveMenu] = useState<(typeof DropdownMenuData)[0] | null>(null);
 
   const handleBack = () => setActiveMenu(null);
 
@@ -79,7 +79,7 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
         <div className="flex-1 overflow-y-auto">
           {!activeMenu ? (
             <ul className="divide-y">
-              {data.map((menu) => (
+              {data.map((menu: { title: string }) => (
                 <MenuItem
                   key={menu.title}
                   label={menu.title}
@@ -94,11 +94,11 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
             </ul>
           ) : (
             <div className="p-4">
-              {activeMenu.columns.map((col) => (
+              {activeMenu.columns.map((col: { heading: string; items: string[] }) => (
                 <div key={col.heading} className="mb-6">
                   <h4 className="font-semibold mb-2">{col.heading}</h4>
                   <ul className="flex flex-col gap-2">
-                    {col.items.map((item) => (
+                    {col.items.map((item: string) => (
                       <MenuItem key={item} label={item} href="#" />
                     ))}
                   </ul>
@@ -112,4 +112,4 @@ const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
   );
 };
 
-export default MobileMenu;
+export default DrawerMenu;
