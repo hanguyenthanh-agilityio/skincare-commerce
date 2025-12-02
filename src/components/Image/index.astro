@@ -1,0 +1,49 @@
+---
+import { cn } from '@/lib/utils';
+
+export interface Props {
+  src: string | null | undefined;
+  alt?: string;
+  width?: number;
+  height?: number;
+  aspectRatio?: string | number;
+  class?: string;
+  loading?: 'lazy' | 'eager' | 'auto';
+  sizes?: string;
+  srcSetWidths?: number[];
+}
+
+// Destructure props
+const {
+  src,
+  alt = '',
+  width,
+  height,
+  aspectRatio,
+  class: className,
+  loading = 'lazy',
+  sizes = '100vw',
+  srcSetWidths = [320, 480, 768, 1024, 1280, 1600],
+} = Astro.props;
+
+// Compute style
+const style = aspectRatio
+  ? `aspect-ratio: ${aspectRatio}; width: ${width ? width + 'px' : '100%'};`
+  : `width: ${width ? width + 'px' : '100%'};`;
+
+// Compute srcSet if src exists
+const srcSet = src ? srcSetWidths.map((w) => `${src}?w=${w} ${w}w`).join(', ') : undefined;
+---
+
+<img
+  src={src}
+  srcset={srcSet}
+  sizes={sizes}
+  width={width}
+  height={height}
+  alt={alt}
+  class={cn('object-contain', className)}
+  style={style}
+  decoding="async"
+  fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+/>
