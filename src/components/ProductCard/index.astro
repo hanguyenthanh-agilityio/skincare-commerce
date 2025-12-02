@@ -1,46 +1,68 @@
 ---
-import { Link, NormalBlock } from '@/components';
+// Components
+import { Link, Typography } from '@/components';
+import AddToCartButton from '@/components/AddToCartButton';
+import StrapiImage from '@/components/StrapiImage';
 
 interface Props {
+  documentId: string;
   image: string;
   name: string;
   description: string;
   volume: string;
-  price: string;
+  price: number;
   href: string;
   badge?: string;
 }
 
-const { image, name, description, volume, price, href, badge } = Astro.props;
+const { documentId, image, name, description, volume, price, href, badge } = Astro.props;
 ---
 
-<div class="w-331 h-586 transition-shadow duration-200 hover:shadow-md hover:bg-narvik">
+<div
+  class="group w-40 h-411 md:w-331 md:h-586 transition-shadow duration-200 hover:shadow-md hover:bg-narvik"
+>
   <Link href={href} ariaLabel={`Go to ${name} product detail`} className="w-full">
-    <div class="flex flex-col gap-10 text-center px-4 mb-10">
+    <div class="flex flex-col gap-4 md:gap-10 text-center md:px-4 mb-4 md:mb-10">
       <!-- Product Image + Badge -->
       <div class="relative">
-        {badge && <span class="absolute top-4 right-2 text-xs uppercase text-black">{badge}</span>}
+        {
+          badge && (
+            <Typography
+              level="span"
+              className="absolute top-4 right-2 text-xs uppercase"
+              title={badge}
+            />
+          )
+        }
 
-        <img src={image} alt={name} class="mx-auto w-331 h-72 object-contain" />
+        <StrapiImage
+          image={image}
+          width={160}
+          height={191}
+          className="mx-auto md:w-331 md:h-72 object-contain"
+          client:load
+        />
       </div>
 
       <!-- Product Info -->
-      <div class="space-y-1.5">
-        <NormalBlock className="font-bold tracking-[-2%] text-black line-clamp-1">
-          {name}
-        </NormalBlock>
+      <div class="space-y-4 md:space-y-1.5">
+        <Typography
+          level="span"
+          className="block font-bold tracking-[-2%] line-clamp-2 md:line-clamp-1"
+          title={name}
+        />
 
-        <NormalBlock className="line-clamp-1">{description}</NormalBlock>
+        <Typography level="span" className="block line-clamp-1" title={description} />
       </div>
 
       <!-- Volume + Price -->
       <div class="space-y-3.5">
-        <NormalBlock>{volume}</NormalBlock>
-        <NormalBlock>${price}</NormalBlock>
+        <Typography level="span" title={volume} className="block" />
+        <Typography level="span" title={`$${price}`} className="block" />
       </div>
     </div>
   </Link>
 
   <!-- CTA Button -->
-  <button class="w-full h-62 bg-black text-white text-sm/6">Add to your cart</button>
+  <AddToCartButton productId={documentId} client:load />
 </div>

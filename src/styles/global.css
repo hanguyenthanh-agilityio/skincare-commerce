@@ -60,7 +60,9 @@
 
   /* custom spacing */
   --spacing-custom-62: 62px;
+  --spacing-custom-191: 191px;
   --spacing-custom-331: 331px;
+  --spacing-custom-411: 411px;
   --spacing-custom-461: 461px;
   --spacing-custom-586: 586px;
 }
@@ -135,7 +137,9 @@
 
   /* expose spacing */
   --spacing-62: var(--spacing-custom-62);
+  --spacing-191: var(--spacing-custom-191);
   --spacing-331: var(--spacing-custom-331);
+  --spacing-411: var(--spacing-custom-411);
   --spacing-461: var(--spacing-custom-461);
   --spacing-586: var(--spacing-custom-586);
 
