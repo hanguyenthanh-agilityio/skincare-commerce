@@ -18,7 +18,7 @@ import { DropdownMenuData, navLinks } from '@/data/navigation';
 
     {/* Mobile Menu */}
     <div class="md:hidden">
-      <DrawerMenu data={DropdownMenuData} navLinks={navLinks} client:load />
+      <DrawerMenu client:load data={DropdownMenuData} navLinks={navLinks} />
     </div>
   </div>
 </nav>

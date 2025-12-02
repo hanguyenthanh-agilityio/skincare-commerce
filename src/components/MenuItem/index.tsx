@@ -3,6 +3,12 @@ import React from 'react';
 // Icons
 import { ChevronRight } from 'lucide-react';
 
+// Components
+import LinkWrapper from '@/components/LinkWrapper';
+
+// UIs
+import { Button } from '@/ui';
+
 interface Props {
   label: string;
   href?: string;
@@ -14,21 +20,22 @@ const MenuItem: React.FC<Props> = ({ label, href, onClick, hasArrow = false }) =
   return (
     <li className="border-b">
       {href ? (
-        <a
+        <LinkWrapper
           href={href}
           className="flex justify-between items-center w-full p-4 no-underline hover:underline underline-offset-2"
         >
           {label}
-          {hasArrow && <ChevronRight data-testid="chevron-icon" />}
-        </a>
+          {hasArrow && <ChevronRight data-testid="chevron-icon" width={18} height={18} />}
+        </LinkWrapper>
       ) : (
-        <button
+        <Button
+          variant="ghost"
           onClick={onClick}
           className="flex justify-between items-center w-full p-4 no-underline hover:underline underline-offset-2"
         >
           {label}
-          {hasArrow && <ChevronRight data-testid="chevron-icon" />}
-        </button>
+          {hasArrow && <ChevronRight data-testid="chevron-icon" width={18} height={18} />}
+        </Button>
       )}
     </li>
   );

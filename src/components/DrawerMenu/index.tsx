@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-
-// Icons
-import { X, ChevronLeft } from 'lucide-react';
-
-// Data
-import { DropdownMenuData } from '@/data/navigation';
-
-// Components
+import { ChevronLeft } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/ui';
 import MenuItem from '@/components/MenuItem';
-
-// UIs
+import { DropdownMenuData } from '@/data/navigation';
 import { Button, Icons } from '@/ui';
+
 interface NavLink {
   label: string;
   href: string;
@@ -21,65 +15,38 @@ interface Props {
   navLinks: NavLink[];
 }
 
-const DrawerMenu: React.FC<Props> = ({ data, navLinks }) => {
-  const [open, setOpen] = useState(false);
+const MobileMenuDrawer: React.FC<Props> = ({ data, navLinks }) => {
   const [activeMenu, setActiveMenu] = useState<(typeof DropdownMenuData)[0] | null>(null);
 
   const handleBack = () => setActiveMenu(null);
 
   return (
-    <>
+    <Sheet>
       {/* Hamburger button */}
-      <Button
-        data-testid="hamburger-btn"
-        variant="ghost"
-        className="p-2 focus:outline-none hover:bg-[none] cursor-pointer"
-        onClick={() => setOpen(true)}
-        aria-label="Open Menu"
-      >
-        <Icons.Hamburger />
-      </Button>
+      <SheetTrigger asChild>
+        <Button variant="ghost" className="p-2" aria-label="Open Menu">
+          <Icons.Hamburger />
+        </Button>
+      </SheetTrigger>
 
-      {/* Overlay */}
-      {open && (
-        <div
-          data-testid="overlay"
-          className="fixed inset-0 bg-black/50 z-50"
-          onClick={() => setOpen(false)}
-        ></div>
-      )}
-
-      {/* Menu drawer */}
-      <div
-        data-testid="drawer"
-        className={`fixed top-0 left-0 w-full h-full bg-card z-50 transform transition-transform duration-300 flex flex-col ${
-          open ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
+      {/* Drawer content */}
+      <SheetContent side="left" className="flex flex-col w-full max-w-full">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-black">
+        <SheetHeader className="h-10 flex items-start justify-between border-b border-black p-0 gap-0">
           {activeMenu ? (
-            <button onClick={handleBack} className="p-2" aria-label="Back">
-              <ChevronLeft />
-            </button>
+            <Button variant="ghost" className="px-3" onClick={handleBack} aria-label="Back">
+              <ChevronLeft width={18} height={18} />
+            </Button>
           ) : (
-            <span></span>
+            <div />
           )}
+        </SheetHeader>
 
-          <button
-            onClick={() => setOpen(false)}
-            className="p-2 cursor-pointer"
-            aria-label="Close Menu"
-          >
-            <X />
-          </button>
-        </div>
-
-        {/* Menu Content */}
+        {/* Menu content */}
         <div className="flex-1 overflow-y-auto">
           {!activeMenu ? (
             <ul className="divide-y">
-              {data.map((menu: { title: string }) => (
+              {data.map((menu) => (
                 <MenuItem
                   key={menu.title}
                   label={menu.title}
@@ -94,11 +61,11 @@ const DrawerMenu: React.FC<Props> = ({ data, navLinks }) => {
             </ul>
           ) : (
             <div className="p-4">
-              {activeMenu.columns.map((col: { heading: string; items: string[] }) => (
+              {activeMenu.columns.map((col) => (
                 <div key={col.heading} className="mb-6">
-                  <h4 className="font-semibold mb-2">{col.heading}</h4>
+                  <p className="font-semibold mb-2 text-base">{col.heading}</p>
                   <ul className="flex flex-col gap-2">
-                    {col.items.map((item: string) => (
+                    {col.items.map((item) => (
                       <MenuItem key={item} label={item} href="#" />
                     ))}
                   </ul>
@@ -107,9 +74,9 @@ const DrawerMenu: React.FC<Props> = ({ data, navLinks }) => {
             </div>
           )}
         </div>
-      </div>
-    </>
+      </SheetContent>
+    </Sheet>
   );
 };
 
-export default DrawerMenu;
+export default MobileMenuDrawer;
