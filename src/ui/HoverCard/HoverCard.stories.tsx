@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '.';
 import { Button } from '@/ui';
 
-const megaMenuData = [
+const HeaderMenuData = [
   {
     title: 'Shop',
     columns: [
@@ -70,10 +70,10 @@ export const Default: Story = {
 
 // HoverCard with custom content
 
-export const MegaMenu: Story = {
+export const HeaderMenu: Story = {
   render: () => (
     <nav className="flex items-center gap-6">
-      {megaMenuData.map((menu) => (
+      {HeaderMenuData.map((menu) => (
         <HoverCard key={menu.title}>
           <HoverCardTrigger asChild>
             <span className="cursor-pointer font-medium">{menu.title}</span>

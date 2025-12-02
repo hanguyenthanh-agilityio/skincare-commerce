@@ -1,4 +1,4 @@
-export const megaMenuData = [
+export const HeaderMenuData = [
   {
     title: 'Shop',
     columns: [
