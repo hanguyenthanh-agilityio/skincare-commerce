@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import MobileMenu from '..';
-import { megaMenuData } from '@/data/navigation';
+import { HeaderMenuData } from '@/data/navigation';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -9,7 +9,7 @@ const navLinks = [
 
 describe('MobileMenu', () => {
   beforeEach(() => {
-    render(<MobileMenu data={megaMenuData} navLinks={navLinks} />);
+    render(<MobileMenu data={HeaderMenuData} navLinks={navLinks} />);
   });
 
   it('renders hamburger button', () => {

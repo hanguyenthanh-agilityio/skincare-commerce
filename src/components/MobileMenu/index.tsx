@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { X, ChevronLeft } from 'lucide-react';
 
 // Data
-import { megaMenuData } from '@/data/navigation';
+import { HeaderMenuData } from '@/data/navigation';
 
 // Components
 import MenuItem from '@/components/MenuItem';
@@ -17,13 +17,13 @@ interface NavLink {
 }
 
 interface Props {
-  data: typeof megaMenuData;
+  data: typeof HeaderMenuData;
   navLinks: NavLink[];
 }
 
 const MobileMenu: React.FC<Props> = ({ data, navLinks }) => {
   const [open, setOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<(typeof megaMenuData)[0] | null>(null);
+  const [activeMenu, setActiveMenu] = useState<(typeof HeaderMenuData)[0] | null>(null);
 
   const handleBack = () => setActiveMenu(null);
 

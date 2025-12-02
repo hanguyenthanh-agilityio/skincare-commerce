@@ -1,5 +1,5 @@
 ---
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 interface Props {
   href: string;
@@ -8,6 +8,6 @@ interface Props {
 const { href, class: className } = Astro.props;
 ---
 
-<a href={href} class={clsx('font-medium', className)}>
+<a href={href} class={cn('font-medium', className)}>
   <slot />
 </a>

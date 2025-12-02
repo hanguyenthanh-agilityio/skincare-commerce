@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import MobileMenu from '.';
-import { megaMenuData, navLinks } from '@/data/navigation';
+import { HeaderMenuData, navLinks } from '@/data/navigation';
 
 const meta: Meta<typeof MobileMenu> = {
   title: 'Components/MobileMenu',
@@ -13,5 +13,5 @@ type Story = StoryObj<typeof MobileMenu>;
 
 // Default story
 export const Default: Story = {
-  render: () => <MobileMenu data={megaMenuData} navLinks={navLinks} />,
+  render: () => <MobileMenu data={HeaderMenuData} navLinks={navLinks} />,
 };
