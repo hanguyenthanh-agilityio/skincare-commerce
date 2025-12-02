@@ -40,7 +40,7 @@ const HeaderMenu = memo(({ data }: HeaderMenuProps) => {
               <div className="grid grid-cols-4 xl:gap-x-16 gap-x-10 px-8 py-6 w-3/4">
                 {menu.columns.map((col) => (
                   <div key={col.heading} className="space-y-4">
-                    <h4 className="font-semibold text-base">{col.heading}</h4>
+                    <p className="font-semibold text-base">{col.heading}</p>
                     <ul className="space-y-4">
                       {col.items.map((item) => (
                         <li key={item}>

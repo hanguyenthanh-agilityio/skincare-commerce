@@ -41,7 +41,8 @@ const HeaderMenuData = [
         items: ['Shop All', 'Sauna', 'Essential Oils'],
       },
     ],
-    imageUrl: '/public/serum.png',
+    imageUrl:
+      'https://imageskincare.com/cdn/shop/products/VITAL_C_hydrating_facial_cleanser_PDP_R01a.jpg?v=1762197992&width=800',
   },
 ];
 
