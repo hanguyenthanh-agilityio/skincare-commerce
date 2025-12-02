@@ -1,49 +1,51 @@
 ---
+import { Image } from 'astro:assets';
 import { cn } from '@/lib/utils';
 
+type AstroImageProps = Parameters<typeof Image>[0];
+type StaticImageSrc = Exclude<AstroImageProps['src'], string | Promise<unknown>>;
+
 export interface Props {
-  src: string | null | undefined;
+  src?: StaticImageSrc | null;
   alt?: string;
-  width?: number;
-  height?: number;
-  aspectRatio?: string | number;
   class?: string;
-  loading?: 'lazy' | 'eager' | 'auto';
+  widths?: number[];
   sizes?: string;
-  srcSetWidths?: number[];
+  aspectRatio?: string | number;
+  loading?: 'lazy' | 'eager';
+  isLCP?: boolean;
 }
 
-// Destructure props
 const {
   src,
   alt = '',
-  width,
-  height,
-  aspectRatio,
   class: className,
+  aspectRatio,
   loading = 'lazy',
-  sizes = '100vw',
-  srcSetWidths = [320, 480, 768, 1024, 1280, 1600],
+  widths = [320, 640, 960, 1200, 1600],
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
+  isLCP = false,
 } = Astro.props;
 
-// Compute style
-const style = aspectRatio
-  ? `aspect-ratio: ${aspectRatio}; width: ${width ? width + 'px' : '100%'};`
-  : `width: ${width ? width + 'px' : '100%'};`;
+const finalLoading = isLCP ? 'eager' : loading;
+const finalFetchPriority = isLCP ? 'high' : undefined;
 
-// Compute srcSet if src exists
-const srcSet = src ? srcSetWidths.map((w) => `${src}?w=${w} ${w}w`).join(', ') : undefined;
+const aspectStyle = aspectRatio ? `aspect-ratio: ${aspectRatio};` : undefined;
 ---
 
-<img
-  src={src}
-  srcset={srcSet}
-  sizes={sizes}
-  width={width}
-  height={height}
-  alt={alt}
-  class={cn('object-contain', className)}
-  style={style}
-  decoding="async"
-  fetchpriority={loading === 'eager' ? 'high' : 'auto'}
-/>
+{
+  src ? (
+    <Image
+      src={src}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      class={cn('object-contain', className)}
+      loading={finalLoading}
+      fetchpriority={finalFetchPriority}
+      style={aspectStyle}
+    />
+  ) : (
+    <div class={cn('bg-gray-100 rounded-xl', className)} style={aspectStyle} role="presentation" />
+  )
+}
