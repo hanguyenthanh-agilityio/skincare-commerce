@@ -8,4 +8,3 @@ export { default as Image } from './Image/index.astro';
 export { default as StrapiImage } from './StrapiImage';
 export { default as DrawerMenu } from './DrawerMenu';
 export { default as ProductCard } from './ProductCard/index.astro';
-export { default as RemoteImage } from './RemoteImage/index.astro';
