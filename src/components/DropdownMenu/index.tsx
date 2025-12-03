@@ -12,16 +12,16 @@ import type { DropdownMenuProps } from '@/types/navigation';
 
 const DropdownMenu = memo(({ data }: DropdownMenuProps) => {
   return (
-    <nav className="flex items-center gap-6" aria-label="Primary Mega Navigation" role="navigation">
+    <nav className="relative" aria-label="Primary Mega Navigation" role="navigation">
       {data.map((menu) => (
-        <HoverCard key={menu.title}>
+        <HoverCard key={menu.title} openDelay={0} closeDelay={50}>
           {/* Trigger */}
           <HoverCardTrigger asChild>
             <Button
               variant="ghost"
               type="button"
               role="menuitem"
-              className="px-0"
+              className="px-0 py-2 font-medium"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -33,20 +33,21 @@ const DropdownMenu = memo(({ data }: DropdownMenuProps) => {
           <HoverCardContent
             role="menu"
             aria-label={`${menu.title} submenu`}
-            className="absolute top-full left-0 w-screen shadow-lg z-50 p-0"
+            className="w-screen p-0 flex gap-8 shadow-lg z-50"
           >
-            <div className="flex justify-between items-center w-full">
-              {/* Columns */}
-              <div className="grid grid-cols-4 xl:gap-x-16 gap-x-10 px-8 py-6 w-3/4">
+            {/* Left columns */}
+            <div className="w-full flex items-center p-10">
+              <div className="grid grid-cols-4 gap-6 flex-1">
                 {menu.columns.map((col) => (
-                  <div key={col.heading} className="space-y-4">
-                    <p className="font-semibold text-base">{col.heading}</p>
+                  <div key={col.heading}>
+                    <p className="font-semibold mb-4 text-base ">{col.heading}</p>
                     <ul className="space-y-4">
                       {col.items.map((item) => (
                         <li key={item}>
                           <LinkWrapper
                             href="#"
-                            className="block text-sm hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
+                            className="text-sm hover:underline transition-colors block focus:outline-none
+                            focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
                           >
                             {item}
                           </LinkWrapper>
@@ -56,16 +57,16 @@ const DropdownMenu = memo(({ data }: DropdownMenuProps) => {
                   </div>
                 ))}
               </div>
+            </div>
 
-              {/* Image */}
-              <div className="w-1/4 flex items-stretch justify-end p-0">
-                <StrapiImage
-                  image={menu.imageUrl}
-                  className="h-full w-full object-contain max-h-11/12 max-w-9/12"
-                  priority={true}
-                  fallbackAspectRatio={0}
-                />
-              </div>
+            {/* Right Image */}
+            <div className="flex-shrink-0">
+              <StrapiImage
+                image={menu.imageUrl}
+                className="object-cover rounded-md h-full max-h-[600px] w-auto max-w-[300px]"
+                priority={true}
+                fallbackAspectRatio={0}
+              />
             </div>
           </HoverCardContent>
         </HoverCard>

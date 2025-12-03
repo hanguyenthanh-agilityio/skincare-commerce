@@ -6,3 +6,5 @@ export { default as Typography } from './Typography/index.astro';
 export { default as Heading } from './Heading/index.astro';
 export { default as Image } from './Image/index.astro';
 export { default as StrapiImage } from './StrapiImage';
+export { default as DrawerMenu } from './DrawerMenu';
+export { default as ProductCard } from './ProductCard/index.astro';

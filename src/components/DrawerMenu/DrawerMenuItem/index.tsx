@@ -16,7 +16,7 @@ interface Props {
   hasArrow?: boolean;
 }
 
-const MenuItem: React.FC<Props> = ({ label, href, onClick, hasArrow = false }) => {
+const DrawerMenuItem: React.FC<Props> = ({ label, href, onClick, hasArrow = false }) => {
   return (
     <li className="border-b">
       {href ? (
@@ -41,4 +41,6 @@ const MenuItem: React.FC<Props> = ({ label, href, onClick, hasArrow = false }) =
   );
 };
 
-export default MenuItem;
+DrawerMenuItem.displayName = 'DrawerMenuItem';
+
+export default DrawerMenuItem;
