@@ -1,5 +1,8 @@
 ---
-import { Link, StrapiImage, Typography } from '@/components';
+// Components
+import { Image, Link, StrapiImage, Typography } from '@/components';
+
+import arrowRightIcon from '@/assets/images/arrow-right.svg';
 
 interface Props {
   image: string;
@@ -33,6 +36,6 @@ const { image, name, category, href } = Astro.props;
     className="text-left text-sm hover:text-chart-2 hover:underline"
   >
     Read more
-    <img src="/images/arrow-right.svg" alt={name} class="w-6 h-6" />
+    <Image src={arrowRightIcon} alt="Arrow right icon" class="w-6 h-6" />
   </Link>
 </div>
