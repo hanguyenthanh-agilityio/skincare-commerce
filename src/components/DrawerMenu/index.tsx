@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
+
+// Icons
 import { ChevronLeft } from 'lucide-react';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/ui';
-import MenuItem from '@/components/MenuItem';
+
+// UIs
+import { Sheet, SheetContent, SheetHeader, SheetTrigger, Button, Icons } from '@/ui';
+
+// Components
+import DrawerMenuItem from '@/components/DrawerMenuItem';
+
+// Data
 import { DropdownMenuData } from '@/data/navigation';
-import { Button, Icons } from '@/ui';
 
 interface NavLink {
   label: string;
@@ -15,7 +22,7 @@ interface Props {
   navLinks: NavLink[];
 }
 
-const MobileMenuDrawer: React.FC<Props> = ({ data, navLinks }) => {
+const DrawerMenu: React.FC<Props> = ({ data, navLinks }) => {
   const [activeMenu, setActiveMenu] = useState<(typeof DropdownMenuData)[0] | null>(null);
 
   const handleBack = () => setActiveMenu(null);
@@ -47,7 +54,7 @@ const MobileMenuDrawer: React.FC<Props> = ({ data, navLinks }) => {
           {!activeMenu ? (
             <ul className="divide-y">
               {data.map((menu) => (
-                <MenuItem
+                <DrawerMenuItem
                   key={menu.title}
                   label={menu.title}
                   onClick={() => setActiveMenu(menu)}
@@ -56,7 +63,7 @@ const MobileMenuDrawer: React.FC<Props> = ({ data, navLinks }) => {
               ))}
 
               {navLinks.map((link) => (
-                <MenuItem key={link.label} label={link.label} href={link.href} />
+                <DrawerMenuItem key={link.label} label={link.label} href={link.href} />
               ))}
             </ul>
           ) : (
@@ -66,7 +73,7 @@ const MobileMenuDrawer: React.FC<Props> = ({ data, navLinks }) => {
                   <p className="font-semibold mb-2 text-base">{col.heading}</p>
                   <ul className="flex flex-col gap-2">
                     {col.items.map((item) => (
-                      <MenuItem key={item} label={item} href="#" />
+                      <DrawerMenuItem key={item} label={item} href="#" />
                     ))}
                   </ul>
                 </div>
@@ -79,4 +86,4 @@ const MobileMenuDrawer: React.FC<Props> = ({ data, navLinks }) => {
   );
 };
 
-export default MobileMenuDrawer;
+export default DrawerMenu;

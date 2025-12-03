@@ -3,12 +3,12 @@ export interface MenuColumn {
   items: string[];
 }
 
-export interface MenuItem {
+export interface DrawerMenuItem {
   title: string;
   columns: MenuColumn[];
   imageUrl: string;
 }
 
 export interface DropdownMenuProps {
-  data: MenuItem[];
+  data: DrawerMenuItem[];
 }

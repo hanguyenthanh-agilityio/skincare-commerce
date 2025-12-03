@@ -20,7 +20,7 @@ const DropdownMenu = memo(({ data }: DropdownMenuProps) => {
             <Button
               variant="ghost"
               type="button"
-              role="menuitem"
+              role="DrawerMenuItem"
               className="px-0"
               aria-haspopup="true"
               aria-expanded="false"
