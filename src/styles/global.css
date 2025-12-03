@@ -218,10 +218,9 @@
   }
 
   /* DropdownMenu image size reusable classes */
-  .mega-image {
-    max-height: 500px;
-    max-width: 320px;
-    object-fit: contain;
+  .dropdown-image {
+    max-height: 600px;
+    max-width: 300px;
   }
 }
 

@@ -63,7 +63,7 @@ const DropdownMenu = memo(({ data }: DropdownMenuProps) => {
             <div className="flex-shrink-0">
               <StrapiImage
                 image={menu.imageUrl}
-                className="object-cover rounded-md h-full max-h-[600px] w-auto max-w-[300px]"
+                className="object-cover rounded-md h-full w-auto dropdown-image"
                 priority={true}
                 fallbackAspectRatio={0}
               />
