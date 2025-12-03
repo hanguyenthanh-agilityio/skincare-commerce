@@ -7,7 +7,7 @@ import { ChevronLeft } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, Button, Icons } from '@/ui';
 
 // Components
-import DrawerMenuItem from '@/components/DrawerMenuItem';
+import { DrawerMenuItem } from '@/components';
 
 // Data
 import { DropdownMenuData } from '@/data/navigation';

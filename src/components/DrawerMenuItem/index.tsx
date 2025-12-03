@@ -41,4 +41,6 @@ const DrawerMenuItem: React.FC<Props> = ({ label, href, onClick, hasArrow = fals
   );
 };
 
+DrawerMenuItem.displayName = 'DrawerMenuItem';
+
 export default DrawerMenuItem;
