@@ -22,11 +22,50 @@ interface DrawerMenuSubProps {
   menu: MenuItem;
 }
 
-// Main component
+// Sub component - nav root level
+const DrawerMenuNav = ({ data, navLinks, onOpenSub }: DrawerMenuNavProps) => {
+  return (
+    <ul className="divide-y">
+      {data.map((menu) => (
+        <DrawerMenuItem
+          key={menu.title}
+          label={menu.title}
+          onClick={() => onOpenSub(menu)}
+          hasArrow
+        />
+      ))}
+
+      {navLinks.map((link) => (
+        <DrawerMenuItem key={link.label} label={link.label} href={link.href} />
+      ))}
+    </ul>
+  );
+};
+
+// Sub Component - Sub Menu
+const DrawerMenuSub = ({ menu }: DrawerMenuSubProps) => (
+  <div className="p-4">
+    {menu.columns.map((col) => (
+      <div key={col.heading} className="mb-6">
+        <p className="font-semibold mb-2 text-base">{col.heading}</p>
+        <ul className="flex flex-col gap-2">
+          {col.items.map((item) => (
+            <li key={item}>
+              <DrawerMenuItem label={item} href="#" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+);
+
+// Main Component
 const DrawerMenu = ({ data, navLinks }: DrawerMenuProps) => {
   const [activeMenu, setActiveMenu] = useState<MenuItem | null>(null);
 
   const handleBack = () => setActiveMenu(null);
+
   return (
     <Sheet>
       {/* Hamburger button */}
@@ -71,40 +110,3 @@ const DrawerMenu = ({ data, navLinks }: DrawerMenuProps) => {
 };
 
 export default DrawerMenu;
-
-// Sub component - nav root level
-const DrawerMenuNav = ({ data, navLinks, onOpenSub }: DrawerMenuNavProps) => {
-  return (
-    <ul className="divide-y">
-      {data.map((menu) => (
-        <DrawerMenuItem
-          key={menu.title}
-          label={menu.title}
-          onClick={() => onOpenSub(menu)}
-          hasArrow
-        />
-      ))}
-
-      {navLinks.map((link) => (
-        <DrawerMenuItem key={link.label} label={link.label} href={link.href} />
-      ))}
-    </ul>
-  );
-};
-
-// Sub component - sub menu
-const DrawerMenuSub = ({ menu }: DrawerMenuSubProps) => (
-  <div className="p-4">
-    {menu.columns.map((col) => (
-      <section key={col.heading} className="mb-6">
-        <h3 className="font-semibold mb-2 text-base">{col.heading}</h3>
-
-        <ul className="flex flex-col gap-2">
-          {col.items.map((item) => (
-            <DrawerMenuItem key={item} label={item} href="#" />
-          ))}
-        </ul>
-      </section>
-    ))}
-  </div>
-);

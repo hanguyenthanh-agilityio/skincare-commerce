@@ -8,17 +8,15 @@ import DrawerMenu from '@/components/DrawerMenu';
 import { DropdownMenuData, navLinks } from '@/data/navigation';
 ---
 
-<nav>
-  <div class="flex justify-between h-16 items-center text-sm text-primary">
-    {/* Desktop Menu */}
-    <div class="hidden md:flex items-center gap-6">
-      <DropdownMenu client:load data={DropdownMenuData} />
-      {navLinks.map((link) => <Link href={link.href}>{link.label}</Link>)}
-    </div>
+<nav class="flex justify-between h-16 items-center text-sm text-primary">
+  {/* Desktop Menu */}
+  <div class="hidden md:flex items-center gap-6">
+    <DropdownMenu client:load data={DropdownMenuData} />
+    {navLinks.map((link) => <Link href={link.href}>{link.label}</Link>)}
+  </div>
 
-    {/* Mobile Menu */}
-    <div class="md:hidden">
-      <DrawerMenu client:load data={DropdownMenuData} navLinks={navLinks} />
-    </div>
+  {/* Mobile Menu */}
+  <div class="md:hidden">
+    <DrawerMenu client:load data={DropdownMenuData} navLinks={navLinks} />
   </div>
 </nav>
