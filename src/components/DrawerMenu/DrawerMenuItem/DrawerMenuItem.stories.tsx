@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import MenuItem from '.';
+import DrawerMenuItem from '.';
 
-const meta: Meta<typeof MenuItem> = {
-  title: 'Components/MenuItem',
-  component: MenuItem,
+const meta: Meta<typeof DrawerMenuItem> = {
+  title: 'Components/DrawerMenuItem',
+  component: DrawerMenuItem,
   tags: ['autodocs'],
   argTypes: {
     onClick: { action: 'clicked' },
@@ -11,9 +11,9 @@ const meta: Meta<typeof MenuItem> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof MenuItem>;
+type Story = StoryObj<typeof DrawerMenuItem>;
 
-// Default MenuItem as a link
+// Default DrawerMenuItem as a link
 export const LinkItem: Story = {
   args: {
     label: 'About Us',
@@ -22,7 +22,7 @@ export const LinkItem: Story = {
   },
 };
 
-// MenuItem with arrow
+// DrawerMenuItem with arrow
 export const LinkWithArrow: Story = {
   args: {
     label: 'Shop',
@@ -31,7 +31,7 @@ export const LinkWithArrow: Story = {
   },
 };
 
-// MenuItem as a button
+// DrawerMenuItem as a button
 export const ButtonItem: Story = {
   args: {
     label: 'Click Me',

@@ -1,24 +1,22 @@
 ---
 // Components
 import { Link } from '@/components';
-import MegaMenu from '@/components/MegaMenu';
-import MobileMenu from '@/components/MobileMenu';
+import DropdownMenu from '@/components/DropdownMenu';
+import DrawerMenu from '@/components/DrawerMenu';
 
 // Data
-import { megaMenuData, navLinks } from '@/data/navigation';
+import { DropdownMenuData, navLinks } from '@/data/navigation';
 ---
 
-<nav>
-  <div class="flex justify-between h-16 items-center text-sm text-primary">
-    {/* Desktop Menu */}
-    <div class="hidden md:flex items-center gap-6">
-      <MegaMenu client:load data={megaMenuData} />
-      {navLinks.map((link) => <Link href={link.href}>{link.label}</Link>)}
-    </div>
+<nav class="flex justify-between h-16 items-center text-sm text-primary">
+  {/* Desktop Menu */}
+  <div class="hidden md:flex items-center gap-6">
+    <DropdownMenu client:load data={DropdownMenuData} />
+    {navLinks.map((link) => <Link href={link.href}>{link.label}</Link>)}
+  </div>
 
-    {/* Mobile Menu */}
-    <div class="md:hidden">
-      <MobileMenu data={megaMenuData} navLinks={navLinks} client:load />
-    </div>
+  {/* Mobile Menu */}
+  <div class="md:hidden">
+    <DrawerMenu client:load data={DropdownMenuData} navLinks={navLinks} />
   </div>
 </nav>

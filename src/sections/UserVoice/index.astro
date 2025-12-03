@@ -1,4 +1,5 @@
 ---
+import { Heading } from '@/components';
 import UserVoiceGrid from '@/components/UserVoiceGrid/index.astro';
 import { Icons } from '@/ui';
 import { Button } from '@/ui/Button';
@@ -7,15 +8,15 @@ import { Button } from '@/ui/Button';
 <section class="py-24 bg-[#FAFAF2]">
   <div class="container mx-auto px-6 lg:px-8">
     <!-- Title -->
-    <h2 class="text-center">User Voice</h2>
+    <Heading level="h2" title="User Voice" className="text-center font-normal" />
 
     <!-- Grid -->
     <UserVoiceGrid />
 
     <!-- More Button -->
     <div class="flex justify-center mt-10">
-      <Button variant="outlineSoft">
-        Read More <Icons.Arrow />
+      <Button variant="outlineSoft" className="gap-14">
+        More <Icons.Arrow />
       </Button>
     </div>
   </div>
