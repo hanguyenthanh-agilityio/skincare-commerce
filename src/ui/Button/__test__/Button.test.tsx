@@ -1,11 +1,10 @@
-import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 // UI
 import { Button, buttonVariants } from '@/ui';
 
-describe('Button', () => {
+describe('Button component', () => {
   it('renders with text', () => {
     render(<Button>Click me</Button>);
     expect(screen.getByText('Click me')).toBeInTheDocument();
