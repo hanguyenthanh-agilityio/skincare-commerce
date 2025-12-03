@@ -5,7 +5,6 @@ import AddToCartButton from '@/components/AddToCartButton';
 import StrapiImage from '@/components/StrapiImage';
 
 interface Props {
-  documentId: string;
   image: string;
   name: string;
   description: string;
@@ -15,7 +14,7 @@ interface Props {
   badge?: string;
 }
 
-const { documentId, image, name, description, volume, price, href, badge } = Astro.props;
+const { image, name, description, volume, price, href, badge } = Astro.props;
 ---
 
 <div
@@ -64,5 +63,5 @@ const { documentId, image, name, description, volume, price, href, badge } = Ast
   </Link>
 
   <!-- CTA Button -->
-  <AddToCartButton productId={documentId} client:load />
+  <AddToCartButton client:load />
 </div>
