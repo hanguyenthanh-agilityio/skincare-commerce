@@ -38,6 +38,8 @@
   /* custom tokens */
   --line: #dddddd;
   --date: #9a9a9a;
+  --narvik: #f2f3ec;
+  --quill-grey: #cdcbc0;
 
   --radius: 0.625rem;
 
@@ -55,6 +57,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* custom spacing */
+  --spacing-custom-62: 62px;
+  --spacing-custom-191: 191px;
+  --spacing-custom-331: 331px;
+  --spacing-custom-411: 411px;
+  --spacing-custom-461: 461px;
+  --spacing-custom-586: 586px;
 }
 
 .dark {
@@ -125,6 +135,14 @@
   --container-padding: 1rem;
   --container-padding-md: 2rem;
 
+  /* expose spacing */
+  --spacing-62: var(--spacing-custom-62);
+  --spacing-191: var(--spacing-custom-191);
+  --spacing-331: var(--spacing-custom-331);
+  --spacing-411: var(--spacing-custom-411);
+  --spacing-461: var(--spacing-custom-461);
+  --spacing-586: var(--spacing-custom-586);
+
   /* expose colors */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -140,6 +158,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-narvik: var(--narvik);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-quill-grey: var(--quill-grey);
 
   --color-ring: var(--ring);
   --color-input: var(--input);
@@ -183,12 +204,6 @@
   h6 {
     color: var(--foreground);
     font-weight: 600;
-  }
-
-  /* Paragraph reset */
-  p {
-    color: var(--foreground);
-    margin: 0 0 1rem 0;
   }
 
   /* Links */
