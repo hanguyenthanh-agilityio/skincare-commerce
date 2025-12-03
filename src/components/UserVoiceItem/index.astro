@@ -1,14 +1,31 @@
 ---
-import RemoteImage from '@/components/RemoteImage/index.astro';
+// Components
+import { RemoteImage, Link } from '@/components';
+
+// Icons
+import { Icons } from '@/ui';
 
 export interface Props {
   src: string;
   alt: string;
+  link?: string;
 }
 
-const { src, alt } = Astro.props;
+const { src, alt, link } = Astro.props;
 ---
 
-<div class="item">
-  <RemoteImage src={src} alt={alt} aspectRatio="1/1" />
-</div>
+<Link href={link ?? '#'} className="group overflow-hidden">
+  <div class="relative w-64 h-64">
+    <RemoteImage
+      src={src}
+      alt={alt}
+      class="object-cover transition-transform duration-300 group-hover:scale-105"
+      aspectRatio="1/1"
+    />
+
+    <!-- Instagram icon -->
+    <div class="absolute bottom-2 right-2 text-white pointer-events-none z-50">
+      <Icons.Instagram />
+    </div>
+  </div>
+</Link>
