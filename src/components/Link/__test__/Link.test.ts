@@ -82,6 +82,7 @@ describe('Link component', () => {
     });
 
     expect(result).toContain('aria-label="Delete item"');
+
     expect(result).toContain('<svg>Trash</svg>');
   });
 

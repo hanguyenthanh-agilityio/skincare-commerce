@@ -2,7 +2,7 @@
 import type { TProduct } from '@/types';
 
 // Components
-import { NormalBlock, ProductCard } from '@/components';
+import { ProductCard, Typography } from '@/components';
 
 interface Props {
   products: TProduct[];
@@ -19,9 +19,11 @@ const displayDesktop = products.slice(0, limitDesktop);
 <div class="w-full">
   {
     products.length === 0 ? (
-      <NormalBlock className="text-center w-full text-gray-500 text-xl">
-        No Products Available
-      </NormalBlock>
+      <Typography
+        level="p"
+        title="No Products Available"
+        className="text-center w-full text-gray-500"
+      />
     ) : (
       <>
         {/* Mobile */}
