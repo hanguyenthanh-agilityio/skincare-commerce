@@ -1,5 +1,5 @@
 ---
-import { Link, NormalBlock } from '@/components';
+import { Link, StrapiImage, Typography } from '@/components';
 
 interface Props {
   image: string;
@@ -11,26 +11,26 @@ interface Props {
 const { image, name, category, href } = Astro.props;
 ---
 
-<div class="w-331 h-461 transition-shadow duration-200 hover:shadow-lg flex flex-col gap-10">
+<div class="w-166 h-350 md:w-331 md:h-461 hover:shadow-lg flex flex-col gap-10 text-left">
   <!-- Product Image + Badge -->
-  <img src={image} alt={name} class="w-331 h-72 object-contain" />
+  <StrapiImage image={image} width={166} height={153} className="md:w-331 md:h-72 object-contain" />
 
   <!-- Blog Info -->
-  <div class="space-y-1.5 text-left">
-    <NormalBlock className="text-quill-grey tracking-[2%] uppercase">
-      {category}
-    </NormalBlock>
+  <div class="space-y-1.5">
+    <Typography level="span" title={category} className="text-quill-grey tracking-[2%] uppercase" />
 
-    <NormalBlock className="font-bold line-clamp-2">
-      {name}
-    </NormalBlock>
+    <Typography
+      level="span"
+      title={name}
+      className="font-bold line-clamp-3 md:line-clamp-2 max-h-18"
+    />
   </div>
 
   <!-- CTA Button -->
   <Link
     href={href}
     ariaLabel={`Go to ${name} blog detail`}
-    className="text-sm text-left hover:text-chart-2 hover:underline"
+    className="text-left text-sm hover:text-chart-2 hover:underline"
   >
     Read more
     <img src="/images/arrow-right.svg" alt={name} class="w-6 h-6" />
