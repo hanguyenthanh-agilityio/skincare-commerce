@@ -1,0 +1,47 @@
+---
+import type { TProduct } from '@/types';
+
+// Components
+import { ProductCard, Typography } from '@/components';
+
+interface Props {
+  products: TProduct[];
+  limitDesktop: number;
+  limitMobile: number;
+}
+
+const { products, limitDesktop = 4, limitMobile = 2 } = Astro.props;
+
+const productsData = Array.isArray(products) ? products : [];
+
+const displayMobile = productsData.slice(0, Math.max(0, limitMobile));
+const displayDesktop = productsData.slice(0, Math.max(0, limitDesktop));
+
+const hasProducts = productsData.length > 0;
+---
+
+<div class="w-full my-8">
+  {
+    !hasProducts ? (
+      <Typography
+        level="p"
+        title="No Products Available"
+        className="text-center w-full text-gray-500"
+      />
+    ) : (
+      <>
+        <div class="flex md:hidden flex-wrap gap-3.5">
+          {displayMobile.map((product) => (
+            <ProductCard {...product} />
+          ))}
+        </div>
+
+        <div class="hidden md:flex flex-wrap gap-4">
+          {displayDesktop.map((product) => (
+            <ProductCard {...product} />
+          ))}
+        </div>
+      </>
+    )
+  }
+</div>

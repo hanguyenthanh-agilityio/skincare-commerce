@@ -8,6 +8,7 @@ specifiers:
   '@commitlint/config-conventional': ^20.0.0
   '@eslint/js': ^9.39.1
   '@fontsource/inter': ^5.2.8
+  '@radix-ui/react-dialog': ^1.1.15
   '@radix-ui/react-hover-card': ^1.1.15
   '@radix-ui/react-slot': ^1.2.4
   '@shadcn/ui': ^0.0.4
@@ -54,6 +55,7 @@ specifiers:
   prettier-plugin-astro: ^0.14.1
   react: ^19.2.0
   react-dom: ^19.2.0
+  sharp: ^0.34.5
   storybook: 10.0.8
   tailwind-merge: ^3.4.0
   tailwindcss: ^4.1.17
@@ -64,9 +66,10 @@ specifiers:
   vitest: ^4.0.13
 
 dependencies:
-  '@astrojs/image': 0.18.0_astro@5.15.5
+  '@astrojs/image': 0.18.0_astro@5.15.5+sharp@0.34.5
   '@astrojs/react': 4.4.2_jrfk57x74fuqwii2fhv6ndnxre
   '@fontsource/inter': 5.2.8
+  '@radix-ui/react-dialog': 1.1.15_7bjloouvttq2bkrh2iqpmfpa24
   '@radix-ui/react-hover-card': 1.1.15_7bjloouvttq2bkrh2iqpmfpa24
   '@radix-ui/react-slot': 1.2.4_d3lajoe3dbhofn2e5gjswiz74q
   astro: 5.15.5_p4rv5nsgxubqiw2hivqsz7g6em
@@ -75,9 +78,13 @@ dependencies:
   lucide-react: 0.554.0_react@19.2.0
   react: 19.2.0
   react-dom: 19.2.0_react@19.2.0
+  sharp: 0.34.5
   tailwind-merge: 3.4.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feat/implement-user-voice-section
 devDependencies:
   '@chromatic-com/storybook': 4.1.3_storybook@10.0.8
   '@commitlint/cli': 20.1.0_p4rv5nsgxubqiw2hivqsz7g6em
@@ -128,6 +135,7 @@ devDependencies:
   vite: 6.4.1_@types+node@24.10.1
   vite-tsconfig-paths: 5.1.4_xvrekt7ysjwk2kmfakkarwpktm
   vitest: 4.0.14_ndpplu6iw2itexi72mh2pmmzym
+<<<<<<< HEAD
 =======
   .:
     dependencies:
@@ -322,6 +330,8 @@ devDependencies:
         specifier: ^4.0.13
         version: 4.0.13(@types/debug@4.1.12)(@types/node@24.10.1)(@vitest/browser-playwright@4.0.13)(happy-dom@20.0.10)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
 >>>>>>> feat/implement-showcase-card-component
+=======
+>>>>>>> feat/implement-user-voice-section
 
 packages:
 
@@ -336,7 +346,7 @@ packages:
   /@astrojs/compiler/2.13.0:
     resolution: {integrity: sha512-mqVORhUJViA28fwHYaWmsXSzLO9osbdZ5ImUfxBarqsYdMlPbqAqGJCxsNzvppp1BEzc1mJNjOVvQqeDN8Vspw==}
 
-  /@astrojs/image/0.18.0_astro@5.15.5:
+  /@astrojs/image/0.18.0_astro@5.15.5+sharp@0.34.5:
     resolution: {integrity: sha512-IAsECAGG5s0u7KItQMVVfhU8gAkIeIlzoSga6LymLvWvTWJacjxtnRYjct5uR03kuxIYAdjZhwQowKR1bYpwDA==}
     deprecated: '@astrojs/image is deprecated in favor of astro:assets. Please see the migration guide for more information: https://docs.astro.build/en/guides/upgrade-to/v3/\#removed-astrojsimage'
     peerDependencies:
@@ -353,6 +363,7 @@ packages:
       kleur: 4.1.5
       magic-string: 0.30.21
       mime: 3.0.0
+      sharp: 0.34.5
     dev: false
 
   /@astrojs/internal-helpers/0.7.4:
@@ -1159,7 +1170,6 @@ packages:
     resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
     engines: {node: '>=18'}
     dev: false
-    optional: true
 
   /@img/sharp-darwin-arm64/0.34.5:
     resolution: {integrity: sha512-imtQ3WMJXbMY4fxb/Ndp6HBTNVtWCUI0WdobyheGf5+ad6xX8VIDO8u2xE4qc/fr08CKG/7dDseFtn6M6g/r3w==}
@@ -1569,9 +1579,13 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@radix-ui/react-dismissable-layer/1.1.11_7bjloouvttq2bkrh2iqpmfpa24:
 =======
   '@radix-ui/react-dialog@1.1.15':
+=======
+  /@radix-ui/react-dialog/1.1.15_7bjloouvttq2bkrh2iqpmfpa24:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-TCglVRtzlffRNxRMEyR36DGBLJpeusFcgMVD9PZEzAKnUs1lKCgX5u9BmC2Yg+LL9MgZDugFFs1Vl+Jp4t/PGw==}
     peerDependencies:
       '@types/react': '*'
@@ -1583,9 +1597,33 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.3
+      '@radix-ui/react-compose-refs': 1.1.2_d3lajoe3dbhofn2e5gjswiz74q
+      '@radix-ui/react-context': 1.1.2_d3lajoe3dbhofn2e5gjswiz74q
+      '@radix-ui/react-dismissable-layer': 1.1.11_7bjloouvttq2bkrh2iqpmfpa24
+      '@radix-ui/react-focus-guards': 1.1.3_d3lajoe3dbhofn2e5gjswiz74q
+      '@radix-ui/react-focus-scope': 1.1.7_7bjloouvttq2bkrh2iqpmfpa24
+      '@radix-ui/react-id': 1.1.1_d3lajoe3dbhofn2e5gjswiz74q
+      '@radix-ui/react-portal': 1.1.9_7bjloouvttq2bkrh2iqpmfpa24
+      '@radix-ui/react-presence': 1.1.5_7bjloouvttq2bkrh2iqpmfpa24
+      '@radix-ui/react-primitive': 2.1.3_7bjloouvttq2bkrh2iqpmfpa24
+      '@radix-ui/react-slot': 1.2.3_d3lajoe3dbhofn2e5gjswiz74q
+      '@radix-ui/react-use-controllable-state': 1.2.2_d3lajoe3dbhofn2e5gjswiz74q
+      '@types/react': 19.2.7
+      '@types/react-dom': 19.2.3_@types+react@19.2.7
+      aria-hidden: 1.2.6
+      react: 19.2.0
+      react-dom: 19.2.0_react@19.2.0
+      react-remove-scroll: 2.7.2_d3lajoe3dbhofn2e5gjswiz74q
+    dev: false
 
+<<<<<<< HEAD
   '@radix-ui/react-dismissable-layer@1.1.11':
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /@radix-ui/react-dismissable-layer/1.1.11_7bjloouvttq2bkrh2iqpmfpa24:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-Nqcp+t5cTB8BinFkZgXiMJniQH0PsUt2k51FUhbdfeKvc4ACcG2uQniY/8+h1Yv6Kza4Q7lD7PQV0z0oicE0Mg==}
     peerDependencies:
       '@types/react': '*'
@@ -1610,9 +1648,13 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@radix-ui/react-hover-card/1.1.15_7bjloouvttq2bkrh2iqpmfpa24:
 =======
   '@radix-ui/react-focus-guards@1.1.3':
+=======
+  /@radix-ui/react-focus-guards/1.1.3_d3lajoe3dbhofn2e5gjswiz74q:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-0rFg/Rj2Q62NCm62jZw0QX7a3sz6QCQU0LpZdNrJX8byRGaGVTqbrW9jAoIAHyMQqsNpeZ81YgSizOt5WXq0Pw==}
     peerDependencies:
       '@types/react': '*'
@@ -1620,8 +1662,12 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@types/react': 19.2.7
+      react: 19.2.0
+    dev: false
 
-  '@radix-ui/react-focus-scope@1.1.7':
+  /@radix-ui/react-focus-scope/1.1.7_7bjloouvttq2bkrh2iqpmfpa24:
     resolution: {integrity: sha512-t2ODlkXBQyn7jkl6TNaw/MtVEVvIGelJDCG41Okq/KwUsJBwQ4XVZsHAVUkK4mBv3ewiAS3PGuUWuY2BoK4ZUw==}
     peerDependencies:
       '@types/react': '*'
@@ -1633,9 +1679,22 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.2_d3lajoe3dbhofn2e5gjswiz74q
+      '@radix-ui/react-primitive': 2.1.3_7bjloouvttq2bkrh2iqpmfpa24
+      '@radix-ui/react-use-callback-ref': 1.1.1_d3lajoe3dbhofn2e5gjswiz74q
+      '@types/react': 19.2.7
+      '@types/react-dom': 19.2.3_@types+react@19.2.7
+      react: 19.2.0
+      react-dom: 19.2.0_react@19.2.0
+    dev: false
 
+<<<<<<< HEAD
   '@radix-ui/react-hover-card@1.1.15':
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /@radix-ui/react-hover-card/1.1.15_7bjloouvttq2bkrh2iqpmfpa24:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-qgTkjNT1CfKMoP0rcasmlH2r1DAiYicWsDsufxl940sT2wHNEWWv6FMWIQXWhVdmC1d/HYfbhQx60KYyAtKxjg==}
     peerDependencies:
       '@types/react': '*'
@@ -1664,9 +1723,13 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@radix-ui/react-popper/1.2.8_7bjloouvttq2bkrh2iqpmfpa24:
 =======
   '@radix-ui/react-id@1.1.1':
+=======
+  /@radix-ui/react-id/1.1.1_d3lajoe3dbhofn2e5gjswiz74q:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-kGkGegYIdQsOb4XjsfM97rXsiHaBwco+hFI66oO4s9LU+PLAC5oJ7khdOVFxkhsmlbpUqDAvXw11CluXP+jkHg==}
     peerDependencies:
       '@types/react': '*'
@@ -1674,9 +1737,18 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@radix-ui/react-use-layout-effect': 1.1.1_d3lajoe3dbhofn2e5gjswiz74q
+      '@types/react': 19.2.7
+      react: 19.2.0
+    dev: false
 
+<<<<<<< HEAD
   '@radix-ui/react-popper@1.2.8':
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /@radix-ui/react-popper/1.2.8_7bjloouvttq2bkrh2iqpmfpa24:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-0NJQ4LFFUuWkE7Oxf0htBKS6zLkkjBH+hM1uk7Ng705ReR8m/uelduy1DBo0PyBXPKVnBA6YBlU94MBGXrSBCw==}
     peerDependencies:
       '@types/react': '*'
@@ -3392,17 +3464,28 @@ packages:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /aria-query/5.3.2:
 =======
   aria-hidden@1.2.6:
+=======
+  /aria-hidden/1.2.6:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA==}
     engines: {node: '>=10'}
+    dependencies:
+      tslib: 2.8.1
+    dev: false
 
+<<<<<<< HEAD
   aria-query@5.3.0:
     resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
 
   aria-query@5.3.2:
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /aria-query/5.3.2:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
 
@@ -4232,13 +4315,22 @@ packages:
     engines: {node: '>=8'}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /deterministic-object-hash/2.0.2:
 =======
   detect-node-es@1.1.0:
+=======
+  /detect-node-es/1.1.0:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
+    dev: false
 
+<<<<<<< HEAD
   deterministic-object-hash@2.0.2:
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /deterministic-object-hash/2.0.2:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-KxektNH63SrbfUyDiwXqRb1rLwKt33AmMv+5Nhsw1kqZ13SJBRTgZHtGbE+hH3a1mVW1cz+4pqSWVPAtLVXTzQ==}
     engines: {node: '>=18'}
     dependencies:
@@ -5261,14 +5353,23 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /get-proto/1.0.1:
 =======
   get-nonce@1.0.1:
+=======
+  /get-nonce/1.0.1:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-FJhYRoDaiatfEkUK8HKlicmu/3SGFD51q3itKDGoSTysQJBnfOcxU5GxnhE1E6soB76MbT0MBtnKJuXyAx+96Q==}
     engines: {node: '>=6'}
+    dev: false
 
+<<<<<<< HEAD
   get-proto@1.0.1:
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /get-proto/1.0.1:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
     engines: {node: '>= 0.4'}
     dependencies:
@@ -7398,9 +7499,13 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /react/19.2.0:
 =======
   react-remove-scroll-bar@2.3.8:
+=======
+  /react-remove-scroll-bar/2.3.8_d3lajoe3dbhofn2e5gjswiz74q:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-9r+yi9+mgU33AKcj6IbT9oRCO78WriSj6t/cF8DWBZJ9aOGPOTEDvdUDz1FwKim7QXWwmHqtdHnRJfhAxEG46Q==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -7409,8 +7514,14 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@types/react': 19.2.7
+      react: 19.2.0
+      react-style-singleton: 2.2.3_d3lajoe3dbhofn2e5gjswiz74q
+      tslib: 2.8.1
+    dev: false
 
-  react-remove-scroll@2.7.2:
+  /react-remove-scroll/2.7.2_d3lajoe3dbhofn2e5gjswiz74q:
     resolution: {integrity: sha512-Iqb9NjCCTt6Hf+vOdNIZGdTiH1QSqr27H/Ek9sv/a97gfueI/5h1s3yRi1nngzMUaOOToin5dI1dXKdXiF+u0Q==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -7419,8 +7530,17 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@types/react': 19.2.7
+      react: 19.2.0
+      react-remove-scroll-bar: 2.3.8_d3lajoe3dbhofn2e5gjswiz74q
+      react-style-singleton: 2.2.3_d3lajoe3dbhofn2e5gjswiz74q
+      tslib: 2.8.1
+      use-callback-ref: 1.3.3_d3lajoe3dbhofn2e5gjswiz74q
+      use-sidecar: 1.1.3_d3lajoe3dbhofn2e5gjswiz74q
+    dev: false
 
-  react-style-singleton@2.2.3:
+  /react-style-singleton/2.2.3_d3lajoe3dbhofn2e5gjswiz74q:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -7429,9 +7549,19 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@types/react': 19.2.7
+      get-nonce: 1.0.1
+      react: 19.2.0
+      tslib: 2.8.1
+    dev: false
 
+<<<<<<< HEAD
   react@19.2.0:
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /react/19.2.0:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
 
@@ -7856,7 +7986,6 @@ packages:
       '@img/sharp-win32-ia32': 0.34.5
       '@img/sharp-win32-x64': 0.34.5
     dev: false
-    optional: true
 
   /shebang-command/2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -8692,9 +8821,13 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /util-deprecate/1.0.2:
 =======
   use-callback-ref@1.3.3:
+=======
+  /use-callback-ref/1.3.3_d3lajoe3dbhofn2e5gjswiz74q:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-jQL3lRnocaFtu3V00JToYz/4QkNWswxijDaCVNZRiRTO3HQDLsdu1ZtmIUvV4yPp+rvWm5j0y0TG/S61cuijTg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -8703,8 +8836,13 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@types/react': 19.2.7
+      react: 19.2.0
+      tslib: 2.8.1
+    dev: false
 
-  use-sidecar@1.1.3:
+  /use-sidecar/1.1.3_d3lajoe3dbhofn2e5gjswiz74q:
     resolution: {integrity: sha512-Fedw0aZvkhynoPYlA5WXrMCAMm+nSWdZt6lzJQ7Ok8S6Q+VsHmHpRWndVRJ8Be0ZbkfPc5LRYH+5XrzXcEeLRQ==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -8713,9 +8851,19 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+    dependencies:
+      '@types/react': 19.2.7
+      detect-node-es: 1.1.0
+      react: 19.2.0
+      tslib: 2.8.1
+    dev: false
 
+<<<<<<< HEAD
   util-deprecate@1.0.2:
 >>>>>>> feat/implement-showcase-card-component
+=======
+  /util-deprecate/1.0.2:
+>>>>>>> feat/implement-user-voice-section
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
@@ -8852,6 +9000,9 @@ packages:
       jsdom:
         optional: true
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feat/implement-user-voice-section
     dependencies:
       '@types/node': 24.10.1
       '@vitest/browser-playwright': 4.0.14_tphm4qiavaydxov2yhahopygee
@@ -8862,6 +9013,7 @@ packages:
       '@vitest/snapshot': 4.0.14
       '@vitest/spy': 4.0.14
       '@vitest/utils': 4.0.14
+<<<<<<< HEAD
 =======
 
   wcwidth@1.0.1:
@@ -14056,6 +14208,8 @@ snapshots:
       '@vitest/utils': 4.0.13
       debug: 4.4.3
 >>>>>>> feat/implement-showcase-card-component
+=======
+>>>>>>> feat/implement-user-voice-section
       es-module-lexer: 1.7.0
       expect-type: 1.2.2
       happy-dom: 20.0.11
