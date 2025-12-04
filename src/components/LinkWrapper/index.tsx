@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/lib';
 
 interface LinkWrapperProps {
   href: string;
@@ -6,12 +6,10 @@ interface LinkWrapperProps {
   children: React.ReactNode;
 }
 
-const LinkWrapper: React.FC<LinkWrapperProps> = ({ href, className, children }) => {
-  return (
-    <a href={href} className={clsx('font-medium', className)}>
-      {children}
-    </a>
-  );
-};
+const LinkWrapper = ({ href, className, children }: LinkWrapperProps) => (
+  <a href={href} className={cn('font-medium', className)}>
+    {children}
+  </a>
+);
 
 export default LinkWrapper;

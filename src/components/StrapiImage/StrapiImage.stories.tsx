@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
+// Component
 import StrapiImage from '.';
 
 const meta: Meta<typeof StrapiImage> = {

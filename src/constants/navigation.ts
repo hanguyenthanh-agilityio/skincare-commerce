@@ -1,4 +1,4 @@
-export const DropdownMenuData = [
+export const DROPDOWN_MENU_DATA = [
   {
     title: 'Shop',
     columns: [
@@ -12,7 +12,7 @@ export const DropdownMenuData = [
   },
 ];
 
-export const navLinks = [
+export const NAV_LINKS = [
   { label: 'About Us', href: '/about' },
   { label: 'Journal', href: '/journal' },
   { label: 'Stores', href: '/stores' },

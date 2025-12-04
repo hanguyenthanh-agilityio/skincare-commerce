@@ -5,16 +5,17 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import AddToCartButton from '..';
 
 describe('AddToCartButton component', () => {
-  const mockProductId = 'product-123';
+  // TODO: not remove - use productId when handle logic add to cart
+  // const mockProductId = 'product-123';
 
   it('render matching snapshot', () => {
-    const container = render(<AddToCartButton productId={mockProductId} />);
+    const container = render(<AddToCartButton />);
 
     expect(container).toMatchSnapshot();
   });
 
   it('should handle rapid clicks correctly', async () => {
-    render(<AddToCartButton productId={mockProductId} />);
+    render(<AddToCartButton />);
 
     const button = screen.getByRole('button');
 
@@ -27,7 +28,7 @@ describe('AddToCartButton component', () => {
   });
 
   it('should merge custom className with default classes', () => {
-    render(<AddToCartButton productId={mockProductId} className="custom-class" />);
+    render(<AddToCartButton className="custom-class" />);
 
     const button = screen.getByRole('button');
     expect(button).toHaveClass('w-full');
@@ -35,13 +36,13 @@ describe('AddToCartButton component', () => {
   });
 
   it('should not be disabled initially', () => {
-    render(<AddToCartButton productId={mockProductId} />);
+    render(<AddToCartButton />);
 
     expect(screen.getByRole('button')).not.toBeDisabled();
   });
 
   it('should change text to "Added!" after click', () => {
-    render(<AddToCartButton productId={mockProductId} />);
+    render(<AddToCartButton />);
 
     const button = screen.getByRole('button');
     expect(button).toHaveTextContent('Add to your cart');
@@ -52,7 +53,7 @@ describe('AddToCartButton component', () => {
   });
 
   it('should disable button after click', () => {
-    render(<AddToCartButton productId={mockProductId} />);
+    render(<AddToCartButton />);
 
     const button = screen.getByRole('button');
     expect(button).not.toBeDisabled();
@@ -63,7 +64,7 @@ describe('AddToCartButton component', () => {
   });
 
   it('should update isAdding state on click', () => {
-    render(<AddToCartButton productId={mockProductId} />);
+    render(<AddToCartButton />);
 
     const button = screen.getByRole('button');
 
