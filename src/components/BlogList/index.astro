@@ -6,21 +6,23 @@ import { BlogCard, Typography } from '@/components';
 
 interface Props {
   blogs: TBlog[];
-  limitDesktop: number;
-  limitMobile: number;
+  limitDesktop?: number;
+  limitMobile?: number;
 }
 
-const { blogs = [], limitDesktop = 4, limitMobile = 2 } = Astro.props;
+const { blogs, limitDesktop = 4, limitMobile = 2 } = Astro.props;
 
-const displayMobile = blogs.slice(0, Math.max(0, limitMobile));
-const displayDesktop = blogs.slice(0, Math.max(0, limitDesktop));
+const blogList: TBlog[] = Array.isArray(blogs) ? blogs : [];
 
-const hasBlogsToDisplay = displayMobile.length > 0 || displayDesktop.length > 0;
+const displayMobile = blogList.slice(0, limitMobile);
+const displayDesktop = blogList.slice(0, limitDesktop);
+
+const hasBlogs = blogList.length > 0;
 ---
 
 <div class="w-full">
   {
-    !hasBlogsToDisplay ? (
+    !hasBlogs ? (
       <Typography
         level="p"
         title="No Blogs Available"
@@ -29,22 +31,18 @@ const hasBlogsToDisplay = displayMobile.length > 0 || displayDesktop.length > 0;
     ) : (
       <>
         {/* Mobile */}
-        {displayMobile?.length > 0 && (
-          <div class="flex md:hidden flex-wrap gap-[3px]">
-            {displayMobile.map((blog) => (
-              <BlogCard {...blog} />
-            ))}
-          </div>
-        )}
+        <div class="flex md:hidden flex-wrap gap-[3px]">
+          {displayMobile.map((blog) => (
+            <BlogCard {...blog} />
+          ))}
+        </div>
 
         {/* Desktop */}
-        {displayDesktop?.length > 0 && (
-          <div class="hidden md:flex flex-wrap gap-[3px]">
-            {displayDesktop.map((blog) => (
-              <BlogCard {...blog} />
-            ))}
-          </div>
-        )}
+        <div class="hidden md:flex flex-wrap gap-[3px]">
+          {displayDesktop.map((blog) => (
+            <BlogCard {...blog} />
+          ))}
+        </div>
       </>
     )
   }
