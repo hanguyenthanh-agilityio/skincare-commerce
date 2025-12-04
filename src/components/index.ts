@@ -8,4 +8,6 @@ export { default as MainNav } from './MainNav/index.astro';
 export { default as BlogCard } from './BlogCard/index.astro';
 export { default as ProductList } from './ProductList/index.astro';
 export { default as BlogList } from './BlogList/index.astro';
+export { default as UserVoiceItem } from './UserVoiceItem/index.astro';
+export { default as UserVoiceGrid } from './UserVoiceGrid/index.astro';
 export { default as StrapiImage } from './StrapiImage';
