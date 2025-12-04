@@ -1,10 +1,10 @@
 ---
 import UserVoiceItem from '@/components/UserVoiceItem/index.astro';
-import { userVoiceImages } from '@/data/userVoiceImages';
+import { USER_VOICE_DATA } from '@/constants';
 ---
 
 <div class="flex justify-center">
   <div class="grid grid-cols-3 gap-4 mt-10">
-    {userVoiceImages.map((item) => <UserVoiceItem {...item} />)}
+    {USER_VOICE_DATA.map((item) => <UserVoiceItem {...item} />)}
   </div>
 </div>
