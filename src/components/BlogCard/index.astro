@@ -1,0 +1,41 @@
+---
+// Components
+import { Image, Link, StrapiImage, Typography } from '@/components';
+
+import arrowRightIcon from '@/assets/images/arrow-right.svg';
+
+interface Props {
+  image: string;
+  name: string;
+  category: string;
+  href: string;
+}
+
+const { image, name, category, href } = Astro.props;
+---
+
+<div class="w-166 h-350 md:w-331 md:h-461 hover:shadow-lg flex flex-col gap-10 text-left">
+  <!-- Product Image + Badge -->
+  <StrapiImage image={image} width={166} height={153} className="md:w-331 md:h-72 object-contain" />
+
+  <!-- Blog Info -->
+  <div class="space-y-1.5">
+    <Typography level="span" title={category} className="text-quill-grey tracking-[2%] uppercase" />
+
+    <Typography
+      level="span"
+      title={name}
+      className="font-bold line-clamp-3 md:line-clamp-2 max-h-18"
+    />
+  </div>
+
+  <!-- CTA Button -->
+  <Link
+    href={href}
+    ariaLabel={`Go to ${name} blog detail`}
+    className="text-left text-sm hover:text-chart-2 hover:underline"
+  >
+    Read more
+    <Image src={arrowRightIcon} alt="Arrow right icon" class="w-6 h-6" />
+  </Link>
+</div>

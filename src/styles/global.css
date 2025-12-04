@@ -60,8 +60,12 @@
 
   /* custom spacing */
   --spacing-custom-62: 62px;
+  --spacing--custom-18: 72px;
+  --spacing--custom-153: 153px;
+  --spacing--custom-166: 166px;
   --spacing-custom-191: 191px;
   --spacing-custom-331: 331px;
+  --spacing-custom-350: 350px;
   --spacing-custom-411: 411px;
   --spacing-custom-461: 461px;
   --spacing-custom-586: 586px;
@@ -136,9 +140,13 @@
   --container-padding-md: 2rem;
 
   /* expose spacing */
+  --spacing-18: var(--spacing--custom-18);
   --spacing-62: var(--spacing-custom-62);
+  --spacing-153: var(--spacing--custom-153);
+  --spacing-166: var(--spacing--custom-166);
   --spacing-191: var(--spacing-custom-191);
   --spacing-331: var(--spacing-custom-331);
+  --spacing-350: var(--spacing-custom-350);
   --spacing-411: var(--spacing-custom-411);
   --spacing-461: var(--spacing-custom-461);
   --spacing-586: var(--spacing-custom-586);

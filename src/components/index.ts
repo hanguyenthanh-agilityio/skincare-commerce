@@ -7,3 +7,4 @@ export { default as Heading } from './Heading/index.astro';
 export { default as Image } from './Image/index.astro';
 export { default as StrapiImage } from './StrapiImage';
 export { default as ProductCard } from './ProductCard/index.astro';
+export { default as BlogCard } from './BlogCard/index.astro';
