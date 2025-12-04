@@ -69,6 +69,7 @@
   --spacing-custom-411: 411px;
   --spacing-custom-461: 461px;
   --spacing-custom-586: 586px;
+  --spacing--custom-615: 651px;
 }
 
 .dark {
@@ -150,6 +151,7 @@
   --spacing-411: var(--spacing-custom-411);
   --spacing-461: var(--spacing-custom-461);
   --spacing-586: var(--spacing-custom-586);
+  --spacing-615: var(--spacing--custom-615);
 
   /* expose colors */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -210,8 +212,7 @@
   h4,
   h5,
   h6 {
-    color: var(--foreground);
-    font-weight: 600;
+    color: var(--destructive-foreground);
   }
 
   /* Links */
