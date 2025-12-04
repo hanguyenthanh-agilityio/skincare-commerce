@@ -9,3 +9,4 @@ export { default as StrapiImage } from './StrapiImage';
 export { default as ProductCard } from './ProductCard/index.astro';
 export { default as BlogCard } from './BlogCard/index.astro';
 export { default as ProductList } from './ProductList/index.astro';
+export { default as BlogList } from './BlogList/index.astro';
