@@ -15,14 +15,14 @@ export const Icons = {
       <g clipPath="url(#clip0_4299_503)">
         <path
           d="M3.75 12H20.25"
-          stroke="#333333"
+          stroke="currentColor"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M13.5 5.25L20.25 12L13.5 18.75"
-          stroke="#333333"
+          stroke="currentColor"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"

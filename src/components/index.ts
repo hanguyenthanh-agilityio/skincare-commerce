@@ -10,3 +10,4 @@ export { default as DrawerMenu } from './DrawerMenu';
 export { default as ProductCard } from './ProductCard/index.astro';
 export { default as UserVoiceItem } from './UserVoiceItem/index.astro';
 export { default as UserVoiceGrid } from './UserVoiceGrid/index.astro';
+export { default as TextContent } from './TextContent/index.astro';
