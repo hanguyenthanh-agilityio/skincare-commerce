@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import '@/styles/global.css';
 ---
 
 <html lang={Astro.currentLocale || 'en'}>
@@ -11,6 +11,8 @@ import '../styles/global.css';
     <title>Astro Basics</title>
   </head>
   <body>
-    <slot />
+    <main class="mx-auto">
+      <slot />
+    </main>
   </body>
 </html>
