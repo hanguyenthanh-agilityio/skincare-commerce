@@ -1,11 +1,12 @@
 ---
-import { Heading } from '@/components';
-import UserVoiceGrid from '@/components/UserVoiceGrid/index.astro';
-import { Icons } from '@/ui';
-import { Button } from '@/ui/Button';
+// Components
+import { Heading, UserVoiceGrid } from '@/components';
+
+// UIs
+import { Icons, Button } from '@/ui';
 ---
 
-<section class="py-24 bg-[#FAFAF2]">
+<section class="py-12 md:py-24 bg-surface">
   <div class="container mx-auto px-6 lg:px-8">
     <!-- Title -->
     <Heading level="h2" title="User Voice" className="text-center font-normal" />
@@ -15,7 +16,7 @@ import { Button } from '@/ui/Button';
 
     <!-- More Button -->
     <div class="flex justify-center mt-10">
-      <Button variant="outlineSoft" className="gap-14">
+      <Button variant="outlineSoft" className="gap-30 py-7">
         More <Icons.Arrow />
       </Button>
     </div>

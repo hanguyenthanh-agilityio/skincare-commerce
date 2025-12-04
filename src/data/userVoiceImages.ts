@@ -1,4 +1,4 @@
-export const userVoiceImages = [
+export const USER_VOICE_DATA = [
   {
     src: 'https://static.wixstatic.com/media/0d1c98_2aa43c6aad254d31a3b7591693028bb2~mv2.jpg/v1/crop/x_0,y_465,w_3687,h_4600/fill/w_622,h_776,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/DSC_2661.jpg',
     alt: 'Product bottle placed on stones with leaves.',

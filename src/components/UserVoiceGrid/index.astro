@@ -1,10 +1,13 @@
 ---
+// Components
 import { UserVoiceItem } from '@/components';
-import { userVoiceImages } from '@/data/userVoiceImages';
+
+// Data
+import { USER_VOICE_DATA } from '@/data/userVoiceImages';
 ---
 
 <div class="flex justify-center">
-  <div class="grid grid-cols-3 gap-4 mt-10">
-    {userVoiceImages.map((item) => <UserVoiceItem {...item} />)}
+  <div class="grid grid-cols-3 gap-2 md:gap-3 mt-10">
+    {USER_VOICE_DATA.map((item) => <UserVoiceItem {...item} />)}
   </div>
 </div>
