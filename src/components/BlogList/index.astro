@@ -1,0 +1,49 @@
+---
+import type { TBlog } from '@/types';
+
+// Components
+import { BlogCard, Typography } from '@/components';
+
+interface Props {
+  blogs: TBlog[];
+  limitDesktop?: number;
+  limitMobile?: number;
+}
+
+const { blogs, limitDesktop = 4, limitMobile = 2 } = Astro.props;
+
+const blogList: TBlog[] = Array.isArray(blogs) ? blogs : [];
+
+const displayMobile = blogList.slice(0, limitMobile);
+const displayDesktop = blogList.slice(0, limitDesktop);
+
+const hasBlogs = blogList.length > 0;
+---
+
+<div class="w-full">
+  {
+    !hasBlogs ? (
+      <Typography
+        level="p"
+        title="No Blogs Available"
+        className="text-center w-full text-gray-500"
+      />
+    ) : (
+      <>
+        {/* Mobile */}
+        <div class="flex md:hidden flex-wrap gap-[3px]">
+          {displayMobile.map((blog) => (
+            <BlogCard {...blog} />
+          ))}
+        </div>
+
+        {/* Desktop */}
+        <div class="hidden md:flex flex-wrap gap-[3px]">
+          {displayDesktop.map((blog) => (
+            <BlogCard {...blog} />
+          ))}
+        </div>
+      </>
+    )
+  }
+</div>
