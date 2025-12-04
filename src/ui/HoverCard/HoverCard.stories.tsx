@@ -1,9 +1,10 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
+// Components
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '.';
 import { Button } from '@/ui';
 
-const megaMenuData = [
+const DropdownMenuData = [
   {
     title: 'Shop',
     columns: [
@@ -41,7 +42,8 @@ const megaMenuData = [
         items: ['Shop All', 'Sauna', 'Essential Oils'],
       },
     ],
-    imageUrl: '/serum.png',
+    imageUrl:
+      'https://imageskincare.com/cdn/shop/products/VITAL_C_hydrating_facial_cleanser_PDP_R01a.jpg?v=1762197992&width=800',
   },
 ];
 
@@ -70,10 +72,10 @@ export const Default: Story = {
 
 // HoverCard with custom content
 
-export const MegaMenu: Story = {
+export const DropdownMenu: Story = {
   render: () => (
     <nav className="flex items-center gap-6">
-      {megaMenuData.map((menu) => (
+      {DropdownMenuData.map((menu) => (
         <HoverCard key={menu.title}>
           <HoverCardTrigger asChild>
             <span className="cursor-pointer font-medium">{menu.title}</span>

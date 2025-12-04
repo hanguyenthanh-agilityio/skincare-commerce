@@ -1,2 +1,10 @@
 export { default as Link } from './Link/index.astro';
 export { default as Navbar } from './Navbar/index.astro';
+export { default as Typography } from './Typography/index.astro';
+export { default as Heading } from './Heading/index.astro';
+export { default as Image } from './Image/index.astro';
+export { default as ProductCard } from './ProductCard/index.astro';
+export { default as MainNav } from './MainNav/index.astro';
+export { default as BlogCard } from './BlogCard/index.astro';
+export { default as ProductList } from './ProductList/index.astro';
+export { default as BlogList } from './BlogList/index.astro';

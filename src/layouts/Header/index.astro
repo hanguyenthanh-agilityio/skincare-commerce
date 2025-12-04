@@ -1,9 +1,8 @@
 ---
 // Components
-import { Link, Navbar } from '@/components';
+import { Image, Link, MainNav, Navbar } from '@/components';
 
-// UIs
-import { Icons, Button } from '@/ui';
+import logo from '@/assets/images/logo.png';
 ---
 
 <header class="border-b border-black" role="banner">
@@ -11,30 +10,22 @@ import { Icons, Button } from '@/ui';
     <div class="flex items-center h-16">
       <!-- Left: Navbar -->
       <div class="flex-1">
-        <Navbar />
+        <Navbar className="text-sm text-primary" />
       </div>
 
       <!-- Center: Logo -->
       <div class="flex-shrink-0 mx-auto">
         <h1 class="mx-auto">
           <Link href="/" aria-label="Home">
-            <img src="/logo.png" alt="CEIN Logo" class="h-5 w-auto" />
+            <Image src={logo} alt="CEIN Logo" class="h-5 w-auto" />
           </Link>
         </h1>
       </div>
 
       <!-- Right: Icons -->
-      <nav class="flex-1 flex justify-end items-center gap-2 text-gray-700" aria-label="User menu">
-        <!-- User Profile -->
-        <Button variant="ghost" size="icon" aria-label="User profile">
-          <Icons.User width={14} height={14} />
-        </Button>
-
-        <!-- Cart -->
-        <Button variant="ghost" size="icon" aria-label="Cart">
-          <Icons.Cart width={14} height={14} />
-        </Button>
-      </nav>
+      <div class="flex-1 flex justify-end">
+        <MainNav />
+      </div>
     </div>
   </div>
 </header>

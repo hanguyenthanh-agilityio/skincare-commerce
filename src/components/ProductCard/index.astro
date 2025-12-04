@@ -1,0 +1,67 @@
+---
+// Components
+import { Link, Typography } from '@/components';
+import AddToCartButton from '@/components/AddToCartButton';
+import StrapiImage from '@/components/StrapiImage';
+
+interface Props {
+  image: string;
+  name: string;
+  description: string;
+  volume: string;
+  price: number;
+  href: string;
+  badge?: string;
+}
+
+const { image, name, description, volume, price, href, badge } = Astro.props;
+---
+
+<div
+  class="group w-40 h-411 md:w-331 md:h-586 transition-shadow duration-200 hover:shadow-md hover:bg-narvik"
+>
+  <Link href={href} ariaLabel={`Go to ${name} product detail`} className="w-full">
+    <div class="flex flex-col gap-4 md:gap-10 text-center md:px-4 mb-4 md:mb-10">
+      <!-- Product Image + Badge -->
+      <div class="relative">
+        {
+          badge && (
+            <Typography
+              level="span"
+              className="absolute top-4 right-2 text-xs uppercase"
+              title={badge}
+            />
+          )
+        }
+
+        <StrapiImage
+          image={image}
+          width={160}
+          height={191}
+          className="mx-auto md:w-331 md:h-72 object-contain"
+          client:load
+        />
+      </div>
+
+      <!-- Product Info -->
+      <div class="space-y-4 md:space-y-1.5">
+        <Typography
+          level="span"
+          className="block font-bold tracking-[-2%] line-clamp-2 md:line-clamp-1"
+          title={name}
+        />
+
+        <Typography level="span" className="hidden md:block md:line-clamp-1" title={description} />
+      </div>
+
+      <!-- Volume + Price -->
+      <div class="space-y-3.5">
+        <Typography level="span" title={volume} className="block" />
+        <Typography level="span" title={`$${price}`} className="block" />
+      </div>
+    </div>
+  </Link>
+
+  <!-- CTA Button -->
+  <AddToCartButton client:load />
+</div>

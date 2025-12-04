@@ -1,11 +1,23 @@
 ---
+import { cn } from '@/lib';
+
 interface Props {
   href: string;
-  class?: string;
+  ariaLabel?: string;
+  className?: string;
+  target?: '_self' | '_blank' | '_parent' | '_top';
+  rel?: string;
 }
-const { href, class: className } = Astro.props;
+
+const { href, ariaLabel, className, target = '_self', rel } = Astro.props;
 ---
 
-<a href={href} class={`font-medium ${className ?? ''}`}>
+<a
+  href={href}
+  aria-label={ariaLabel}
+  target={target}
+  rel={rel}
+  class={cn(`inline-flex items-center gap-2.5 text-destructive-foreground ${className}`)}
+>
   <slot />
 </a>
