@@ -6,9 +6,20 @@ import DrawerMenu from '@/components/DrawerMenu';
 
 // Data
 import { DropdownMenuData, navLinks } from '@/data/navigation';
+
+import { cn } from '@/lib/utils';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
 ---
 
-<nav class="flex justify-between h-16 items-center text-sm text-primary">
+<nav
+  class={cn('flex justify-between items-center text-sm', className)}
+  aria-label="Site navigation"
+>
   {/* Desktop Menu */}
   <div class="hidden md:flex items-center gap-6">
     <DropdownMenu client:load data={DropdownMenuData} />
