@@ -1,0 +1,22 @@
+---
+import { StrapiImage } from '@/components';
+
+interface Props {
+  image: string;
+  className?: string;
+}
+
+const { image, className = '' } = Astro.props;
+---
+
+<div class={`relative w-full h-[380px] md:h-[520px] overflow-hidden ${className}`}>
+  <StrapiImage
+    image={image}
+    className="absolute inset-0 w-full h-full object-cover object-center"
+    loading="lazy"
+    client:load
+  />
+
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-black/35 md:bg-black/25"></div>
+</div>
