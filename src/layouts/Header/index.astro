@@ -1,0 +1,31 @@
+---
+// Components
+import { Image, Link, MainNav, Navbar } from '@/components';
+
+import logo from '@/assets/images/logo.png';
+---
+
+<header class="border-b border-black" role="banner">
+  <div class="mx-auto px-4 sm:px-6 lg:px-8 sm:py-2">
+    <div class="flex items-center h-16">
+      <!-- Left: Navbar -->
+      <div class="flex-1">
+        <Navbar className="text-sm text-primary" />
+      </div>
+
+      <!-- Center: Logo -->
+      <div class="flex-shrink-0 mx-auto">
+        <h1 class="mx-auto">
+          <Link href="/" aria-label="Home">
+            <Image src={logo} alt="CEIN Logo" class="h-5 w-auto" />
+          </Link>
+        </h1>
+      </div>
+
+      <!-- Right: Icons -->
+      <div class="flex-1 flex justify-end">
+        <MainNav />
+      </div>
+    </div>
+  </div>
+</header>

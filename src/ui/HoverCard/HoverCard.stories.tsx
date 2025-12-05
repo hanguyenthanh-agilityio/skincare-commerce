@@ -81,7 +81,7 @@ export const DropdownMenu: Story = {
             <span className="cursor-pointer font-medium">{menu.title}</span>
           </HoverCardTrigger>
 
-          <HoverCardContent className="w-[700px] grid grid-cols-5 gap-6 p-6 bg-white shadow-lg">
+          <HoverCardContent className="w-full grid grid-cols-5 gap-6 p-6 bg-white shadow-lg">
             {/* Columns */}
             {menu.columns.map((col) => (
               <div key={col.heading} className="space-y-2">
@@ -96,7 +96,7 @@ export const DropdownMenu: Story = {
 
             {/* Image column */}
             <div className="col-span-1 flex items-center justify-center">
-              <img src={menu.imageUrl} alt="Product" className="max-h-64 object-contain" />
+              <img src={menu.imageUrl} alt="Product" className="mega-image" />
             </div>
           </HoverCardContent>
         </HoverCard>
