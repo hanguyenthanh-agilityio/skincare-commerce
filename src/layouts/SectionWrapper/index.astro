@@ -1,0 +1,44 @@
+---
+import { Heading, Image, Link, Typography } from '@/components';
+
+import arrowRightIcon from '@/assets/images/arrow-right.svg';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+  ctaLabel?: string;
+  ctaHref: string;
+  className?: string;
+}
+
+const { title, subtitle, description, ctaHref, ctaLabel, className } = Astro.props;
+---
+
+<section class={className}>
+  <div class="text-left max-w-651">
+    <Typography title={subtitle} level="span" className="text-destructive-foreground mb-1" />
+
+    <Heading level="h2" title={title} className="mb-5" />
+
+    <Typography level="p" title={description} />
+  </div>
+
+  <slot />
+
+  <!-- CTA Button -->
+  {
+    ctaLabel && (
+      <div class="flex flex-col gap-8 border-t">
+        <Link
+          href={ctaHref}
+          ariaLabel={`Go to ${ctaLabel} page`}
+          className="w-full text-sm/6 text-left hover:text-chart-2 hover:underline mt-8"
+        >
+          {ctaLabel}
+          <Image src={arrowRightIcon} alt="Arrow right icon" class="w-6 h-6" />
+        </Link>
+      </div>
+    )
+  }
+</section>

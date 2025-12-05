@@ -1,5 +1,6 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
+// Components
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '.';
 import { Button } from '@/ui';
 
