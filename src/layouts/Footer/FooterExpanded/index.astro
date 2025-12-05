@@ -1,0 +1,69 @@
+---
+// Constants
+import { FOOTER_LINKS, NAVIGATION, SOCIAL_LINKS } from '@/constants';
+
+// Components
+import { Heading, Image, Link, Typography } from '@/components';
+import { Icons } from '@/icons';
+---
+
+<div class="hidden md:block pt-18 pb-12 mx-10 space-y-38">
+  <div class="flex justify-between gap-8">
+    {/* Brand & Social */}
+    <div class="w-full space-y-6">
+      <Icons.Logo className="text-white" />
+
+      <Typography title="Follow us" level="span" className="block text-quill-grey uppercase" />
+
+      <div class="flex gap-4">
+        {
+          SOCIAL_LINKS.map(({ href, label, icon }) => (
+            <Link href={href} aria-label={label} className="transition-colors">
+              <Image src={icon} alt={label} />
+            </Link>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Navigation Columns */}
+    <div class="w-full flex">
+      {
+        NAVIGATION.map(({ title, links }) => (
+          <div class="min-w-56">
+            <Heading level="h6" title={title} className="text-white font-bold mb-6" />
+
+            <ul class="space-y-3.5">
+              {links.map(({ label, href }) => (
+                <li>
+                  <Link href={href} className="text-white text-sm/6">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  {/* Divider */}
+  <div class="flex gap-10">
+    <Typography
+      level="span"
+      title="CEIN. 2019 KINS All rights reserved."
+      className="block w-full text-xs text-quill-grey"
+    />
+
+    <div class="flex w-full gap-6">
+      {
+        FOOTER_LINKS.map(({ href, label }) => (
+          <Link href={href} className="text-xs text-quill-grey">
+            {label}
+          </Link>
+        ))
+      }
+    </div>
+  </div>
+</div>

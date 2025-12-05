@@ -1,0 +1,74 @@
+---
+// Constants
+import { FOOTER_LINKS, NAVIGATION, SOCIAL_LINKS } from '@/constants';
+
+// Components
+import { Image, Link, Typography } from '@/components';
+---
+
+<div class="md:hidden max-w-md mx-auto px-5 py-9">
+  {
+    NAVIGATION.map(({ title, links }) => (
+      <details class="group border-b border-quill-grey">
+        <summary class="flex justify-between items-center cursor-pointer transition-colors py-9">
+          <Typography title={title} level="span" className="block text-white font-bold" />
+
+          <Typography
+            title="+"
+            level="span"
+            className="block text-white text-xl group-open:rotate-45 transition-transform"
+          />
+        </summary>
+
+        <ul class="pb-6 space-y-2">
+          {links.map(({ label, href }) => (
+            <li>
+              <Link href={href} className="text-sm text-white transition-colors block">
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </details>
+    ))
+  }
+
+  {/* Social Links */}
+  <div class="space-y-6 my-10">
+    <Typography
+      title="Follow us"
+      level="span"
+      className="block text-xs text-quill-grey uppercase"
+    />
+
+    <div class="flex gap-4">
+      {
+        SOCIAL_LINKS.map(({ href, label, icon }) => (
+          <Link href={href} aria-label={label} className="transition-colors">
+            <Image src={icon} alt={label} />
+          </Link>
+        ))
+      }
+    </div>
+  </div>
+
+  {/* Footer Links */}
+  <ul class="space-y-3.5 py-4 mb-10">
+    {
+      FOOTER_LINKS.map(({ href, label }) => (
+        <li>
+          <Link href={href} className="text-xs text-quill-grey">
+            {label}
+          </Link>
+        </li>
+      ))
+    }
+  </ul>
+
+  {/* Copyright */}
+  <Typography
+    level="span"
+    title="CEIN. 2019 KINS All rights reserved."
+    className="block w-full text-xs text-quill-grey"
+  />
+</div>
