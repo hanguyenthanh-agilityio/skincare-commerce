@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 // Types
 import type { DropdownMenuProps } from '@/types';
