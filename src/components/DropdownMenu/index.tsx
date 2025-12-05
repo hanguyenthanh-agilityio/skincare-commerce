@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 
+// Types
+import type { DropdownMenuProps } from '@/types';
+
 // UI
 import { HoverCard, HoverCardTrigger, HoverCardContent, Button } from '@/ui';
 
 // Components
 import { LinkWrapper, StrapiImage } from '@/components';
-
-// Types
-import type { DropdownMenuProps } from '@/types/navigation';
 
 const DropdownMenu = memo(({ data }: DropdownMenuProps) => (
   <nav className="relative" aria-label="Primary Mega Navigation" role="navigation">

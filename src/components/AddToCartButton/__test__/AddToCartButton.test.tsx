@@ -45,11 +45,11 @@ describe('AddToCartButton component', () => {
     render(<AddToCartButton />);
 
     const button = screen.getByRole('button');
-    expect(button).toHaveContentBlock('Add to your cart');
+    expect(button).toHaveTextContent('Add to your cart');
 
     fireEvent.click(button);
 
-    expect(button).toHaveContentBlock('Added!');
+    expect(button).toHaveTextContent('Added!');
   });
 
   it('should disable button after click', () => {
@@ -69,12 +69,12 @@ describe('AddToCartButton component', () => {
     const button = screen.getByRole('button');
 
     // Initial state
-    expect(button).toHaveContentBlock('Add to your cart');
+    expect(button).toHaveTextContent('Add to your cart');
     expect(button).not.toBeDisabled();
 
     // After click
     fireEvent.click(button);
-    expect(button).toHaveContentBlock('Added!');
+    expect(button).toHaveTextContent('Added!');
     expect(button).toBeDisabled();
   });
 });

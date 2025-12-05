@@ -6,12 +6,12 @@ import { ContentBlock, HeroImage } from '@/components';
 import { HERO_DATA } from '@/constants';
 ---
 
-<section class="relative w-full h-hero-mobile md:h-hero-desktop overflow-hidden rounded-xl">
+<section class="relative w-full h-hero-mobile md:h-hero-desktop overflow-hidden">
   <HeroImage src={HERO_DATA.image} className="absolute inset-0 w-full h-full" client:load />
 
   <div class="absolute inset-0 bg-black/40 md:bg-black/25"></div>
 
   <div class="absolute inset-0 flex items-center">
-    <ContentBlock {...HERO_DATA.content} className="max-w-xl px-6 md:px-12" />
+    <ContentBlock {...HERO_DATA.content} className="max-w-sm lg:max-w-md px-6 md:px-12" />
   </div>
 </section>
