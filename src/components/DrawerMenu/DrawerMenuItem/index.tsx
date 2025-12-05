@@ -4,7 +4,7 @@ import React from 'react';
 import { ChevronRight } from 'lucide-react';
 
 // Components
-import LinkWrapper from '@/components/LinkWrapper';
+import { LinkWrapper } from '@/components';
 
 // UIs
 import { Button } from '@/ui';

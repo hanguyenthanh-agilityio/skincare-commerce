@@ -1,20 +1,17 @@
 ---
+// Components
 import { ContentBlock, HeroImage } from '@/components';
+
+// Constants
+import { HERO_DATA } from '@/constants';
 ---
 
-<section class="grid md:grid-cols-2 gap-6 items-center">
-  <ContentBlock
-    subTitle="Revitalize Your Body"
-    title="Effective Ingredients for Visible Results"
-    description="Our body products are rich in highly effective ingredients, achieve visible results, firm the skin and leave it feeling soft and supple."
-    buttonText="Discover More"
-    colorScheme="light"
-    variant="outlineWhite"
-  />
+<section class="relative w-full h-hero-mobile md:h-hero-desktop overflow-hidden rounded-xl">
+  <HeroImage src={HERO_DATA.image} className="absolute inset-0 w-full h-full" client:load />
 
-  <HeroImage
-    image="https://img.freepik.com/free-photo/horizontal-banner-beauty-products_23-2149446551.jpg?semt=ais_hybrid&w=740&q=80"
-    className="rounded-xl"
-    client:load
-  />
+  <div class="absolute inset-0 bg-black/40 md:bg-black/25"></div>
+
+  <div class="absolute inset-0 flex items-center">
+    <ContentBlock {...HERO_DATA.content} className="max-w-xl px-6 md:px-12" />
+  </div>
 </section>

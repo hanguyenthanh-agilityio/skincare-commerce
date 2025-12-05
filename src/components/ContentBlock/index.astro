@@ -17,7 +17,7 @@ interface Props {
   align?: 'left' | 'center';
   colorScheme?: 'dark' | 'light';
   variant?: 'outlineSoft' | 'outlineWhite';
-  class?: string;
+  className?: string;
 }
 
 const {
@@ -29,7 +29,7 @@ const {
   align = 'left',
   colorScheme = 'dark',
   variant = 'outlineSoft',
-  class: className = '',
+  className = '',
 } = Astro.props;
 
 // Alignment styles
@@ -54,7 +54,7 @@ const colorStyles = {
   },
 };
 
-const scheme = colorStyles[colorScheme] ?? colorStyles.dark;
+const scheme = colorStyles[colorScheme];
 ---
 
 <div class={cn('flex flex-col gap-4', alignment, className)}>

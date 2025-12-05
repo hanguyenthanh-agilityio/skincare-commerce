@@ -142,6 +142,14 @@
   --container-padding: 1rem;
   --container-padding-md: 2rem;
 
+  /* hero heights */
+  --h-hero-mobile: 520px;
+  --h-hero-desktop: 580px;
+
+  /* expose heights */
+  --height-hero-mobile: var(--h-hero-mobile);
+  --height-hero-desktop: var(--h-hero-desktop);
+
   /* expose spacing */
   --spacing-18: var(--spacing--custom-18);
   --spacing-62: var(--spacing-custom-62);
