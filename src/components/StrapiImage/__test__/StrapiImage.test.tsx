@@ -1,9 +1,10 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
+
+// Component
 import StrapiImage from '..';
 
-describe('StrapiImage', () => {
+describe('StrapiImage component', () => {
   it('renders image from URL string', () => {
     render(
       <StrapiImage

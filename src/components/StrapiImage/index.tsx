@@ -1,10 +1,8 @@
-import React from 'react';
-
 // Libs
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 // Types
-import type { StrapiImageType } from '@/types/common';
+import type { StrapiImageType } from '@/types';
 
 interface StrapiImageProps {
   image: StrapiImageType | string | null | undefined;
@@ -18,7 +16,7 @@ interface StrapiImageProps {
   sizes?: string;
 }
 
-const StrapiImage: React.FC<StrapiImageProps> = ({
+const StrapiImage = ({
   image,
   className = '',
   width = 1200,
@@ -27,7 +25,7 @@ const StrapiImage: React.FC<StrapiImageProps> = ({
   priority = false,
   srcSetWidths = [320, 640, 960, 1280, 1600],
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
-}) => {
+}: StrapiImageProps) => {
   const imageNode: StrapiImageType | null =
     typeof image === 'string' ? { url: image } : (image ?? null);
 

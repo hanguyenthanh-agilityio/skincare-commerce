@@ -1,11 +1,9 @@
 ---
 // Components
-import { Link } from '@/components';
-import DropdownMenu from '@/components/DropdownMenu';
-import DrawerMenu from '@/components/DrawerMenu';
+import { DrawerMenu, DropdownMenu, Link } from '@/components';
 
-// Data
-import { DropdownMenuData, navLinks } from '@/data/navigation';
+// Constants
+import { DROPDOWN_MENU_DATA, NAV_LINKS } from '@/constants';
 
 import { cn } from '@/lib/utils';
 
@@ -22,12 +20,12 @@ const { className = '' } = Astro.props;
 >
   {/* Desktop Menu */}
   <div class="hidden md:flex items-center gap-6">
-    <DropdownMenu client:load data={DropdownMenuData} />
-    {navLinks.map((link) => <Link href={link.href}>{link.label}</Link>)}
+    <DropdownMenu client:load data={DROPDOWN_MENU_DATA} />
+    {NAV_LINKS.map((link) => <Link href={link.href}>{link.label}</Link>)}
   </div>
 
   {/* Mobile Menu */}
   <div class="md:hidden">
-    <DrawerMenu client:load data={DropdownMenuData} navLinks={navLinks} />
+    <DrawerMenu client:load data={DROPDOWN_MENU_DATA} navLinks={NAV_LINKS} />
   </div>
 </nav>

@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 type AstroImageProps = Parameters<typeof Image>[0];
 type StaticImageSrc = Exclude<AstroImageProps['src'], string | Promise<unknown>>;
