@@ -2,7 +2,19 @@ export const DROPDOWN_MENU_DATA = [
   {
     title: 'Shop',
     columns: [
-      { heading: 'Category', items: ['Shop All', 'Cleanse', 'Exfoliate', 'Treat & Masque'] },
+      {
+        heading: 'Category',
+        items: [
+          'Shop All',
+          'Cleanse',
+          'Exfoliate',
+          'Treat & Masque',
+          'Shop All',
+          'Cleanse',
+          'Exfoliate',
+          'Treat & Masque',
+        ],
+      },
       { heading: 'Skin Type', items: ['Normal', 'Dry', 'Oily', 'Combination', 'Sensitive'] },
       { heading: 'Body', items: ['Shop All', 'Body Creams', 'Shower Gel', 'Balms'] },
       { heading: 'Fragrances', items: ['Shop All', 'Sauna', 'Essential Oils'] },

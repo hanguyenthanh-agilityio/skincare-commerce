@@ -6,13 +6,13 @@
 
 :root {
   /* colors */
-  --background: oklch(1 0 0); /* mistWhite */
+  --background: oklch(99.39% 0.005 145.54); /* mistWhite */
   --foreground: oklch(0.145 0 0); /* charcoal */
 
-  --card: oklch(1 0 0);
+  --card: oklch(99.39% 0.005 145.54);
   --card-foreground: oklch(0.145 0 0);
 
-  --popover: oklch(1 0 0);
+  --popover: oklch(99.39% 0.005 145.54);
   --popover-foreground: oklch(0.145 0 0);
 
   --primary: oklch(0.249 0 0); /* charcoal */
@@ -30,6 +30,8 @@
 
   --destructive: oklch(0.577 0.245 27.325); /* warmLinen */
   --destructive-foreground: #333333;
+
+  --surface: oklch(0.985 0.004 112.03);
 
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -161,6 +163,7 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-surface: var(--surface);
   --color-sidebar: var(--sidebar);
 
   --color-chart-1: var(--chart-1);
@@ -227,10 +230,9 @@
   }
 
   /* DropdownMenu image size reusable classes */
-  .mega-image {
-    max-height: 500px;
-    max-width: 320px;
-    object-fit: contain;
+  .dropdown-image {
+    max-height: 600px;
+    max-width: 300px;
   }
 }
 
