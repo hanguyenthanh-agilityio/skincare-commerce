@@ -1,3 +1,5 @@
+export { default as DropdownMenu } from './DropdownMenu/index.tsx';
+export { default as DrawerMenu } from './DrawerMenu/index.tsx';
 export { default as Link } from './Link/index.astro';
 export { default as Navbar } from './Navbar/index.astro';
 export { default as Typography } from './Typography/index.astro';
