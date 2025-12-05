@@ -31,6 +31,8 @@
   --destructive: oklch(0.577 0.245 27.325); /* warmLinen */
   --destructive-foreground: #333333;
 
+  --surface: oklch(0.985 0.004 112.03);
+
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -161,6 +163,7 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-surface: var(--surface);
   --color-sidebar: var(--sidebar);
 
   --color-chart-1: var(--chart-1);
