@@ -19,3 +19,4 @@ export { default as MainNav } from './MainNav/index.astro';
 export { default as BlogCard } from './BlogCard/index.astro';
 export { default as ProductList } from './ProductList/index.astro';
 export { default as BlogList } from './BlogList/index.astro';
+export { default as HeroImage } from './HeroImage/index.astro';

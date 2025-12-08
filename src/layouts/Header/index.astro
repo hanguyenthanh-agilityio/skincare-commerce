@@ -1,30 +1,41 @@
 ---
-// Components
 import { Image, Link, MainNav, Navbar } from '@/components';
-
 import logo from '@/assets/images/logo.png';
+
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+
+// Detect language
+const isVi = pathname.startsWith('/vi');
+const switchTo = isVi ? pathname.replace('/vi', '') || '/' : `/vi${pathname}`;
+const languageLabel = isVi ? 'VI' : 'EN';
 ---
 
 <header class="border-b border-black" role="banner">
   <div class="mx-auto px-4 sm:px-6 lg:px-8 sm:py-2">
     <div class="flex items-center h-16">
-      <!-- Left: Navbar -->
       <div class="flex-1">
         <Navbar className="text-sm text-primary" />
       </div>
 
-      <!-- Center: Logo -->
       <div class="flex-shrink-0 mx-auto">
-        <h1 class="mx-auto">
-          <Link href="/" aria-label="Home">
-            <Image src={logo} alt="CEIN Logo" class="h-5 w-auto" />
-          </Link>
-        </h1>
+        <Link href="/" aria-label="Home">
+          <Image src={logo} alt="CEIN Logo" class="h-5 w-auto" />
+        </Link>
       </div>
 
-      <!-- Right: Icons -->
-      <div class="flex-1 flex justify-end">
+      <div class="flex-1 flex justify-end items-center space-x-4">
         <MainNav />
+
+        <Link
+          href={switchTo}
+          className="text-sm border px-3 py-1 rounded hover:bg-gray-100 transition"
+        >
+          {languageLabel}
+        </Link>
       </div>
     </div>
   </div>

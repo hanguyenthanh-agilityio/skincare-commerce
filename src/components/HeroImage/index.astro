@@ -1,0 +1,19 @@
+---
+import { StrapiImage } from '@/components';
+
+interface Props {
+  src: string;
+  className?: string;
+}
+
+const { src, className = '' } = Astro.props;
+---
+
+<div class={`relative w-full h-full overflow-hidden ${className}`}>
+  <StrapiImage
+    image={src}
+    className="absolute inset-0 w-full h-full object-cover object-center"
+    fallbackAspectRatio={0}
+    client:idle
+  />
+</div>

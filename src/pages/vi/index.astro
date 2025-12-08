@@ -2,11 +2,8 @@
 // Layouts
 import { BaseLayout } from '@/layouts';
 
-// Components
-import { BlogList, ProductList } from '@/components';
-
 // Sections
-import { UserVoice, Highlight } from '@/sections';
+import { Highlight } from '@/sections';
 
 // I18n
 import { loadPageContent } from '@/i18n';
@@ -14,16 +11,10 @@ import { loadPageContent } from '@/i18n';
 // Types
 import type { HighlightContent } from '@/types';
 
-const locale = 'en';
+const locale = 'vi';
 const page = loadPageContent<HighlightContent>('home', locale);
 ---
 
 <BaseLayout>
   <Highlight data={page.highlight} />
-
-  <UserVoice />
-
-  <ProductList products={[]} limitDesktop={8} limitMobile={4} />
-
-  <BlogList blogs={[]} />
 </BaseLayout>
