@@ -7,10 +7,12 @@ import { BlogList, ProductList } from '@/components';
 
 // Sections
 import { UserVoice, Highlight } from '@/sections';
+
+const locale = 'en';
 ---
 
 <BaseLayout>
-  <Highlight />
+  <Highlight locale={locale} />
   <UserVoice />
   <ProductList products={[]} limitDesktop={8} limitMobile={4} />
   <BlogList blogs={[]} />

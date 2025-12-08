@@ -43,6 +43,9 @@ export default [
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
       },
+      globals: {
+        URL: 'readonly',
+      },
     },
     rules: {
       'react/react-in-jsx-scope': 'off',

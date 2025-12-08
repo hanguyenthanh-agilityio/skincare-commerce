@@ -1,17 +1,37 @@
 ---
-// Components
 import { ContentBlock, HeroImage } from '@/components';
+import { loadSectionContent } from '@/i18n';
+import type { HighlightContent } from '@/types';
+import type { Locale } from '@/i18n/messages';
 
-// Constants
-import { HERO_DATA } from '@/constants';
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const data = loadSectionContent<HighlightContent>('highlight', locale);
+
+const { subTitle, title, description, buttonText, buttonHref, align, colorScheme, variant, image } =
+  data;
 ---
 
 <section class="relative w-full h-hero-mobile md:h-hero-desktop overflow-hidden">
-  <HeroImage src={HERO_DATA.image} className="absolute inset-0 w-full h-full" />
+  <HeroImage src={image} className="absolute inset-0 w-full h-full" />
 
   <div class="absolute inset-0 bg-black/40 md:bg-black/25"></div>
 
   <div class="absolute inset-0 flex items-center">
-    <ContentBlock {...HERO_DATA.content} className="max-w-sm lg:max-w-md px-6 md:px-12" />
+    <ContentBlock
+      subTitle={subTitle}
+      title={title}
+      description={description}
+      buttonText={buttonText}
+      buttonHref={buttonHref}
+      align={align}
+      colorScheme={colorScheme}
+      variant={variant}
+      className="max-w-sm lg:max-w-md px-6 md:px-12"
+    />
   </div>
 </section>

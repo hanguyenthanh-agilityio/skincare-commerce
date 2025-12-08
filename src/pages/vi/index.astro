@@ -1,7 +1,14 @@
 ---
+// Layouts
 import { BaseLayout } from '@/layouts';
+
+// Sections
+import { UserVoice, Highlight } from '@/sections';
+
+const locale = 'vi';
 ---
 
 <BaseLayout>
-  <></>
+  <Highlight locale={locale} />
+  <UserVoice />
 </BaseLayout>
