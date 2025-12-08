@@ -3,12 +3,18 @@
 import { BaseLayout } from '@/layouts';
 
 // Sections
-import { UserVoice, Highlight } from '@/sections';
+import { Highlight } from '@/sections';
+
+// I18n
+import { loadPageContent } from '@/i18n';
+
+// Types
+import type { HighlightContent } from '@/types';
 
 const locale = 'vi';
+const page = loadPageContent<HighlightContent>('home', locale);
 ---
 
 <BaseLayout>
-  <Highlight locale={locale} />
-  <UserVoice />
+  <Highlight data={page.highlight} />
 </BaseLayout>

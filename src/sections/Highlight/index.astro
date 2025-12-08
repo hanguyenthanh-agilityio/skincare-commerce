@@ -1,16 +1,12 @@
 ---
 import { ContentBlock, HeroImage } from '@/components';
-import { loadSectionContent } from '@/i18n';
 import type { HighlightContent } from '@/types';
-import type { Locale } from '@/i18n/messages';
 
 interface Props {
-  locale?: Locale;
+  data: HighlightContent['highlight'];
 }
 
-const { locale = 'en' } = Astro.props;
-
-const data = loadSectionContent<HighlightContent>('highlight', locale);
+const { data } = Astro.props;
 
 const { subTitle, title, description, buttonText, buttonHref, align, colorScheme, variant, image } =
   data;

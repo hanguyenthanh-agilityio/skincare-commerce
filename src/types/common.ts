@@ -6,14 +6,16 @@ export interface StrapiImageType {
 }
 
 export interface HighlightContent {
-  subTitle?: string;
-  title: string;
-  description?: string;
-  buttonText?: string;
-  buttonHref?: string;
-  align?: 'left' | 'center';
-  colorScheme?: 'dark' | 'light';
-  variant?: 'outlineSoft' | 'outlineWhite';
-  image: string;
+  highlight: {
+    subTitle: string;
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonHref: string;
+    colorScheme: 'light' | 'dark';
+    variant?: 'outlineWhite' | 'outlineSoft' | undefined;
+    align: 'left' | 'center';
+    image: string;
+  };
   body?: string;
 }
