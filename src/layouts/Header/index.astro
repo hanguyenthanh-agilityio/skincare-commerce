@@ -1,6 +1,11 @@
 ---
-import { Image, Link, MainNav, Navbar } from '@/components';
-import logo from '@/assets/images/logo.png';
+
+// Constants
+import { ROUTER } from '@/constants';
+
+// Components
+import { Link, MainNav, Navbar } from '@/components';
+import { Icons } from '@/ui';
 
 interface Props {
   pathname: string;
@@ -21,10 +26,13 @@ const languageLabel = isVi ? 'VI' : 'EN';
         <Navbar className="text-sm text-primary" />
       </div>
 
-      <div class="flex-shrink-0 mx-auto">
-        <Link href="/" aria-label="Home">
-          <Image src={logo} alt="CEIN Logo" class="h-5 w-auto" />
-        </Link>
+      <!-- Center: Logo -->
+      <div class="flex shrink-0 mx-auto">
+        <h1>
+          <Link href={ROUTER.HOME} aria-label="Home">
+            <Icons.Logo />
+          </Link>
+        </h1>
       </div>
 
       <div class="flex-1 flex justify-end items-center space-x-4">

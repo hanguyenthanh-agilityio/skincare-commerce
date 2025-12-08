@@ -1,25 +1,29 @@
 ---
 // Constants
-import { FOOTER_LINKS, NAVIGATION, SOCIAL_LINKS } from '@/constants';
+import { FOOTER_LINKS, NAVIGATION, ROUTER, SOCIAL_LINKS } from '@/constants';
 
 // Components
-import { Heading, Image, Link, Typography } from '@/components';
-import { Icons } from '@/icons';
+import { Heading, Link, Typography } from '@/components';
+import { Icons } from '@/ui';
 ---
 
 <div class="hidden md:block pt-18 pb-12 mx-10 space-y-38">
   <div class="flex justify-between gap-8">
     {/* Brand & Social */}
     <div class="w-full space-y-6">
-      <Icons.Logo className="text-white" />
+      <h1>
+        <Link href={ROUTER.HOME} aria-label="Home">
+          <Icons.Logo color="white" />
+        </Link>
+      </h1>
 
       <Typography title="Follow us" level="span" className="block text-quill-grey uppercase" />
 
       <div class="flex gap-4">
         {
-          SOCIAL_LINKS.map(({ href, label, icon }) => (
+          SOCIAL_LINKS.map(({ href, label, icon: Icon }) => (
             <Link href={href} aria-label={label} className="transition-colors">
-              <Image src={icon} alt={label} />
+              <Icon />
             </Link>
           ))
         }

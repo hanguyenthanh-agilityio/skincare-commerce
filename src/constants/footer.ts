@@ -1,11 +1,9 @@
-import twitter from '@/assets/images/twitter.svg';
-import instagram from '@/assets/images/instagram.svg';
-import facebook from '@/assets/images/facebook.svg';
+import { Icons } from '@/ui';
 
 export const SOCIAL_LINKS = [
-  { icon: twitter, label: 'Twitter', href: 'https://x.com' },
-  { icon: instagram, label: 'Instagram', href: 'https://www.instagram.com' },
-  { icon: facebook, label: 'Facebook', href: 'https://www.facebook.com' },
+  { icon: Icons.Twitter, label: 'Twitter', href: 'https://x.com' },
+  { icon: Icons.Instagram, label: 'Instagram', href: 'https://www.instagram.com' },
+  { icon: Icons.Facebook, label: 'Facebook', href: 'https://www.facebook.com' },
 ];
 
 export const NAVIGATION = [
