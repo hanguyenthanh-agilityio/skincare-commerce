@@ -14,11 +14,14 @@ import { loadPageContent } from '@/i18n';
 // Types
 import type { HighlightContent } from '@/types';
 
+import HeroCarousel from '@/sections/Carousel';
+
 const locale = 'en';
 const page = loadPageContent<HighlightContent>('home', locale);
 ---
 
 <BaseLayout>
+  <HeroCarousel client:load />
   <Highlight data={page.highlight} />
 
   <UserVoice />
