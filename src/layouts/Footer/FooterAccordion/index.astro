@@ -3,7 +3,7 @@
 import { FOOTER_LINKS, NAVIGATION, SOCIAL_LINKS } from '@/constants';
 
 // Components
-import { Link, Typography, LinksList } from '@/components';
+import { Link, Typography, MenuLinks } from '@/components';
 import { Icons } from '@/ui';
 ---
 
@@ -17,7 +17,7 @@ import { Icons } from '@/ui';
           <Icons.Plus className="group-open:rotate-45 transition-transform" />
         </summary>
 
-        <LinksList
+        <MenuLinks
           links={links}
           className="pb-6 space-y-2"
           textClass="text-sm text-white transition-colors"
@@ -45,7 +45,7 @@ import { Icons } from '@/ui';
     </div>
   </div>
 
-  <LinksList links={FOOTER_LINKS} className="space-y-3.5 py-4 mb-10" />
+  <MenuLinks links={FOOTER_LINKS} className="space-y-3.5 py-4 mb-10" />
 
   {/* Copyright */}
   <Typography
