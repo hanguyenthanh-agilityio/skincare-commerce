@@ -1,0 +1,29 @@
+---
+import { cn } from '@/lib';
+
+// Types
+import type { NavLink } from '@/types';
+
+// Components
+import { Link } from '@/components';
+
+interface Props {
+  links: NavLink[];
+  className?: string;
+  textClass?: string;
+}
+
+const { links, className, textClass } = Astro.props;
+---
+
+<ul class={className}>
+  {
+    links.map(({ href, label }) => (
+      <li>
+        <Link href={href} className={cn('text-xs text-quill-grey', textClass)}>
+          {label}
+        </Link>
+      </li>
+    ))
+  }
+</ul>

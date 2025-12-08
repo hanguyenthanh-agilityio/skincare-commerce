@@ -1,7 +1,7 @@
 ---
 import '@/styles/global.css';
 
-import { Header } from '@/layouts';
+import { Footer, Header } from '@/layouts';
 
 interface Props {
   locale?: string;
@@ -24,6 +24,7 @@ const pathname = Astro.url.pathname;
     <main class="mx-auto">
       <Header pathname={pathname} />
       <slot />
+      <Footer />
     </main>
   </body>
 </html>

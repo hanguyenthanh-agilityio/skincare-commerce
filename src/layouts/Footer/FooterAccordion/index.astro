@@ -3,7 +3,8 @@
 import { FOOTER_LINKS, NAVIGATION, SOCIAL_LINKS } from '@/constants';
 
 // Components
-import { Link, Typography } from '@/components';
+import { Link, Typography, LinksList } from '@/components';
+import { Icons } from '@/ui';
 ---
 
 <div class="md:hidden max-w-md mx-auto px-5 py-9">
@@ -13,22 +14,14 @@ import { Link, Typography } from '@/components';
         <summary class="flex justify-between items-center cursor-pointer transition-colors py-9">
           <Typography title={title} level="span" className="block text-white font-bold" />
 
-          <Typography
-            title="+"
-            level="span"
-            className="block text-white text-xl group-open:rotate-45 transition-transform"
-          />
+          <Icons.Plus className="group-open:rotate-45 transition-transform" />
         </summary>
 
-        <ul class="pb-6 space-y-2">
-          {links.map(({ label, href }) => (
-            <li>
-              <Link href={href} className="text-sm text-white transition-colors block">
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <LinksList
+          links={links}
+          className="pb-6 space-y-2"
+          textClass="text-sm text-white transition-colors"
+        />
       </details>
     ))
   }
@@ -52,18 +45,7 @@ import { Link, Typography } from '@/components';
     </div>
   </div>
 
-  {/* Footer Links */}
-  <ul class="space-y-3.5 py-4 mb-10">
-    {
-      FOOTER_LINKS.map(({ href, label }) => (
-        <li>
-          <Link href={href} className="text-xs text-quill-grey">
-            {label}
-          </Link>
-        </li>
-      ))
-    }
-  </ul>
+  <LinksList links={FOOTER_LINKS} className="space-y-3.5 py-4 mb-10" />
 
   {/* Copyright */}
   <Typography

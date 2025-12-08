@@ -3,7 +3,7 @@
 import { FOOTER_LINKS, NAVIGATION, ROUTER, SOCIAL_LINKS } from '@/constants';
 
 // Components
-import { Heading, Link, Typography } from '@/components';
+import { LinksList, Heading, Link, Typography } from '@/components';
 import { Icons } from '@/ui';
 ---
 
@@ -37,15 +37,7 @@ import { Icons } from '@/ui';
           <div class="min-w-56">
             <Heading level="h6" title={title} className="text-white font-bold mb-6" />
 
-            <ul class="space-y-3.5">
-              {links.map(({ label, href }) => (
-                <li>
-                  <Link href={href} className="text-white text-sm/6">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <LinksList links={links} className="space-y-3.5" textClass="text-white text-sm/6" />
           </div>
         ))
       }
@@ -60,14 +52,6 @@ import { Icons } from '@/ui';
       className="block w-full text-xs text-quill-grey"
     />
 
-    <div class="flex w-full gap-6">
-      {
-        FOOTER_LINKS.map(({ href, label }) => (
-          <Link href={href} className="text-xs text-quill-grey">
-            {label}
-          </Link>
-        ))
-      }
-    </div>
+    <LinksList links={FOOTER_LINKS} className="flex w-full gap-6" />
   </div>
 </div>

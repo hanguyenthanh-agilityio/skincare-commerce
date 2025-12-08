@@ -37,6 +37,27 @@ export const Icons = {
     </svg>
   ),
 
+  Plus: (props: IconProps) => (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g clipPath="url(#clip0_4510_585)">
+        <path d="M3.125 10H16.875" stroke="white" stroke-linecap="round" strokeLinejoin="round" />
+        <path d="M10 3.125V16.875" stroke="white" stroke-linecap="round" strokeLinejoin="round" />
+      </g>
+      <defs>
+        <clipPath id="clip0_4510_585">
+          <rect width="20" height="20" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
+
   /** Hamburger */
   Hamburger: (props: IconProps) => (
     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
