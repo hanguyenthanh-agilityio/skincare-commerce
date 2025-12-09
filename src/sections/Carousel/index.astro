@@ -1,0 +1,51 @@
+---
+import { ContentBlock } from '@/components';
+import EmblaCarousel from '@/components/EmblaCarousel';
+
+const slides = [
+  {
+    image:
+      'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg',
+    title: 'Highly Effective Body Care',
+    description:
+      'A combination of natural and advanced technology, ensures you will enjoy a healthy and effective skin care experience.',
+    button: 'Discover More',
+  },
+  {
+    image:
+      'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg',
+    title: 'Gentle Skincare',
+    description: 'Hydrate and nourish your skin with our gentle formulas.',
+    button: 'Learn More',
+  },
+  {
+    image:
+      'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg',
+    title: 'Radiant Glow',
+    description: 'Achieve a natural glow with our special skincare line.',
+    button: 'Shop Now',
+  },
+];
+
+let selectedIndex = 0;
+
+// Callback from React
+const handleSlideChange = (i: number) => {
+  selectedIndex = i;
+};
+---
+
+<div class="relative w-full overflow-hidden">
+  <!-- React carousel -->
+  <EmblaCarousel client:load slides={slides} onSlideChange={handleSlideChange} />
+
+  <!-- Overlay (Astro component) -->
+  <div class="absolute inset-0 pointer-events-auto">
+    <ContentBlock
+      title={slides[selectedIndex].title}
+      description={slides[selectedIndex].description}
+      buttonText={slides[selectedIndex].button}
+      className="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-24 bg-black/30 text-white"
+    />
+  </div>
+</div>

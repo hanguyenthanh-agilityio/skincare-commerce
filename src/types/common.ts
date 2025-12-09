@@ -5,6 +5,13 @@ export interface StrapiImageType {
   alternativeText?: string;
 }
 
+export type Slide = {
+  image: string;
+  title: string;
+  description: string;
+  button: string;
+};
+
 export interface HighlightContent {
   highlight: {
     subTitle: string;
