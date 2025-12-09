@@ -9,4 +9,18 @@ highlight:
   variant: 'outlineWhite'
   align: 'left'
   image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+
+slides:
+  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+    title: 'Highly Effective Body Care'
+    description: 'A combination of natural and advanced technology, ensures you will enjoy a healthy and effective skin care experience.'
+    button: 'Discover More'
+  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+    title: 'Gentle Skincare'
+    description: 'Hydrate and nourish your skin with our gentle formulas.'
+    button: 'Learn More'
+  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+    title: 'Radiant Glow'
+    description: 'Achieve a natural glow with our special skincare line.'
+    button: 'Shop Now'
 ---

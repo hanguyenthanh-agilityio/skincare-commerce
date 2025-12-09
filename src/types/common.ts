@@ -12,7 +12,7 @@ export type Slide = {
   button: string;
 };
 
-export interface HighlightContent {
+export interface HomeContent {
   highlight: {
     subTitle: string;
     title: string;
@@ -24,5 +24,6 @@ export interface HighlightContent {
     align: 'left' | 'center';
     image: string;
   };
+  carousel: Slide[];
   body?: string;
 }

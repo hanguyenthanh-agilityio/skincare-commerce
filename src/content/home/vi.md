@@ -9,4 +9,18 @@ highlight:
   variant: 'outlineWhite'
   align: 'left'
   image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+
+slides:
+  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+    title: 'Chăm sóc cơ thể hiệu quả cao'
+    description: 'Kết hợp công nghệ và thiên nhiên...'
+    button: 'Khám phá ngay'
+  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+    title: 'Dịu nhẹ cho làn da'
+    description: 'Cấp ẩm và nuôi dưỡng làn da...'
+    button: 'Tìm hiểu thêm'
+  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+    title: 'Làn da rạng rỡ'
+    description: 'Mang lại vẻ rạng rỡ tự nhiên...'
+    button: 'Mua ngay'
 ---
