@@ -21,7 +21,7 @@ const page = loadPageContent<HomeContent>('home', locale);
 ---
 
 <BaseLayout>
-  <Carousel client:load />
+  <Carousel slides={page.carousel} client:load />
   <Highlight data={page.highlight} />
 
   <UserVoice />

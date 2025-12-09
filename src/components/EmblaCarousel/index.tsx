@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
-// UIsUIs
+// UIs
 import { Button } from '@/ui';
 
 // Components
-import { StrapiImage } from '@/components';
+import { StrapiImage, ContentBlockWrapper } from '@/components';
 
 // Types
 import type { Slide } from '@/types';
 
-export type HeroCarouselReactProps = {
+interface EmblaCarouselProps {
   slides: Slide[];
-  onSlideChange?: (index: number) => void;
-};
+  autoPlayInterval?: number;
+}
 
-const EmblaCarousel = ({ slides, onSlideChange }: HeroCarouselReactProps) => {
+const EmblaCarousel: FC<EmblaCarouselProps> = ({ slides, autoPlayInterval = 8000 }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -23,41 +23,60 @@ const EmblaCarousel = ({ slides, onSlideChange }: HeroCarouselReactProps) => {
   useEffect((): (() => void) | void => {
     if (!emblaApi) return;
 
-    const handleSelect = () => {
-      const index = emblaApi.selectedScrollSnap();
-      setSelectedIndex(index);
-      onSlideChange?.(index);
-    };
-
+    const handleSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     emblaApi.on('select', handleSelect);
+
+    // Set initial index
     handleSelect();
 
     return () => emblaApi.off('select', handleSelect);
-  }, [emblaApi, onSlideChange]);
+  }, [emblaApi]);
 
   // Auto play
   useEffect(() => {
     if (!emblaApi) return;
-
-    const interval = setInterval(() => emblaApi.scrollNext(), 8000);
+    const interval = setInterval(() => emblaApi.scrollNext(), autoPlayInterval);
     return () => clearInterval(interval);
-  }, [emblaApi]);
+  }, [emblaApi, autoPlayInterval]);
+
+  if (!slides.length) return null;
+
+  const currentSlide = slides[selectedIndex];
 
   return (
-    <>
-      {/* Slider container */}
+    <div className="relative w-full overflow-hidden">
+      {/* Slider */}
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {slides.map((slide, idx) => (
             <div key={idx} className="flex-shrink-0 w-full relative">
-              <StrapiImage
-                image={slide.image}
-                className="w-full h-[400px] md:h-[600px] object-cover"
-              />
+              {slide.image && (
+                <StrapiImage
+                  image={slide.image}
+                  className="w-full h-[400px] md:h-[600px] object-cover"
+                />
+              )}
             </div>
           ))}
         </div>
       </div>
+
+      {/* Overlay content */}
+      {currentSlide && (
+        <div className="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-24 bg-black/30 text-white">
+          <ContentBlockWrapper
+            title={currentSlide.title}
+            subTitle={currentSlide.subTitle}
+            description={currentSlide.description}
+            buttonText={currentSlide.buttonText}
+            buttonHref={currentSlide.buttonHref}
+            align={currentSlide.align}
+            colorScheme={currentSlide.colorScheme}
+            variant={currentSlide.variant}
+            className="max-w-sm lg:max-w-md px-6 md:px-12"
+          />
+        </div>
+      )}
 
       {/* Navigation dots */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-50">
@@ -65,13 +84,13 @@ const EmblaCarousel = ({ slides, onSlideChange }: HeroCarouselReactProps) => {
           <Button
             key={idx}
             type="button"
-            onClick={() => emblaApi && emblaApi.scrollTo(idx)}
+            onClick={() => emblaApi?.scrollTo(idx)}
             data-active={idx === selectedIndex}
             className="w-3 h-3 rounded-full bg-white/40 data-[active=true]:bg-white transition"
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
