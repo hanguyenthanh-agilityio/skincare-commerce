@@ -1,4 +1,4 @@
-import { useEffect, useState, FC } from 'react';
+import { useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
 // UIs
@@ -15,7 +15,7 @@ interface EmblaCarouselProps {
   autoPlayInterval?: number;
 }
 
-const EmblaCarousel: FC<EmblaCarouselProps> = ({ slides, autoPlayInterval = 8000 }) => {
+const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, autoPlayInterval = 8000 }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
