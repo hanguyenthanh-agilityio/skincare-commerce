@@ -6,6 +6,8 @@ import { Button, Icons } from '@/ui';
 
 // Components
 import { HeadingWrapper, LinkWrapper, TypographyWrapper } from '@/components';
+
+// Types
 import type { ContentBlockType } from '@/types';
 
 const ContentBlockWrapper: React.FC<ContentBlockType> = ({
