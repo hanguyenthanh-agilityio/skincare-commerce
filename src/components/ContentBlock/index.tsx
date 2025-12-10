@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Button, Icons } from '@/ui';
 
 // Components
-import { Heading, LinkWrapper, Typography } from '@/components';
+import { HeadingWrapper, LinkWrapper, TypographyWrapper } from '@/components';
 
 // Types
 import type { ContentBlockType } from '@/types';
@@ -48,17 +48,25 @@ const ContentBlockWrapper: React.FC<ContentBlockType> = ({
   return (
     <div className={cn('flex flex-col gap-4', alignment, className)}>
       {subTitle && (
-        <Typography
+        <TypographyWrapper
           level="p"
           title={subTitle}
           className={cn('text-sm tracking-wide', scheme.subTitle)}
         />
       )}
 
-      <Heading level="h2" title={title} className={cn('font-normal max-w-xl', scheme.title)} />
+      <HeadingWrapper
+        level="h2"
+        title={title}
+        className={cn('font-normal max-w-xl', scheme.title)}
+      />
 
       {description && (
-        <Typography level="p" title={description} className={cn('max-w-lg', scheme.description)} />
+        <TypographyWrapper
+          level="p"
+          title={description}
+          className={cn('max-w-lg', scheme.description)}
+        />
       )}
 
       {buttonText && (
