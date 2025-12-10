@@ -15,7 +15,7 @@ interface EmblaCarouselProps {
   autoPlayInterval?: number;
 }
 
-const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, autoPlayInterval = 8000 }) => {
+const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -23,7 +23,10 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, autoPlayInterval 
   useEffect((): (() => void) | void => {
     if (!emblaApi) return;
 
-    const handleSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    const handleSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+
     emblaApi.on('select', handleSelect);
 
     // Set initial index
@@ -66,7 +69,7 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, autoPlayInterval 
 
       {/* Overlay content */}
       {currentSlide && (
-        <div className="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-24 bg-black/30 text-white">
+        <div className="absolute inset-0 flex flex-col justify-center items-start bg-black/30 text-white">
           <ContentBlockWrapper
             title={title}
             subTitle={subTitle}
