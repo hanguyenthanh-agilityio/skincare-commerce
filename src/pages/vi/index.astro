@@ -9,18 +9,22 @@ import { BlogList, ProductList } from '@/components';
 import { UserVoice, Highlight, Feature, Quote } from '@/sections';
 
 // I18n
-import { loadPageContent } from '@/i18n';
+import { loadContent } from '@/i18n';
 
 // Types
 import type { HomeContent } from '@/types';
 
 import { Carousel } from '@/sections';
 
-const locale = 'vi';
-const page = loadPageContent<HomeContent>('home', locale);
+// Constants
+import { LOCALES } from '@/constants';
+
+const locale = LOCALES.VI;
+
+const page = loadContent<HomeContent>('home', locale);
 ---
 
-<BaseLayout>
+<BaseLayout {locale}>
   <Carousel slides={page.carousel} client:load />
   <Feature
     data={page.feature}

@@ -1,0 +1,67 @@
+---
+// Constants
+import { ROUTER, SOCIAL_LINKS } from '@/constants';
+
+// Types
+import type { FooterContent, Locale } from '@/types';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Components
+import { MenuLinks, Heading, Link, Typography } from '@/components';
+import { Icons } from '@/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const footer = loadContent<FooterContent>('footer', locale);
+
+const { navigation, footerLinks, socialTitle, copyright } = footer;
+---
+
+<div class="hidden md:block pt-18 pb-12 mx-10 space-y-38">
+  <div class="flex justify-between gap-8">
+    {/* Brand & Social */}
+    <div class="w-full space-y-6">
+      <Link href={ROUTER.HOME} aria-label="Home">
+        <Icons.Logo color="white" />
+      </Link>
+
+      <Typography title={socialTitle} level="span" className="block text-quill-grey uppercase" />
+
+      <div class="flex gap-4">
+        {
+          SOCIAL_LINKS.map(({ href, label, icon: Icon }) => (
+            <Link href={href} aria-label={label} className="transition-colors">
+              <Icon />
+            </Link>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Navigation Columns */}
+    <div class="w-full flex">
+      {
+        navigation.map(({ title, links }) => (
+          <div class="min-w-56">
+            <Heading level="h6" title={title} className="text-white font-bold mb-6" />
+
+            <MenuLinks links={links} className="space-y-3.5" textClass="text-white text-sm/6" />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  {/* Divider */}
+  <div class="flex gap-10">
+    <Typography level="span" title={copyright} className="block w-full text-xs text-quill-grey" />
+
+    <MenuLinks links={footerLinks} className="flex w-full gap-6" />
+  </div>
+</div>

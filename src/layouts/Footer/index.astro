@@ -1,0 +1,19 @@
+---
+// Types
+import type { Locale } from '@/types';
+
+// Components
+import FooterAccordion from '@/layouts/Footer/FooterAccordion/index.astro';
+import FooterExpanded from '@/layouts/Footer/FooterExpanded/index.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<footer class="bg-destructive-foreground">
+  <FooterAccordion {locale} />
+  <FooterExpanded {locale} />
+</footer>

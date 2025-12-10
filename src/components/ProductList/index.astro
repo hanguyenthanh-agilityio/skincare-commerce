@@ -6,8 +6,8 @@ import { ProductCard, Typography } from '@/components';
 
 interface Props {
   products: TProduct[];
-  limitDesktop: number;
-  limitMobile: number;
+  limitDesktop?: number;
+  limitMobile?: number;
 }
 
 const { products, limitDesktop = 4, limitMobile = 2 } = Astro.props;

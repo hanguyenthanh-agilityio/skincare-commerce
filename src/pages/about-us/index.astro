@@ -1,0 +1,49 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// Sections
+import { Highlight, Feature, Quote } from '@/sections';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { AboutContent } from '@/types';
+
+// Constants
+import { LOCALES } from '@/constants';
+
+import { StrapiImage } from '@/components';
+
+const locale = LOCALES.EN;
+
+const about = loadContent<AboutContent>('about', locale);
+---
+
+<BaseLayout {locale}>
+  <Feature
+    data={about.feature}
+    imageWrapperClass=" h-highlight-mobile lg:h-highlight-xl"
+    reverse={true}
+  />
+
+  <Feature
+    data={about.feature}
+    imageWrapperClass=" h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
+  />
+
+  <StrapiImage image={about.image} className="px-12 pb-12 max-h-highlight-xl w-full" client:idle />
+
+  <Quote
+    title={about.quote.title}
+    description={about.quote.description}
+    className="py-15 px-5 md:px-15"
+    sectionClassName="h-highlight-md md:h-highlight-lg"
+  />
+
+  <div class="flex">
+    <Highlight data={about.highlight} />
+    <Highlight data={about.highlight} />
+  </div>
+</BaseLayout>
