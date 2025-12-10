@@ -1,0 +1,41 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// Sections
+import { Highlight, Feature, Quote } from '@/sections';
+
+// I18n
+import { loadPageContent } from '@/i18n';
+
+// Types
+import type { HomeContent } from '@/types';
+
+const locale = 'en';
+const page = loadPageContent<HomeContent>('home', locale);
+---
+
+<BaseLayout>
+  <Feature
+    data={page.feature}
+    imageWrapperClass=" h-highlight-mobile lg:h-highlight-xl"
+    reverse={true}
+  />
+
+  <Feature
+    data={page.feature}
+    imageWrapperClass=" h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
+  />
+
+  <Quote
+    title={page.quote.title}
+    description={page.quote.description}
+    className="py-15 px-5 md:px-15"
+    sectionClassName="h-highlight-md md:h-highlight-lg"
+  />
+
+  <div class="flex">
+    <Highlight data={page.highlight} />
+    <Highlight data={page.highlight} />
+  </div>
+</BaseLayout>
