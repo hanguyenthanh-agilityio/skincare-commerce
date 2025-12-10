@@ -1,0 +1,68 @@
+---
+// Constants
+import { SOCIAL_LINKS } from '@/constants';
+
+// Types
+import type { FooterContent, Locale } from '@/types';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Components
+import { Link, Typography, MenuLinks } from '@/components';
+import { Icons } from '@/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const footer = loadContent<FooterContent>('footer', locale);
+
+const { navigation, footerLinks, socialTitle, copyright } = footer;
+---
+
+<div class="md:hidden max-w-md mx-auto px-5 py-9">
+  {
+    navigation.map(({ title, links }) => (
+      <details class="group border-b border-quill-grey">
+        <summary class="flex justify-between items-center cursor-pointer transition-colors py-9">
+          <Typography title={title} level="span" className="block text-white font-bold" />
+
+          <Icons.Plus className="group-open:rotate-45 transition-transform" />
+        </summary>
+
+        <MenuLinks
+          links={links}
+          className="pb-6 space-y-2"
+          textClass="text-sm text-white transition-colors"
+        />
+      </details>
+    ))
+  }
+
+  {/* Social Links */}
+  <div class="space-y-6 my-10">
+    <Typography
+      title={socialTitle}
+      level="span"
+      className="block text-xs text-quill-grey uppercase"
+    />
+
+    <div class="flex gap-4">
+      {
+        SOCIAL_LINKS.map(({ href, label, icon: Icon }) => (
+          <Link href={href} aria-label={label} className="transition-colors">
+            <Icon />
+          </Link>
+        ))
+      }
+    </div>
+  </div>
+
+  <MenuLinks links={footerLinks} className="space-y-3.5 py-4 mb-10" />
+
+  {/* Copyright */}
+  <Typography level="span" title={copyright} className="block w-full text-xs text-quill-grey" />
+</div>

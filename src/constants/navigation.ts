@@ -25,7 +25,7 @@ export const DROPDOWN_MENU_DATA = [
 ];
 
 export const NAV_LINKS = [
-  { label: 'About Us', href: '/about' },
+  { label: 'About Us', href: '/about-us' },
   { label: 'Journal', href: '/journal' },
   { label: 'Stores', href: '/stores' },
 ];

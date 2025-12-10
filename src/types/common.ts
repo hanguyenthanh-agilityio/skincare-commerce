@@ -1,3 +1,5 @@
+import type { MarkdownData } from '@/i18n';
+
 export interface StrapiImageType {
   url: string;
   width?: number;
@@ -48,7 +50,7 @@ export interface QuoteSection {
 }
 
 // Combining all sections the page needs
-export interface HomeContent {
+export interface HomeContent extends MarkdownData {
   highlight: HighlightSection;
   carousel: Slide[];
   feature: FeatureSection;
