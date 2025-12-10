@@ -4,6 +4,10 @@ export { default as DrawerMenu } from './DrawerMenu';
 export { default as AddToCartButton } from './AddToCartButton';
 export { default as LinkWrapper } from './LinkWrapper';
 export { default as StrapiImage } from './StrapiImage';
+export { default as EmblaCarousel } from './EmblaCarousel';
+export { default as HeadingWrapper } from './Heading';
+export { default as TypographyWrapper } from './Typography';
+export { default as ContentBlockWrapper } from './ContentBlock';
 
 // Export with astro file
 export { default as Link } from './Link/index.astro';

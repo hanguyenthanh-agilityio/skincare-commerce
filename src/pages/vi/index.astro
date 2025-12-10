@@ -2,19 +2,31 @@
 // Layouts
 import { BaseLayout } from '@/layouts';
 
+// Components
+import { BlogList, ProductList } from '@/components';
+
 // Sections
-import { Highlight } from '@/sections';
+import { UserVoice, Highlight } from '@/sections';
 
 // I18n
 import { loadPageContent } from '@/i18n';
 
 // Types
-import type { HighlightContent } from '@/types';
+import type { HomeContent } from '@/types';
+
+import { Carousel } from '@/sections';
 
 const locale = 'vi';
-const page = loadPageContent<HighlightContent>('home', locale);
+const page = loadPageContent<HomeContent>('home', locale);
 ---
 
 <BaseLayout>
+  <Carousel slides={page.carousel} client:load />
   <Highlight data={page.highlight} />
+
+  <UserVoice />
+
+  <ProductList products={[]} limitDesktop={8} limitMobile={4} />
+
+  <BlogList blogs={[]} />
 </BaseLayout>

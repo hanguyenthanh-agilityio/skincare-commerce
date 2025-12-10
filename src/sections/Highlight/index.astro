@@ -1,9 +1,9 @@
 ---
 import { ContentBlock, HeroImage } from '@/components';
-import type { HighlightContent } from '@/types';
+import type { HomeContent } from '@/types';
 
 interface Props {
-  data: HighlightContent['highlight'];
+  data: HomeContent['highlight'];
 }
 
 const { data } = Astro.props;
@@ -13,7 +13,7 @@ const { subTitle, title, description, buttonText, buttonHref, align, colorScheme
 ---
 
 <section class="relative w-full h-hero-mobile md:h-hero-desktop overflow-hidden">
-  <HeroImage src={image} className="absolute inset-0 w-full h-full" />
+  <HeroImage src={image ?? ''} className="absolute inset-0 w-full h-full" />
 
   <div class="absolute inset-0 bg-black/40 md:bg-black/25"></div>
 
