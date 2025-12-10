@@ -27,11 +27,9 @@ const { navigation, footerLinks, socialTitle, copyright } = footer;
   <div class="flex justify-between gap-8">
     {/* Brand & Social */}
     <div class="w-full space-y-6">
-      <h1>
-        <Link href={ROUTER.HOME} aria-label="Home">
-          <Icons.Logo color="white" />
-        </Link>
-      </h1>
+      <Link href={ROUTER.HOME} aria-label="Home">
+        <Icons.Logo color="white" />
+      </Link>
 
       <Typography title={socialTitle} level="span" className="block text-quill-grey uppercase" />
 
