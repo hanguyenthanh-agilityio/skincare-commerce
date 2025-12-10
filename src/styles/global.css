@@ -28,7 +28,7 @@
   --accent: oklch(0.97 0 0); /* pearl */
   --accent-foreground: oklch(0.205 0 0);
 
-  --destructive: oklch(0.577 0.245 27.325); /* warmLinen */
+  --destructive: oklch(0.928 0.015 106.68); /* warmLinen */
   --destructive-foreground: #333333;
 
   --surface: oklch(0.985 0.004 112.03);
@@ -145,10 +145,17 @@
   /* hero heights */
   --h-hero-mobile: 520px;
   --h-hero-desktop: 580px;
+  --h-highlight-mobile: 300px;
+  --h-highlight-md: 370px;
+  --h-highlight-lg: 400px;
+  --h-highlight-xl: 560px;
 
   /* expose heights */
   --height-hero-mobile: var(--h-hero-mobile);
   --height-hero-desktop: var(--h-hero-desktop);
+  --height-highlight-mobile: var(--h-highlight-mobile);
+  --height-highlight-lg: var(--h-highlight-lg);
+  --height-highlight-xl: var(--h-highlight-xl);
 
   /* expose spacing */
   --spacing-18: var(--spacing--custom-18);
@@ -250,5 +257,29 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Custom container (default) */
+  .container {
+    max-width: var(--container-xl);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Custom container md */
+  .container-md {
+    max-width: var(--container-md);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Custom container lg */
+  .container-lg {
+    max-width: var(--container-lg);
+    width: 100%;
+    margin-inline: auto;
   }
 }

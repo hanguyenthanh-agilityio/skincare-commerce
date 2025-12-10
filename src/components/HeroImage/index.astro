@@ -1,8 +1,9 @@
 ---
 import { StrapiImage } from '@/components';
+import type { StrapiImageType } from '@/types';
 
 interface Props {
-  src: string;
+  src: string | StrapiImageType | null | undefined;
   className?: string;
 }
 
