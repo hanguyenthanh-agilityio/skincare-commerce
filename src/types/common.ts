@@ -26,5 +26,9 @@ export interface HomeContent {
   highlight: HighlightData;
   carousel: Slide[];
   feature: ContentBlockType;
+  quote: {
+    title: string;
+    description: string;
+  };
   body?: string;
 }

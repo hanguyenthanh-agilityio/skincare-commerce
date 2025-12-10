@@ -6,7 +6,7 @@ import { BaseLayout } from '@/layouts';
 import { BlogList, ProductList } from '@/components';
 
 // Sections
-import { UserVoice, Highlight, Feature } from '@/sections';
+import { UserVoice, Highlight, Feature, Quote } from '@/sections';
 
 // I18n
 import { loadPageContent } from '@/i18n';
@@ -22,11 +22,21 @@ const page = loadPageContent<HomeContent>('home', locale);
 
 <BaseLayout>
   <Carousel slides={page.carousel} client:load />
-  <Highlight data={page.highlight} />
+
   <Feature
     data={page.feature}
     imageWrapperClass=" h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
   />
+
+  <Highlight data={page.highlight} />
+
+  <Quote
+    title={page.quote.title}
+    description={page.quote.description}
+    className="py-15 px-5 md:px-15"
+    sectionClassName="h-highlight-md md:h-highlight-lg"
+  />
+
   <UserVoice />
 
   <ProductList products={[]} limitDesktop={8} limitMobile={4} />

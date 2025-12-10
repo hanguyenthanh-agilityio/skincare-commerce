@@ -1,0 +1,23 @@
+---
+// Components
+import { Heading, Typography } from '@/components';
+
+// Libs
+import { cn } from '@/lib';
+
+interface Props {
+  title: string;
+  description: string;
+  className?: string;
+  sectionClassName?: string;
+}
+
+const { title, description, className, sectionClassName } = Astro.props;
+---
+
+<section class={cn('bg-destructive flex items-center', sectionClassName)}>
+  <div class={cn('container-md flex flex-col justify-center items-center gap-3 h-full', className)}>
+    <Heading level="h2" title={title} className="text-center" />
+    <Typography level="span" title={description} className="uppercase" />
+  </div>
+</section>

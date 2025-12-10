@@ -46,4 +46,8 @@ feature:
   variant: 'outlineSoft'
   align: 'left'
   image: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945'
+
+quote:
+  title: 'Vô số câu trả lời nằm trong sự kỳ diệu của thiên nhiên, đang chờ chúng ta khám phá và trải nghiệm.'
+  description: 'Tương lai của chăm sóc da tự nhiên'
 ---
