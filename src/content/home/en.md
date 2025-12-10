@@ -35,4 +35,15 @@ carousel:
     colorScheme: 'light'
     variant: 'outlineWhite'
     align: 'left'
+
+feature:
+  subTitle: 'Revitalize Your Body'
+  title: 'Effective Ingredients for Visible Results'
+  description: 'Our body products are rich in highly effective ingredients, achieve visible results, firm the skin and leave it feeling soft and supple.'
+  buttonText: 'Discover More'
+  buttonHref: '/products'
+  colorScheme: 'dark'
+  variant: 'outlineSoft'
+  align: 'left'
+  image: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945'
 ---

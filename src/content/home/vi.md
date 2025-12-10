@@ -35,4 +35,15 @@ carousel:
     colorScheme: 'light'
     variant: 'outlineWhite'
     align: 'left'
+
+feature:
+  subTitle: 'Tái tạo năng lượng cho cơ thể'
+  title: 'Thành phần hiệu quả cho kết quả rõ rệt'
+  description: 'Các sản phẩm chăm sóc cơ thể của chúng tôi giàu thành phần hiệu quả cao, mang lại kết quả rõ rệt và giúp làn da mềm mại.'
+  buttonText: 'Khám phá thêm'
+  buttonHref: '/san-pham'
+  colorScheme: 'dark'
+  variant: 'outlineSoft'
+  align: 'left'
+  image: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945'
 ---

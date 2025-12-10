@@ -25,5 +25,6 @@ export type HighlightData = ContentBlockType;
 export interface HomeContent {
   highlight: HighlightData;
   carousel: Slide[];
+  feature: ContentBlockType;
   body?: string;
 }

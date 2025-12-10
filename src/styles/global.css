@@ -145,10 +145,16 @@
   /* hero heights */
   --h-hero-mobile: 520px;
   --h-hero-desktop: 580px;
+  --h-highlight-mobile: 300px;
+  --h-highlight-lg: 400px;
+  --h-highlight-xl: 560px;
 
   /* expose heights */
   --height-hero-mobile: var(--h-hero-mobile);
   --height-hero-desktop: var(--h-hero-desktop);
+  --height-highlight-mobile: var(--h-highlight-mobile);
+  --height-highlight-lg: var(--h-highlight-lg);
+  --height-highlight-xl: var(--h-highlight-xl);
 
   /* expose spacing */
   --spacing-18: var(--spacing--custom-18);
