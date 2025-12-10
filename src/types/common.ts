@@ -49,11 +49,28 @@ export interface QuoteSection {
   description: string;
 }
 
+export interface ProductSection {
+  title: string;
+  subtitle: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+export interface BlogSection {
+  title: string;
+  subtitle: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
 // Combining all sections the page needs
 export interface HomeContent extends MarkdownData {
   highlight: HighlightSection;
   carousel: Slide[];
   feature: FeatureSection;
   quote: QuoteSection;
+  product: ProductSection;
+  blog: BlogSection;
   body?: string;
 }

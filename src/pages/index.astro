@@ -2,9 +2,6 @@
 // Layouts
 import { BaseLayout } from '@/layouts';
 
-// Components
-import { BlogList, ProductList } from '@/components';
-
 // Sections
 import { UserVoice, Highlight, Feature, Quote } from '@/sections';
 
@@ -14,36 +11,41 @@ import { loadContent } from '@/i18n';
 // Types
 import type { HomeContent } from '@/types';
 
-import { Carousel } from '@/sections';
+import { Carousel, Product, Blog } from '@/sections';
 
 // Constants
 import { LOCALES } from '@/constants';
 
+// Mocks
+import { MOCKS_BLOGS, MOCKS_PRODUCTS } from '@/mocks';
+
 const locale = LOCALES.EN;
 
 const page = loadContent<HomeContent>('home', locale);
+
+const { carousel, feature, highlight, quote, product, blog } = page;
 ---
 
 <BaseLayout {locale}>
-  <Carousel slides={page.carousel} client:load />
+  <Carousel slides={carousel} client:load />
 
   <Feature
-    data={page.feature}
+    data={feature}
     imageWrapperClass=" h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
   />
 
-  <Highlight data={page.highlight} />
+  <Highlight data={highlight} />
+
+  <Product {...product} products={MOCKS_PRODUCTS} className="mx-5 md:mx-8" />
 
   <Quote
-    title={page.quote.title}
-    description={page.quote.description}
+    title={quote.title}
+    description={quote.description}
     className="py-15 px-5 md:px-15"
     sectionClassName="h-highlight-md md:h-highlight-lg"
   />
 
   <UserVoice />
 
-  <ProductList products={[]} limitDesktop={8} limitMobile={4} />
-
-  <BlogList blogs={[]} />
+  <Blog {...blog} blogs={MOCKS_BLOGS} className="mx-5 md:mx-8" />
 </BaseLayout>

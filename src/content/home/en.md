@@ -50,4 +50,17 @@ feature:
 quote:
   title: 'Countless answers lie within natures genius, awaiting our exploration and engagement.'
   description: 'The future of natural skincare'
+
+product:
+  title: 'Supreme Skin Fortification'
+  subTitle: 'Parsley Seed Skin Care'
+  description: 'Discover our potent antioxidant-rich Parsley Seed Skin Care perfect for all skin types.'
+  ctaLabel: 'All Products'
+  ctaHref: '/products'
+
+blog:
+  title: 'Our Journal'
+  subtitle: 'Insights into Health and Well-being'
+  ctaLabel: 'All Blog Posts'
+  ctaHref: '/blogs'
 ---

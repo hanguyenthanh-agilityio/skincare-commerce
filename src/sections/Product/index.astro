@@ -1,0 +1,24 @@
+---
+// Types
+import type { TProduct } from '@/types';
+
+// Components
+import { ProductList } from '@/components';
+import { SectionWrapper } from '@/layouts';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  products: TProduct[];
+  className?: string;
+}
+
+const { title, subtitle, description, ctaHref, ctaLabel, products, className } = Astro.props;
+---
+
+<SectionWrapper {title} {subtitle} {description} {ctaHref} {ctaLabel} {className}>
+  <ProductList products={products} />
+</SectionWrapper>
