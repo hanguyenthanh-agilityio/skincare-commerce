@@ -23,9 +23,7 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
   useEffect((): (() => void) | void => {
     if (!emblaApi) return;
 
-    const handleSelect = () => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
-    };
+    const handleSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
 
     emblaApi.on('select', handleSelect);
 
