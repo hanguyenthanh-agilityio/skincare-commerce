@@ -22,24 +22,18 @@ const page = loadPageContent<HomeContent>('home', locale);
 
 <BaseLayout>
   <Carousel slides={page.carousel} client:load />
-
   <Feature
     data={page.feature}
     imageWrapperClass=" h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
   />
-
   <Highlight data={page.highlight} />
-
   <Quote
     title={page.quote.title}
     description={page.quote.description}
     className="py-15 px-5 md:px-15"
     sectionClassName="h-highlight-md md:h-highlight-lg"
   />
-
   <UserVoice />
-
   <ProductList products={[]} limitDesktop={8} limitMobile={4} />
-
   <BlogList blogs={[]} />
 </BaseLayout>
