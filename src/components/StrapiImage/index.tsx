@@ -1,7 +1,5 @@
 // Libs
 import { cn } from '@/lib';
-
-// Types
 import type { StrapiImageType } from '@/types';
 
 interface StrapiImageProps {
@@ -26,13 +24,14 @@ const StrapiImage = ({
   srcSetWidths = [320, 640, 960, 1280, 1600],
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
 }: StrapiImageProps) => {
-  const imageNode: StrapiImageType | null =
+  // Normalize input into unified object
+  const normalized: StrapiImageType | null =
     typeof image === 'string' ? { url: image } : (image ?? null);
 
-  if (!imageNode?.url) {
+  // Fallback for missing image
+  if (!normalized?.url) {
     return (
       <div
-        data-testid="strapi-image-fallback"
         className={cn('bg-gray-100 rounded-xl', className)}
         style={{ aspectRatio: fallbackAspectRatio }}
         role="presentation"
@@ -40,30 +39,26 @@ const StrapiImage = ({
     );
   }
 
-  const intrinsicWidth = imageNode.width || width;
-  const intrinsicHeight = imageNode.height || height || width / fallbackAspectRatio;
+  const intrinsicWidth = normalized.width || width;
+  const intrinsicHeight = normalized.height || height;
 
-  const srcSet = srcSetWidths.map((w) => `${imageNode.url}?w=${w} ${w}w`).join(', ');
-
-  const style: React.CSSProperties = {};
-  if (fallbackAspectRatio !== 0) {
-    style.aspectRatio = intrinsicWidth / intrinsicHeight;
-  }
+  const srcSet = srcSetWidths.map((w) => `${normalized.url}?w=${w} ${w}w`).join(', ');
 
   return (
     <img
-      src={imageNode.url}
+      src={normalized.url}
       srcSet={srcSet}
       sizes={sizes}
       width={intrinsicWidth}
       height={intrinsicHeight}
-      alt={imageNode.alternativeText || ''}
-      title={imageNode.alternativeText || undefined}
+      alt={normalized.alternativeText || ''}
       className={cn('w-full h-full object-contain', className)}
+      loading={priority ? 'eager' : 'lazy'}
       decoding="async"
       fetchPriority={priority ? 'high' : 'auto'}
-      loading={priority ? 'eager' : 'lazy'}
-      style={style}
+      style={{
+        aspectRatio: intrinsicWidth / intrinsicHeight,
+      }}
     />
   );
 };
