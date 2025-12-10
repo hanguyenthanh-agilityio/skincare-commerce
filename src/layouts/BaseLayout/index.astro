@@ -1,10 +1,13 @@
 ---
 import '@/styles/global.css';
 
+// Types
+import type { Locale } from '@/types';
+
 import { Footer, Header } from '@/layouts';
 
 interface Props {
-  locale?: string;
+  locale: Locale;
 }
 
 const { locale = 'en' } = Astro.props;
@@ -24,7 +27,7 @@ const pathname = Astro.url.pathname;
     <main class="mx-auto">
       <Header pathname={pathname} />
       <slot />
-      <Footer />
+      <Footer locale={locale} />
     </main>
   </body>
 </html>
