@@ -7,19 +7,10 @@ import { Button, Icons } from '@/ui';
 // Components
 import { Heading, LinkWrapper, Typography } from '@/components';
 
-interface ContentBlockProps {
-  title: string;
-  subTitle?: string;
-  description?: string;
-  buttonText?: string;
-  buttonHref?: string;
-  align?: 'left' | 'center';
-  colorScheme?: 'dark' | 'light';
-  variant?: 'outlineSoft' | 'outlineWhite';
-  className?: string;
-}
+// Types
+import type { ContentBlockType } from '@/types';
 
-const ContentBlockWrapper: React.FC<ContentBlockProps> = ({
+const ContentBlockWrapper: React.FC<ContentBlockType> = ({
   title,
   subTitle,
   description,
