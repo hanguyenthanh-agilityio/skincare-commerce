@@ -11,7 +11,7 @@ highlight:
   image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
 
 carousel:
-  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+  - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668478701806.png?v=1761330608'
     title: 'Chăm sóc cơ thể hiệu quả cao'
     description: 'Kết hợp công nghệ và thiên nhiên...'
     buttonText: 'Khám phá ngay'
@@ -19,7 +19,7 @@ carousel:
     colorScheme: 'light'
     variant: 'outlineWhite'
     align: 'left'
-  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+  - image: 'https://dynamic.brandcrowd.com/template/preview/design/2f9331e9-daf3-4a04-a0ec-758d23df766f?v=4&designTemplateVersion=1&size=design-preview-wide-2x&layout=auto-1-1'
     title: 'Dịu nhẹ cho làn da'
     description: 'Cấp ẩm và nuôi dưỡng làn da...'
     buttonText: 'Tìm hiểu thêm'
@@ -27,7 +27,7 @@ carousel:
     colorScheme: 'light'
     variant: 'outlineWhite'
     align: 'left'
-  - image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+  - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668462285038_cd82d0bb-d3fd-4003-9808-ac35e1b04146.jpg?v=1760636983'
     title: 'Làn da rạng rỡ'
     description: 'Mang lại vẻ rạng rỡ tự nhiên...'
     buttonText: 'Mua ngay'
