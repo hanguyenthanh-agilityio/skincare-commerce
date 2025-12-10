@@ -43,6 +43,9 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, autoPlayInterval 
 
   const currentSlide = slides[selectedIndex];
 
+  const { subTitle, title, description, buttonText, buttonHref, align, colorScheme, variant } =
+    currentSlide;
+
   return (
     <div className="relative w-full overflow-hidden">
       {/* Slider */}
@@ -65,14 +68,14 @@ const EmblaCarousel: React.FC<EmblaCarouselProps> = ({ slides, autoPlayInterval 
       {currentSlide && (
         <div className="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-24 bg-black/30 text-white">
           <ContentBlockWrapper
-            title={currentSlide.title}
-            subTitle={currentSlide.subTitle}
-            description={currentSlide.description}
-            buttonText={currentSlide.buttonText}
-            buttonHref={currentSlide.buttonHref}
-            align={currentSlide.align}
-            colorScheme={currentSlide.colorScheme}
-            variant={currentSlide.variant}
+            title={title}
+            subTitle={subTitle}
+            description={description}
+            buttonText={buttonText}
+            buttonHref={buttonHref}
+            align={align}
+            colorScheme={colorScheme}
+            variant={variant}
             className="max-w-sm lg:max-w-md px-6 md:px-12"
           />
         </div>
