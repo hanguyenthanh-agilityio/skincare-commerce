@@ -14,11 +14,14 @@ import { loadPageContent } from '@/i18n';
 // Types
 import type { HomeContent } from '@/types';
 
+import { Carousel } from '@/sections';
+
 const locale = 'en';
 const page = loadPageContent<HomeContent>('home', locale);
 ---
 
 <BaseLayout>
+  <Carousel slides={page.carousel} client:load />
   <Highlight data={page.highlight} />
 
   <UserVoice />

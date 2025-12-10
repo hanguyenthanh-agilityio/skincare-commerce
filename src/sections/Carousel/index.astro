@@ -1,0 +1,15 @@
+---
+import EmblaCarousel from '@/components/EmblaCarousel';
+import type { Slide } from '@/types';
+
+interface Props {
+  slides: Slide[];
+}
+
+const { slides } = Astro.props;
+---
+
+<div class="relative w-full overflow-hidden">
+  <!-- React carousel -->
+  <EmblaCarousel client:load slides={slides} />
+</div>
