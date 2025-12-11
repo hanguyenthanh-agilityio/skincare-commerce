@@ -50,4 +50,17 @@ feature:
 quote:
   title: 'Vô số câu trả lời nằm trong sự kỳ diệu của thiên nhiên, đang chờ chúng ta khám phá và trải nghiệm.'
   description: 'Tương lai của chăm sóc da tự nhiên'
+
+product:
+  title: 'Tăng Cường Bảo Vệ Làn Da Tối Ưu'
+  subTitle: 'Dòng Chăm Sóc Da Parsley Seed'
+  description: 'Khám phá dòng sản phẩm Parsley Seed giàu chất chống oxy hóa, phù hợp với mọi loại da.'
+  ctaLabel: 'Xem Tất Cả Sản Phẩm'
+  ctaHref: '/products'
+
+blog:
+  title: 'Nhật Ký Của Chúng Tôi'
+  subtitle: 'Những Góc Nhìn Về Sức Khoẻ Và Hạnh Phúc'
+  ctaLabel: 'Xem Tất Cả Bài Viết'
+  ctaHref: '/blogs'
 ---
