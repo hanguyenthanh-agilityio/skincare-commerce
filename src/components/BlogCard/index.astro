@@ -26,7 +26,11 @@ const { documentId, image, title, category, locale } = Astro.props;
 
   <!-- Blog Info -->
   <div>
-    <Typography level="span" title={category} className="text-quill-grey tracking-[2%] uppercase" />
+    <Typography
+      level="span"
+      title={category}
+      className="text-xs text-quill-grey tracking-[2%] uppercase"
+    />
 
     <Typography
       level="span"
