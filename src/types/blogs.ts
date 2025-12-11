@@ -1,6 +1,10 @@
+import type { StrapiImageType } from './common';
+
 export type TBlog = {
-  image: string;
-  name: string;
+  documentId: string;
+  images: StrapiImageType[];
+  title: string;
+  description?: string;
+  subTitle?: string;
   category: string;
-  href: string;
 };

@@ -1,8 +1,15 @@
 // Libs
 import { cn } from '@/lib';
 
+// Constants
+import { ERROR_MESSAGES, STRAPI_BASE_URL } from '@/constants';
+
 // Types
 import type { StrapiImageType } from '@/types';
+
+if (!STRAPI_BASE_URL) {
+  console.warn(ERROR_MESSAGES.MISSING_STRAPI_IMAGE_URL);
+}
 
 interface StrapiImageProps {
   image: StrapiImageType | string | null | undefined;
@@ -40,10 +47,14 @@ const StrapiImage = ({
     );
   }
 
+  const baseUrl = imageNode.url.startsWith('http') ? '' : STRAPI_BASE_URL;
+
+  const fullUrl = `${baseUrl}${imageNode.url}`;
+
   const intrinsicWidth = imageNode.width || width;
   const intrinsicHeight = imageNode.height || height || width / fallbackAspectRatio;
 
-  const srcSet = srcSetWidths.map((w) => `${imageNode.url}?w=${w} ${w}w`).join(', ');
+  const srcSet = srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ');
 
   const style: React.CSSProperties = {};
   if (fallbackAspectRatio !== 0) {

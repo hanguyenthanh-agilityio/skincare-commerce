@@ -17,13 +17,18 @@ import { Carousel } from '@/sections';
 import { LOCALES } from '@/constants';
 
 // Mocks
-import { MOCKS_BLOGS, MOCKS_PRODUCTS } from '@/mocks';
+import { MOCKS_PRODUCTS } from '@/mocks';
+
+// Services
+import { getBlogs } from '@/services';
 
 const locale = LOCALES.VI;
 
 const page = loadContent<HomeContent>('home', locale);
 
 const { carousel, feature, highlight, quote, product, blog } = page;
+
+const { blogs } = await getBlogs({ locale });
 ---
 
 <BaseLayout {locale}>
@@ -47,5 +52,5 @@ const { carousel, feature, highlight, quote, product, blog } = page;
 
   <UserVoice />
 
-  <Blog {...blog} blogs={MOCKS_BLOGS} className="mx-5 md:mx-8" />
+  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
 </BaseLayout>

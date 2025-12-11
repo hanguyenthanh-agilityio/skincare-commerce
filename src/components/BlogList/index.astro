@@ -33,14 +33,14 @@ const hasBlogs = blogList.length > 0;
         {/* Mobile */}
         <div class="flex md:hidden flex-wrap gap-[3px]">
           {displayMobile.map((blog) => (
-            <BlogCard {...blog} />
+            <BlogCard {...blog} image={blog.images[0]} />
           ))}
         </div>
 
         {/* Desktop */}
         <div class="hidden md:flex flex-wrap gap-[3px]">
           {displayDesktop.map((blog) => (
-            <BlogCard {...blog} />
+            <BlogCard {...blog} image={blog.images[0]} />
           ))}
         </div>
       </>
