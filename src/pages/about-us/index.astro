@@ -1,5 +1,4 @@
 ---
-// Layouts
 import { BaseLayout } from '@/layouts';
 
 // Sections
@@ -17,24 +16,33 @@ import { LOCALES } from '@/constants';
 import { StrapiImage } from '@/components';
 
 const locale = LOCALES.EN;
-
 const about = loadContent<AboutContent>('about', locale);
+
+// Preprocessing
+const featureList = [
+  { ...about.feature, reverse: true },
+  { ...about.feature, reverse: false },
+];
 ---
 
 <BaseLayout {locale}>
-  <Feature
-    data={about.feature}
-    imageWrapperClass=" h-highlight-mobile lg:h-highlight-xl"
-    reverse={true}
-  />
-
-  <Feature
-    data={about.feature}
-    imageWrapperClass=" h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
-  />
-
-  <StrapiImage image={about.image} className="px-12 pb-12 max-h-highlight-xl w-full" client:idle />
-
+  {
+    featureList.map((item) => (
+      <Feature
+        data={item}
+        reverse={item.reverse}
+        imageWrapperClass="h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
+      />
+    ))
+  }
+  <div class="w-full h-highlight-mobile lg:h-highlight-xl overflow-hidden p-8 lg:p-12">
+    <StrapiImage
+      image={about.image}
+      className="w-full h-full object-cover"
+      fallbackAspectRatio={0}
+      client:idle
+    />
+  </div>
   <Quote
     title={about.quote.title}
     description={about.quote.description}
@@ -42,8 +50,7 @@ const about = loadContent<AboutContent>('about', locale);
     sectionClassName="h-highlight-md md:h-highlight-lg"
   />
 
-  <div class="flex">
-    <Highlight data={about.highlight} />
-    <Highlight data={about.highlight} />
+  <div class="flex md:flex-row flex-col">
+    {about.highlight.map((item) => <Highlight data={item} />)}
   </div>
 </BaseLayout>

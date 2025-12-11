@@ -3,7 +3,9 @@
 import { ROUTER } from '@/constants';
 
 // Components
-import { Link, MainNav, Navbar } from '@/components';
+import { Link, MainNav, Navbar, LanguageSwitcher } from '@/components';
+
+// UIs
 import { Icons } from '@/ui';
 
 interface Props {
@@ -11,11 +13,6 @@ interface Props {
 }
 
 const { pathname } = Astro.props;
-
-// Detect language
-const isVi = pathname.startsWith('/vi');
-const switchTo = isVi ? pathname.replace('/vi', '') || '/' : `/vi${pathname}`;
-const languageLabel = isVi ? 'VI' : 'EN';
 ---
 
 <header class="border-b border-black" role="banner">
@@ -26,7 +23,7 @@ const languageLabel = isVi ? 'VI' : 'EN';
       </div>
 
       <!-- Center: Logo -->
-      <div class="flex shrink-0 mx-auto">
+      <div class="flex-1 shrink-0 mx-auto">
         <h1>
           <Link href={ROUTER.HOME} aria-label="Home">
             <Icons.Logo />
@@ -34,15 +31,9 @@ const languageLabel = isVi ? 'VI' : 'EN';
         </h1>
       </div>
 
-      <div class="flex-1 flex justify-end items-center space-x-4">
+      <div class="flex-1 flex justify-end items-center space-x-1">
         <MainNav />
-
-        <Link
-          href={switchTo}
-          className="text-sm border px-3 py-1 rounded hover:bg-gray-100 transition"
-        >
-          {languageLabel}
-        </Link>
+        <LanguageSwitcher pathname={pathname} client:idle />
       </div>
     </div>
   </div>

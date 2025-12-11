@@ -59,7 +59,7 @@ export interface HomeContent extends MarkdownData {
 }
 
 export interface AboutContent extends MarkdownData {
-  highlight: HighlightSection;
+  highlight: HighlightSection[];
   image: StrapiImageType | null;
   feature: FeatureSection;
   quote: QuoteSection;
