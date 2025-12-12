@@ -1,0 +1,3 @@
+---
+ctaLabel: 'Read more'
+---

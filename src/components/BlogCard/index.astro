@@ -1,16 +1,28 @@
 ---
+// Constants
+import { ROUTER } from '@/constants';
+
+// Types
+import type { Locale, StrapiImageType } from '@/types';
+
+// I18n
+import { loadContent } from '@/i18n';
+
 // Components
 import { Link, Typography, StrapiImage } from '@/components';
 import { Icons } from '@/ui';
 
 interface Props {
-  image: string;
-  name: string;
+  documentId: string;
+  image: StrapiImageType;
+  title: string;
   category: string;
-  href: string;
+  locale: Locale;
 }
 
-const { image, name, category, href } = Astro.props;
+const { documentId, image, title, category, locale } = Astro.props;
+
+const blogCard = loadContent<{ ctaLabel: string }>('blog', locale);
 ---
 
 <div class="w-166 h-350 md:w-331 md:h-461 hover:shadow-lg flex flex-col gap-10 text-left">
@@ -19,22 +31,26 @@ const { image, name, category, href } = Astro.props;
 
   <!-- Blog Info -->
   <div>
-    <Typography level="span" title={category} className="text-quill-grey tracking-[2%] uppercase" />
+    <Typography
+      level="span"
+      title={category}
+      className="text-xs text-quill-grey tracking-[2%] uppercase"
+    />
 
     <Typography
       level="span"
-      title={name}
+      title={title}
       className="font-bold line-clamp-3 md:line-clamp-2 h-18 md:h-12"
     />
   </div>
 
   <!-- CTA Button -->
   <Link
-    href={href}
-    ariaLabel={`Go to ${name} blog detail`}
+    href={`${ROUTER.BLOGS}/${documentId}`}
+    ariaLabel={`Go to ${title} blog detail`}
     className="text-left text-sm hover:text-chart-2 hover:underline"
   >
-    Read more
+    {blogCard.ctaLabel}
     <Icons.Arrow />
   </Link>
 </div>

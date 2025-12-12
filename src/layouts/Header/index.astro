@@ -8,18 +8,30 @@ import { Link, MainNav, Navbar, LanguageSwitcher } from '@/components';
 // UIs
 import { Icons } from '@/ui';
 
+// Types
+import type { HeaderContent, Locale } from '@/types';
+
+// I18N
+import { loadContent } from '@/i18n';
+
 interface Props {
+  locale: Locale;
   pathname: string;
 }
 
-const { pathname } = Astro.props;
+const { locale, pathname } = Astro.props;
+const headerData = await loadContent<HeaderContent>('header', locale);
+
+const navLinks: HeaderContent['navLinks'] = headerData.navLinks as HeaderContent['navLinks'];
+const dropdownMenu: HeaderContent['dropdownMenu'] =
+  headerData.dropdownMenu as HeaderContent['dropdownMenu'];
 ---
 
 <header class="border-b border-black" role="banner">
   <div class="mx-auto px-4 sm:px-6 lg:px-8 sm:py-2">
     <div class="flex items-center h-16">
       <div class="flex-1 flex justify-start items-center gap-2">
-        <Navbar className="text-sm text-primary" />
+        <Navbar navLinks={navLinks} dropdownMenu={dropdownMenu} className="text-sm text-primary" />
         <div class="md:hidden">
           <LanguageSwitcher pathname={pathname} client:idle />
         </div>
@@ -34,7 +46,7 @@ const { pathname } = Astro.props;
         </h1>
       </div>
 
-      <div class="flex-1 flex justify-end items-center gap-6 md:gap-8">
+      <div class="flex-1 flex justify-end items-center gap-6">
         <div class="hidden md:flex">
           <LanguageSwitcher pathname={pathname} client:idle />
         </div>

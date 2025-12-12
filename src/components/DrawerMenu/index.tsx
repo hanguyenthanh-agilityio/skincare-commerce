@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Icons
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Link } from 'lucide-react';
 
 // UIs
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, Button, Icons } from '@/ui';
@@ -11,6 +11,9 @@ import { DrawerMenuItem } from '@/components';
 
 // Types
 import type { DrawerMenuProps, MenuItem, NavLink } from '@/types';
+
+// Constants
+import { ROUTER } from '@/constants';
 
 interface DrawerMenuNavProps {
   data: MenuItem[];
@@ -85,17 +88,23 @@ const DrawerMenu = ({ data, navLinks }: DrawerMenuProps) => {
       {/* Drawer content */}
       <SheetContent side="left" className="flex flex-col w-full max-w-full">
         {/* Header */}
-        <SheetHeader className="h-10 flex items-start justify-between border-b border-black p-0 gap-0">
-          {activeMenu && (
+        <SheetHeader className="h-16 flex items-center justify-between border-b border-black p-0 px-3">
+          {activeMenu ? (
             <Button
               variant="ghost"
-              className="px-3"
+              className="p-0"
               onClick={handleBack}
               aria-label="Back to main menu"
             >
-              <ChevronLeft width={18} height={18} />
+              <ChevronLeft width={20} height={20} />
             </Button>
+          ) : (
+            <span className="w-5" />
           )}
+          <Link href={ROUTER.HOME} aria-label="Home">
+            <Icons.Logo className="h-6 w-auto mx-auto" />
+          </Link>
+          <span className="w-5" />
         </SheetHeader>
 
         {/* Menu content */}

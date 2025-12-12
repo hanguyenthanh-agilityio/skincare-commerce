@@ -80,5 +80,28 @@ export interface AboutContent extends MarkdownData {
   image: StrapiImageType | null;
   feature: FeatureSection;
   quote: QuoteSection;
+}
+export interface DropdownColumn {
+  heading: string;
+  items: string[];
+}
+
+export interface DropdownMenuItem {
+  title: string;
+  columns: DropdownColumn[];
+  imageUrl?: string;
+}
+
+// Nav link
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+// Header content type
+export interface HeaderContent extends MarkdownData {
+  locale: 'en' | 'vi';
+  dropdownMenu: DropdownMenuItem[];
+  navLinks: NavLink[];
   body?: string;
 }
