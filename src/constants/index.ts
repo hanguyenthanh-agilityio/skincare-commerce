@@ -4,4 +4,3 @@ export * from './footer';
 export * from './router';
 export * from './locale';
 export * from './api';
-export * from './messages';

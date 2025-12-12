@@ -2,14 +2,10 @@
 import { cn } from '@/lib';
 
 // Constants
-import { ERROR_MESSAGES, STRAPI_BASE_URL } from '@/constants';
+import { STRAPI_BASE_URL } from '@/constants';
 
 // Types
 import type { StrapiImageType } from '@/types';
-
-if (!STRAPI_BASE_URL) {
-  console.warn(ERROR_MESSAGES.MISSING_STRAPI_IMAGE_URL);
-}
 
 interface StrapiImageProps {
   image: StrapiImageType | string | null | undefined;

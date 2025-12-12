@@ -1,8 +1,7 @@
 ---
 import type { TBlog } from '@/types';
-
-// Components
 import { BlogCard, Typography } from '@/components';
+import { cn } from '@/lib';
 
 interface Props {
   blogs: TBlog[];
@@ -13,9 +12,6 @@ interface Props {
 const { blogs, limitDesktop = 4, limitMobile = 2 } = Astro.props;
 
 const blogList: TBlog[] = Array.isArray(blogs) ? blogs : [];
-
-const displayMobile = blogList.slice(0, limitMobile);
-const displayDesktop = blogList.slice(0, limitDesktop);
 
 const hasBlogs = blogList.length > 0;
 ---
@@ -29,21 +25,24 @@ const hasBlogs = blogList.length > 0;
         className="text-center w-full text-gray-500"
       />
     ) : (
-      <>
-        {/* Mobile */}
-        <div class="flex md:hidden flex-wrap gap-[3px]">
-          {displayMobile.map((blog) => (
-            <BlogCard {...blog} image={blog.images[0]} />
-          ))}
-        </div>
+      <div class="flex flex-wrap gap-[3px]">
+        {blogList.map((blog, index) => {
+          // visibility logic
+          const visibleMobile = index < limitMobile;
+          const visibleDesktop = index < limitDesktop;
 
-        {/* Desktop */}
-        <div class="hidden md:flex flex-wrap gap-[3px]">
-          {displayDesktop.map((blog) => (
-            <BlogCard {...blog} image={blog.images[0]} />
-          ))}
-        </div>
-      </>
+          const visibilityClass = cn(
+            visibleMobile ? 'block' : 'hidden',
+            visibleDesktop ? 'md:block' : 'md:hidden',
+          );
+
+          return (
+            <div class={visibilityClass}>
+              <BlogCard {...blog} image={blog.images?.[0]} />
+            </div>
+          );
+        })}
+      </div>
     )
   }
 </div>

@@ -1,4 +1,4 @@
-import type { StrapiImageType } from './common';
+import type { StrapiImageType, Locale } from '@/types';
 
 export type TBlog = {
   documentId: string;
@@ -7,4 +7,5 @@ export type TBlog = {
   description?: string;
   subTitle?: string;
   category: string;
+  locale: Locale;
 };
