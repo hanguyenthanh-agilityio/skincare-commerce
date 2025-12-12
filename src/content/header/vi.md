@@ -1,6 +1,4 @@
 ---
-locale: 'vi'
-
 dropdownMenu:
   - title: 'Mua Sắm'
     columns:

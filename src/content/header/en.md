@@ -1,6 +1,4 @@
 ---
-locale: 'en'
-
 dropdownMenu:
   - title: 'Shop'
     columns:
