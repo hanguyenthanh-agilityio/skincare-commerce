@@ -17,6 +17,18 @@ export default [
     ignores: ['dist', 'node_modules'],
   },
   js.configs.recommended,
+
+  // Global JS / TS env (ESLint 9 Flat Config)
+  {
+    languageOptions: {
+      globals: {
+        fetch: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+        console: 'readonly',
+      },
+    },
+  },
   {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
@@ -42,9 +54,6 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
-      },
-      globals: {
-        URL: 'readonly',
       },
     },
     rules: {
