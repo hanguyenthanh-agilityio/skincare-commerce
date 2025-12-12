@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Icons
 import { ChevronRight } from 'lucide-react';
 
@@ -17,31 +15,25 @@ interface Props {
   className?: string;
 }
 
-const DrawerMenuItem: React.FC<Props> = ({
-  label,
-  href,
-  onClick,
-  hasArrow = false,
-  className = '',
-}) => {
+const DrawerMenuItem = ({ label, href, onClick, hasArrow = false, className = '' }: Props) => {
+  const arrowIcon = hasArrow ? (
+    <ChevronRight data-testid="chevron-icon" width={18} height={18} />
+  ) : null;
+
+  const baseClasses =
+    'flex justify-between items-center w-full p-4 no-underline hover:underline underline-offset-2';
+
   return (
     <li className={`border-b list-none ${className}`}>
       {href ? (
-        <LinkWrapper
-          href={href}
-          className="flex justify-between items-center w-full p-4 no-underline hover:underline underline-offset-2"
-        >
+        <LinkWrapper href={href} className={baseClasses}>
           {label}
-          {hasArrow && <ChevronRight data-testid="chevron-icon" width={18} height={18} />}
+          {arrowIcon}
         </LinkWrapper>
       ) : (
-        <Button
-          variant="ghost"
-          onClick={onClick}
-          className="flex justify-between items-center w-full p-4 no-underline hover:underline underline-offset-2"
-        >
+        <Button variant="ghost" onClick={onClick} className={baseClasses}>
           {label}
-          {hasArrow && <ChevronRight data-testid="chevron-icon" width={18} height={18} />}
+          {arrowIcon}
         </Button>
       )}
     </li>
