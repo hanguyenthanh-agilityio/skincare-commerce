@@ -18,22 +18,27 @@ const { pathname } = Astro.props;
 <header class="border-b border-black" role="banner">
   <div class="mx-auto px-4 sm:px-6 lg:px-8 sm:py-2">
     <div class="flex items-center h-16">
-      <div class="flex-1">
+      <div class="flex-1 flex justify-start items-center gap-2">
         <Navbar className="text-sm text-primary" />
+        <div class="md:hidden">
+          <LanguageSwitcher pathname={pathname} client:idle />
+        </div>
       </div>
 
       <!-- Center: Logo -->
       <div class="flex-1 shrink-0 mx-auto">
-        <h1>
+        <h1 class="text-center">
           <Link href={ROUTER.HOME} aria-label="Home">
             <Icons.Logo />
           </Link>
         </h1>
       </div>
 
-      <div class="flex-1 flex justify-end items-center space-x-1">
+      <div class="flex-1 flex justify-end items-center gap-6 md:gap-8">
+        <div class="hidden md:flex">
+          <LanguageSwitcher pathname={pathname} client:idle />
+        </div>
         <MainNav />
-        <LanguageSwitcher pathname={pathname} client:idle />
       </div>
     </div>
   </div>

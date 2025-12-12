@@ -25,7 +25,10 @@ const LanguageSwitcher = ({ pathname }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="text-sm px-0 flex items-center gap-1">
+        <Button
+          variant="ghost"
+          className="text-destructive-foreground text-xs md:text-sm px-0 flex items-center gap-1"
+        >
           {current}
           <Icons.DownArrow width={14} height={14} />
         </Button>
