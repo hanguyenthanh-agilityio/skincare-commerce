@@ -1,0 +1,27 @@
+---
+import { cn } from '@/lib';
+
+// Types
+import type { Locale } from '@/types';
+
+// Components
+import { Typography } from '@/components';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+interface Props {
+  locale: Locale;
+  className?: string;
+}
+
+const { locale, className } = Astro.props;
+
+const topbar = loadContent<{ title: string }>('topbar', locale);
+
+const { title } = topbar;
+---
+
+<div class={cn('bg-destructive-foreground h-18 md:h-12 text-center px-5 py-3', className)}>
+  <Typography level="span" {title} className="text-white" />
+</div>
