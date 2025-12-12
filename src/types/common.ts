@@ -74,3 +74,28 @@ export interface HomeContent extends MarkdownData {
   blog: BlogSection;
   body?: string;
 }
+
+export interface DropdownColumn {
+  heading: string;
+  items: string[];
+}
+
+export interface DropdownMenuItem {
+  title: string;
+  columns: DropdownColumn[];
+  imageUrl?: string;
+}
+
+// Nav link
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+// Header content type
+export interface HeaderContent extends MarkdownData {
+  locale: 'en' | 'vi';
+  dropdownMenu: DropdownMenuItem[];
+  navLinks: NavLink[];
+  body?: string;
+}
