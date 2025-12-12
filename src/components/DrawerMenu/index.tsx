@@ -7,10 +7,10 @@ import { ChevronLeft } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, Button, Icons } from '@/ui';
 
 // Components
-import DrawerMenuItem from './DrawerMenuItem';
+import { DrawerMenuItem } from '@/components';
 
 // Types
-import type { DrawerMenuProps, MenuItem, NavLink } from '@/types/navigation';
+import type { DrawerMenuProps, MenuItem, NavLink } from '@/types';
 
 interface DrawerMenuNavProps {
   data: MenuItem[];
@@ -25,20 +25,22 @@ interface DrawerMenuSubProps {
 // Sub component - nav root level
 const DrawerMenuNav = ({ data, navLinks, onOpenSub }: DrawerMenuNavProps) => {
   return (
-    <ul className="divide-y">
-      {data.map((menu) => (
-        <DrawerMenuItem
-          key={menu.title}
-          label={menu.title}
-          onClick={() => onOpenSub(menu)}
-          hasArrow
-        />
-      ))}
+    <>
+      <ul className="divide-y">
+        {data.map((menu) => (
+          <DrawerMenuItem
+            key={menu.title}
+            label={menu.title}
+            onClick={() => onOpenSub(menu)}
+            hasArrow
+          />
+        ))}
 
-      {navLinks.map((link) => (
-        <DrawerMenuItem key={link.label} label={link.label} href={link.href} />
-      ))}
-    </ul>
+        {navLinks.map((link) => (
+          <DrawerMenuItem key={link.label} label={link.label} href={link.href} />
+        ))}
+      </ul>
+    </>
   );
 };
 

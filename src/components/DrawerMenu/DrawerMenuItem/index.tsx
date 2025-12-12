@@ -14,11 +14,18 @@ interface Props {
   href?: string;
   onClick?: () => void;
   hasArrow?: boolean;
+  className?: string;
 }
 
-const DrawerMenuItem: React.FC<Props> = ({ label, href, onClick, hasArrow = false }) => {
+const DrawerMenuItem: React.FC<Props> = ({
+  label,
+  href,
+  onClick,
+  hasArrow = false,
+  className = '',
+}) => {
   return (
-    <li className="border-b">
+    <li className={`border-b list-none ${className}`}>
       {href ? (
         <LinkWrapper
           href={href}
