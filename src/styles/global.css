@@ -37,6 +37,8 @@
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
 
+  --quill-grey-700: oklch(0.42 0 0);
+
   /* custom tokens */
   --line: #dddddd;
   --date: #9a9a9a;

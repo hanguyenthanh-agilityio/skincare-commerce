@@ -13,12 +13,24 @@ interface Props {
   ctaLabel?: string;
   ctaHref?: string;
   products: TProduct[];
+  limitDesktop?: number;
+  limitMobile?: number;
   className?: string;
 }
 
-const { title, subtitle, description, ctaHref, ctaLabel, products, className } = Astro.props;
+const {
+  title,
+  subtitle,
+  description,
+  ctaHref,
+  ctaLabel,
+  products,
+  limitDesktop,
+  limitMobile,
+  className,
+} = Astro.props;
 ---
 
 <SectionWrapper {title} {subtitle} {description} {ctaHref} {ctaLabel} {className}>
-  <ProductList products={products} />
+  <ProductList {products} {limitMobile} {limitDesktop} />
 </SectionWrapper>

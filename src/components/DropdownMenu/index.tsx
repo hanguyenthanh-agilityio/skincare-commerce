@@ -14,11 +14,10 @@ const DropdownMenu = memo(({ data }: DropdownMenuProps) => (
     {data.map((menu) => (
       <HoverCard key={menu.title} openDelay={0} closeDelay={50}>
         {/* Trigger */}
-        <HoverCardTrigger role="menu" asChild>
+        <HoverCardTrigger asChild>
           <Button
             variant="ghost"
             type="button"
-            role="menuitem"
             className="px-0 py-2 font-medium"
             aria-haspopup="true"
             aria-expanded="false"

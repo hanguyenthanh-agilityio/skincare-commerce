@@ -16,19 +16,18 @@ import { Carousel, Product, Blog } from '@/sections';
 // Constants
 import { LOCALES } from '@/constants';
 
-// Mocks
-import { MOCKS_PRODUCTS } from '@/mocks';
-
 // Services
-import { getBlogs } from '@/services';
+import { getBlogs, getProducts } from '@/services';
 
 const locale = LOCALES.EN;
 
-const page = loadContent<HomeContent>('home', locale);
+const homePage = loadContent<HomeContent>('home', locale);
 
-const { carousel, feature, highlight, quote, product, blog } = page;
+const { carousel, feature, highlight, quote, product, blog } = homePage;
 
 const { blogs } = await getBlogs({ locale });
+
+const { products } = await getProducts({ locale });
 ---
 
 <BaseLayout {locale}>
@@ -36,12 +35,18 @@ const { blogs } = await getBlogs({ locale });
 
   <Feature
     data={feature}
-    imageWrapperClass=" h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
+    imageWrapperClass="h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
+  />
+
+  <Product
+    {...product}
+    products={products}
+    limitMobile={2}
+    limitDesktop={4}
+    className="mx-5 md:mx-8"
   />
 
   <Highlight data={highlight} />
-
-  <Product {...product} products={MOCKS_PRODUCTS} className="mx-5 md:mx-8" />
 
   <Quote
     title={quote.title}
