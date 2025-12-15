@@ -57,7 +57,8 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
               {slide.image && (
                 <StrapiImage
                   image={slide.image}
-                  className="w-full h-[400px] md:h-[600px] object-cover"
+                  className="w-full h-highlight-lg md:h-hero-desktop object-cover"
+                  priority={idx === 0}
                 />
               )}
             </div>

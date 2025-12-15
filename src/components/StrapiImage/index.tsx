@@ -59,7 +59,7 @@ const StrapiImage = ({
 
   return (
     <img
-      src={imageNode.url}
+      src={fullUrl}
       srcSet={srcSet}
       sizes={sizes}
       width={intrinsicWidth}
