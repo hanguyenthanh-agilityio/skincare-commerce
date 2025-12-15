@@ -75,6 +75,12 @@ export interface HomeContent extends MarkdownData {
   body?: string;
 }
 
+export interface AboutContent extends MarkdownData {
+  highlight: HighlightSection[];
+  image: StrapiImageType | null;
+  feature: FeatureSection;
+  quote: QuoteSection;
+}
 export interface DropdownColumn {
   heading: string;
   items: string[];

@@ -24,7 +24,7 @@ const pathname = Astro.url.pathname;
     <title>Astro Basics</title>
   </head>
   <body>
-    <main class="mx-auto">
+    <main class="mx-auto 2xl:container">
       <TopBar {locale} />
       <Header pathname={pathname} locale={locale} />
       <slot />
