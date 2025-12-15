@@ -1,1 +1,1 @@
-export const STRAPI_BASE_URL = 'https://skincare-be-1.onrender.com';
+export const STRAPI_BASE_URL = import.meta.env.PUBLIC_STRAPI_URL;

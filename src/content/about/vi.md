@@ -20,7 +20,7 @@ highlight:
     image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668422930670.jpg?v=1758142869'
 
 image:
-  url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668428665070_dbd5854b-ad69-4b11-ab81-b1469335e452.jpg?v=1760636938'
+  url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019'
 
 carousel:
   - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668478701806.png?v=1761330608'
