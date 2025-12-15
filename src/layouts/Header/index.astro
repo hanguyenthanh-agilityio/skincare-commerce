@@ -3,7 +3,7 @@
 import { ROUTER } from '@/constants';
 
 // Components
-import { Link, MainNav, Navbar, LanguageSwitcher } from '@/components';
+import { Link, MainNav, Navbar, LanguageSwitcher, Typography } from '@/components';
 
 // UIs
 import { Icons } from '@/ui';
@@ -27,7 +27,7 @@ const dropdownMenu: HeaderContent['dropdownMenu'] =
   headerData.dropdownMenu as HeaderContent['dropdownMenu'];
 ---
 
-<header class="border-b border-black" role="banner">
+<header class="border-b border-black">
   <div class="mx-auto px-4 sm:px-6 lg:px-8 sm:py-2">
     <div class="flex items-center h-16">
       <div class="flex-1 flex justify-start items-center gap-2">
@@ -40,8 +40,9 @@ const dropdownMenu: HeaderContent['dropdownMenu'] =
       <!-- Center: Logo -->
       <div class="flex-1 shrink-0 mx-auto">
         <h1 class="text-center">
-          <Link href={ROUTER.HOME} aria-label="Home">
-            <Icons.Logo />
+          <Link href={ROUTER.HOME} className="inline-flex items-center">
+            <Icons.Logo aria-hidden="true" />
+            <Typography level="span" title="CEIN – Home" className="sr-only" />
           </Link>
         </h1>
       </div>

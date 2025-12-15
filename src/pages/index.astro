@@ -31,7 +31,7 @@ const { products } = await getProducts({ locale });
 ---
 
 <BaseLayout {locale}>
-  <Carousel slides={carousel} client:load />
+  <Carousel slides={carousel} />
 
   <Feature
     data={feature}

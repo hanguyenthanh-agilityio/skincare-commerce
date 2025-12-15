@@ -57,7 +57,8 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
               {slide.image && (
                 <StrapiImage
                   image={slide.image}
-                  className="w-full h-[400px] md:h-[600px] object-cover"
+                  className="w-full h-highlight-lg md:h-hero-desktop object-cover"
+                  priority={idx === 0}
                 />
               )}
             </div>
@@ -90,6 +91,7 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
             type="button"
             onClick={() => emblaApi?.scrollTo(idx)}
             data-active={idx === selectedIndex}
+            aria-label={`Go to slide ${idx + 1}`}
             className="w-3 h-3 rounded-full bg-white/40 data-[active=true]:bg-white transition"
           />
         ))}

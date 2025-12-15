@@ -9,7 +9,7 @@ interface Props {
   rel?: string;
 }
 
-const { href, ariaLabel, className, target = '_self', rel } = Astro.props;
+const { href, ariaLabel, className, target = '_self', rel, ...rest } = Astro.props;
 ---
 
 <a
@@ -18,6 +18,7 @@ const { href, ariaLabel, className, target = '_self', rel } = Astro.props;
   target={target}
   rel={rel}
   class={cn(`inline-flex items-center gap-2.5 text-destructive-foreground ${className}`)}
+  {...rest}
 >
   <slot />
 </a>
