@@ -27,11 +27,14 @@ const defaultActions: ActionItem[] = [
 const { className = '', actions = defaultActions } = Astro.props;
 ---
 
-<nav class={cn('flex items-center gap-2 text-gray-700', className)} aria-label="User actions">
+<nav
+  class={cn('flex items-center gap-4 md:gap-10 text-gray-700', className)}
+  aria-label="User actions"
+>
   {
     actions.map(({ icon: Icon, label, href = '#' }) => (
       <Link href={href} aria-label={label}>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="w-3.5 h-3.5">
           <Icon width={14} height={14} />
         </Button>
       </Link>

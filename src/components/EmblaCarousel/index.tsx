@@ -53,7 +53,7 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {slides.map((slide, idx) => (
-            <div key={idx} className="flex-shrink-0 w-full relative">
+            <div key={idx} className="shrink-0 w-full relative">
               {slide.image && (
                 <StrapiImage
                   image={slide.image}

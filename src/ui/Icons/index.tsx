@@ -37,6 +37,31 @@ export const Icons = {
     </svg>
   ),
 
+  DownArrow: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      {...props}
+    >
+      <g clip-path="url(#clip0_4571_241)">
+        <path
+          d="M11.375 5.25L7 9.625L2.625 5.25"
+          stroke="#333333"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_4571_241">
+          <rect width="14" height="14" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  ),
+
   Plus: (props: IconProps) => (
     <svg
       width="20"
