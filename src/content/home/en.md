@@ -8,7 +8,7 @@ highlight:
   colorScheme: 'light'
   variant: 'outlineWhite'
   align: 'left'
-  image: 'https://static.vecteezy.com/system/resources/previews/000/701/690/non_2x/abstract-polygonal-banner-background-vector.jpg'
+  image: 'https://images.unsplash.com/photo-1644817880867-8dc9281dc167?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 
 carousel:
   - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668478701806.png?v=1761330608'
