@@ -25,5 +25,5 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
 
-  output: 'static',
+  output: 'static'
 });
