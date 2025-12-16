@@ -15,6 +15,12 @@ export type TProduct = {
   badge?: string;
 };
 
+export type PriceRangeType = {
+  title: string;
+  from: string;
+  to: string;
+};
+
 export type SortValue = 'none' | 'price-desc' | 'price-asc' | 'newest' | 'popularity';
 
 export interface SortContent {
@@ -26,6 +32,7 @@ export interface ProductContent extends MarkdownData {
   highlight: HighlightSection;
   sort: SortContent;
   filterMenu: MenuItem[];
+  priceRange: PriceRangeType;
 }
 
 export interface ProductSlugContent extends MarkdownData {
