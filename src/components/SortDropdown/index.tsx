@@ -1,7 +1,9 @@
+import { useState } from 'react';
+
 // Components
 import { TypographyWrapper } from '@/components';
 
-// UIs
+// UIss
 import {
   Button,
   Icons,
@@ -23,36 +25,58 @@ import { SORT_VALUES } from '@/constants';
 
 interface SortDropdownProps {
   content: SortContent;
-  value?: SortValue;
-  onChange?: (value: SortValue) => void;
+  defaultValue?: SortValue;
+  onSortChange?: (value: SortValue) => void;
   className?: string;
 }
 
-const SortDropdown = ({ content, value = 'none', onChange, className }: SortDropdownProps) => {
+const SortDropdown = ({
+  content,
+  defaultValue = 'none',
+  onSortChange,
+  className,
+}: SortDropdownProps) => {
   const { label, options } = content;
 
+  const [value, setValue] = useState<SortValue>(defaultValue);
+  const [open, setOpen] = useState(false);
+
+  const handleValueChange = (nextValue: SortValue) => {
+    setValue(nextValue);
+    onSortChange?.(nextValue);
+    setOpen(false);
+  };
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
           aria-label={label}
-          className={cn('flex items-center gap-2', className)}
+          className={cn('flex items-center gap-2 px-3 py-2', className)}
         >
           <TypographyWrapper
             level="span"
             title={`${label}:`}
-            className="uppercase text-muted-foreground"
+            className="uppercase text-xs text-muted-foreground"
           />
-          <TypographyWrapper level="span" title={options[value]} className="font-bold" />
-          <Icons.DownArrow aria-hidden className="size-4 opacity-70" />
+
+          <TypographyWrapper level="span" title={options[value]} className="font-semibold" />
+
+          <Icons.DownArrow
+            aria-hidden
+            className={cn('size-4 transition-transform duration-200', open && 'rotate-180')}
+          />
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuRadioGroup value={value} onValueChange={(v) => onChange?.(v as SortValue)}>
+        <DropdownMenuRadioGroup
+          value={value}
+          onValueChange={(v) => handleValueChange(v as SortValue)}
+        >
           {SORT_VALUES.map((sortValue) => (
-            <DropdownMenuRadioItem key={sortValue} value={sortValue}>
+            <DropdownMenuRadioItem key={sortValue} value={sortValue} className="cursor-pointer">
               {options[sortValue]}
             </DropdownMenuRadioItem>
           ))}
