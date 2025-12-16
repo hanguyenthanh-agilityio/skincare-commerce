@@ -5,7 +5,7 @@ export interface NavLink {
 
 export interface MenuColumn {
   heading: string;
-  items: string[];
+  items: NavLink[];
 }
 
 export interface MenuItem {
@@ -16,6 +16,7 @@ export interface MenuItem {
 
 export interface DropdownMenuProps {
   data: MenuItem[];
+  className?: string;
 }
 
 export interface DrawerMenuProps {

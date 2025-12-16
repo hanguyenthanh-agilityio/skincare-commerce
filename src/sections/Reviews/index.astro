@@ -3,7 +3,7 @@
 import type { Labels, RatingBreakdown, Review } from '@/types';
 
 // Components
-import { ReviewCard, ReviewSummary } from "@/components";
+import { ReviewCard, ReviewSummary } from '@/components';
 
 interface Props {
   labels: Labels;
@@ -13,7 +13,7 @@ interface Props {
   breakdown: RatingBreakdown[];
 }
 
-const { labels, average, totalReviews, reviews, breakdown } = Astro.props
+const { labels, average, totalReviews, reviews, breakdown } = Astro.props;
 ---
 
 <section class="flex flex-col xl:flex-row py-10 gap-10 xl:gap-40">
@@ -29,12 +29,7 @@ const { labels, average, totalReviews, reviews, breakdown } = Astro.props
   <div class="space-y-4 xl:w-2/3">
     {
       reviews.map(({ rating, date, comment, locale }) => (
-        <ReviewCard
-          rating={rating}
-          date={date}
-          comment={comment}
-          locale={locale}
-        />
+        <ReviewCard rating={rating} date={date} comment={comment} locale={locale} />
       ))
     }
   </div>

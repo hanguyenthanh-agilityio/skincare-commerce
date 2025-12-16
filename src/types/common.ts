@@ -1,5 +1,8 @@
+// I18n
 import type { MarkdownData } from '@/i18n';
-import type { NavLink } from './navigation';
+
+// Types
+import type { MenuItem, NavLink } from '@/types';
 
 export interface StrapiImageType {
   url: string;
@@ -82,21 +85,11 @@ export interface AboutContent extends MarkdownData {
   feature: FeatureSection;
   quote: QuoteSection;
 }
-export interface DropdownColumn {
-  heading: string;
-  items: string[];
-}
-
-export interface DropdownMenuItem {
-  title: string;
-  columns: DropdownColumn[];
-  imageUrl?: string;
-}
 
 // Header content type
 export interface HeaderContent extends MarkdownData {
   locale: 'en' | 'vi';
-  dropdownMenu: DropdownMenuItem[];
+  dropdownMenu: MenuItem[];
   navLinks: NavLink[];
   body?: string;
 }

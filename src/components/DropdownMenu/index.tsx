@@ -9,8 +9,11 @@ import { HoverCard, HoverCardTrigger, HoverCardContent, Button } from '@/ui';
 // Components
 import { LinkWrapper, StrapiImage } from '@/components';
 
-const DropdownMenu = memo(({ data }: DropdownMenuProps) => (
-  <nav className="relative" aria-label="Primary Mega Navigation" role="navigation">
+// Libs
+import { cn } from '@/lib';
+
+const DropdownMenu = memo(({ data, className }: DropdownMenuProps) => (
+  <nav className={cn('relative', className)} aria-label="Primary Mega Navigation" role="navigation">
     {data.map((menu) => (
       <HoverCard key={menu.title} openDelay={0} closeDelay={50}>
         {/* Trigger */}
@@ -40,13 +43,12 @@ const DropdownMenu = memo(({ data }: DropdownMenuProps) => (
                   <p className="font-semibold mb-4 text-base ">{col.heading}</p>
                   <ul className="space-y-4">
                     {col.items.map((item) => (
-                      <li key={item}>
+                      <li key={item.href}>
                         <LinkWrapper
-                          href="#"
-                          className="text-sm hover:underline transition-colors block focus:outline-none
-                            focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
+                          href={item.href}
+                          className="text-sm hover:underline transition-colors block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
                         >
-                          {item}
+                          {item.label}
                         </LinkWrapper>
                       </li>
                     ))}

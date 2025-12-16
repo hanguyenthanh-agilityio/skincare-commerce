@@ -3,7 +3,7 @@
 import { BaseLayout } from '@/layouts';
 
 // Components
-import { SortDropdown } from '@/components';
+import { DropdownMenu, SortDropdown } from '@/components';
 
 // Sections
 import { Highlight } from '@/sections';
@@ -21,10 +21,13 @@ const locale = LOCALES.EN;
 
 const productPage = loadContent<ProductContent>('products', locale);
 
-const { highlight, sort } = productPage;
+const { highlight, sort, filterMenu } = productPage;
 ---
 
 <BaseLayout {locale}>
   <Highlight data={highlight} />
-  <SortDropdown client:load content={sort} />
+  <div class="flex justify-between items-center bg-narvik h-18 pl-5">
+    <DropdownMenu client:load data={filterMenu} className="flex gap-8" />
+    <SortDropdown client:load content={sort} />
+  </div>
 </BaseLayout>
