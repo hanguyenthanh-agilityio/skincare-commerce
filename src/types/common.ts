@@ -1,4 +1,5 @@
 import type { MarkdownData } from '@/i18n';
+import type { NavLink } from './navigation';
 
 export interface StrapiImageType {
   url: string;
@@ -90,12 +91,6 @@ export interface DropdownMenuItem {
   title: string;
   columns: DropdownColumn[];
   imageUrl?: string;
-}
-
-// Nav link
-export interface NavLink {
-  label: string;
-  href: string;
 }
 
 // Header content type

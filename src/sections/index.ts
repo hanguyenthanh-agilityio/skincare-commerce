@@ -5,3 +5,4 @@ export { default as Feature } from './Feature/index.astro';
 export { default as Quote } from './Quote/index.astro';
 export { default as Product } from './Product/index.astro';
 export { default as Blog } from './Blog/index.astro';
+export { default as Reviews } from './Reviews/index.astro';

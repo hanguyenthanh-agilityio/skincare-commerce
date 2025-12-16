@@ -1,0 +1,30 @@
+---
+import { cn } from '@/lib';
+
+// Utils
+import { formatDate } from '@/utils';
+
+// Types
+import type { Locale } from '@/types';
+
+// Components
+import { Typography, Rating } from '..';
+
+interface Props {
+  rating: number;
+  comment: string;
+  date: string | Date;
+  locale?: Locale;
+  className?: string;
+}
+
+const { rating, comment, date, locale, className } = Astro.props;
+---
+
+<div class={cn('border-b border-quill-grey py-6', className)}>
+  <Rating value={rating} className="mb-1" />
+
+  <Typography level="span" title={formatDate(date, locale)} className="block uppercase mb-6" />
+
+  <Typography level="p" title={comment} className="text-sm" />
+</div>
