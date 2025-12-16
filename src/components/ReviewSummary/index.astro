@@ -1,0 +1,71 @@
+---
+// Components
+import { Button, Icons } from '@/ui';
+import { Rating, Typography } from '..';
+
+interface RatingBreakdown {
+  stars: number;
+  percentage: number;
+}
+
+interface Labels {
+  title: string;
+  totalReviews: string;
+  ctaLabel: string;
+}
+
+interface Props {
+  labels: Labels;
+  average: number;
+  totalReviews: number;
+  breakdown: RatingBreakdown[];
+}
+
+const { labels, average, totalReviews, breakdown } = Astro.props;
+---
+
+<div class="space-y-6">
+  <div class="space-y-6">
+    <Typography level="span" title={labels.title} className="block text-gray-500" />
+
+    <div class="flex items-center gap-2">
+      <Typography level="span" title={`${average}/5`} className="text-2xl" />
+
+      <Rating value={Math.round(average)} size="sm" />
+    </div>
+
+    <Typography
+      level="span"
+      title={labels.totalReviews.replace('{count}', String(totalReviews))}
+      className="text-gray-500"
+    />
+  </div>
+
+  <!-- Breakdown -->
+  <div>
+    {
+      breakdown.map(({ stars, percentage }) => (
+        <div class="flex items-center gap-14">
+          <Rating value={stars} />
+
+          <div class="flex items-center gap-4">
+            <div class="relative w-32 h-3.5 border border-quill-grey bg-white">
+              <div
+                class="absolute left-0 top-0 w-full h-full bg-quill-grey"
+                style={`width: ${percentage}%`}
+              />
+            </div>
+
+            <Typography level="span" title={`${percentage}%`} className="opacity-55" />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- CTA -->
+  <Button variant="outlineSoft" size="xl" className="w-56">
+    {labels.ctaLabel}
+    <Icons.Arrow />
+  </Button>
+</div>
