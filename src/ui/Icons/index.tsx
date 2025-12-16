@@ -46,12 +46,12 @@ export const Icons = {
       fill="none"
       {...props}
     >
-      <g clip-path="url(#clip0_4571_241)">
+      <g clipPath="url(#clip0_4571_241)">
         <path
           d="M11.375 5.25L7 9.625L2.625 5.25"
           stroke="#333333"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
