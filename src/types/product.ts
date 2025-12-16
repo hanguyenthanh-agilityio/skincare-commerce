@@ -1,5 +1,8 @@
+// I18n
 import type { MarkdownData } from '@/i18n';
-import type { HighlightSection, StrapiImageType } from './common';
+
+// Types
+import type { HighlightSection, StrapiImageType, MenuItem } from '@/types';
 
 export type TProduct = {
   images: StrapiImageType[];
@@ -22,4 +25,5 @@ export interface SortContent {
 export interface ProductContent extends MarkdownData {
   highlight: HighlightSection;
   sort: SortContent;
+  filterMenu: MenuItem[];
 }
