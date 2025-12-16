@@ -40,8 +40,10 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
 
-  output: 'static',
-  adapter: isCF ? cloudflare({
-    imageService: "compile",
-  }) : undefined,
+  output: 'server',
+  adapter: isCF
+    ? cloudflare({
+        imageService: 'compile',
+      })
+    : undefined,
 });

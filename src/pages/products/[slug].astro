@@ -1,0 +1,37 @@
+---
+export const prerender = false;
+
+import { BaseLayout } from '@/layouts';
+import { Link } from '@/components';
+import { Button } from '@/ui';
+
+import { loadContent } from '@/i18n';
+import type { ProductSlugContent } from '@/types';
+import { LOCALES } from '@/constants';
+
+const { slug } = Astro.params;
+const locale = LOCALES.EN;
+
+const content = loadContent<ProductSlugContent>('products-slug', locale);
+
+const title = (slug ?? '').replace('-', ' ');
+---
+
+<BaseLayout {locale}>
+  <section class="min-h-[50vh] flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-3xl md:text-4xl font-semibold capitalize mb-4">
+      {title}
+      {content.titleSuffix}
+    </h1>
+
+    <p class="text-sm text-muted-foreground mb-8 max-w-md">
+      {content.description}
+    </p>
+
+    <Link href="/products">
+      <Button variant="secondary" className="px-6 py-2 text-sm">
+        ← {content.backText}
+      </Button>
+    </Link>
+  </section>
+</BaseLayout>

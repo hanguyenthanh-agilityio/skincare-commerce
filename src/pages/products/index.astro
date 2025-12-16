@@ -26,6 +26,8 @@ const { highlight, sort, filterMenu } = productPage;
 
 <BaseLayout {locale}>
   <Highlight data={highlight} />
-  <SortDropdown client:load content={sort} />
-  <DropdownMenu client:load data={filterMenu} className="flex gap-8" />
+  <div class="flex justify-between items-center bg-narvik h-18 pl-5">
+    <DropdownMenu client:load data={filterMenu} className="flex gap-8" />
+    <SortDropdown client:load content={sort} />
+  </div>
 </BaseLayout>

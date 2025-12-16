@@ -27,3 +27,9 @@ export interface ProductContent extends MarkdownData {
   sort: SortContent;
   filterMenu: MenuItem[];
 }
+
+export interface ProductSlugContent extends MarkdownData {
+  titleSuffix: string;
+  description: string;
+  backText: string;
+}
