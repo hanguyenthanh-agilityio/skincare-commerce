@@ -10,6 +10,7 @@ export { default as HeadingWrapper } from './Heading';
 export { default as TypographyWrapper } from './Typography';
 export { default as ContentBlockWrapper } from './ContentBlock';
 export { default as LanguageSwitcher } from './LanguageSwitcher';
+export { default as SortDropdown } from './SortDropdown';
 
 // Export with astro file
 export { default as Link } from './Link/index.astro';

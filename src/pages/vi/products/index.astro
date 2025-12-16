@@ -1,0 +1,30 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// Components
+import { SortDropdown } from '@/components';
+
+// Sections
+import { Highlight } from '@/sections';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { ProductContent } from '@/types';
+
+// Constants
+import { LOCALES } from '@/constants';
+
+const locale = LOCALES.VI;
+
+const productPage = loadContent<ProductContent>('products', locale);
+
+const { highlight, sort } = productPage;
+---
+
+<BaseLayout {locale}>
+  <Highlight data={highlight} />
+  <SortDropdown client:load content={sort} />
+</BaseLayout>
