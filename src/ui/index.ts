@@ -4,3 +4,6 @@ export * from './Icons';
 export * from './Sheet';
 export * from './Dropdown';
 export * from './Pagination';
+export * from './Slider';
+export * from './Input';
+export * from './Label';

@@ -11,6 +11,7 @@ export { default as TypographyWrapper } from './Typography';
 export { default as ContentBlockWrapper } from './ContentBlock';
 export { default as LanguageSwitcher } from './LanguageSwitcher';
 export { default as PaginationControls } from './PaginationControls';
+export { default as PriceRange } from './PriceRange';
 
 // Export with astro file
 export { default as Link } from './Link/index.astro';

@@ -13,6 +13,17 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ['fs', 'path'],
+    },
+    build: {
+      rollupOptions: {
+        onwarn(warning, warn) {
+          if (warning.code === 'EVAL') return;
+          warn(warning);
+        },
+      },
+    },
   },
 
   i18n: {
@@ -30,5 +41,7 @@ export default defineConfig({
   },
 
   output: 'static',
-  adapter: isCF ? cloudflare() : undefined,
+  adapter: isCF ? cloudflare({
+    imageService: "compile",
+  }) : undefined,
 });
