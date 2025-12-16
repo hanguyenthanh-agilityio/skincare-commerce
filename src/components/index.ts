@@ -10,6 +10,7 @@ export { default as HeadingWrapper } from './Heading';
 export { default as TypographyWrapper } from './Typography';
 export { default as ContentBlockWrapper } from './ContentBlock';
 export { default as LanguageSwitcher } from './LanguageSwitcher';
+export { default as SortDropdown } from './SortDropdown';
 export { default as PaginationControls } from './PaginationControls';
 export { default as PriceRange } from './PriceRange';
 
