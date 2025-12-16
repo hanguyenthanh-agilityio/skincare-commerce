@@ -45,10 +45,10 @@ const { navigation, footerLinks, socialTitle, copyright } = footer;
     </div>
 
     {/* Navigation Columns */}
-    <div class="w-full flex">
+    <div class="w-full flex gap-11 xl:gap-4">
       {
         navigation.map(({ title, links }) => (
-          <div class="min-w-56">
+          <div class="w-full xl:min-w-36">
             <Heading level="h2" title={title} className="text-white font-bold mb-6 text-sm" />
 
             <MenuLinks links={links} className="space-y-3.5" textClass="text-white text-sm/6" />
