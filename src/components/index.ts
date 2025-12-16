@@ -30,3 +30,6 @@ export { default as ProductList } from './ProductList/index.astro';
 export { default as BlogList } from './BlogList/index.astro';
 export { default as HeroImage } from './HeroImage/index.astro';
 export { default as MenuLinks } from './MenuLinks/index.astro';
+export { default as Rating } from './Rating/index.astro';
+export { default as ReviewCard } from './ReviewCard/index.astro';
+export { default as ReviewSummary } from './ReviewSummary/index.astro';

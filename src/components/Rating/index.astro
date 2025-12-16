@@ -1,0 +1,33 @@
+---
+import { cn } from '@/lib';
+
+// Components
+import { Icons } from '@/ui';
+
+interface Props {
+  value: number;
+  max?: number;
+  size?: 'sm' | 'md';
+  className?: string;
+}
+
+const { value, max = 5, size = 'sm', className } = Astro.props;
+
+const sizeClass = size === 'md' ? 'h-5 w-5' : 'h-4 w-4';
+---
+
+<div
+  class={cn('flex items-center gap-1.5', className)}
+  aria-label={`Rating: ${value} out of ${max}`}
+>
+  {
+    Array.from({ length: max }).map((_, index) => (
+      <Icons.Star
+        className={cn(
+          `${index < value ? 'text-destructive-foreground' : 'text-quill-grey'}`,
+          sizeClass,
+        )}
+      />
+    ))
+  }
+</div>
