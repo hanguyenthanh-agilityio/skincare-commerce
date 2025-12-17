@@ -54,7 +54,7 @@ const PriceRange = ({
   };
 
   return (
-    <div className={cn('space-y-8 max-w-sm mx-5', className)}>
+    <div className={cn('space-y-8 max-w-sm', className)}>
       <Label className="text-xl mb-5">{title}</Label>
 
       {/* Slider */}

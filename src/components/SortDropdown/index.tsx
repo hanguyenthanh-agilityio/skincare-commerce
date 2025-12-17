@@ -53,7 +53,7 @@ const SortDropdown = ({
         <Button
           variant="ghost"
           aria-label={label}
-          className={cn('flex items-center gap-2 px-3 py-2', className)}
+          className={cn('flex items-center gap-2 p-0 md:px-3 md:py-2', className)}
         >
           <TypographyWrapper
             level="span"
