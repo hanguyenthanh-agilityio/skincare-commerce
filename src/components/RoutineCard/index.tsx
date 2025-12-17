@@ -17,7 +17,7 @@ const RoutineCard = ({ index, label, icon: Icon }: RoutineCardProps) => (
       className="absolute -top-3 w-6 h-6 rounded-full bg-black text-white text-xs flex items-center justify-center"
     />
 
-    <div className="w-24 h-26 rounded-lg flex flex-col items-center justify-center gap-3 bg-white pt-3">
+    <div className="w-20 h-24 md:w-24 md:h-26 rounded-lg flex flex-col items-center justify-center gap-3 bg-white pt-3">
       <Icon className="w-6 h-6" />
 
       <TypographyWrapper level="span" title={label} className="text-gray-500" />

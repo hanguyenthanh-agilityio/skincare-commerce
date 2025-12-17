@@ -14,12 +14,12 @@ interface RoutineListProps {
 }
 
 const RoutineList = ({ title, subTitle, steps }: RoutineListProps) => (
-  <div className="flex flex-col items-center justify-center bg-destructive py-20">
+  <div className="flex flex-col items-center justify-center bg-destructive py-20 px-5">
     <TypographyWrapper level="span" title={subTitle} className="text-xs mb-2" />
 
     <TypographyWrapper level="p" title={title} className="text-xl font-medium" />
 
-    <div className="flex items-center gap-6 mt-10">
+    <div className="flex items-center gap-3 md:gap-6 mt-10">
       {steps?.map(({ label, icon: Icon }, index) => (
         <>
           <RoutineCard index={index} label={label} icon={Icon} />
