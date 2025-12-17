@@ -2,7 +2,13 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type { HighlightSection, StrapiImageType, MenuItem } from '@/types';
+import type {
+  HighlightSection,
+  StrapiImageType,
+  MenuItem,
+  ProductSection,
+  BlogSection,
+} from '@/types';
 
 export type TProduct = {
   images: StrapiImageType[];
@@ -33,6 +39,8 @@ export interface ProductContent extends MarkdownData {
   sort: SortContent;
   filterMenu: MenuItem[];
   priceRange: PriceRangeType;
+  product: ProductSection;
+  blog: BlogSection;
 }
 
 export interface ProductSlugContent extends MarkdownData {

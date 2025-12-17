@@ -3,7 +3,7 @@
 import { BaseLayout } from '@/layouts';
 
 // Sections
-import { Highlight, ProductToolbar } from '@/sections';
+import { Blog, Highlight, Product, ProductToolbar } from '@/sections';
 
 // I18n
 import { loadContent } from '@/i18n';
@@ -14,14 +14,22 @@ import type { ProductContent } from '@/types';
 // Constants
 import { LOCALES } from '@/constants';
 
+import { getBlogs, getProducts } from '@/services';
+
 const locale = LOCALES.VI;
 
 const productPage = loadContent<ProductContent>('products', locale);
 
-const { highlight, sort, filterMenu, priceRange } = productPage;
+const { highlight, sort, filterMenu, priceRange, product, blog } = productPage;
+
+const { blogs } = await getBlogs({ locale });
+
+const { products } = await getProducts({ locale });
 ---
 
 <BaseLayout {locale}>
   <Highlight data={highlight} />
   <ProductToolbar filterMenu={filterMenu} priceRange={priceRange} sort={sort} />
+  <Product {...product} products={products} className="mx-5 md:mx-8" />
+  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
 </BaseLayout>

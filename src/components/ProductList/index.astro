@@ -31,7 +31,7 @@ const hasLimit = typeof limitDesktop === 'number' || typeof limitMobile === 'num
         className="text-center w-full text-gray-500"
       />
     ) : (
-      <div class="flex flex-wrap gap-3.5 md:gap-4">
+      <div class="flex flex-wrap gap-3.5 md:gap-1">
         {productsData.map((product, index) => {
           // If NO limits → show everything
           if (!hasLimit) {

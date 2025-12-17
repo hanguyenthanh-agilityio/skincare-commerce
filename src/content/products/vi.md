@@ -51,4 +51,15 @@ filterMenu:
     imageUrl:
       url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019'
       alt: 'Mua sản phẩm chăm sóc da theo loại da'
+
+product:
+  title: 'Tăng Cường Bảo Vệ Làn Da Tối Ưu'
+  subTitle: 'Dòng Chăm Sóc Da Parsley Seed'
+  description: 'Khám phá dòng sản phẩm Parsley Seed giàu chất chống oxy hóa, phù hợp với mọi loại da.'
+
+blog:
+  title: 'Nhật Ký Của Chúng Tôi'
+  subtitle: 'Những Góc Nhìn Về Sức Khoẻ Và Hạnh Phúc'
+  ctaLabel: 'Xem Tất Cả Bài Viết'
+  ctaHref: '/blogs'
 ---

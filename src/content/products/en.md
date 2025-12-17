@@ -51,4 +51,15 @@ filterMenu:
     imageUrl:
       url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019'
       alt: 'Shop skincare by skin type'
+
+product:
+  title: 'Supreme Skin Fortification'
+  subTitle: 'Parsley Seed Skin Care'
+  description: 'Discover our potent antioxidant-rich Parsley Seed Skin Care perfect for all skin types.'
+
+blog:
+  title: 'Our Journal'
+  subtitle: 'Insights into Health and Well-being'
+  ctaLabel: 'All Blog Posts'
+  ctaHref: '/blogs'
 ---
