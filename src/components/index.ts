@@ -14,6 +14,7 @@ export { default as SortDropdown } from './SortDropdown';
 export { default as PaginationControls } from './PaginationControls';
 export { default as PriceRange } from './PriceRange';
 export { default as ProductBreadcrumb } from './ProductBreadcrumb';
+export { default as RoutineCard } from './RoutineCard';
 
 // Export with astro file
 export { default as Link } from './Link/index.astro';

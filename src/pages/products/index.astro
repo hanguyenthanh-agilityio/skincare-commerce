@@ -15,7 +15,6 @@ import type { ProductContent } from '@/types';
 import { LOCALES } from '@/constants';
 
 import { getBlogs, getProducts } from '@/services';
-import { MOCK_PRODUCTS } from '@/constants/product';
 
 const locale = LOCALES.EN;
 
@@ -33,6 +32,4 @@ const { products } = await getProducts({ locale });
   <ProductToolbar filterMenu={filterMenu} priceRange={priceRange} sort={sort} />
   <Product {...product} products={products} className="mx-5 md:mx-8" />
   <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
-
-  <Product {...product} products={MOCK_PRODUCTS} className="mx-5 md:mx-8" />
 </BaseLayout>

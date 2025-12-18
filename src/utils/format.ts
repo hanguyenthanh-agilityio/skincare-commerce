@@ -1,4 +1,4 @@
-import type { ProductContext } from '@/types';
+import type { Locale, ProductContext } from '@/types';
 
 /**
  * Format a date value into a human-readable string.
@@ -10,10 +10,10 @@ import type { ProductContext } from '@/types';
  * @param locale - Language locale ("en" | "vi")
  * @returns Localized formatted date string
  */
-export const formatDate = (value: string | Date, locale: 'en' | 'vi' = 'en') => {
+export const formatDate = (value: string | Date, locale: Locale = 'en') => {
   const d = new Date(value);
 
-  const localeMap: Record<'en' | 'vi', string> = {
+  const localeMap: Record<Locale, string> = {
     en: 'en-GB',
     vi: 'vi-VN',
   };

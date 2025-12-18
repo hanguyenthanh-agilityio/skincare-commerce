@@ -14,10 +14,14 @@ import { LOCALES } from '@/constants';
  * ℹ️ NOTE:
  * Just for test UI - will remove with integration API task
  */
-import { MOCK_PRODUCTS } from '@/constants/product';
+import { MOCK_PRODUCTS } from '@/mocks';
 
 // Libs
 import { buildProductBreadcrumb, getProductContext } from '@/lib';
+import { loadContent } from '@/i18n';
+import type { ProductDetailContent } from '@/types';
+import { Benefits, RoutineList } from '@/sections';
+import { PRODUCT_DETAIL } from '@/mocks';
 
 const locale = LOCALES.EN;
 const { slug } = Astro.params;
@@ -26,10 +30,14 @@ const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
 
 const context = getProductContext(product);
 const breadcrumb = buildProductBreadcrumb(context);
+
+const content = loadContent<ProductDetailContent>('products-slug', locale);
+
+const { routine, labels, image } = content;
 ---
 
 <BaseLayout {locale}>
-  <section class="px-6 py-8 max-w-7xl mx-auto">
-    <ProductBreadcrumb items={breadcrumb} />
-  </section>
+  <ProductBreadcrumb items={breadcrumb} />
+  <RoutineList steps={routine.steps} title={routine.title} subTitle={routine.subTitle} />
+  <Benefits labels={labels} data={PRODUCT_DETAIL} image={image} />
 </BaseLayout>

@@ -2,7 +2,7 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type { MenuItem, NavLink } from '@/types';
+import type { MenuItem, NavLink, Locale } from '@/types';
 
 export interface StrapiImageType {
   url: string;
@@ -88,7 +88,7 @@ export interface AboutContent extends MarkdownData {
 
 // Header content type
 export interface HeaderContent extends MarkdownData {
-  locale: 'en' | 'vi';
+  locale: Locale;
   dropdownMenu: MenuItem[];
   navLinks: NavLink[];
   body?: string;
