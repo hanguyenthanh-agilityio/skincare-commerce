@@ -48,4 +48,7 @@ export interface ProductSlugContent extends MarkdownData {
   description: string;
   backText: string;
 }
+
+export type RoutineStepKey = 'cleansing' | 'tone' | 'cream';
+
 export type SectionKey = 'ingredients' | 'benefits' | 'usages';

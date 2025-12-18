@@ -2,7 +2,7 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type { MenuItem, NavLink, Locale, SectionKey } from '@/types';
+import type { MenuItem, NavLink, Locale, SectionKey, RoutineStepKey } from '@/types';
 
 export interface StrapiImageType {
   url: string;
@@ -95,6 +95,11 @@ export interface HeaderContent extends MarkdownData {
 }
 
 export interface ProductDetailContent extends MarkdownData {
+  routine: {
+    subTitle: string;
+    title: string;
+    steps: Record<RoutineStepKey, string>;
+  };
   labels: {
     sections: Record<SectionKey, string>;
   };

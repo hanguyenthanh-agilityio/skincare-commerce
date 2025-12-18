@@ -1,4 +1,11 @@
 ---
+routine:
+  subTitle: 'Skin Routine'
+  title: 'Gentle Care For Delicate Skin'
+  steps:
+    cleansing: 'Cleansing'
+    tone: 'Tone'
+    cream: 'Cream'
 labels:
   sections:
     benefits: 'Benefits'

@@ -1,19 +1,24 @@
 import type { ComponentType } from 'react';
+import type { RoutineStepKey } from '@/types';
 
 // Components
 import { RoutineCard, TypographyWrapper } from '@/components';
 import { Icons } from '@/ui';
 
-export interface RoutineStep {
-  label: string;
-  Icon: ComponentType<{ className?: string }>;
-}
-
 interface RoutineListProps {
   title: string;
   subTitle: string;
-  steps: RoutineStep[];
+  steps: Record<RoutineStepKey, string>;
 }
+
+const STEP_ICONS: Record<RoutineStepKey, ComponentType<{ className?: string }>> = {
+  cleansing: Icons.Bottle,
+  tone: Icons.Soap,
+  cream: Icons.Cream,
+};
+
+/* Order is UI decision */
+const STEP_ORDER: RoutineStepKey[] = ['cleansing', 'tone', 'cream'];
 
 const RoutineList = ({ title, subTitle, steps }: RoutineListProps) => (
   <section
@@ -26,12 +31,13 @@ const RoutineList = ({ title, subTitle, steps }: RoutineListProps) => (
 
     {/* Steps */}
     <ul className="mt-10 flex items-center gap-3 md:gap-6">
-      {steps.map(({ label, Icon }, index) => (
-        <li key={label} className="flex items-center gap-3 md:gap-6">
-          <RoutineCard index={index + 1} label={label} icon={Icon} />
+      {STEP_ORDER.map((key, index) => (
+        <li key={key} className="flex items-center gap-3 md:gap-6">
+          <RoutineCard index={index} label={steps[key]} icon={STEP_ICONS[key]} />
 
-          {/* Plus separator */}
-          {index < steps.length - 1 && <Icons.Plus aria-hidden className="size-3 text-gray-400" />}
+          {index < STEP_ORDER.length - 1 && (
+            <Icons.Plus aria-hidden className="size-3 text-gray-400" />
+          )}
         </li>
       ))}
     </ul>

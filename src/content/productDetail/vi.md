@@ -1,4 +1,11 @@
 ---
+routine:
+  subTitle: 'Quy trình chăm sóc da'
+  title: 'Chăm sóc dịu nhẹ cho làn da nhạy cảm'
+  steps:
+    cleansing: 'Làm sạch'
+    tone: 'Cân bằng'
+    cream: 'Dưỡng ẩm'
 labels:
   sections:
     benefits: 'Công dụng'
