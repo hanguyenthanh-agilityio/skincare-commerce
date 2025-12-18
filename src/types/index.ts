@@ -5,3 +5,4 @@ export * from './navigation';
 export * from './footer';
 export * from './locale';
 export * from './review';
+export * from './breadcrumb';

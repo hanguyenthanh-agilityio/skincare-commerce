@@ -9,7 +9,7 @@ import { Blog, Highlight, Product, ProductToolbar } from '@/sections';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { ProductContent } from '@/types';
+import type { ProductContent, TProduct } from '@/types';
 
 // Constants
 import { LOCALES } from '@/constants';
@@ -25,6 +25,39 @@ const { highlight, sort, filterMenu, priceRange, product, blog } = productPage;
 const { blogs } = await getBlogs({ locale });
 
 const { products } = await getProducts({ locale });
+
+export const MOCK_PRODUCTS: TProduct[] = [
+  {
+    slug: 'gentle-balancing-toner',
+    name: 'Gentle Balancing Toner',
+    volume: '200ml',
+    href: '/products/detail/gentle-balancing-toner',
+    price: 28,
+    category: 'cleanse',
+    skinType: 'sensitive',
+    images: [
+      {
+        url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
+        alternativeText: 'Gentle Balancing Toner',
+      },
+    ],
+  },
+  {
+    slug: 'hydrating-serum',
+    name: 'Hydrating Serum',
+    volume: '30ml',
+    href: '/products/detail/hydrating-serum',
+    price: 28,
+    category: 'treat-masque',
+    skinType: 'dry',
+    images: [
+      {
+        url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
+        alternativeText: 'Gentle Balancing Toner',
+      },
+    ],
+  },
+];
 ---
 
 <BaseLayout {locale}>
@@ -32,4 +65,6 @@ const { products } = await getProducts({ locale });
   <ProductToolbar filterMenu={filterMenu} priceRange={priceRange} sort={sort} />
   <Product {...product} products={products} className="mx-5 md:mx-8" />
   <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
+
+  <Product {...product} products={MOCK_PRODUCTS} className="mx-5 md:mx-8" />
 </BaseLayout>

@@ -14,17 +14,17 @@ import { Button, Icons } from '@/ui';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { ProductSlugContent } from '@/types';
+import type { ProductContextContent } from '@/types';
 
 // Constants
 import { LOCALES } from '@/constants';
 
-const { slug } = Astro.params;
+const { category } = Astro.params;
 const locale = LOCALES.EN;
 
-const content = loadContent<ProductSlugContent>('products-slug', locale);
+const content = loadContent<ProductContextContent>('products-category', locale);
 
-const title = (slug ?? '').replace('-', ' ');
+const title = (category ?? '').replace('-', ' ');
 ---
 
 <BaseLayout {locale}>
