@@ -1,13 +1,23 @@
 ---
 export const prerender = false;
 
+// Layouts
 import { BaseLayout } from '@/layouts';
-import { Heading, Typography } from '@/components';
+
+// Components
+import { ProductBreadcrumb } from '@/components';
+
+// Constants
 import { LOCALES } from '@/constants';
-import { MOCK_PRODUCTS } from '../index.astro';
-import { buildProductBreadcrumb } from '@/lib/buildBreadcrumb';
-import ProductBreadcrumb from '@/components/ProductBreadcrumb';
-import { getProductContext } from '@/lib/productContext';
+
+/**
+ * ℹ️ NOTE:
+ * Just for test UI - will remove with integration API task
+ */
+import { MOCK_PRODUCTS } from '@/constants/product';
+
+// Libs
+import { buildProductBreadcrumb, getProductContext } from '@/lib';
 
 const locale = LOCALES.EN;
 const { slug } = Astro.params;
@@ -21,17 +31,5 @@ const breadcrumb = buildProductBreadcrumb(context);
 <BaseLayout {locale}>
   <section class="px-6 py-8 max-w-7xl mx-auto">
     <ProductBreadcrumb items={breadcrumb} />
-
-    <Heading
-      level="h2"
-      className="mt-6 text-3xl font-semibold"
-      title={product?.name ?? 'Product'}
-    />
-
-    <Typography
-      level="p"
-      className="mt-2 text-muted-foreground"
-      title={`Volume: ${product?.volume}`}
-    />
   </section>
 </BaseLayout>

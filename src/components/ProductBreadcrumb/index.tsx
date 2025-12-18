@@ -1,3 +1,4 @@
+// UIs
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -5,8 +6,10 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  Icons,
 } from '@/ui';
 
+// Types
 import type { BreadcrumbItem as Item } from '@/types';
 
 interface Props {
@@ -30,7 +33,11 @@ const ProductBreadcrumb = ({ items }: Props) => {
                 <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
               )}
 
-              {!isLast && <BreadcrumbSeparator>•</BreadcrumbSeparator>}
+              {!isLast && (
+                <BreadcrumbSeparator>
+                  <Icons.dot className="size-6!" />
+                </BreadcrumbSeparator>
+              )}
             </BreadcrumbItem>
           );
         })}

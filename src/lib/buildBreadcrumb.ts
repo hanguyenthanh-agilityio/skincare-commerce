@@ -1,4 +1,7 @@
+// Types
 import type { BreadcrumbItem, ProductContext } from '@/types';
+
+// Utils
 import { buildHref, formatLabel } from '@/utils';
 
 const LABEL_MAP = {
@@ -6,7 +9,8 @@ const LABEL_MAP = {
   skinType: 'Skin Type',
 };
 
-export function buildProductBreadcrumb(context?: ProductContext): BreadcrumbItem[] {
+// converts a product’s context into a breadcrumb structure that the UI can render
+export const buildProductBreadcrumb = (context?: ProductContext): BreadcrumbItem[] => {
   if (!context) return [];
 
   return [
@@ -16,4 +20,4 @@ export function buildProductBreadcrumb(context?: ProductContext): BreadcrumbItem
       href: buildHref(context),
     },
   ];
-}
+};
