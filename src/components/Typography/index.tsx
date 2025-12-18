@@ -1,13 +1,12 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
-interface TagProps {
+interface TypographyWrapperProps {
   title: string;
   level: 'p' | 'span';
   className?: string;
 }
 
-const TypographyWrapper: React.FC<TagProps> = ({ title, level, className }) => {
+const TypographyWrapper = ({ title, level, className }: TypographyWrapperProps) => {
   const defaultClasses: Record<string, string> = {
     p: 'text-base/7',
     span: 'text-sm/6',

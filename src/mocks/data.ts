@@ -1,79 +1,20 @@
-export const MOCKS_BLOGS = [
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'The Beginners Guide to Niacinamide',
-    category: 'Skincare Tips',
-    href: '/blog/beginners-guide-niacinamide',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'The Beginners Guide to Niacinamide The Beginners Guide to Niacinamide The Beginners Guide to Niacinamide',
-    category: 'Skincare Tips',
-    href: '/blog/beginners-guide-niacinamide',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'Why Double Cleansing Improves Your Skin',
-    category: 'Cleansing',
-    href: '/blog/why-double-cleansing',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'Retinol for Beginners: What You Need to Know',
-    category: 'Anti-Aging',
-    href: '/blog/retinol-for-beginners',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: '5 Hydration Tips for Healthy, Glowing Skin',
-    category: 'Hydration',
-    href: '/blog/hydration-tips',
-  },
-];
-export const MOCKS_PRODUCTS = [
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'The Beginners Guide to Niacinamide',
-    badge: 'Skincare Tips',
-    description: 'Retinol for Beginners: What You Need to Know',
-    href: '/blog/beginners-guide-niacinamide',
-    price: 100,
-    volume: '100ml',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'How to Choose the Right Sunscreen for Your Skin',
-    badge: 'Sun Protection',
-    description: 'Retinol for Beginners: What You Need to Know',
-    href: '/blog/choose-right-sunscreen',
-    price: 100,
-    volume: '100ml',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'Why Double Cleansing Improves Your Skin',
-    badge: 'Cleansing',
-    description: 'Retinol for Beginners: What You Need to Know',
-    href: '/blog/why-double-cleansing',
-    price: 100,
-    volume: '100ml',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: 'Retinol for Beginners: What You Need to Know',
-    badge: 'Anti-Aging',
-    description: 'Retinol for Beginners: What You Need to Know',
-    href: '/blog/retinol-for-beginners',
-    price: 100,
-    volume: '100ml',
-  },
-  {
-    image: '/images/pexels-shiny-diamond-3762453.jpg',
-    name: '5 Hydration Tips for Healthy, Glowing Skin',
-    description: 'Retinol for Beginners: What You Need to Know',
-    badge: 'Hydration',
-    href: '/blog/hydration-tips',
-    price: 100,
-    volume: '100ml',
-  },
-];
+export const PRODUCT_DETAIL = {
+  ingredients: [
+    {
+      type: 'paragraph',
+      children: [{ text: 'Amino Acid Cleanser, Glycerin, Green Tea Extract' }],
+    },
+  ],
+  benefits: [
+    {
+      type: 'paragraph',
+      children: [{ text: 'Cleanses gently, prevents dryness, refreshes skin' }],
+    },
+  ],
+  usages: [
+    {
+      type: 'paragraph',
+      children: [{ text: 'Massage onto wet skin and rinse thoroughly' }],
+    },
+  ],
+};

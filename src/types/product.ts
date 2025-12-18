@@ -43,8 +43,18 @@ export interface ProductContent extends MarkdownData {
   blog: BlogSection;
 }
 
-export interface ProductSlugContent extends MarkdownData {
-  titleSuffix: string;
-  description: string;
-  backText: string;
+export interface ProductDetailContent extends MarkdownData {
+  routine: {
+    subTitle: string;
+    title: string;
+    steps: Record<RoutineStepKey, string>;
+  };
+  labels: {
+    sections: Record<SectionKey, string>;
+  };
+  image: StrapiImageType;
 }
+
+export type RoutineStepKey = 'cleansing' | 'tone' | 'cream';
+
+export type SectionKey = 'ingredients' | 'benefits' | 'usages';
