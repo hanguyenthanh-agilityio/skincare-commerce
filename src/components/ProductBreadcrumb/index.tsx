@@ -35,7 +35,7 @@ const ProductBreadcrumb = ({ items }: Props) => {
 
               {!isLast && (
                 <BreadcrumbSeparator>
-                  <Icons.dot className="size-6!" />
+                  <Icons.dot className="size-6" />
                 </BreadcrumbSeparator>
               )}
             </BreadcrumbItem>
