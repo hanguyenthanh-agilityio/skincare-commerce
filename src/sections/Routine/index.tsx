@@ -4,32 +4,38 @@ import type { ComponentType } from 'react';
 import { RoutineCard, TypographyWrapper } from '@/components';
 import { Icons } from '@/ui';
 
+export interface RoutineStep {
+  label: string;
+  Icon: ComponentType<{ className?: string }>;
+}
+
 interface RoutineListProps {
   title: string;
   subTitle: string;
-  steps: {
-    label: string;
-    icon: ComponentType<{ className?: string }>;
-  }[];
+  steps: RoutineStep[];
 }
 
 const RoutineList = ({ title, subTitle, steps }: RoutineListProps) => (
-  <div className="flex flex-col items-center justify-center bg-destructive py-20 px-5">
-    <TypographyWrapper level="span" title={subTitle} className="text-xs mb-2" />
+  <section
+    aria-labelledby="routine-title"
+    className="flex flex-col items-center justify-center bg-destructive/50 py-20 px-5 text-center"
+  >
+    <TypographyWrapper level="span" title={subTitle} className="mb-2 text-xs" />
 
     <TypographyWrapper level="p" title={title} className="text-xl font-medium" />
 
-    <div className="flex items-center gap-3 md:gap-6 mt-10">
-      {steps?.map(({ label, icon: Icon }, index) => (
-        <>
-          <RoutineCard index={index} label={label} icon={Icon} />
+    {/* Steps */}
+    <ul className="mt-10 flex items-center gap-3 md:gap-6">
+      {steps.map(({ label, Icon }, index) => (
+        <li key={label} className="flex items-center gap-3 md:gap-6">
+          <RoutineCard index={index + 1} label={label} icon={Icon} />
 
-          {/* Plus */}
-          {index < steps.length - 1 && <Icons.Plus color="gray" className="size-3" />}
-        </>
+          {/* Plus separator */}
+          {index < steps.length - 1 && <Icons.Plus aria-hidden className="size-3 text-gray-400" />}
+        </li>
       ))}
-    </div>
-  </div>
+    </ul>
+  </section>
 );
 
 export default RoutineList;

@@ -1,0 +1,73 @@
+---
+import type { StrapiImageType, SectionKey } from '@/types';
+
+// Components
+import { StrapiImage, Typography } from '@/components';
+import { Icons } from '@/ui';
+
+type RichTextBlock = {
+  type: string;
+  children: { text: string }[];
+};
+
+interface Props {
+  labels: {
+    sections: Record<SectionKey, string>;
+  };
+  data: Partial<Record<SectionKey, RichTextBlock[]>>;
+  image: StrapiImageType;
+}
+
+const { labels, data, image } = Astro.props;
+
+const SECTIONS: SectionKey[] = ['benefits', 'usages', 'ingredients'];
+---
+
+<section class="flex flex-col lg:flex-row">
+  <!-- Accordion -->
+  <div class="flex-1 bg-destructive px-5 py-16 lg:p-20">
+    {
+      SECTIONS.map((key) =>
+        data[key]?.length ? (
+          <details class="group border-t border-quill-grey">
+            <summary
+              class="flex items-center justify-between cursor-pointer py-4"
+              aria-controls={`section-${key}`}
+            >
+              <Typography
+                level="span"
+                title={labels.sections[key]}
+                className="block font-semibold"
+              />
+
+              <Icons.Plus
+                aria-hidden
+                className="size-4 transition-transform group-open:rotate-45"
+              />
+            </summary>
+
+            <div id={`section-${key}`} class="pb-2">
+              {data[key].map((block) => (
+                <Typography
+                  level="p"
+                  title={block.children.map((c) => c.text).join('')}
+                  className="pb-2 text-sm leading-relaxed"
+                />
+              ))}
+            </div>
+          </details>
+        ) : null,
+      )
+    }
+  </div>
+
+  <!-- Image -->
+  <div class="flex-1">
+    <StrapiImage
+      client:idle
+      image={image}
+      className="h-full w-full object-cover"
+      fallbackAspectRatio={0}
+    />
+  </div>
+</section>

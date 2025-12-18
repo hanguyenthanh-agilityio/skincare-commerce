@@ -48,3 +48,4 @@ export interface ProductSlugContent extends MarkdownData {
   description: string;
   backText: string;
 }
+export type SectionKey = 'ingredients' | 'benefits' | 'usages';
