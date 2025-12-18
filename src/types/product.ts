@@ -10,6 +10,10 @@ import type {
   BlogSection,
 } from '@/types';
 
+export type SkinType = 'normal' | 'dry' | 'oily' | 'combination' | 'sensitive';
+
+export type ProductCategory = 'cleanse' | 'exfoliate' | 'treat-masque' | 'body' | 'fragrances';
+
 export type TProduct = {
   images: StrapiImageType[];
   name: string;
@@ -19,6 +23,9 @@ export type TProduct = {
   price: number;
   href: string;
   badge?: string;
+  slug?: string;
+  category?: ProductCategory;
+  skinType?: SkinType;
 };
 
 export type PriceRangeType = {
@@ -43,6 +50,18 @@ export interface ProductContent extends MarkdownData {
   blog: BlogSection;
 }
 
+export interface ProductContextContent extends MarkdownData {
+  titleSuffix: string;
+  description: string;
+  backText: string;
+}
+
+export type ProductContextType = 'category' | 'skinType';
+
+export interface ProductContext {
+  type: ProductContextType;
+  value: ProductCategory | SkinType;
+}
 export interface ProductDetailContent extends MarkdownData {
   routine: {
     subTitle: string;

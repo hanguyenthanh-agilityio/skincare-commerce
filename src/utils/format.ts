@@ -1,4 +1,4 @@
-import type { Locale } from '@/types';
+import type { Locale, ProductContext } from '@/types';
 
 /**
  * Format a date value into a human-readable string.
@@ -23,4 +23,16 @@ export const formatDate = (value: string | Date, locale: Locale = 'en') => {
     month: 'long',
     year: 'numeric',
   });
+};
+
+export const formatLabel = (value: string) => {
+  return value.replace('-', ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+export const buildHref = (context: ProductContext) => {
+  if (context.type === 'skinType') {
+    return `/products/${context.value}-skin`;
+  }
+
+  return `/products/${context.value}`;
 };
