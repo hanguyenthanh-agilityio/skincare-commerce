@@ -35,3 +35,4 @@ export { default as MenuLinks } from './MenuLinks/index.astro';
 export { default as Rating } from './Rating/index.astro';
 export { default as ReviewCard } from './ReviewCard/index.astro';
 export { default as ReviewSummary } from './ReviewSummary/index.astro';
+export { default as ProductInfo } from './ProductInfo/index.astro';

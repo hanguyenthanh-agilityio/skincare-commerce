@@ -1,0 +1,55 @@
+---
+// Components
+import { AddToCartButton, Heading, ProductBreadcrumb, Typography } from '@/components';
+
+// Types
+import type { Attribute, BreadcrumbItem, TProduct } from '@/types';
+
+interface Props {
+  product: TProduct;
+  attributes: Attribute[];
+  breadcrumbItems: BreadcrumbItem[];
+}
+
+const { product, attributes, breadcrumbItems } = Astro.props as Props;
+---
+
+<div class="flex flex-col gap-6 max-w-md">
+  <ProductBreadcrumb items={breadcrumbItems} />
+
+  <!-- Title & description -->
+  <div class="space-y-1">
+    <Heading level="h2" title={product.name} />
+
+    {
+      product.description && (
+        <Typography level="span" className="leading-relaxed" title={product.description} />
+      )
+    }
+  </div>
+
+  <!-- Price -->
+  <Heading level="h3" className="font-medium text-foreground" title={`$${product.price}`} />
+
+  <!-- Add to cart -->
+  <div class="pt-2">
+    <AddToCartButton variant="solid" className="w-full mb-4" client:load />
+  </div>
+
+  <!-- Attributes -->
+  <div class="border-t-2 border-black">
+    {
+      attributes.map((item) => (
+        <div class="border-b-2 border-border py-4">
+          <Typography level="p" className="block tracking-wide font-bold" title={item.label} />
+
+          <Typography
+            level="span"
+            className="mt-1 leading-relaxed text-muted-foreground"
+            title={item.value}
+          />
+        </div>
+      ))
+    }
+  </div>
+</div>
