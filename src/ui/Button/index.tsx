@@ -19,6 +19,7 @@ const buttonVariants = cva(
         // Custom button
         outlineSoft: 'border border-muted rounded-none text-primary text-sm hover:bg-[#ecebe5]',
         dark: 'bg-primary rounded-none text-sm text-white hover:bg-black/80 opacity-0 pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto',
+        solid: 'bg-primary rounded-none text-sm text-white hover:bg-black/80',
         light: 'bg-white rounded-none text-sm text-black border border-muted hover:bg-black/5',
         outlineWhite:
           'border border-white rounded-none text-sm text-white hover:bg-white/10 backdrop-blur-sm',

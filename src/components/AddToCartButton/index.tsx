@@ -5,9 +5,10 @@ import { Button } from '@/ui';
 
 interface AddToCartButtonProps {
   className?: string;
+  variant?: 'solid' | 'dark';
 }
 
-const AddToCartButton = ({ className }: AddToCartButtonProps) => {
+const AddToCartButton = ({ className, variant = 'dark' }: AddToCartButtonProps) => {
   const [isAdding, setIsAdding] = useState(false);
 
   // TODO: Add to cart action
@@ -18,7 +19,7 @@ const AddToCartButton = ({ className }: AddToCartButtonProps) => {
   return (
     <Button
       aria-label="Add to your cart"
-      variant="dark"
+      variant={variant}
       size="xl"
       disabled={isAdding}
       onClick={handleAddToCart}

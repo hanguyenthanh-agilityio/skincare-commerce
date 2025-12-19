@@ -36,6 +36,11 @@ export type PriceRangeType = {
 
 export type SortValue = 'none' | 'price-desc' | 'price-asc' | 'newest' | 'popularity';
 
+export interface Attribute {
+  label: string;
+  value: string;
+}
+
 export interface SortContent {
   label: string;
   options: Record<SortValue, string>;

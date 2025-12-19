@@ -1,3 +1,7 @@
+// Export with tsx file
+export { default as RoutineList } from './Routine';
+
+// Export with astro file
 export { default as UserVoice } from './UserVoice/index.astro';
 export { default as Highlight } from './Highlight/index.astro';
 export { default as Carousel } from './Carousel/index.astro';
@@ -8,4 +12,4 @@ export { default as Blog } from './Blog/index.astro';
 export { default as Reviews } from './Reviews/index.astro';
 export { default as ProductToolbar } from './ProductToolbar/index.astro';
 export { default as Benefits } from './Benefits/index.astro';
-export { default as RoutineList } from './Routine';
+export { default as ProductDetail } from './ProductDetail/index.astro';
