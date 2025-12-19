@@ -14,8 +14,8 @@ sort:
   label: 'Sort by'
   options:
     none: 'None'
-    price-desc: 'Price: High → Low'
-    price-asc: 'Price: Low → High'
+    price_desc: 'Price: High → Low'
+    price_asc: 'Price: Low → High'
     newest: 'Newest'
     popularity: 'Popularity'
 

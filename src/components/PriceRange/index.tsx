@@ -1,7 +1,7 @@
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { cn } from '@/lib';
 
-// Components
+// UI
 import { Slider, Input, Label } from '@/ui';
 
 interface PriceRangeProps {
@@ -13,8 +13,10 @@ interface PriceRangeProps {
   min?: number;
   max?: number;
   step?: number;
-  value?: [number, number];
-  onChange?: (value: [number, number]) => void;
+  paramNames?: {
+    min: string;
+    max: string;
+  };
   className?: string;
 }
 
@@ -24,24 +26,53 @@ const PriceRange = ({
   min = 0,
   max = 1000,
   step = 10,
-  value = [200, 800],
-  onChange,
+  paramNames = { min: 'minPrice', max: 'maxPrice' },
   className,
 }: PriceRangeProps) => {
-  const [range, setRange] = useState<[number, number]>(value);
+  const getInitialRange = (): [number, number] => {
+    if (typeof window === 'undefined') return [min, max];
 
-  const updateRange = (next: [number, number]) => {
-    const clamped: [number, number] = [
-      Math.max(min, Math.min(next[0], next[1])),
-      Math.min(max, Math.max(next[1], next[0])),
+    const url = new URL(window.location.href);
+    const minParam = Number(url.searchParams.get(paramNames.min));
+    const maxParam = Number(url.searchParams.get(paramNames.max));
+
+    return [
+      Number.isNaN(minParam) ? min : Math.max(min, minParam),
+      Number.isNaN(maxParam) ? max : Math.min(max, maxParam),
     ];
-
-    setRange(clamped);
-    onChange?.(clamped);
   };
 
-  const handleSliderChange = ([from, to]: number[]) => {
-    updateRange([from, to]);
+  const [range, setRange] = useState<[number, number]>(getInitialRange);
+
+  const debounceRef = useRef<number | null>(null);
+
+  const updateUrl = (next: [number, number]) => {
+    const url = new URL(window.location.href);
+
+    url.searchParams.set(paramNames.min, String(next[0]));
+    url.searchParams.set(paramNames.max, String(next[1]));
+
+    // Reset pagination when filtering
+    url.searchParams.delete('page');
+
+    window.location.href = url.toString();
+  };
+
+  const applyChange = (next: [number, number]) => {
+    setRange(next);
+
+    window.clearTimeout(debounceRef.current!);
+
+    debounceRef.current = window.setTimeout(() => {
+      updateUrl(next);
+    }, 400);
+  };
+
+  const handleSliderChange = ([fromValue, toValue]: number[]) => {
+    applyChange([
+      Math.max(min, Math.min(fromValue, toValue)),
+      Math.min(max, Math.max(fromValue, toValue)),
+    ]);
   };
 
   const handleInputChange = (index: 0 | 1) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,23 +81,30 @@ const PriceRange = ({
 
     const next: [number, number] = index === 0 ? [value, range[1]] : [range[0], value];
 
-    updateRange(next);
+    applyChange([
+      Math.max(min, Math.min(next[0], next[1])),
+      Math.min(max, Math.max(next[1], next[0])),
+    ]);
   };
+
+  useEffect(() => {
+    return () => window.clearTimeout(debounceRef.current!);
+  }, []);
 
   return (
     <div className={cn('space-y-8 max-w-sm', className)}>
-      <Label className="text-xl mb-5">{title}</Label>
+      <Label className="text-xl">{title}</Label>
 
       {/* Slider */}
       <Slider value={range} min={min} max={max} step={step} onValueChange={handleSliderChange} />
 
       {/* Inputs */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="grid w-full items-center gap-3">
-          <Label htmlFor="min price">{from}</Label>
+        <div className="grid gap-2">
+          <Label htmlFor="min-price">{from}</Label>
           <Input
+            id="min-price"
             type="number"
-            id="min price"
             value={range[0]}
             min={min}
             max={range[1]}
@@ -74,11 +112,11 @@ const PriceRange = ({
           />
         </div>
 
-        <div className="grid w-full items-center gap-3">
-          <Label htmlFor="max price">{to}</Label>
+        <div className="grid gap-2">
+          <Label htmlFor="max-price">{to}</Label>
           <Input
+            id="max-price"
             type="number"
-            id="max price"
             value={range[1]}
             min={range[0]}
             max={max}

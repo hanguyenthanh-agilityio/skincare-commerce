@@ -34,7 +34,7 @@ export type PriceRangeType = {
   to: string;
 };
 
-export type SortValue = 'none' | 'price-desc' | 'price-asc' | 'newest' | 'popularity';
+export type SortValue = 'price_desc' | 'price_asc' | 'newest' | 'popularity';
 
 export interface Attribute {
   label: string;

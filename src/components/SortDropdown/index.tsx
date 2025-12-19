@@ -3,7 +3,7 @@ import { useState } from 'react';
 // Components
 import { TypographyWrapper } from '@/components';
 
-// UIss
+// UI
 import {
   Button,
   Icons,
@@ -26,25 +26,22 @@ import { SORT_VALUES } from '@/constants';
 interface SortDropdownProps {
   content: SortContent;
   defaultValue?: SortValue;
+  value: SortValue;
   onSortChange?: (value: SortValue) => void;
   className?: string;
 }
 
-const SortDropdown = ({
-  content,
-  defaultValue = 'none',
-  onSortChange,
-  className,
-}: SortDropdownProps) => {
+const SortDropdown = ({ content, value, className }: SortDropdownProps) => {
   const { label, options } = content;
-
-  const [value, setValue] = useState<SortValue>(defaultValue);
   const [open, setOpen] = useState(false);
 
-  const handleValueChange = (nextValue: SortValue) => {
-    setValue(nextValue);
-    onSortChange?.(nextValue);
-    setOpen(false);
+  const handleValueChange = (value: SortValue) => {
+    const params = new URLSearchParams(window.location.search);
+
+    params.set('sort', value);
+
+    // Trigger Astro page reload (correct behavior)
+    window.location.search = params.toString();
   };
 
   return (

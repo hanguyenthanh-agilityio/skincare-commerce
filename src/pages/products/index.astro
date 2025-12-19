@@ -1,9 +1,9 @@
 ---
 // Layouts
-import { BaseLayout } from '@/layouts';
+import { BaseLayout, ProductLayout } from '@/layouts';
 
 // Sections
-import { Blog, Highlight, Product, ProductToolbar } from '@/sections';
+import { Blog } from '@/sections';
 
 // I18n
 import { loadContent } from '@/i18n';
@@ -14,22 +14,19 @@ import type { ProductContent } from '@/types';
 // Constants
 import { LOCALES } from '@/constants';
 
-import { getBlogs, getProducts } from '@/services';
+import { getBlogs } from '@/services';
 
 const locale = LOCALES.EN;
 
 const productPage = loadContent<ProductContent>('products', locale);
 
-const { highlight, sort, filterMenu, priceRange, product, blog } = productPage;
+const { blog } = productPage;
 
 const { blogs } = await getBlogs({ locale });
-
-const { products } = await getProducts({ locale });
 ---
 
 <BaseLayout {locale}>
-  <Highlight data={highlight} />
-  <ProductToolbar filterMenu={filterMenu} priceRange={priceRange} sort={sort} />
-  <Product {...product} products={products} className="mx-5 md:mx-8" />
+  <ProductLayout {locale} />
+
   <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
 </BaseLayout>
