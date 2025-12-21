@@ -15,6 +15,7 @@ export { default as PaginationControls } from './PaginationControls';
 export { default as PriceRange } from './PriceRange';
 export { default as ProductBreadcrumb } from './ProductBreadcrumb';
 export { default as RoutineCard } from './RoutineCard';
+export { default as FaqAccordion } from './FaqAccordion';
 
 // Export with astro file
 export { default as Link } from './Link/index.astro';
@@ -36,3 +37,4 @@ export { default as Rating } from './Rating/index.astro';
 export { default as ReviewCard } from './ReviewCard/index.astro';
 export { default as ReviewSummary } from './ReviewSummary/index.astro';
 export { default as ProductInfo } from './ProductInfo/index.astro';
+export { default as TopicsSidebar } from './TopicsSidebar/index.astro';
