@@ -1,0 +1,24 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Sections
+import { ContactUs } from '@/sections';
+
+// Types
+import type { ContactContent } from '@/types';
+
+// Constants
+import { LOCALES } from '@/constants';
+
+const locale = LOCALES.EN;
+
+const data = loadContent<ContactContent>('contact', locale);
+---
+
+<BaseLayout {locale}>
+  <ContactUs data={data} />
+</BaseLayout>

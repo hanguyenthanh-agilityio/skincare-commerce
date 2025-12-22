@@ -1,2 +1,2 @@
 export * from './format';
-export * from './mapFaqIcons';
+export * from './mapIcons';

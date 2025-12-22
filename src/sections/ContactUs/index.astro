@@ -1,0 +1,65 @@
+---
+// Components
+import { Heading, Link, Typography } from '@/components';
+
+// Types
+import type { ContactContent } from '@/types';
+
+// UIs
+import { Button } from '@/ui';
+import { getContactIcon } from '@/utils/mapIcons';
+
+// Icons
+import { HelpCircle } from 'lucide-react';
+
+interface Props {
+  data: ContactContent;
+}
+
+const { data } = Astro.props as Props;
+---
+
+<section
+  class="flex items-center justify-center px-4 py-16 bg-background"
+  aria-label="Contact Us Section"
+>
+  <div class="w-full max-w-5xl p-4 md:p-16 flex flex-col items-center">
+    <!-- Header -->
+    <div class="flex flex-col gap-4 text-center mb-12">
+      <Heading level="h2" className="text-4xl font-bold text-primary" title={data.title} />
+      <Typography
+        level="p"
+        className="text-lg md:text-xl text-muted-foreground mt-2"
+        title={data.subtitle}
+      />
+
+      <!-- Contact Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-12">
+        {
+          data.contacts.map(({ id, label, value }) => {
+            const Icon = getContactIcon(id);
+            return (
+              <article
+                class="flex flex-col items-center p-6 bg-primary/10 rounded-xl shadow hover:shadow-xl transition-shadow w-full"
+                role="region"
+                aria-label={label}
+              >
+                <Icon className="w-10 h-10 text-primary mb-3" aria-hidden="true" />
+                <Heading level="h3" className="font-semibold text-primary mb-1" title={label} />
+                <Typography level="p" className="text-muted-foreground" title={value} />
+              </article>
+            );
+          })
+        }
+      </div>
+
+      <!-- FAQ Button -->
+      <Link href="/faq" className="flex justify-center pt-5">
+        <Button className="gap-3 px-8 py-4 shadow-lg cursor-pointer">
+          {data.faqButton}
+          <HelpCircle className="w-6 h-6 animate-bounce" aria-hidden="true" />
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
