@@ -1,0 +1,29 @@
+---
+// Components
+import { FaqAccordion, TopicsSidebar, Typography } from '@/components';
+
+// UIs
+import { Button, Icons } from '@/ui';
+
+const { topics, sections, title } = Astro.props;
+---
+
+<section class="mx-auto px-6 lg:px-22 py-12">
+  <div class="grid grid-cols-1 gap-8 lg:gap-16 md:grid-cols-[280px_1fr]">
+    <!-- Sidebar -->
+    <TopicsSidebar topics={topics} />
+
+    <!-- Content -->
+    <div class="flex flex-col gap-20 md:gap-30 lg:pl-20">
+      <FaqAccordion client:visible sections={sections} />
+
+      <div>
+        <Typography level="p" className="mb-6 max-w-md text-base" title={title} />
+
+        <Button variant="outlineSoft" className="gap-6 py-6 w-full justify-between md:max-w-44"
+          >Contact Us <Icons.Arrow className="size-4" /></Button
+        >
+      </div>
+    </div>
+  </div>
+</section>

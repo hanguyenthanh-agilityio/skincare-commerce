@@ -1,0 +1,32 @@
+---
+import { BaseLayout } from '@/layouts';
+
+// Sections
+import { FaqInfo } from '@/sections';
+
+// Constants
+import { LOCALES } from '@/constants';
+
+// I18nI18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { FaqContent, Topic } from '@/types';
+
+// Utils
+import { getFaqIcon } from '@/utils';
+
+const locale = LOCALES.EN;
+
+const { topics: rawTopics, sections, faqTitle } = loadContent<FaqContent>('faq', locale);
+
+// Map Icons
+const topics: Topic[] = rawTopics.map((t) => ({
+  ...t,
+  icon: getFaqIcon(t.id),
+}));
+---
+
+<BaseLayout {locale}>
+  <FaqInfo topics={topics} sections={sections} title={faqTitle} />
+</BaseLayout>
