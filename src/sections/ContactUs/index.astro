@@ -1,4 +1,7 @@
 ---
+// Icons
+import { HelpCircle } from 'lucide-react';
+
 // Components
 import { Heading, Link, Typography } from '@/components';
 
@@ -7,10 +10,12 @@ import type { ContactContent } from '@/types';
 
 // UIs
 import { Button } from '@/ui';
-import { getContactIcon } from '@/utils/mapIcons';
 
-// Icons
-import { HelpCircle } from 'lucide-react';
+// Utils
+import { getContactIcon } from '@/utils';
+
+// Constants
+import { ROUTER } from '@/constants';
 
 interface Props {
   data: ContactContent;
@@ -54,8 +59,8 @@ const { data } = Astro.props as Props;
       </div>
 
       <!-- FAQ Button -->
-      <Link href="/faq" className="flex justify-center pt-5">
-        <Button className="gap-3 px-8 py-4 shadow-lg cursor-pointer">
+      <Link href={ROUTER.FAQ} className="flex justify-center pt-5">
+        <Button className="gap-3 px-8 py-4 cursor-pointer">
           {data.faqButton}
           <HelpCircle className="w-6 h-6 animate-bounce" aria-hidden="true" />
         </Button>

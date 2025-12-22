@@ -1,9 +1,12 @@
 ---
 // Components
-import { FaqAccordion, TopicsSidebar, Typography } from '@/components';
+import { FaqAccordion, Link, TopicsSidebar, Typography } from '@/components';
 
 // UIs
 import { Button, Icons } from '@/ui';
+
+// Constants
+import { ROUTER } from '@/constants';
 
 const { topics, sections, title } = Astro.props;
 ---
@@ -20,9 +23,11 @@ const { topics, sections, title } = Astro.props;
       <div>
         <Typography level="p" className="mb-6 max-w-md text-base" title={title} />
 
-        <Button variant="outlineSoft" className="gap-6 py-6 w-full justify-between md:max-w-44"
-          >Contact Us <Icons.Arrow className="size-4" /></Button
-        >
+        <Link href={ROUTER.CONTACT_US}>
+          <Button variant="outlineSoft" className="gap-6 py-6 w-full justify-between md:max-w-44"
+            >Contact Us <Icons.Arrow className="size-4" />
+          </Button>
+        </Link>
       </div>
     </div>
   </div>
