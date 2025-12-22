@@ -24,8 +24,8 @@ const PriceRange = ({
   title,
   labels: { from, to },
   min = 0,
-  max = 1000,
-  step = 10,
+  max = 2000,
+  step = 100,
   paramNames = { min: 'minPrice', max: 'maxPrice' },
   className,
 }: PriceRangeProps) => {

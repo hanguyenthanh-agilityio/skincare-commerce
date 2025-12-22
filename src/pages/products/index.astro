@@ -3,30 +3,63 @@
 import { BaseLayout, ProductLayout } from '@/layouts';
 
 // Sections
-import { Blog } from '@/sections';
+import { Blog, Highlight, ProductToolbar } from '@/sections';
 
 // I18n
 import { loadContent } from '@/i18n';
 
 // Types
-import type { ProductContent } from '@/types';
+import type { CategoryValue, ProductContent, SkinTypeValue, SortValue } from '@/types';
 
 // Constants
 import { LOCALES } from '@/constants';
 
-import { getBlogs } from '@/services';
+import { getBlogs, getProducts } from '@/services';
 
 const locale = LOCALES.EN;
 
+const url = new URL(Astro.request.url);
+
 const productPage = loadContent<ProductContent>('products', locale);
 
-const { blog } = productPage;
+const { highlight, sort, categoryFilter, skinTypeFilter, priceRange, product, blog } = productPage;
 
+const category = (url.searchParams.get('category') as CategoryValue) || '';
+const skinType = (url.searchParams.get('skinType') as SkinTypeValue) || '';
+const sortValue = (url.searchParams.get('sort') as SortValue) || '';
+
+const minPrice = Number(url.searchParams.get('minPrice')) || 0;
+const maxPrice = Number(url.searchParams.get('maxPrice')) || 2000;
+
+const page = Math.max(1, Number(url.searchParams.get('page') ?? 1));
+
+// Get list products
+const { products, pagination } = await getProducts({
+  page,
+  pageSize: 2,
+  locale,
+  sort: sortValue,
+  filters: { category, skinType, minPrice, maxPrice },
+});
+
+// Get list blogs
 const { blogs } = await getBlogs({ locale });
 ---
 
 <BaseLayout {locale}>
-  <ProductLayout {locale} />
+  <Highlight data={highlight} />
+
+  <ProductToolbar
+    valueCategory={category}
+    valueSkinType={skinType}
+    valueSort={sortValue}
+    category={categoryFilter}
+    skinType={skinTypeFilter}
+    priceRange={priceRange}
+    sort={sort}
+  />
+
+  <ProductLayout {products} {product} page={pagination.page} pageCount={pagination.pageCount} />
 
   <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
 </BaseLayout>

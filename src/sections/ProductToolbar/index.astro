@@ -1,29 +1,34 @@
 ---
-import { DropdownMenu, PriceRange, SortDropdown } from '@/components';
-import type { ProductContent, SortValue } from '@/types';
+// Types
+import type { CategoryValue, ProductContent, SkinTypeValue, SortValue } from '@/types';
+
+// Components
+import { PriceRange, SortDropdown, CategoryFilter, SkinTypeFilter } from '@/components';
 
 interface Props {
-  filterMenu: ProductContent['filterMenu'];
+  category: ProductContent['categoryFilter'];
+  skinType: ProductContent['skinTypeFilter'];
   sort: ProductContent['sort'];
   priceRange: ProductContent['priceRange'];
   valueSort: SortValue;
+  valueCategory: CategoryValue;
+  valueSkinType: SkinTypeValue;
 }
 
-const { filterMenu, sort, priceRange, valueSort } = Astro.props;
+const { category, skinType, sort, priceRange, valueSort, valueCategory, valueSkinType } =
+  Astro.props;
 ---
 
-<section aria-label="Product filters and sorting" class="bg-narvik border-b border-black/5">
+<section aria-label="Product filters and sorting" class="bg-narvik border-b border-black/5 mb-10">
   <div class="mx-auto px-4 py-5 space-y-5">
     <!-- ROW 1 -->
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <!-- Left: Dropdowns -->
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
-        <DropdownMenu client:load data={filterMenu} className="flex gap-6" />
-      </div>
+        <CategoryFilter value={valueCategory} content={category} client:load />
 
-      <!-- Right: Sort -->
-      <div class="self-start sm:self-auto">
-        <SortDropdown value={valueSort} client:load content={sort} />
+        <SkinTypeFilter value={valueSkinType} content={skinType} client:load />
+
+        <SortDropdown value={valueSort} content={sort} client:load />
       </div>
     </div>
 

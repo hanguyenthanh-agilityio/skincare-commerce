@@ -1,61 +1,25 @@
 ---
-import { loadContent } from '@/i18n';
-import { getProducts } from '@/services';
-
 // Types
-import type { Locale, ProductContent } from '@/types';
+import type { ProductContent, TProduct } from '@/types';
 
 // Components
-import { Highlight, Product, ProductToolbar } from '@/sections';
+import { Product } from '@/sections';
 import { PaginationControls } from '@/components';
 
-import type { SortValue } from '@/types';
-
 interface Props {
-  locale: Locale;
+  page: number;
+  pageCount: number;
+  products: TProduct[];
+  product: ProductContent['product'];
 }
 
-const { locale } = Astro.props;
-
-const productPage = loadContent<ProductContent>('products', locale);
-
-const { highlight, sort, filterMenu, priceRange } = productPage;
-
-const { product } = productPage;
-
-const url = new URL(Astro.request.url);
-
-const sortValue = (url.searchParams.get('sort') as SortValue) ?? '';
-
-const page = Math.max(1, Number(url.searchParams.get('page') ?? 1));
-
-const category = url.searchParams.get('category') || '';
-const skinType = url.searchParams.get('skinType') || '';
-const minPrice = Number(url.searchParams.get('minPrice')) || 0;
-const maxPrice = Number(url.searchParams.get('maxPrice')) || 1000;
-
-const { products, pagination } = await getProducts({
-  page,
-  pageSize: 2,
-  locale,
-  sort: sortValue,
-  filters: { category, skinType, minPrice, maxPrice },
-});
+const { page, pageCount, products, product } = Astro.props;
 ---
 
 <>
-  <Highlight data={highlight} />
-
-  <ProductToolbar
-    valueSort={sortValue}
-    filterMenu={filterMenu}
-    priceRange={priceRange}
-    sort={sort}
-  />
-
   <Product {...product} {products} className="mx-5 md:mx-8" />
 
-  <div class="flex justify-center">
-    <PaginationControls client:load page={pagination.page} pageCount={pagination.pageCount} />
+  <div class="flex justify-center pb-20">
+    <PaginationControls client:load page={page} pageCount={pageCount} />
   </div>
 </>
