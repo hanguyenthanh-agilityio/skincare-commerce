@@ -1,3 +1,4 @@
+import type { MarkdownData } from '@/i18n';
 import type { ComponentType, SVGAttributes } from 'react';
 
 export type SvgIcon = ComponentType<SVGAttributes<SVGSVGElement>>;
@@ -15,4 +16,10 @@ export interface FaqSection {
     id: string;
     label: string;
   }[];
+}
+
+export interface FaqContent extends MarkdownData {
+  topics: Topic[];
+  sections: FaqSection[];
+  faqTitle: string;
 }
