@@ -1,6 +1,22 @@
 ---
 export const prerender = false;
 
+// Constants
+import { LOCALES } from '@/constants';
+
+/**
+ * ℹ️ NOTE:
+ * Just for test UI - will remove with integration API task
+ */
+import { MOCK_PRODUCTS, PRODUCT_DETAIL } from '@/mocks';
+
+// Types
+import type { ProductDetailContent } from '@/types';
+
+// Libs
+import { buildProductBreadcrumb, getProductContext } from '@/lib';
+import { loadContent } from '@/i18n';
+
 // Layouts
 import { BaseLayout } from '@/layouts';
 
@@ -8,21 +24,8 @@ import { BaseLayout } from '@/layouts';
 import { ProductBreadcrumb } from '@/components';
 import { Benefits, RoutineList } from '@/sections';
 
-// Mocks
-import { MOCK_PRODUCTS, PRODUCT_DETAIL } from '@/mocks';
-
-// Libs
-import { buildProductBreadcrumb, getProductContext } from '@/lib';
-import { loadContent } from '@/i18n';
-
-// Types
-import type { ProductDetailContent } from '@/types';
-
-// Constants
-import { LOCALES } from '@/constants';
-
+const locale = LOCALES.EN;
 const { slug } = Astro.params;
-const locale = LOCALES.VI;
 
 const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
 
