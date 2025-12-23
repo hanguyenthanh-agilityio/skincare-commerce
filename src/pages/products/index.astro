@@ -9,11 +9,15 @@ import { Blog, Highlight, ProductToolbar } from '@/sections';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { CategoryValue, ProductContent, SkinTypeValue, SortValue } from '@/types';
+import type { ProductContent } from '@/types';
 
 // Constants
 import { LOCALES } from '@/constants';
 
+// Utils
+import { getFilterParams } from '@/utils';
+
+// Services
 import { getBlogs, getProducts } from '@/services';
 
 const locale = LOCALES.EN;
@@ -22,23 +26,26 @@ const url = new URL(Astro.request.url);
 
 const productPage = loadContent<ProductContent>('products', locale);
 
-const { highlight, sort, categoryFilter, skinTypeFilter, priceRange, product, blog } = productPage;
+const {
+  highlight,
+  sort: sortContent,
+  categoryFilter,
+  skinTypeFilter,
+  priceRange,
+  product,
+  blog,
+} = productPage;
 
-const category = (url.searchParams.get('category') as CategoryValue) || '';
-const skinType = (url.searchParams.get('skinType') as SkinTypeValue) || '';
-const sortValue = (url.searchParams.get('sort') as SortValue) || '';
+const filters = getFilterParams(url);
 
-const minPrice = Number(url.searchParams.get('minPrice')) || 0;
-const maxPrice = Number(url.searchParams.get('maxPrice')) || 2000;
-
-const page = Math.max(1, Number(url.searchParams.get('page') ?? 1));
+const { page, sort, category, skinType, minPrice, maxPrice } = filters;
 
 // Get list products
 const { products, pagination } = await getProducts({
   page,
   pageSize: 2,
   locale,
-  sort: sortValue,
+  sort,
   filters: { category, skinType, minPrice, maxPrice },
 });
 
@@ -50,13 +57,14 @@ const { blogs } = await getBlogs({ locale });
   <Highlight data={highlight} />
 
   <ProductToolbar
-    valueCategory={category}
-    valueSkinType={skinType}
-    valueSort={sortValue}
+    categoryValue={category}
+    skinTypeValue={skinType}
+    sortValue={sort}
     category={categoryFilter}
     skinType={skinTypeFilter}
-    priceRange={priceRange}
-    sort={sort}
+    {priceRange}
+    sort={sortContent}
+    {locale}
   />
 
   <ProductLayout {products} {product} page={pagination.page} pageCount={pagination.pageCount} />

@@ -1,10 +1,10 @@
-import type { CategoryContent, CategoryValue } from '@/types';
+import type { CategoryContent, CategoryValue, Locale } from '@/types';
 
 // Utils
 import { updateQueryParam } from '@/utils';
 
 // Constants
-import { CATEGORY_VALUES } from '@/constants';
+import { CATEGORY_VALUES, EMPTY_LABEL } from '@/constants';
 
 // Components
 import { RadioDropdown } from '@/components';
@@ -12,10 +12,11 @@ import { RadioDropdown } from '@/components';
 interface Props {
   content: CategoryContent;
   value: CategoryValue;
+  locale: Locale;
   className?: string;
 }
 
-const CategoryFilter = ({ content, value, className }: Props) => {
+const CategoryFilter = ({ content, value, locale, className }: Props) => {
   const { label, options } = content;
 
   const handleChange = (next: CategoryValue) => {
@@ -32,6 +33,7 @@ const CategoryFilter = ({ content, value, className }: Props) => {
       value={value}
       options={options}
       values={CATEGORY_VALUES}
+      emptyLabel={EMPTY_LABEL[locale]}
       onChange={handleChange}
       className={className}
     />

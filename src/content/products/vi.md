@@ -13,8 +13,8 @@ priceRange:
 sort:
   label: 'Sắp xếp theo'
   options:
-    price-desc: 'Giá: Cao → Thấp'
-    price-asc: 'Giá: Thấp → Cao'
+    price_desc: 'Giá: Cao → Thấp'
+    price_asc: 'Giá: Thấp → Cao'
     newest: 'Mới nhất'
     popularity: 'Phổ biến nhất'
 
@@ -36,7 +36,7 @@ skinTypeFilter:
     combination: 'Da hỗn hợp'
     dry: 'Da khô'
     mature: 'Da lão hóa'
-    normal: 'Normal'
+    normal: 'Da thường'
     oily: 'Da dầu'
     sensitive: 'Da nhạy cảm'
 

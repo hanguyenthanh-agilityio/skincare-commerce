@@ -19,6 +19,28 @@ type FetchProductsParams = {
   filters?: ProductFilters;
 };
 
+const applyProductFilters = (params: URLSearchParams, filters?: ProductFilters) => {
+  if (!filters) return;
+
+  const { category, skinType, minPrice, maxPrice } = filters;
+
+  if (category) {
+    params.set('filters[category][slug][$eq]', category);
+  }
+
+  if (skinType) {
+    params.set('filters[skin_type][slug][$eq]', skinType);
+  }
+
+  if (typeof minPrice === 'number') {
+    params.set('filters[price][$gte]', String(minPrice));
+  }
+
+  if (typeof maxPrice === 'number') {
+    params.set('filters[price][$lte]', String(maxPrice));
+  }
+};
+
 const SORT_MAP: Record<SortValue, string> = {
   price_asc: 'price:asc',
   price_desc: 'price:desc',
@@ -46,36 +68,21 @@ export const getProducts = async ({
   }
 
   // Filters
-  if (filters?.category) {
-    params.set('filters[category][name][$eq]', filters.category);
-  }
-
-  if (filters?.skinType) {
-    params.set('filters[skin_type][name][$eq]', filters.skinType);
-  }
-
-  if (typeof filters?.minPrice === 'number') {
-    params.set('filters[price][$gte]', String(filters.minPrice));
-  }
-
-  if (typeof filters?.maxPrice === 'number') {
-    params.set('filters[price][$lte]', String(filters.maxPrice));
-  }
+  applyProductFilters(params, filters);
 
   const url = `${STRAPI_BASE_URL}/api/products?${params.toString()}`;
 
   const res = await fetch(url);
 
   if (!res.ok) {
-    console.error('Failed to fetch products:', res.statusText);
-    throw new Error(`Error fetching products: ${res.status}`);
+    throw new Error(`Failed to fetch products (${res.status}): ${res.statusText}`);
   }
 
-  const json = await res.json();
+  const { data, meta } = await res.json();
 
   return {
-    products: json.data as TProduct[],
-    pagination: json.meta?.pagination ?? {
+    products: data as TProduct[],
+    pagination: meta?.pagination ?? {
       page,
       pageSize,
       total: 0,

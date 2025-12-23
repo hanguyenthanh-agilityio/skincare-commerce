@@ -29,6 +29,15 @@ export type CategoryValue =
 
 export type SortValue = 'price_desc' | 'price_asc' | 'newest' | 'popularity';
 
+export interface FilterParams {
+  category: CategoryValue;
+  skinType: SkinTypeValue;
+  sort: SortValue;
+  minPrice: number;
+  maxPrice: number;
+  page: number;
+}
+
 export type TProduct = {
   images: StrapiImageType[];
   name: string;
@@ -39,8 +48,8 @@ export type TProduct = {
   href: string;
   badge?: string;
   slug?: string;
-  category?: SkinTypeValue;
-  skinType?: CategoryValue;
+  category?: CategoryValue;
+  skinType?: SkinTypeValue;
 };
 
 export type PriceRangeType = {

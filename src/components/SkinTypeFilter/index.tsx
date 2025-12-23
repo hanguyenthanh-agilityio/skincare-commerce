@@ -1,8 +1,8 @@
 // Constants
-import { SKIN_TYPE_VALUES } from '@/constants';
+import { EMPTY_LABEL, SKIN_TYPE_VALUES } from '@/constants';
 
 // Types
-import type { SkinTypeContent, SkinTypeValue } from '@/types';
+import type { Locale, SkinTypeContent, SkinTypeValue } from '@/types';
 
 // Utils
 import { updateQueryParam } from '@/utils';
@@ -13,10 +13,11 @@ import { RadioDropdown } from '@/components';
 interface Props {
   content: SkinTypeContent;
   value: SkinTypeValue;
+  locale: Locale;
   className?: string;
 }
 
-const SkinTypeFilter = ({ content, value, className }: Props) => {
+const SkinTypeFilter = ({ content, value, locale, className }: Props) => {
   const { label, options } = content;
 
   const handleChange = (next: SkinTypeValue) => {
@@ -33,6 +34,7 @@ const SkinTypeFilter = ({ content, value, className }: Props) => {
       value={value}
       options={options}
       values={SKIN_TYPE_VALUES}
+      emptyLabel={EMPTY_LABEL[locale]}
       onChange={handleChange}
       className={className}
     />

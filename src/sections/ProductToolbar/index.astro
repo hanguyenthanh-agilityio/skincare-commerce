@@ -1,6 +1,6 @@
 ---
 // Types
-import type { CategoryValue, ProductContent, SkinTypeValue, SortValue } from '@/types';
+import type { CategoryValue, Locale, ProductContent, SkinTypeValue, SortValue } from '@/types';
 
 // Components
 import { PriceRange, SortDropdown, CategoryFilter, SkinTypeFilter } from '@/components';
@@ -10,30 +10,30 @@ interface Props {
   skinType: ProductContent['skinTypeFilter'];
   sort: ProductContent['sort'];
   priceRange: ProductContent['priceRange'];
-  valueSort: SortValue;
-  valueCategory: CategoryValue;
-  valueSkinType: SkinTypeValue;
+  sortValue: SortValue;
+  categoryValue: CategoryValue;
+  skinTypeValue: SkinTypeValue;
+  locale: Locale;
 }
 
-const { category, skinType, sort, priceRange, valueSort, valueCategory, valueSkinType } =
+const { category, skinType, sort, priceRange, sortValue, categoryValue, skinTypeValue, locale } =
   Astro.props;
 ---
 
 <section aria-label="Product filters and sorting" class="bg-narvik border-b border-black/5 mb-10">
   <div class="mx-auto px-4 py-5 space-y-5">
     <!-- ROW 1 -->
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div
+      class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-quill-grey"
+    >
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
-        <CategoryFilter value={valueCategory} content={category} client:load />
+        <CategoryFilter {locale} value={categoryValue} content={category} client:load />
 
-        <SkinTypeFilter value={valueSkinType} content={skinType} client:load />
+        <SkinTypeFilter {locale} value={skinTypeValue} content={skinType} client:load />
 
-        <SortDropdown value={valueSort} content={sort} client:load />
+        <SortDropdown {locale} value={sortValue} content={sort} client:load />
       </div>
     </div>
-
-    <!-- Divider -->
-    <div class="h-px bg-black/5"></div>
 
     <!-- ROW 2: Price -->
     <PriceRange

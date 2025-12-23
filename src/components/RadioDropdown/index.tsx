@@ -20,6 +20,7 @@ import { cn } from '@/lib';
 interface RadioDropdownProps<T extends string> {
   label?: string;
   value: T;
+  emptyLabel?: string;
   options: Record<T, string>;
   values: readonly T[];
   onChange: (value: T) => void;
@@ -30,6 +31,7 @@ const RadioDropdown = <T extends string>({
   label,
   value,
   options,
+  emptyLabel,
   values,
   onChange,
   className,
@@ -54,7 +56,7 @@ const RadioDropdown = <T extends string>({
 
           <TypographyWrapper
             level="span"
-            title={`${value ? options[value] : 'None'}`}
+            title={value ? options[value] : (emptyLabel ?? '')}
             className="font-semibold"
           />
 

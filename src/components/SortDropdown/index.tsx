@@ -1,8 +1,8 @@
 // Types
-import type { SortContent, SortValue } from '@/types';
+import type { Locale, SortContent, SortValue } from '@/types';
 
 // Constants
-import { SORT_VALUES } from '@/constants';
+import { EMPTY_LABEL, SORT_VALUES } from '@/constants';
 
 // Utils
 import { updateQueryParam } from '@/utils';
@@ -13,10 +13,11 @@ import { RadioDropdown } from '@/components';
 interface SortDropdownProps {
   content: SortContent;
   value: SortValue;
+  locale: Locale;
   className?: string;
 }
 
-const SortDropdown = ({ content, value, className }: SortDropdownProps) => {
+const SortDropdown = ({ content, value, locale, className }: SortDropdownProps) => {
   const { label, options } = content;
 
   const handleChange = (next: SortValue) => {
@@ -33,6 +34,7 @@ const SortDropdown = ({ content, value, className }: SortDropdownProps) => {
       value={value}
       options={options}
       values={SORT_VALUES}
+      emptyLabel={EMPTY_LABEL[locale]}
       onChange={handleChange}
       className={className}
     />
