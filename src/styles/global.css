@@ -154,6 +154,8 @@
   --h-highlight-md: 370px;
   --h-highlight-lg: 400px;
   --h-highlight-xl: 560px;
+  --h-highlight-3xl: 750px;
+  --h-highlight-4xl: 900px;
 
   /* expose heights */
   --height-hero-mobile: var(--h-hero-mobile);
@@ -164,6 +166,8 @@
   --height-highlight-mobile: var(--h-highlight-mobile);
   --height-highlight-lg: var(--h-highlight-lg);
   --height-highlight-xl: var(--h-highlight-xl);
+  --height-highlight-3xl: var(--h-highlight-3xl);
+  --height-highlight-4xl: var(--h-highlight-4xl);
 
   /* expose spacing */
   --spacing-18: var(--spacing--custom-18);

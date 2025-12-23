@@ -1,0 +1,35 @@
+---
+import { StrapiImage } from '@/components';
+
+interface Props {
+  images: {
+    main: any;
+    side: any;
+  };
+}
+
+const { images } = Astro.props;
+---
+
+<section class="w-full flex justify-center">
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] md:grid-rows-[1fr_1fr] gap-4 w-full">
+    <!-- LEFT: Main image (span 2 rows) -->
+    <div class="row-span-2 overflow-hidden">
+      <StrapiImage
+        image={images.main}
+        className="w-full max-h-highlight-mobile md:max-h-highlight-2xl xl:max-h-highlight-3xl object-cover"
+      />
+    </div>
+
+    <!-- RIGHT: Side image (only top half) -->
+    <div class="self-start overflow-hidden">
+      <StrapiImage
+        image={images.side}
+        className="w-full max-h-highlight-mobile xl:max-h-highlight-lg object-cover"
+      />
+    </div>
+
+    <!-- Empty cell (bottom-right) -->
+    <div aria-hidden="true"></div>
+  </div>
+</section>
