@@ -1,35 +1,39 @@
 ---
 import { StrapiImage } from '@/components';
 
+import type { StrapiImageType } from '@/types';
+
+interface BlogDetailGalleryImages {
+  main: StrapiImageType;
+  side: StrapiImageType;
+}
+
 interface Props {
-  images: {
-    main: any;
-    side: any;
-  };
+  images: BlogDetailGalleryImages;
 }
 
 const { images } = Astro.props;
 ---
 
 <section class="w-full flex justify-center">
-  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] md:grid-rows-[1fr_1fr] gap-4 w-full">
-    <!-- LEFT: Main image (span 2 rows) -->
+  <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] md:grid-rows-[1fr_1fr] gap-8 w-full">
+    <!-- Main image -->
     <div class="row-span-2 overflow-hidden">
       <StrapiImage
         image={images.main}
-        className="w-full max-h-highlight-mobile md:max-h-highlight-2xl xl:max-h-highlight-3xl object-cover"
+        className="w-full h-highlight-mobile md:h-highlight-xl lg:h-highlight-2xl xl:h-highlight-3xl object-cover"
       />
     </div>
 
-    <!-- RIGHT: Side image (only top half) -->
+    <!-- Side image -->
     <div class="self-start overflow-hidden">
       <StrapiImage
         image={images.side}
-        className="w-full max-h-highlight-mobile xl:max-h-highlight-lg object-cover"
+        className="w-full h-highlight-mobile md:h-highlight-xs xl:h-highlight-lg object-cover"
       />
     </div>
 
-    <!-- Empty cell (bottom-right) -->
+    <!-- Empty cell -->
     <div aria-hidden="true"></div>
   </div>
 </section>

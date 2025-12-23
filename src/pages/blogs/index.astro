@@ -23,7 +23,6 @@ const homePage = loadContent<HomeContent>('home', locale);
 const { blog } = homePage;
 
 const { blogs } = await getBlogs({ locale });
-console.log(blogs);
 ---
 
 <BaseLayout {locale}>

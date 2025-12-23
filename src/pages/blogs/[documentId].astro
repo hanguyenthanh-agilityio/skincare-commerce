@@ -6,11 +6,24 @@ import { BaseLayout } from '@/layouts';
 
 // Constants
 import { LOCALES } from '@/constants';
+
+// Components
 import { ContentBlock, StrapiImage } from '@/components';
+
+// Sections
 import { Blog, BlogDetailGallery } from '@/sections';
+
+// I18n
 import { loadContent } from '@/i18n';
+
+// Services
 import { getBlogs } from '@/services';
+
+// Types
 import type { HomeContent } from '@/types';
+
+// Mocks
+import { BLOG_DETAIL_CONTENT, BLOG_HERO_IMAGE, BLOG_IMAGE } from '@/mocks';
 
 const locale = LOCALES.EN;
 
@@ -25,46 +38,37 @@ const homePage = loadContent<HomeContent>('home', locale);
 const { blog } = homePage;
 
 const { blogs } = await getBlogs({ locale });
-
-export const blogImages = {
-  main: {
-    url: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945',
-    alternativeText: 'Hero product image',
-  },
-  side: {
-    url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668462285038_cd82d0bb-d3fd-4003-9808-ac35e1b04146.jpg?v=1760636983',
-    alternativeText: 'Product detail texture',
-  },
-};
 ---
 
 <BaseLayout {locale}>
   <div class="px-5">
     <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
       <ContentBlock
-        title="Countless solutions have been discovered in nature. We simply need to observe and tap into its inherent brilliance"
-        description=" Countless solutions have been discovered in nature. We simply need to observe and tap into its inherent brilliance"
+        title={BLOG_DETAIL_CONTENT.hero.title}
+        description={BLOG_DETAIL_CONTENT.hero.description}
         align="center"
         colorScheme="dark"
         className="max-w-3xl"
       />
     </div>
+
     <StrapiImage
-      image="https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019"
+      image={BLOG_HERO_IMAGE}
       className="object-cover h-highlight-mobile md:h-highlight-xl lg:h-highlight-3xl w-full"
     />
+
     <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
       <ContentBlock
-        title="Countless solutions have been discovered in nature. We simply need to observe and tap into its inherent brilliance"
-        description=" Countless solutions have been discovered in nature. We simply need to observe and tap into its inherent brilliance"
+        title={BLOG_DETAIL_CONTENT.section.title}
+        description={BLOG_DETAIL_CONTENT.section.description}
         align="left"
         colorScheme="dark"
         className="max-w-4xl"
       />
     </div>
 
-    <BlogDetailGallery images={blogImages} />
+    <BlogDetailGallery images={BLOG_IMAGE} />
 
-    <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
+    <Blog {...blog} blogs={blogs} />
   </div>
 </BaseLayout>
