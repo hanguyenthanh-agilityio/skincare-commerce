@@ -44,7 +44,7 @@ const RadioDropdown = <T extends string>({
         <Button
           variant="ghost"
           aria-label={label}
-          className={cn('flex items-center gap-2 p-0 md:px-3 md:py-2', className)}
+          className={cn('flex justify-start items-center gap-2 p-0 md:px-3 md:py-2', className)}
         >
           {label && (
             <TypographyWrapper
@@ -67,7 +67,7 @@ const RadioDropdown = <T extends string>({
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="start">
         <DropdownMenuRadioGroup value={value} onValueChange={(v) => onChange(v as T)}>
           {values.map((v) => (
             <DropdownMenuRadioItem key={v} value={v} className="cursor-pointer">
