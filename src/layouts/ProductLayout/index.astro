@@ -1,0 +1,25 @@
+---
+// Types
+import type { ProductContent, TProduct } from '@/types';
+
+// Components
+import { Product } from '@/sections';
+import { PaginationControls } from '@/components';
+
+interface Props {
+  page: number;
+  pageCount: number;
+  products: TProduct[];
+  product: ProductContent['product'];
+}
+
+const { page, pageCount, products, product } = Astro.props;
+---
+
+<>
+  <Product {...product} {products} className="mx-5 md:mx-8" />
+
+  <div class="flex justify-center pb-20">
+    <PaginationControls client:load page={page} pageCount={pageCount} />
+  </div>
+</>

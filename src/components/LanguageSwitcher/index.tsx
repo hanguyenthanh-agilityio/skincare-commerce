@@ -1,15 +1,8 @@
-// UIs
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  Button,
-  Icons,
-} from '@/ui';
+// Types
+import type { Locale } from '@/types';
 
 // Components
-import { LinkWrapper } from '@/components';
+import { RadioDropdown } from '@/components';
 
 interface Props {
   pathname: string;
@@ -17,37 +10,34 @@ interface Props {
 
 const LanguageSwitcher = ({ pathname }: Props) => {
   const isVi = pathname.startsWith('/vi');
-  const current = isVi ? 'VI' : 'EN';
+
+  const current: Locale = isVi ? 'vi' : 'en';
 
   const switchToEn = isVi ? pathname.replace('/vi', '') || '/' : pathname;
   const switchToVi = isVi ? pathname : `/vi${pathname}`;
 
+  const options: Record<Locale, string> = {
+    en: 'EN',
+    vi: 'VI',
+  };
+
+  const paths: Record<Locale, string> = {
+    en: switchToEn,
+    vi: switchToVi,
+  };
+
+  const handleLanguageChange = (lang: Locale) => {
+    window.location.href = paths[lang];
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="text-destructive-foreground text-xs md:text-sm px-0 flex items-center gap-1"
-        >
-          {current}
-          <Icons.DownArrow width={14} height={14} />
-        </Button>
-      </DropdownMenuTrigger>
-
-      <DropdownMenuContent align="end" className="min-w-[100px]">
-        <DropdownMenuItem>
-          <LinkWrapper href={switchToEn} className="w-full block">
-            EN
-          </LinkWrapper>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem>
-          <LinkWrapper href={switchToVi} className="w-full block">
-            VI
-          </LinkWrapper>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <RadioDropdown<Locale>
+      value={current}
+      options={options}
+      values={['en', 'vi']}
+      onChange={handleLanguageChange}
+      className="text-destructive-foreground text-xs md:text-sm"
+    />
   );
 };
 

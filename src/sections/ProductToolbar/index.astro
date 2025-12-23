@@ -1,46 +1,48 @@
 ---
-import { DropdownMenu, PriceRange, SortDropdown } from '@/components';
-import type { ProductContent } from '@/types';
+// Types
+import type { CategoryValue, Locale, ProductContent, SkinTypeValue, SortValue } from '@/types';
+
+// Components
+import { PriceRange, SortDropdown, CategoryFilter, SkinTypeFilter } from '@/components';
 
 interface Props {
-  filterMenu: ProductContent['filterMenu'];
+  category: ProductContent['categoryFilter'];
+  skinType: ProductContent['skinTypeFilter'];
   sort: ProductContent['sort'];
   priceRange: ProductContent['priceRange'];
+  sortValue: SortValue;
+  categoryValue: CategoryValue;
+  skinTypeValue: SkinTypeValue;
+  locale: Locale;
 }
 
-const { filterMenu, sort, priceRange } = Astro.props;
+const { category, skinType, sort, priceRange, sortValue, categoryValue, skinTypeValue, locale } =
+  Astro.props;
 ---
 
-<section aria-label="Product filters and sorting" class="bg-narvik border-b border-black/5">
+<section aria-label="Product filters and sorting" class="bg-narvik border-b border-black/5 mb-10">
   <div class="mx-auto px-4 py-5 space-y-5">
     <!-- ROW 1 -->
-    <div class="flex flex-col gap-4
-        sm:flex-row sm:items-center sm:justify-between">
-      <!-- Left: Dropdowns -->
-      <div class="flex flex-col gap-3
-          sm:flex-row sm:items-center sm:gap-6">
-        <DropdownMenu client:load data={filterMenu} className="flex gap-6" />
-      </div>
+    <div
+      class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-quill-grey"
+    >
+      <div class="grid justify-start grid-cols-1 md:grid-cols-3 gap-3">
+        <CategoryFilter {locale} value={categoryValue} content={category} client:load />
 
-      <!-- Right: Sort -->
-      <div class="self-start sm:self-auto">
-        <SortDropdown client:load content={sort} />
+        <SkinTypeFilter {locale} value={skinTypeValue} content={skinType} client:load />
+
+        <SortDropdown {locale} value={sortValue} content={sort} client:load />
       </div>
     </div>
-
-    <!-- Divider -->
-    <div class="h-px bg-black/5"></div>
 
     <!-- ROW 2: Price -->
-    <div>
-      <PriceRange
-        client:load
-        title={priceRange.title}
-        labels={priceRange}
-        min={0}
-        max={1000}
-        className="w-full sm:max-w-sm md:max-w-xs"
-      />
-    </div>
+    <PriceRange
+      client:load
+      title={priceRange.title}
+      labels={priceRange}
+      min={0}
+      max={2000}
+      className="w-full sm:max-w-sm md:max-w-xs"
+    />
   </div>
 </section>

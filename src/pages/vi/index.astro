@@ -43,7 +43,7 @@ const { products } = await getProducts({ locale });
     products={products}
     limitDesktop={4}
     limitMobile={2}
-    className="mx-5 md:mx-8"
+    className="mx-5 md:mx-8 py-11 md:py-24"
   />
 
   <Highlight data={highlight} />
@@ -56,5 +56,5 @@ const { products } = await getProducts({ locale });
   />
   <UserVoice />
 
-  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
+  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
 </BaseLayout>

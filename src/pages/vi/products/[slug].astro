@@ -5,16 +5,18 @@ export const prerender = false;
 import { BaseLayout } from '@/layouts';
 
 // Components
-import { Heading, Link, Typography } from '@/components';
+import { ProductBreadcrumb } from '@/components';
+import { Benefits, RoutineList } from '@/sections';
 
-// UIs
-import { Button, Icons } from '@/ui';
+// Mocks
+import { MOCK_PRODUCTS, PRODUCT_DETAIL } from '@/mocks';
 
-// I18n
+// Libs
+import { buildProductBreadcrumb, getProductContext } from '@/lib';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { ProductSlugContent } from '@/types';
+import type { ProductDetailContent } from '@/types';
 
 // Constants
 import { LOCALES } from '@/constants';
@@ -22,29 +24,18 @@ import { LOCALES } from '@/constants';
 const { slug } = Astro.params;
 const locale = LOCALES.VI;
 
-const content = loadContent<ProductSlugContent>('products-slug', locale);
+const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
 
-const title = (slug ?? '').replace('-', ' ');
+const context = getProductContext(product);
+const breadcrumb = buildProductBreadcrumb(context);
+
+const content = loadContent<ProductDetailContent>('products-slug', locale);
+
+const { routine, labels, image } = content;
 ---
 
 <BaseLayout {locale}>
-  <section class="min-h-[50vh] flex flex-col items-center justify-center text-center px-4">
-    <Heading
-      level="h2"
-      className="text-3xl md:text-4xl font-semibold capitalize mb-4"
-      title={`${title} ${content.titleSuffix}`}
-    />
-
-    <Typography
-      level="p"
-      className="text-sm text-muted-foreground mb-8 max-w-md"
-      title={content.description}
-    />
-
-    <Link href="/products">
-      <Button variant="secondary" className="px-6 py-2 text-sm">
-        <Icons.back className="size-4" />{content.backText}
-      </Button>
-    </Link>
-  </section>
+  <ProductBreadcrumb items={breadcrumb} />
+  <RoutineList steps={routine.steps} title={routine.title} subTitle={routine.subTitle} />
+  <Benefits labels={labels} data={PRODUCT_DETAIL} image={image} />
 </BaseLayout>

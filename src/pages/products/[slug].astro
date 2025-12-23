@@ -1,12 +1,6 @@
 ---
 export const prerender = false;
 
-// Layouts
-import { BaseLayout } from '@/layouts';
-
-// Sections
-import { Benefits, RoutineList, ProductDetail } from '@/sections';
-
 // Constants
 import { LOCALES } from '@/constants';
 
@@ -14,16 +8,21 @@ import { LOCALES } from '@/constants';
  * ℹ️ NOTE:
  * Just for test UI - will remove with integration API task
  */
-import { ATTRIBUTES, MOCK_PRODUCTS, PRODUCT_DETAIL, PRODUCT_INFO } from '@/mocks';
-
-// Libs
-import { buildProductBreadcrumb, getProductContext } from '@/lib';
-
-// I18n
-import { loadContent } from '@/i18n';
+import { MOCK_PRODUCTS, PRODUCT_DETAIL } from '@/mocks';
 
 // Types
 import type { ProductDetailContent } from '@/types';
+
+// Libs
+import { buildProductBreadcrumb, getProductContext } from '@/lib';
+import { loadContent } from '@/i18n';
+
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// Components
+import { ProductBreadcrumb } from '@/components';
+import { Benefits, RoutineList } from '@/sections';
 
 const locale = LOCALES.EN;
 const { slug } = Astro.params;
@@ -39,7 +38,7 @@ const { routine, labels, image } = content;
 ---
 
 <BaseLayout {locale}>
-  <ProductDetail product={PRODUCT_INFO} attributes={ATTRIBUTES} breadcrumbItems={breadcrumb} />
+  <ProductBreadcrumb items={breadcrumb} />
   <RoutineList steps={routine.steps} title={routine.title} subTitle={routine.subTitle} />
   <Benefits labels={labels} data={PRODUCT_DETAIL} image={image} />
 </BaseLayout>
