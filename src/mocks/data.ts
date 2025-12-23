@@ -89,26 +89,9 @@ export const PRODUCT_INFO = {
 };
 
 export const BLOG_DETAIL_CONTENT = {
-  hero: {
-    title:
-      'Countless solutions have been discovered in nature. We simply need to observe and tap into its inherent brilliance',
-    description:
-      'Countless solutions have been discovered in nature. We simply need to observe and tap into its inherent brilliance',
-  },
-
-  section: {
-    title: 'Harnessing nature’s intelligence to create advanced skincare solutions',
-    description:
-      'By studying botanical actives and skin biology, we transform natural discoveries into clinically proven formulations.',
-  },
-};
-
-export const BLOG_HERO_IMAGE = {
-  id: 10,
-  url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
-  alternativeText: 'Blog hero image',
-  width: 1600,
-  height: 900,
+  title: 'Harnessing nature’s intelligence to create advanced skincare solutions',
+  description:
+    'By studying botanical actives and skin biology, we transform natural discoveries into clinically proven formulations.',
 };
 
 export const BLOG_IMAGE = {

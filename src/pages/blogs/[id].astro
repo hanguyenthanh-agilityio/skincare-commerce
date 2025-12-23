@@ -17,58 +17,55 @@ import { Blog, BlogDetailGallery } from '@/sections';
 import { loadContent } from '@/i18n';
 
 // Services
-import { getBlogs } from '@/services';
+import { getBlogByDocumentId, getBlogs } from '@/services';
 
 // Types
-import type { HomeContent } from '@/types';
-
-// Mocks
-import { BLOG_DETAIL_CONTENT, BLOG_HERO_IMAGE, BLOG_IMAGE } from '@/mocks';
+import type { BlogDetailContent, HomeContent } from '@/types';
 
 const locale = LOCALES.EN;
 
-const { documentId } = Astro.params;
+const { id } = Astro.params;
 
-if (!documentId) {
+if (!id) {
   throw new Error('Missing product documentId');
 }
 
 const homePage = loadContent<HomeContent>('home', locale);
+const blogDetailPage = loadContent<BlogDetailContent>('blogDetail', locale);
 
 const { blog } = homePage;
+const { title, description, images } = blogDetailPage;
 
 const { blogs } = await getBlogs({ locale });
+
+const blogDetail = await getBlogByDocumentId({
+  id,
+  locale,
+});
+
+if (!blogDetail) {
+  throw new Error('Blog not found');
+}
+
+const heroImage = blogDetail.images?.[0];
 ---
 
 <BaseLayout {locale}>
   <div class="px-5">
     <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
       <ContentBlock
-        title={BLOG_DETAIL_CONTENT.hero.title}
-        description={BLOG_DETAIL_CONTENT.hero.description}
+        title={blogDetail.title}
+        description={blogDetail.description}
         align="center"
         colorScheme="dark"
         className="max-w-3xl"
       />
     </div>
-
     <StrapiImage
-      image={BLOG_HERO_IMAGE}
+      image={heroImage}
       className="object-cover h-highlight-mobile md:h-highlight-xl lg:h-highlight-3xl w-full"
     />
-
-    <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
-      <ContentBlock
-        title={BLOG_DETAIL_CONTENT.section.title}
-        description={BLOG_DETAIL_CONTENT.section.description}
-        align="left"
-        colorScheme="dark"
-        className="max-w-4xl"
-      />
-    </div>
-
-    <BlogDetailGallery images={BLOG_IMAGE} />
-
+    <BlogDetailGallery title={title} description={description} images={images} />
     <Blog {...blog} blogs={blogs} />
   </div>
 </BaseLayout>
