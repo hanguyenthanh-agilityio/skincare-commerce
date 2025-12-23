@@ -4,4 +4,5 @@ export const ROUTER = {
   PRODUCTS: '/products',
   ABOUT_US: '/about-us',
   CONTACT_US: '/contact-us',
+  FAQ: '/faq',
 };

@@ -14,3 +14,4 @@ export { default as ProductToolbar } from './ProductToolbar/index.astro';
 export { default as Benefits } from './Benefits/index.astro';
 export { default as ProductDetail } from './ProductDetail/index.astro';
 export { default as FaqInfo } from './FaqInfo/index.astro';
+export { default as ContactUs } from './ContactUs/index.astro';
