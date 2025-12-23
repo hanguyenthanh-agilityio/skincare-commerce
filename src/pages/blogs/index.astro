@@ -1,0 +1,30 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { HomeContent } from '@/types';
+
+import { Blog } from '@/sections';
+
+// Constants
+import { LOCALES } from '@/constants';
+
+// Services
+import { getBlogs } from '@/services';
+
+const locale = LOCALES.EN;
+
+const homePage = loadContent<HomeContent>('home', locale);
+
+const { blog } = homePage;
+
+const { blogs } = await getBlogs({ locale });
+---
+
+<BaseLayout {locale}>
+  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8" />
+</BaseLayout>

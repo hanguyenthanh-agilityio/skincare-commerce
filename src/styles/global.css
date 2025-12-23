@@ -150,10 +150,14 @@
   --h-hero-md: 700px;
   --h-hero-lg: 850px;
   --h-hero-xl: 1000px;
+  --h-highlight-xs: 250px;
   --h-highlight-mobile: 300px;
   --h-highlight-md: 370px;
   --h-highlight-lg: 400px;
   --h-highlight-xl: 560px;
+  --h-highlight-2xl: 650px;
+  --h-highlight-3xl: 750px;
+  --h-highlight-4xl: 900px;
 
   /* expose heights */
   --height-hero-mobile: var(--h-hero-mobile);
@@ -161,9 +165,14 @@
   --height-hero-md: var(--h-hero-md);
   --height-hero-lg: var(--h-hero-lg);
   --height-hero-xl: var(--h-hero-xl);
+  --height-highlight-xs: var(--h-highlight-xs);
   --height-highlight-mobile: var(--h-highlight-mobile);
+  --height-highlight-md: var(--h-highlight-md);
   --height-highlight-lg: var(--h-highlight-lg);
   --height-highlight-xl: var(--h-highlight-xl);
+  --height-highlight-2xl: var(--h-highlight-2xl);
+  --height-highlight-3xl: var(--h-highlight-3xl);
+  --height-highlight-4xl: var(--h-highlight-4xl);
 
   /* expose spacing */
   --spacing-18: var(--spacing--custom-18);
