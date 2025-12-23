@@ -1,6 +1,4 @@
 ---
-import { cn } from '@/lib';
-
 // Components
 import { Heading, Link, Typography } from '@/components';
 import { Icons } from '@/ui';
@@ -17,7 +15,7 @@ interface Props {
 const { title, subtitle, description, ctaHref, ctaLabel, className } = Astro.props;
 ---
 
-<section class={cn('py-11 md:py-24', className)}>
+<section class={className}>
   <div class="text-left max-w-651">
     <Typography title={subtitle} level="span" className="text-destructive-foreground mb-1" />
 

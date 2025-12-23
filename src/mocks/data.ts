@@ -30,7 +30,7 @@ export const MOCK_PRODUCTS: TProduct[] = [
     slug: 'gentle-balancing-toner',
     name: 'Gentle Balancing Toner',
     volume: '200ml',
-    href: '/products/detail/gentle-balancing-toner',
+    href: '/products/gentle-balancing-toner',
     price: 28,
     category: 'cleanse',
     skinType: 'sensitive',
@@ -45,9 +45,9 @@ export const MOCK_PRODUCTS: TProduct[] = [
     slug: 'hydrating-serum',
     name: 'Hydrating Serum',
     volume: '30ml',
-    href: '/products/detail/hydrating-serum',
+    href: '/products/hydrating-serum',
     price: 28,
-    category: 'treat-masque',
+    category: 'treat&masque',
     skinType: 'dry',
     images: [
       {

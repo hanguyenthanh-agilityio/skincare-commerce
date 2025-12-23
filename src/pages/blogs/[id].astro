@@ -1,6 +1,8 @@
 ---
 export const prerender = false;
 
+import { Effect } from 'effect';
+
 // Layouts
 import { BaseLayout } from '@/layouts';
 
@@ -38,10 +40,17 @@ const { title, description, images } = blogDetailPage;
 
 const { blogs } = await getBlogs({ locale });
 
-const blogDetail = await getBlogByDocumentId({
-  id,
-  locale,
-});
+const blogDetail = await Effect.runPromise(
+  getBlogByDocumentId({ id, locale }).pipe(
+    Effect.match({
+      onSuccess: (blog) => blog,
+      onFailure: (error) => {
+        console.error(error);
+        return null;
+      },
+    }),
+  ),
+);
 
 if (!blogDetail) {
   throw new Error('Blog not found');

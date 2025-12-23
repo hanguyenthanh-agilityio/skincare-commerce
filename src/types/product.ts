@@ -2,17 +2,41 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type {
-  HighlightSection,
-  StrapiImageType,
-  MenuItem,
-  ProductSection,
-  BlogSection,
-} from '@/types';
+import type { HighlightSection, StrapiImageType, ProductSection, BlogSection } from '@/types';
 
-export type SkinType = 'normal' | 'dry' | 'oily' | 'combination' | 'sensitive';
+export interface FilterContent<T extends string> {
+  label: string;
+  options: Record<T, string>;
+}
 
-export type ProductCategory = 'cleanse' | 'exfoliate' | 'treat-masque' | 'body' | 'fragrances';
+export type SortContent = FilterContent<SortValue>;
+
+export type CategoryContent = FilterContent<CategoryValue>;
+
+export type SkinTypeContent = FilterContent<SkinTypeValue>;
+
+export type SkinTypeValue = 'normal' | 'dry' | 'oily' | 'combination' | 'sensitive' | 'mature';
+
+export type CategoryValue =
+  | 'cleanse'
+  | 'exfoliate'
+  | 'treat&masque'
+  | 'suncare'
+  | 'toner'
+  | 'shave'
+  | 'hydrate'
+  | 'eyes&lips';
+
+export type SortValue = 'price_desc' | 'price_asc' | 'newest' | 'popularity';
+
+export interface FilterParams {
+  category: CategoryValue;
+  skinType: SkinTypeValue;
+  sort: SortValue;
+  minPrice: number;
+  maxPrice: number;
+  page: number;
+}
 
 export type TProduct = {
   images: StrapiImageType[];
@@ -24,8 +48,8 @@ export type TProduct = {
   href: string;
   badge?: string;
   slug?: string;
-  category?: ProductCategory;
-  skinType?: SkinType;
+  category?: CategoryValue;
+  skinType?: SkinTypeValue;
 };
 
 export type PriceRangeType = {
@@ -34,22 +58,11 @@ export type PriceRangeType = {
   to: string;
 };
 
-export type SortValue = 'none' | 'price-desc' | 'price-asc' | 'newest' | 'popularity';
-
-export interface Attribute {
-  label: string;
-  value: string;
-}
-
-export interface SortContent {
-  label: string;
-  options: Record<SortValue, string>;
-}
-
 export interface ProductContent extends MarkdownData {
   highlight: HighlightSection;
   sort: SortContent;
-  filterMenu: MenuItem[];
+  categoryFilter: CategoryContent;
+  skinTypeFilter: SkinTypeContent;
   priceRange: PriceRangeType;
   product: ProductSection;
   blog: BlogSection;
@@ -65,7 +78,7 @@ export type ProductContextType = 'category' | 'skinType';
 
 export interface ProductContext {
   type: ProductContextType;
-  value: ProductCategory | SkinType;
+  value: CategoryValue | SkinTypeValue;
 }
 export interface ProductDetailContent extends MarkdownData {
   routine: {
