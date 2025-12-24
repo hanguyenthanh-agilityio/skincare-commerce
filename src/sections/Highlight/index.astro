@@ -13,7 +13,11 @@ const { subTitle, title, description, buttonText, buttonHref, align, colorScheme
 ---
 
 <section class="relative w-full h-hero-mobile md:h-hero-desktop overflow-hidden">
-  <HeroImage src={image} className="absolute inset-0 w-full h-full" />
+  <HeroImage
+    src={image ||
+      'https://images.unsplash.com/photo-1644817880867-8dc9281dc167?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
+    className="absolute inset-0 w-full h-full"
+  />
 
   <div class="absolute inset-0 bg-black/40 md:bg-black/25"></div>
 

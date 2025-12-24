@@ -1,0 +1,52 @@
+---
+import { Link, StrapiImage, Typography } from '@/components';
+import { ROUTER } from '@/constants';
+
+// Types
+import type { StrapiImageType } from '@/types';
+
+// Components
+import { Icons } from '@/ui';
+
+interface Props {
+  documentId: string;
+  category: string;
+  title: string;
+  description?: string;
+  ctaLabel: string;
+  imageSrc: StrapiImageType;
+}
+
+const { documentId, category, title, description, ctaLabel, imageSrc } = Astro.props;
+---
+
+<section class="mx-auto max-w-7xl py-10">
+  <div class="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
+    <!-- Image -->
+    <div class="overflow-hidden">
+      <StrapiImage image={imageSrc} className="h-full w-full object-cover" />
+    </div>
+
+    <!-- Content -->
+    <div class="max-w-md flex flex-col mx-5 md:mx-0">
+      <Typography
+        level="span"
+        title={category}
+        className="inline-block text-xs text-quill-grey-700 tracking-[2%] uppercase"
+      />
+
+      <Typography level="span" title={title} className="inline-block font-bold mb-4" />
+
+      {description && <Typography level="span" title={description} className="inline-block mb-4" />}
+
+      <Link
+        href={`${ROUTER.BLOGS}/${documentId}`}
+        ariaLabel={`Go to ${title} blog detail`}
+        className="text-left text-sm hover:text-chart-2 hover:underline"
+      >
+        {ctaLabel}
+        <Icons.Arrow />
+      </Link>
+    </div>
+  </div>
+</section>
