@@ -7,12 +7,12 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  integrations: [react({ experimentalReactChildren: true })],
 
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      external: ['fs', 'path'],
+    resolve: {
+      conditions: ['workerd', 'worker', 'browser'],
     },
     build: {
       rollupOptions: {
