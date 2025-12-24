@@ -7,7 +7,7 @@ import { Effect } from 'effect';
 import { BaseLayout } from '@/layouts';
 
 // Constants
-import { LOCALES } from '@/constants';
+import { ERROR_MESSAGES, LOCALES } from '@/constants';
 
 // Components
 import { ContentBlock, StrapiImage } from '@/components';
@@ -40,21 +40,25 @@ const { title, description, images } = blogDetailPage;
 
 const { blogs } = await getBlogs({ locale });
 
+/**
+ * Execute Effect in Astro SSR
+ * Handle all failure cases explicitly
+ * Never leak internal error details to UI
+ */
 const blogDetail = await Effect.runPromise(
   getBlogByDocumentId({ id, locale }).pipe(
     Effect.match({
       onSuccess: (blog) => blog,
       onFailure: (error) => {
-        console.error(error);
-        return null;
+        if (error._tag === 'BlogNotFoundError') {
+          throw new Error(ERROR_MESSAGES.BLOG_NOT_FOUND);
+        }
+
+        throw new Error(ERROR_MESSAGES.BLOG_FETCH_FAILED);
       },
     }),
   ),
 );
-
-if (!blogDetail) {
-  throw new Error('Blog not found');
-}
 
 const heroImage = blogDetail.images?.[0];
 ---
