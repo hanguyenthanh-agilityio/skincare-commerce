@@ -6,3 +6,5 @@ export * from './locale';
 export * from './api';
 export * from './page';
 export * from './sort';
+export * from './error-messages';
+export * from './error-tags';

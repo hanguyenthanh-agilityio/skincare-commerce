@@ -1,3 +1,4 @@
+import type { MarkdownData } from '@/i18n';
 import type { StrapiImageType, Locale } from '@/types';
 
 export type TBlog = {
@@ -9,3 +10,14 @@ export type TBlog = {
   category: string;
   locale: Locale;
 };
+
+export type BlogDetailGalleryImages = {
+  main: StrapiImageType;
+  side: StrapiImageType;
+};
+
+export interface BlogDetailContent extends MarkdownData {
+  title: string;
+  description: string;
+  images: BlogDetailGalleryImages;
+}

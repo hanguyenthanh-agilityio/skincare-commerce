@@ -11,9 +11,9 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      external: ['fs', 'path'],
-    },
+    // ssr: {
+    //   external: ['fs', 'path'],
+    // },
     build: {
       rollupOptions: {
         onwarn(warning, warn) {

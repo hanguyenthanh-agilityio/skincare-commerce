@@ -1,21 +1,20 @@
 ---
-import { StrapiImage } from '@/components';
+// Components
+import { ContentBlock, StrapiImage } from '@/components';
 
-import type { StrapiImageType } from '@/types';
-
-interface BlogDetailGalleryImages {
-  main: StrapiImageType;
-  side: StrapiImageType;
-}
-
-interface Props {
-  images: BlogDetailGalleryImages;
-}
-
-const { images } = Astro.props;
+const { title, description, images } = Astro.props;
 ---
 
-<section class="w-full flex justify-center">
+<section class="w-full flex flex-col justify-center">
+  <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
+    <ContentBlock
+      title={title}
+      description={description}
+      align="left"
+      colorScheme="dark"
+      className="max-w-4xl"
+    />
+  </div>
   <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] md:grid-rows-[1fr_1fr] gap-8 w-full">
     <!-- Main image -->
     <div class="row-span-2 overflow-hidden">
