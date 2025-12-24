@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 // Layouts
 import { BaseLayout } from '@/layouts';
 
@@ -20,15 +22,6 @@ import type { ProductDetailContent } from '@/types';
 import { LOCALES } from '@/constants';
 
 const { slug } = Astro.params;
-
-export async function getStaticPaths() {
-  return MOCK_PRODUCTS.map((product) => ({
-    params: {
-      slug: product.slug,
-    },
-  }));
-}
-
 const locale = LOCALES.VI;
 
 const product = MOCK_PRODUCTS.find((p) => p.slug === slug);

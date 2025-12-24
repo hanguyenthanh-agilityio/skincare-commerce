@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import { Effect } from 'effect';
 
 // Layouts
@@ -21,18 +23,6 @@ import { getBlogByDocumentId, getBlogs } from '@/services';
 
 // Types
 import type { BlogDetailContent, HomeContent } from '@/types';
-
-export async function getStaticPaths() {
-  const locale = LOCALES.VI;
-
-  const { blogs } = await getBlogs({ locale });
-
-  return blogs.map((blog) => ({
-    params: {
-      id: blog.documentId,
-    },
-  }));
-}
 
 const locale = LOCALES.VI;
 
