@@ -3,14 +3,17 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
-
   integrations: [react()],
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ['fs', 'path'],
+    },
     build: {
       rollupOptions: {
         onwarn(warning, warn) {
@@ -34,4 +37,16 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
+
+  output: 'server',
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+      configPath: 'wrangler.jsonc',
+      persist: {
+        path: './.cache/wrangler/v3',
+      },
+    },
+    imageService: 'compile',
+  }),
 });
