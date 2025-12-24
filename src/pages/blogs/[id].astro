@@ -1,0 +1,84 @@
+---
+export const prerender = false;
+
+import { Effect } from 'effect';
+
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// Constants
+import { ERROR_MESSAGES, LOCALES } from '@/constants';
+
+// Components
+import { ContentBlock, StrapiImage } from '@/components';
+
+// Sections
+import { Blog, BlogDetailGallery } from '@/sections';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Services
+import { getBlogByDocumentId, getBlogs } from '@/services';
+
+// Types
+import type { BlogDetailContent, HomeContent } from '@/types';
+
+const locale = LOCALES.EN;
+
+const { id } = Astro.params;
+
+if (!id) {
+  throw new Error('Missing product documentId');
+}
+
+const homePage = loadContent<HomeContent>('home', locale);
+const blogDetailPage = loadContent<BlogDetailContent>('blogDetail', locale);
+
+const { blog } = homePage;
+const { title, description, images } = blogDetailPage;
+
+const { blogs } = await getBlogs({ locale });
+
+/**
+ * Execute Effect in Astro SSR
+ * Handle all failure cases explicitly
+ * Never leak internal error details to UI
+ */
+const blogDetail = await Effect.runPromise(
+  getBlogByDocumentId({ id, locale }).pipe(
+    Effect.match({
+      onSuccess: (blog) => blog,
+      onFailure: (error) => {
+        if (error._tag === 'BlogNotFoundError') {
+          throw new Error(ERROR_MESSAGES.BLOG_NOT_FOUND);
+        }
+
+        throw new Error(ERROR_MESSAGES.BLOG_FETCH_FAILED);
+      },
+    }),
+  ),
+);
+
+const heroImage = blogDetail.images?.[0];
+---
+
+<BaseLayout {locale}>
+  <div class="px-5">
+    <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
+      <ContentBlock
+        title={blogDetail.title}
+        description={blogDetail.description}
+        align="center"
+        colorScheme="dark"
+        className="max-w-3xl"
+      />
+    </div>
+    <StrapiImage
+      image={heroImage}
+      className="object-cover h-highlight-mobile md:h-highlight-xl lg:h-highlight-3xl w-full"
+    />
+    <BlogDetailGallery title={title} description={description} images={images} />
+    <Blog {...blog} blogs={blogs} />
+  </div>
+</BaseLayout>
