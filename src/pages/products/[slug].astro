@@ -1,6 +1,4 @@
 ---
-export const prerender = false;
-
 // Constants
 import { LOCALES } from '@/constants';
 
@@ -23,6 +21,14 @@ import { BaseLayout } from '@/layouts';
 // Components
 import { ProductBreadcrumb } from '@/components';
 import { Benefits, RoutineList } from '@/sections';
+
+export async function getStaticPaths() {
+  return MOCK_PRODUCTS.map((product) => ({
+    params: {
+      slug: product.slug,
+    },
+  }));
+}
 
 const locale = LOCALES.EN;
 const { slug } = Astro.params;

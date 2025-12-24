@@ -1,13 +1,11 @@
 ---
-export const prerender = false;
-
 import { Effect } from 'effect';
 
 // Layouts
 import { BaseLayout } from '@/layouts';
 
 // Constants
-import { ERROR_MESSAGES, LOCALES } from '@/constants';
+import { ERROR_MESSAGES, ERROR_TAGS, LOCALES } from '@/constants';
 
 // Components
 import { ContentBlock, StrapiImage } from '@/components';
@@ -23,6 +21,18 @@ import { getBlogByDocumentId, getBlogs } from '@/services';
 
 // Types
 import type { BlogDetailContent, HomeContent } from '@/types';
+
+export async function getStaticPaths() {
+  const locale = LOCALES.VI;
+
+  const { blogs } = await getBlogs({ locale });
+
+  return blogs.map((blog) => ({
+    params: {
+      id: blog.documentId,
+    },
+  }));
+}
 
 const locale = LOCALES.EN;
 
@@ -50,7 +60,7 @@ const blogDetail = await Effect.runPromise(
     Effect.match({
       onSuccess: (blog) => blog,
       onFailure: (error) => {
-        if (error._tag === 'BlogNotFoundError') {
+        if (error._tag === ERROR_TAGS.BLOG_NOT_FOUND) {
           throw new Error(ERROR_MESSAGES.BLOG_NOT_FOUND);
         }
 
