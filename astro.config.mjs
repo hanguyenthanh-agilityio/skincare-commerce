@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 import cloudflare from '@astrojs/cloudflare';
 
-const isCF = process.env.CF === 'true';
+// const isCF = process.env.CF === 'true';
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,9 +41,12 @@ export default defineConfig({
   },
 
   output: 'server',
-  adapter: isCF
-    ? cloudflare({
-        imageService: 'compile',
-      })
-    : undefined,
+  adapter: cloudflare({
+    imageService: 'compile',
+  }),
+  // adapter: isCF
+  //   ? cloudflare({
+  //       imageService: 'compile',
+  //     })
+  //   : undefined,
 });
