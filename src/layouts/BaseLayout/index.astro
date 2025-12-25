@@ -1,40 +1,84 @@
 ---
 import '@/styles/global.css';
+import { URL } from 'url';
+import { DEFAULT_META } from '@/lib';
 
-// Types
-import type { Locale } from '@/types';
+// Constants
+import { isLocale, ROUTER } from '@/constants';
 
+// Layouts
 import { TopBar, Footer, Header } from '@/layouts';
 
 interface Props {
-  locale: Locale;
+	content?: {
+		title?: string;
+		description?: string;
+		image?: string;
+	};
 }
 
-const { locale } = Astro.props;
+const { locale } = Astro.params;
+
+const { content } = Astro.props;
+
+if (!locale || !isLocale(locale)) {
+	return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
+const meta = DEFAULT_META[locale] ?? DEFAULT_META.en;
+
+const title = content?.title ? `${content.title} | ${meta.title}` : meta.title;
+
+const description = content?.description || meta.description;
+
+// Base site URL from astro.config.mjs
+const baseUrl = Astro.site || new URL(Astro.url).origin;
+
+// Fallback image handling
+const imagePath = content?.image || '/images/serum.png';
+const image = imagePath.startsWith('http') ? imagePath : `${baseUrl}${imagePath}`;
 
 const pathname = Astro.url.pathname;
 ---
 
 <html lang={locale}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
 
-  <body>
-    <main class="mx-auto 2xl:container flex flex-col min-h-screen">
-      <TopBar {locale} />
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
 
-      <Header {pathname} {locale} />
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url.href} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
 
-      <div class="flex-1">
-        <slot />
-      </div>
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url.href} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={image} />
+	</head>
 
-      <Footer {locale} />
-    </main>
-  </body>
+	<body>
+		<main class="mx-auto 2xl:container flex flex-col min-h-screen">
+			<TopBar {locale} />
+
+			<Header {pathname} {locale} />
+
+			<div class="flex-1">
+				<slot />
+			</div>
+
+			<Footer {locale} />
+		</main>
+	</body>
 </html>
