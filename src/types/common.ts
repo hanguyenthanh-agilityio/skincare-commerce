@@ -93,3 +93,10 @@ export interface HeaderContent extends MarkdownData {
   navLinks: NavLink[];
   body?: string;
 }
+
+export interface NotFoundContent extends MarkdownData {
+  title: string;
+  subtitle: string;
+  ctaLabel?: string;
+  ctaHref: string;
+}
