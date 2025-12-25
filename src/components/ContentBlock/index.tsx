@@ -1,7 +1,7 @@
 import { cn } from '@/lib';
 
 // UIs
-import { Button, Icons } from '@/ui';
+import { Icons } from '@/ui';
 
 // Components
 import { HeadingWrapper, LinkWrapper, TypographyWrapper } from '@/components';
@@ -17,7 +17,6 @@ const ContentBlockWrapper = ({
   buttonHref = '#',
   align = 'left',
   colorScheme = 'dark',
-  variant = 'outlineSoft',
   className = '',
 }: ContentBlockType) => {
   // Alignment styles
@@ -69,11 +68,15 @@ const ContentBlockWrapper = ({
       )}
 
       {buttonText && (
-        <LinkWrapper href={buttonHref} className="inline-flex items-center gap-2 pt-2">
-          <Button variant={variant} className="gap-10 md:gap-30 py-7">
-            {buttonText}
-            <Icons.Arrow className={scheme.icon} />
-          </Button>
+        <LinkWrapper
+          href={buttonHref}
+          className={cn(
+            'flex items-center border border-white py-5 px-6 gap-10 text-sm',
+            scheme.icon,
+          )}
+        >
+          {buttonText}
+          <Icons.Arrow className={`${scheme.icon} w-6 h-6`} />
         </LinkWrapper>
       )}
     </div>

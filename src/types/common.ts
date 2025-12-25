@@ -22,13 +22,11 @@ export interface ContentBlockText {
 // Common UI options for layout and design
 export type ContentAlignment = 'left' | 'center';
 export type ColorScheme = 'dark' | 'light';
-export type ButtonVariant = 'outlineSoft' | 'outlineWhite';
 
 // Reusable content block with styling options
 export interface ContentBlockType extends ContentBlockText {
   align?: ContentAlignment;
   colorScheme?: ColorScheme;
-  variant?: ButtonVariant;
   className?: string;
 }
 

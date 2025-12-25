@@ -6,7 +6,6 @@ highlight:
     buttonText: 'Discover More'
     buttonHref: '/products'
     colorScheme: 'light'
-    variant: 'outlineWhite'
     align: 'left'
     image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019'
   - subTitle: 'Revitalize Your Body'
@@ -15,7 +14,6 @@ highlight:
     buttonText: 'Discover More'
     buttonHref: '/products'
     colorScheme: 'light'
-    variant: 'outlineWhite'
     align: 'left'
     image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668422930670.jpg?v=1758142869'
 
@@ -29,7 +27,6 @@ carousel:
     buttonText: 'Discover More'
     buttonHref: '/products'
     colorScheme: 'light'
-    variant: 'outlineWhite'
     align: 'left'
   - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/Screenshot_2025-11-10_at_1.22.35_PM.png?v=1762807043'
     title: 'Gentle Skincare'
@@ -37,7 +34,6 @@ carousel:
     buttonText: 'Learn More'
     buttonHref: '/products'
     colorScheme: 'light'
-    variant: 'outlineWhite'
     align: 'left'
   - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668462285038_cd82d0bb-d3fd-4003-9808-ac35e1b04146.jpg?v=1760636983'
     title: 'Radiant Glow'
@@ -45,7 +41,6 @@ carousel:
     buttonText: 'Shop Now'
     buttonHref: '/products'
     colorScheme: 'light'
-    variant: 'outlineWhite'
     align: 'left'
 
 feature:

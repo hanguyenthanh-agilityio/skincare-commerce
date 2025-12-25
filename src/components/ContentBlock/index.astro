@@ -1,6 +1,6 @@
 ---
 // UIs
-import { Button, Icons } from '@/ui';
+import { Icons } from '@/ui';
 
 // Components
 import { Heading, Link, Typography } from '@/components';
@@ -16,7 +16,6 @@ interface Props {
   buttonHref?: string;
   align?: 'left' | 'center';
   colorScheme?: 'dark' | 'light';
-  variant?: 'outlineSoft' | 'outlineWhite';
   className?: string;
 }
 
@@ -28,7 +27,6 @@ const {
   buttonHref = '#',
   align = 'left',
   colorScheme = 'dark',
-  variant = 'outlineSoft',
   className = '',
 } = Astro.props;
 
@@ -78,11 +76,15 @@ const scheme = colorStyles[colorScheme];
 
   {
     buttonText && (
-      <Link href={buttonHref} className="inline-flex items-center gap-2 pt-2">
-        <Button variant={variant} className="gap-10 md:gap-30 py-7">
-          {buttonText}
-          <Icons.Arrow className={scheme.icon} />
-        </Button>
+      <Link
+        href={buttonHref}
+        className={cn(
+          'flex items-center text-destructive-foreground border border-quill-grey py-5 px-6 gap-10 text-sm',
+          scheme.icon,
+        )}
+      >
+        {buttonText}
+        <Icons.Arrow className={scheme.icon} />
       </Link>
     )
   }

@@ -17,8 +17,7 @@ interface Props {
 
 const { data, reverse, className, imageWrapperClass } = Astro.props;
 
-const { subTitle, title, description, buttonText, buttonHref, align, colorScheme, variant, image } =
-  data;
+const { subTitle, title, description, buttonText, buttonHref, align, colorScheme, image } = data;
 ---
 
 <section class={cn('w-full py-8 lg:py-20 px-6 md:px-12', className)}>
@@ -42,7 +41,6 @@ const { subTitle, title, description, buttonText, buttonHref, align, colorScheme
       buttonText={buttonText}
       buttonHref={buttonHref}
       colorScheme={colorScheme}
-      variant={variant}
       align={align}
       className={cn(reverse ? 'order-2' : 'order-1 md:order-1', 'lg:px-8')}
     />

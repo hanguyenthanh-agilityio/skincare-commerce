@@ -44,8 +44,7 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
 
   const currentSlide = slides[selectedIndex];
 
-  const { subTitle, title, description, buttonText, buttonHref, align, colorScheme, variant } =
-    currentSlide;
+  const { subTitle, title, description, buttonText, buttonHref, align, colorScheme } = currentSlide;
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -77,7 +76,6 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
             buttonHref={buttonHref}
             align={align}
             colorScheme={colorScheme}
-            variant={variant}
             className="max-w-sm lg:max-w-md px-6 md:px-12"
           />
         </div>
