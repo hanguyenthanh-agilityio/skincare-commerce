@@ -17,3 +17,4 @@ export { default as FaqInfo } from './FaqInfo/index.astro';
 export { default as ContactUs } from './ContactUs/index.astro';
 export { default as BlogDetailGallery } from './BlogDetailGallery/index.astro';
 export { default as ArticleCard } from './ArticleCard/index.astro';
+export { default as NotFound } from './NotFound/index.astro';

@@ -14,7 +14,8 @@ export type LoadContentResult<T extends MarkdownData> = T & {
 // Import raw markdown at build time (Vite)
 const markdownFiles = import.meta.glob('/src/content/**/**/*.md', {
   eager: true,
-  as: 'raw',
+  query: '?raw',
+  import: 'default',
 });
 
 function parseFrontmatter(raw: string) {
@@ -43,13 +44,13 @@ export const loadContent = <T extends MarkdownData = MarkdownData>(
   locale: Locale,
 ): LoadContentResult<T> => {
   const filePath = `/src/content/${name}/${locale}.md`;
-  const raw = markdownFiles[filePath];
+  const raw = markdownFiles[filePath] || markdownFiles[`./src/content/${name}/${locale}.md`];
 
   if (!raw) {
     throw new Error(`Missing content file: ${filePath}`);
   }
 
-  const { data, content } = parseFrontmatter(raw);
+  const { data, content } = parseFrontmatter(raw as string);
 
   return {
     ...(data as T),
