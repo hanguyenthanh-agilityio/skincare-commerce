@@ -112,3 +112,33 @@ export const getBlogByDocumentId = ({ id, locale }: Params) =>
       return Effect.succeed(blog as TBlog);
     }),
   );
+
+export const getBlogPageData = async (id: string | undefined, locale: Locale) => {
+  if (!id) return { pageNotFound: true, blogs: [] };
+
+  const { blogs } = await getBlogs({ locale });
+  if (!blogs) return { pageNotFound: true, blogs: [] };
+
+  /**
+   * Execute Effect in Astro SSR
+   * Handle all failure cases explicitly
+   * Never leak internal error details to UI
+   */
+  let blogDetail;
+  try {
+    blogDetail = await Effect.runPromise(
+      getBlogByDocumentId({ id, locale }).pipe(
+        Effect.match({
+          onSuccess: (b) => b,
+          onFailure: () => null, // Blog not found
+        }),
+      ),
+    );
+  } catch {
+    blogDetail = null;
+  }
+
+  if (!blogDetail) return { pageNotFound: true, blogs };
+
+  return { blogDetail, blogs, pageNotFound: false };
+};

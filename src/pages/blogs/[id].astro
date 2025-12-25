@@ -1,84 +1,71 @@
 ---
 export const prerender = false;
 
-import { Effect } from 'effect';
-
 // Layouts
 import { BaseLayout } from '@/layouts';
 
 // Constants
-import { ERROR_MESSAGES, LOCALES } from '@/constants';
+import { LOCALES } from '@/constants';
 
 // Components
 import { ContentBlock, StrapiImage } from '@/components';
 
 // Sections
-import { Blog, BlogDetailGallery } from '@/sections';
+import { Blog, BlogDetailGallery, NotFound } from '@/sections';
 
 // I18n
 import { loadContent } from '@/i18n';
 
 // Services
-import { getBlogByDocumentId, getBlogs } from '@/services';
+import { getBlogPageData } from '@/services';
 
 // Types
-import type { BlogDetailContent, HomeContent } from '@/types';
+import type { BlogDetailContent, HomeContent, NotFoundContent } from '@/types';
 
 const locale = LOCALES.EN;
-
 const { id } = Astro.params;
-
-if (!id) {
-  throw new Error('Missing product documentId');
-}
 
 const homePage = loadContent<HomeContent>('home', locale);
 const blogDetailPage = loadContent<BlogDetailContent>('blogDetail', locale);
+const notFoundContent = loadContent<NotFoundContent>('404', locale);
 
 const { blog } = homePage;
 const { title, description, images } = blogDetailPage;
 
-const { blogs } = await getBlogs({ locale });
+const result = await getBlogPageData(id, locale);
 
-/**
- * Execute Effect in Astro SSR
- * Handle all failure cases explicitly
- * Never leak internal error details to UI
- */
-const blogDetail = await Effect.runPromise(
-  getBlogByDocumentId({ id, locale }).pipe(
-    Effect.match({
-      onSuccess: (blog) => blog,
-      onFailure: (error) => {
-        if (error._tag === 'BlogNotFoundError') {
-          throw new Error(ERROR_MESSAGES.BLOG_NOT_FOUND);
-        }
+if (result.pageNotFound) {
+  Astro.response.status = 404;
+}
 
-        throw new Error(ERROR_MESSAGES.BLOG_FETCH_FAILED);
-      },
-    }),
-  ),
-);
-
-const heroImage = blogDetail.images?.[0];
+const heroImage = result.blogDetail?.images?.[0];
 ---
 
 <BaseLayout {locale}>
-  <div class="px-5">
-    <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
-      <ContentBlock
-        title={blogDetail.title}
-        description={blogDetail.description}
-        align="center"
-        colorScheme="dark"
-        className="max-w-3xl"
-      />
-    </div>
-    <StrapiImage
-      image={heroImage}
-      className="object-cover h-highlight-mobile md:h-highlight-xl lg:h-highlight-3xl w-full"
-    />
-    <BlogDetailGallery title={title} description={description} images={images} />
-    <Blog {...blog} blogs={blogs} />
-  </div>
+  {
+    result.pageNotFound ? (
+      <NotFound {...notFoundContent} />
+    ) : (
+      <div class="px-5">
+        <div class="w-full flex flex-col justify-center items-center py-18 md:py-30">
+          <ContentBlock
+            title={result.blogDetail?.title ?? ''}
+            description={result.blogDetail?.description ?? ''}
+            align="center"
+            colorScheme="dark"
+            className="max-w-3xl"
+          />
+        </div>
+
+        <StrapiImage
+          image={heroImage}
+          className="object-cover h-highlight-mobile md:h-highlight-xl lg:h-highlight-3xl w-full"
+        />
+
+        <BlogDetailGallery title={title} description={description} images={images} />
+
+        <Blog {...blog} blogs={result.blogs} />
+      </div>
+    )
+  }
 </BaseLayout>
