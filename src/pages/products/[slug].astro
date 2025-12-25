@@ -27,10 +27,6 @@ import { Benefits, RoutineList } from '@/sections';
 const locale = LOCALES.EN;
 const { slug } = Astro.params;
 
-if (!slug) {
-  throw new Error('Missing product documentId');
-}
-
 const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
 
 const context = getProductContext(product);

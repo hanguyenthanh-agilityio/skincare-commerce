@@ -23,10 +23,6 @@ import { LOCALES } from '@/constants';
 
 const { slug } = Astro.params;
 
-if (!slug) {
-  throw new Error('Missing product documentId');
-}
-
 const locale = LOCALES.VI;
 
 const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
