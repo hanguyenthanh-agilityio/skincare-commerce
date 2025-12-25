@@ -5,16 +5,14 @@ import tailwindcss from '@tailwindcss/vite';
 
 import cloudflare from '@astrojs/cloudflare';
 
-const isCF = process.env.CF === 'true';
-
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  integrations: [react({ experimentalReactChildren: true })],
 
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      external: ['fs', 'path'],
+    resolve: {
+      conditions: ['workerd', 'worker', 'browser'],
     },
     build: {
       rollupOptions: {
@@ -41,9 +39,13 @@ export default defineConfig({
   },
 
   output: 'server',
-  adapter: isCF
-    ? cloudflare({
-        imageService: 'compile',
-      })
-    : undefined,
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+      configPath: 'wrangler.jsonc',
+      persist: {
+        path: './.cache/wrangler/v3',
+      },
+    },
+  }),
 });

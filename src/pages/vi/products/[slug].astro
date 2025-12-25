@@ -22,6 +22,7 @@ import type { ProductDetailContent } from '@/types';
 import { LOCALES } from '@/constants';
 
 const { slug } = Astro.params;
+
 const locale = LOCALES.VI;
 
 const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
