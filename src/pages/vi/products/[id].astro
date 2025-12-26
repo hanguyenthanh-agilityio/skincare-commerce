@@ -31,7 +31,7 @@ const productDetailPage = loadContent<ProductDetailContent>('products-slug', loc
 const notFoundContent = loadContent<NotFoundContent>('404', locale);
 
 const { blog } = homePage;
-const { routine, review: reviewLabels } = productDetailPage;
+const { routine, review } = productDetailPage;
 
 // Fetch product data
 const result = await getProductPageData(id, locale);
@@ -62,14 +62,6 @@ const reviews = product?.reviews ?? [];
 const reviewAverage = product?.averageRating ?? 0;
 const totalReviews = reviews.length;
 const breakdown = getRatingBreakdown(reviews);
-
-console.log('review', reviews);
-
-const labels = reviewLabels ?? {
-  title: locale === LOCALES.VI ? 'Đánh giá khách hàng' : 'Customer Reviews',
-  totalReviews: locale === LOCALES.VI ? 'Tổng số đánh giá' : 'Total reviews',
-  ctaLabel: locale === LOCALES.VI ? 'Viết đánh giá' : 'Write a review',
-};
 ---
 
 <BaseLayout {locale}>
@@ -82,15 +74,15 @@ const labels = reviewLabels ?? {
 
         <RoutineList steps={routine.steps} title={routine.title} subTitle={routine.subTitle} />
 
-        {/* {reviews.length > 0 && ( */}
-        <Reviews
-          labels={labels}
-          average={reviewAverage}
-          totalReviews={totalReviews}
-          reviews={reviews}
-          breakdown={breakdown}
-        />
-        {/* )} */}
+        {reviews.length > 0 && (
+          <Reviews
+            labels={review}
+            average={reviewAverage}
+            totalReviews={totalReviews}
+            reviews={reviews}
+            breakdown={breakdown}
+          />
+        )}
 
         <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
       </>
