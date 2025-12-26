@@ -1,8 +1,17 @@
 // Constants
-import { LOCALES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
+import { ERROR_MESSAGES, LOCALES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
 
 // Types
-import type { Locale, SortValue, TProduct } from '@/types';
+import { mapProductToDetail, type Locale, type SortValue, type TProduct } from '@/types';
+
+// Effect
+import { Effect, pipe, Schema } from 'effect';
+
+// Services
+import { ProductDecodeError, ProductFetchError, ProductNotFoundError } from '@/services';
+
+// Schema
+import { ProductListResponseSchema } from '@/schemas';
 
 export interface ProductFilters {
   category?: string;
@@ -17,6 +26,11 @@ type FetchProductsParams = {
   locale?: Locale;
   sort?: SortValue;
   filters?: ProductFilters;
+};
+
+type Params = {
+  id: string;
+  locale: Locale;
 };
 
 const applyProductFilters = (params: URLSearchParams, filters?: ProductFilters) => {
@@ -66,7 +80,6 @@ export const getProducts = async ({
   if (sort) {
     params.set('sort', SORT_MAP[sort]);
   }
-
   // Filters
   applyProductFilters(params, filters);
 
@@ -89,4 +102,94 @@ export const getProducts = async ({
       pageCount: 1,
     },
   };
+};
+
+/**
+ * Get data Product Detail
+ * Uses Effect for safe async handling
+ * Decodes and validates response using Effect Schema
+ * Returns a UI ready TProduct
+ */
+
+export const getProductByDocumentId = ({ id, locale }: Params) =>
+  pipe(
+    Effect.tryPromise({
+      try: async () => {
+        const params = new URLSearchParams({
+          locale,
+          'filters[documentId][$eq]': id,
+          populate: '*',
+        });
+
+        const res = await fetch(`${STRAPI_BASE_URL}/api/products?${params}`);
+
+        if (!res.ok) {
+          throw new ProductFetchError({
+            status: res.status,
+            message: ERROR_MESSAGES.PRODUCT_FETCH_FAILED,
+          });
+        }
+
+        return res.json();
+      },
+
+      catch: (error) =>
+        error instanceof ProductFetchError
+          ? error
+          : new ProductFetchError({
+              status: 500,
+              message: ERROR_MESSAGES.UNKNOWN,
+            }),
+    }),
+
+    Effect.flatMap((json) =>
+      pipe(
+        json,
+        Schema.decodeUnknown(ProductListResponseSchema),
+        Effect.mapError((reason) => new ProductDecodeError({ reason })),
+      ),
+    ),
+
+    Effect.flatMap((decoded) => {
+      const product = decoded.data[0];
+
+      if (!product) {
+        return Effect.fail(new ProductNotFoundError({ documentId: id }));
+      }
+
+      return Effect.succeed(mapProductToDetail(product));
+    }),
+  );
+
+/**
+ * Fetch all data required for the Product Detail page
+ */
+export const getProductPageData = async (id: string | undefined, locale: Locale) => {
+  if (!id) return { pageNotFound: true, blogs: [] };
+
+  const { products } = await getProducts({ locale });
+  if (!products) return { pageNotFound: true, blogs: [] };
+
+  /**
+   * Execute Effect in Astro SSR
+   * Handle all failure cases explicitly
+   * Never leak internal error details to UI
+   */
+  let productDetail;
+  try {
+    productDetail = await Effect.runPromise(
+      getProductByDocumentId({ id, locale }).pipe(
+        Effect.match({
+          onSuccess: (b) => b,
+          onFailure: () => null, // Blog not found
+        }),
+      ),
+    );
+  } catch {
+    productDetail = null;
+  }
+
+  if (!productDetail) return { pageNotFound: true, products };
+
+  return { productDetail, products, pageNotFound: false };
 };

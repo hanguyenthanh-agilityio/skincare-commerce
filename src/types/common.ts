@@ -8,7 +8,7 @@ export interface StrapiImageType {
   url: string;
   width?: number;
   height?: number;
-  alternativeText?: string;
+  alternativeText: string | null;
 }
 
 export interface ContentBlockText {
