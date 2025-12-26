@@ -1,4 +1,8 @@
 ---
+review:
+  title: 'Đánh giá của khách hàng'
+  totalReviews: 'Tổng số đánh giá'
+  ctaLabel: 'Viết đánh giá'
 routine:
   subTitle: 'Quy trình chăm sóc da'
   title: 'Chăm sóc dịu nhẹ cho làn da nhạy cảm'

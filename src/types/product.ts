@@ -2,7 +2,13 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type { HighlightSection, StrapiImageType, ProductSection, BlogSection } from '@/types';
+import type {
+  HighlightSection,
+  StrapiImageType,
+  ProductSection,
+  BlogSection,
+  Review as UIReview,
+} from '@/types';
 
 // Schema
 import type { Product, RichTextBlock } from '@/schemas';
@@ -60,6 +66,8 @@ export type TProduct = {
   skinFeel?: string;
   ingredients?: readonly RichTextBlock[];
 
+  reviews?: UIReview[];
+
   category?: {
     name: string;
     slug: string;
@@ -100,6 +108,11 @@ export interface ProductContext {
   value: CategoryValue | SkinTypeValue;
 }
 export interface ProductDetailContent extends MarkdownData {
+  review: {
+    title: string;
+    totalReviews: string;
+    ctaLabel: string;
+  };
   routine: {
     subTitle: string;
     title: string;
@@ -138,6 +151,12 @@ export const mapProductToDetail = (product: Product): TProduct => ({
 
   skinFeel: product.skinFeel,
   ingredients: product.ingredients,
+
+  reviews: product.reviews?.map((r) => ({
+    rating: r.rating,
+    comment: r.comment,
+    date: new Date(),
+  })),
 
   category: product.category
     ? {
