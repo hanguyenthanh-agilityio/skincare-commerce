@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "cf:types": "wrangler types",
-    "build": "cross-env CF=true astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "prepare": "husky",
