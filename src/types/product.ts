@@ -4,6 +4,9 @@ import type { MarkdownData } from '@/i18n';
 // Types
 import type { HighlightSection, StrapiImageType, ProductSection, BlogSection } from '@/types';
 
+// Schema
+import type { Product, RichTextBlock } from '@/schemas';
+
 export interface FilterContent<T extends string> {
   label: string;
   options: Record<T, string>;
@@ -39,17 +42,33 @@ export interface FilterParams {
 }
 
 export type TProduct = {
-  images: StrapiImageType[];
+  documentId: string;
+
   name: string;
   subTitle?: string;
   description?: string;
-  volume: string;
+
   price: number;
-  href: string;
-  badge?: string;
-  slug?: string;
-  category?: CategoryValue;
-  skinType?: SkinTypeValue;
+  volume?: string;
+
+  stock: number;
+  averageRating: number;
+
+  thumbnailUrl: string | null;
+  images: readonly StrapiImageType[];
+
+  skinFeel?: string;
+  ingredients?: readonly RichTextBlock[];
+
+  category?: {
+    name: string;
+    slug: string;
+  };
+
+  skinType?: {
+    name: string;
+    slug: string;
+  };
 };
 
 export type PriceRangeType = {
@@ -95,3 +114,42 @@ export interface ProductDetailContent extends MarkdownData {
 export type RoutineStepKey = 'cleansing' | 'tone' | 'cream';
 
 export type SectionKey = 'ingredients' | 'benefits' | 'usages';
+
+export type Attribute = {
+  label: string;
+  value: string;
+};
+
+export const mapProductToDetail = (product: Product): TProduct => ({
+  documentId: product.documentId,
+
+  name: product.name,
+  subTitle: product.subTitle,
+  description: product.description,
+
+  price: product.price,
+  volume: product.volume,
+
+  stock: product.stock,
+  averageRating: product.averageRating,
+
+  thumbnailUrl: product.thumbnailUrl,
+  images: product.images,
+
+  skinFeel: product.skinFeel,
+  ingredients: product.ingredients,
+
+  category: product.category
+    ? {
+        name: product.category.name,
+        slug: product.category.slug,
+      }
+    : undefined,
+
+  skinType: product.skin_type
+    ? {
+        name: product.skin_type.name,
+        slug: product.skin_type.slug,
+      }
+    : undefined,
+});
