@@ -1,0 +1,22 @@
+---
+// Components
+import { CartHeaderRow, CartItemRow } from '@/components';
+
+interface Props {
+  columns: {
+    title: string;
+    className?: string;
+  }[];
+  items: any[];
+}
+
+const { columns, items } = Astro.props;
+---
+
+<div>
+  <div class="hidden md:block">
+    <CartHeaderRow columns={columns} />
+  </div>
+
+  {items.map((item) => <CartItemRow item={item} />)}
+</div>
