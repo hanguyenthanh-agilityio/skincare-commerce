@@ -19,7 +19,7 @@ export { default as FaqAccordion } from './FaqAccordion';
 export { default as RadioDropdown } from './RadioDropdown';
 export { default as CategoryFilter } from './CategoryFilter';
 export { default as SkinTypeFilter } from './SkinTypeFilter';
-export { default as QuantitySelect } from './Cart/QuantitySelect';
+export { default as QuantitySelect } from './QuantitySelect';
 
 // Export with astro file
 export { default as Link } from './Link/index.astro';

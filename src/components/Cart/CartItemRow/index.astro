@@ -1,19 +1,15 @@
 ---
 // Components
-import { Typography, QuantitySelect } from '@/components';
+import { Typography, QuantitySelect, StrapiImage } from '@/components';
+
+// Types
+import type { CartItem } from '@/types';
 
 interface Props {
-  item: {
-    id: string;
-    name: string;
-    volume: string;
-    price: number;
-    image: string;
-    quantity: number;
-  };
+  item: CartItem;
 }
 
-const { item } = Astro.props;
+const { item } = Astro.props as Props;
 ---
 
 <div
@@ -21,7 +17,7 @@ const { item } = Astro.props;
 >
   <!-- Product -->
   <div class="col-span-4 md:col-span-1 flex gap-4 items-center">
-    <img src={item.image} alt={item.name} class="h-16 w-12 object-contain" />
+    <StrapiImage image={item.image} className="h-16 w-12 object-contain" />
 
     <div>
       <Typography level="p" className="font-bold" title={item.name} />
