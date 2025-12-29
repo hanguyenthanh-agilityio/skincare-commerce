@@ -8,3 +8,4 @@ export * from './review';
 export * from './breadcrumb';
 export * from './faq';
 export * from './contactUs';
+export * from './cart';

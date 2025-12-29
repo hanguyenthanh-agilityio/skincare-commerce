@@ -9,3 +9,4 @@ export * from './Input';
 export * from './Label';
 export * from './Breadcrumb';
 export * from './Accordion';
+export * from './Select';
