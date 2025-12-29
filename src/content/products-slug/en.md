@@ -1,4 +1,8 @@
 ---
+review:
+  title: 'Customer Reviews'
+  totalReviews: 'Total reviews'
+  ctaLabel: 'Write a review'
 routine:
   subTitle: 'Skin Routine'
   title: 'Gentle Care For Delicate Skin'
