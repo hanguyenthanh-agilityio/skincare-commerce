@@ -4,6 +4,14 @@ import type { MarkdownData } from '@/i18n';
 // Types
 import type { StrapiImageType } from '@/types';
 
+export type CartColumnKey = 'product' | 'price' | 'quantity' | 'subtotal';
+
+export interface CartColumn {
+  key: CartColumnKey;
+  title: string;
+  className?: string;
+}
+
 export interface CartProduct {
   id: string;
   name: string;

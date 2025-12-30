@@ -2,17 +2,14 @@
 // Layouts
 import { BaseLayout } from '@/layouts';
 
-// Components
-import { CartSummary, Heading, Typography, CartTable } from '@/components';
-
 // I18n
 import { loadContent } from '@/i18n';
 
 // Types
 import type { CartContent } from '@/types';
 
-// Utils
-import { getCartTotal } from '@/utils';
+// Section
+import { CartInfo } from '@/sections';
 
 // Constants
 import { LOCALES } from '@/constants';
@@ -23,36 +20,8 @@ import { CART_ITEMS } from '@/mocks';
 const locale = LOCALES.EN;
 
 const content = loadContent<CartContent>('cart', locale);
-
-const total = getCartTotal(CART_ITEMS);
 ---
 
 <BaseLayout {locale}>
-  <div class="container-lg flex flex-col justify-center items-center py-10 md:py-20 px-5">
-    <div class="max-w-411 mb-12 text-center">
-      <Heading level="h2" className="mb-2" title={content.title} />
-      <Typography level="p" title={content.description} />
-    </div>
-
-    <div class="w-full flex flex-col">
-      <CartTable
-        columns={[
-          { title: content.columns.cart },
-          { title: content.columns.price },
-          { title: content.columns.quantity },
-          { title: content.columns.subtotal },
-        ]}
-        items={CART_ITEMS}
-      />
-
-      <div class="flex justify-end py-10">
-        <CartSummary
-          total={total.toString()}
-          label={content.summary.totalLabel}
-          shippingNote={content.summary.shippingNote}
-          checkoutText={content.summary.checkout}
-        />
-      </div>
-    </div>
-  </div>
+  <CartInfo content={content} items={CART_ITEMS} />
 </BaseLayout>
