@@ -1,5 +1,6 @@
 import type { MarkdownData } from '@/i18n';
 import type { ComponentType, SVGAttributes } from 'react';
+import type { NavLink } from './navigation';
 
 export type SvgIcon = ComponentType<SVGAttributes<SVGSVGElement>>;
 
@@ -12,10 +13,7 @@ export interface Topic {
 export interface FaqSection {
   id: string;
   title: string;
-  items: {
-    id: string;
-    label: string;
-  }[];
+  items: NavLink[];
 }
 
 export interface FaqContent extends MarkdownData {

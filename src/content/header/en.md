@@ -49,8 +49,8 @@ dropdownMenu:
 navLinks:
   - label: 'About Us'
     href: '/about-us'
-  - label: 'Journal'
-    href: '/journal'
-  - label: 'Stores'
-    href: '/stores'
+  - label: 'Contact Us'
+    href: '/contact-us'
+  - label: 'FAQ'
+    href: '/faq'
 ---

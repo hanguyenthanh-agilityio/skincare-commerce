@@ -11,10 +11,6 @@ export const DROPDOWN_MENU_DATA: MenuItem[] = [
           { label: 'Cleanse', href: '/cleanse' },
           { label: 'Exfoliate', href: '/exfoliate' },
           { label: 'Treat & Masque', href: '/treat&masque' },
-          { label: 'Shop All', href: '/products' },
-          { label: 'Shop All', href: '/products' },
-          { label: 'Shop All', href: '/products' },
-          { label: 'Shop All', href: '/products' },
         ],
       },
       {
@@ -52,6 +48,6 @@ export const DROPDOWN_MENU_DATA: MenuItem[] = [
 
 export const NAV_LINKS = [
   { label: 'About Us', href: '/about-us' },
-  { label: 'Journal', href: '/journal' },
-  { label: 'Stores', href: '/stores' },
+  { label: 'Contact us', href: '/contact-us' },
+  { label: 'FAQ', href: '/faq' },
 ];
