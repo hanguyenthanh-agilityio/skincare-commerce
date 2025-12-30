@@ -5,11 +5,8 @@ import type { StrapiImageType } from '@/types';
 // Components
 import { Link, Typography, AddToCartButton, StrapiImage } from '@/components';
 
-// Constants
-import { ROUTER } from '@/constants';
-
 interface Props {
-  documentId: string;
+  href: string;
   image: StrapiImageType;
   name: string;
   subTitle?: string;
@@ -18,17 +15,13 @@ interface Props {
   badge?: string;
 }
 
-const { image, name, subTitle, volume = '', price, badge, documentId } = Astro.props;
+const { image, name, subTitle, volume = '', price, badge, href } = Astro.props;
 ---
 
 <div
   class="group w-40 h-411 md:w-331 md:h-586 transition-shadow duration-200 hover:shadow-md hover:bg-narvik"
 >
-  <Link
-    href={`${ROUTER.PRODUCTS}/${documentId}`}
-    ariaLabel={`Go to ${name} product detail`}
-    className="w-full"
-  >
+  <Link href={href} ariaLabel={`Go to ${name} product detail`} className="w-full">
     <div class="w-full flex flex-col gap-4 md:gap-10 text-center md:px-4 mb-4 md:mb-10">
       <!-- Product Image + Badge -->
       <div class="relative">
