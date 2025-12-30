@@ -6,33 +6,37 @@ import { RadioDropdown } from '@/components';
 
 interface Props {
   pathname: string;
+  locale: Locale;
 }
 
-const LanguageSwitcher = ({ pathname }: Props) => {
-  const isVi = pathname.startsWith('/vi');
-
-  const current: Locale = isVi ? 'vi' : 'en';
-
-  const switchToEn = isVi ? pathname.replace('/vi', '') || '/' : pathname;
-  const switchToVi = isVi ? pathname : `/vi${pathname}`;
-
+const LanguageSwitcher = ({ pathname, locale }: Props) => {
   const options: Record<Locale, string> = {
     en: 'EN',
     vi: 'VI',
   };
 
-  const paths: Record<Locale, string> = {
-    en: switchToEn,
-    vi: switchToVi,
+  const buildPath = (targetLocale: Locale) => {
+    const { search, hash } = window.location;
+
+    if (targetLocale === 'vi') {
+      return pathname.startsWith('/vi')
+        ? `${pathname}${search}${hash}`
+        : `/vi${pathname}${search}${hash}`;
+    }
+
+    // EN
+    const enPath = pathname.startsWith('/vi') ? pathname.replace(/^\/vi/, '') || '/' : pathname;
+
+    return `${enPath}${search}${hash}`;
   };
 
   const handleLanguageChange = (lang: Locale) => {
-    window.location.href = paths[lang];
+    window.location.href = buildPath(lang);
   };
 
   return (
     <RadioDropdown<Locale>
-      value={current}
+      value={locale}
       options={options}
       values={['en', 'vi']}
       onChange={handleLanguageChange}

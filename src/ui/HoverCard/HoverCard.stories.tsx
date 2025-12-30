@@ -1,51 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+// Constants
+import { DROPDOWN_MENU_DATA } from '@/constants';
+
 // Components
 import { HoverCard, HoverCardTrigger, HoverCardContent } from '.';
 import { Button } from '@/ui';
-
-const DropdownMenuData = [
-  {
-    title: 'Shop',
-    columns: [
-      {
-        heading: 'Category',
-        items: [
-          'Shop All',
-          'Cleanse',
-          'Exfoliate',
-          'Treat & Masque',
-          'Tone',
-          'Hydrate',
-          'Eyes & Lips',
-          'Sun Care',
-          'Shave',
-        ],
-      },
-      {
-        heading: 'Skin Type',
-        items: ['Normal', 'Dry', 'Oily', 'Combination', 'Sensitive', 'Mature'],
-      },
-      {
-        heading: 'Body',
-        items: [
-          'Shop All',
-          'Body Cream, oils, scrubs',
-          'Shower-gel, shampoo, soap',
-          'Balms',
-          'Hands & Feet',
-          'Sun Protection',
-        ],
-      },
-      {
-        heading: 'Fragrances',
-        items: ['Shop All', 'Sauna', 'Essential Oils'],
-      },
-    ],
-    imageUrl:
-      'https://imageskincare.com/cdn/shop/products/VITAL_C_hydrating_facial_cleanser_PDP_R01a.jpg?v=1762197992&width=800',
-  },
-];
 
 const meta: Meta<typeof HoverCard> = {
   title: 'UI/HoverCard',
@@ -75,7 +35,7 @@ export const Default: Story = {
 export const DropdownMenu: Story = {
   render: () => (
     <nav className="flex items-center gap-6">
-      {DropdownMenuData.map((menu) => (
+      {DROPDOWN_MENU_DATA.map((menu) => (
         <HoverCard key={menu.title}>
           <HoverCardTrigger asChild>
             <span className="cursor-pointer font-medium">{menu.title}</span>
@@ -87,8 +47,8 @@ export const DropdownMenu: Story = {
               <div key={col.heading} className="space-y-2">
                 <h4 className="font-semibold">{col.heading}</h4>
                 {col.items.map((item) => (
-                  <a key={item} href="#" className="block hover:text-primary">
-                    {item}
+                  <a key={item.href} href={item.href} className="block hover:text-primary">
+                    {item.label}
                   </a>
                 ))}
               </div>

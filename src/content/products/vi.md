@@ -23,12 +23,12 @@ categoryFilter:
   options:
     cleanse: 'Làm sạch'
     exfoliate: 'Tẩy tế bào chết'
-    eyes&lips: 'Mắt và môi'
+    eyes-lips: 'Mắt và môi'
     hydrate: 'Dưỡng ẩm'
     shave: 'Dao cạo râu'
     suncare: 'Kem chống nắng'
     toner: 'Nước hoa hồng'
-    treat&masque: 'Chăm sóc & Mặt nạ'
+    treat-masque: 'Chăm sóc & Mặt nạ'
 
 skinTypeFilter:
   label: 'Loại da'
