@@ -174,7 +174,7 @@ export const getProductPageData = async (
   id: string | undefined,
   locale: Locale,
 ): Promise<ProductPageData> => {
-  // Default return (stable contract)
+  // Default return
   const baseResult: ProductPageData = {
     pageNotFound: true,
     products: [],

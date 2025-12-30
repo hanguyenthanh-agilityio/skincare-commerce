@@ -118,6 +118,7 @@ export const getBlogPageData = async (
   locale: Locale,
 ): Promise<BlogPageData> => {
   const baseResult: BlogPageData = {
+    // Default return
     pageNotFound: true,
     blogs: [],
     blogDetail: null,
