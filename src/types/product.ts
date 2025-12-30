@@ -133,6 +133,12 @@ export type Attribute = {
   value: string;
 };
 
+export interface ProductPageData {
+  pageNotFound: boolean;
+  products: TProduct[];
+  productDetail: TProduct | null;
+}
+
 export const mapProductToDetail = (product: Product): TProduct => ({
   documentId: product.documentId,
 

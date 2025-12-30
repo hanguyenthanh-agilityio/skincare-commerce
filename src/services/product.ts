@@ -2,7 +2,13 @@
 import { ERROR_MESSAGES, LOCALES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
 
 // Types
-import { mapProductToDetail, type Locale, type SortValue, type TProduct } from '@/types';
+import {
+  mapProductToDetail,
+  type Locale,
+  type ProductPageData,
+  type SortValue,
+  type TProduct,
+} from '@/types';
 
 // Effect
 import { Effect, pipe, Schema } from 'effect';
@@ -164,24 +170,36 @@ export const getProductByDocumentId = ({ id, locale }: Params) =>
 /**
  * Fetch all data required for the Product Detail page
  */
-export const getProductPageData = async (id: string | undefined, locale: Locale) => {
-  if (!id) return { pageNotFound: true, blogs: [] };
+export const getProductPageData = async (
+  id: string | undefined,
+  locale: Locale,
+): Promise<ProductPageData> => {
+  // Default return
+  const baseResult: ProductPageData = {
+    pageNotFound: true,
+    products: [],
+    productDetail: null,
+  };
+
+  if (!id) {
+    return baseResult;
+  }
 
   const { products } = await getProducts({ locale });
-  if (!products) return { pageNotFound: true, blogs: [] };
 
   /**
    * Execute Effect in Astro SSR
    * Handle all failure cases explicitly
    * Never leak internal error details to UI
    */
-  let productDetail;
+  let productDetail: TProduct | null;
+
   try {
     productDetail = await Effect.runPromise(
       getProductByDocumentId({ id, locale }).pipe(
         Effect.match({
           onSuccess: (b) => b,
-          onFailure: () => null, // Blog not found
+          onFailure: () => null, // Product not found
         }),
       ),
     );
@@ -189,7 +207,13 @@ export const getProductPageData = async (id: string | undefined, locale: Locale)
     productDetail = null;
   }
 
-  if (!productDetail) return { pageNotFound: true, products };
+  if (!productDetail) {
+    return baseResult;
+  }
 
-  return { productDetail, products, pageNotFound: false };
+  return {
+    productDetail,
+    products,
+    pageNotFound: false,
+  };
 };
