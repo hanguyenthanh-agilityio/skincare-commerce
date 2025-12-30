@@ -13,7 +13,6 @@ export { default as LanguageSwitcher } from './LanguageSwitcher';
 export { default as SortDropdown } from './SortDropdown';
 export { default as PaginationControls } from './PaginationControls';
 export { default as PriceRange } from './PriceRange';
-export { default as ProductBreadcrumb } from './ProductBreadcrumb';
 export { default as RoutineCard } from './RoutineCard';
 export { default as FaqAccordion } from './FaqAccordion';
 export { default as RadioDropdown } from './RadioDropdown';
