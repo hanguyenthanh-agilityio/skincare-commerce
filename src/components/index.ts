@@ -44,3 +44,5 @@ export { default as ProductInfo } from './ProductInfo/index.astro';
 export { default as TopicsSidebar } from './TopicsSidebar/index.astro';
 export { default as CartHeaderRow } from './Cart/CartHeaderRow/index.astro';
 export { default as CartItemRow } from './Cart/CartItemRow/index.astro';
+export { default as CartSummary } from './Cart/CartSummary/index.astro';
+export { default as CartTable } from './Cart/CartTable/index.astro';
