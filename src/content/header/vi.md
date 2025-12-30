@@ -50,7 +50,7 @@ navLinks:
   - label: 'Về Chúng Tôi'
     href: '/vi/about-us'
   - label: 'Blog'
-    href: '/vi/journal'
-  - label: 'Cửa Hàng'
-    href: '/vi/stores'
+    href: '/vi/contact-us'
+  - label: 'FAQ'
+    href: '/vi/faq'
 ---

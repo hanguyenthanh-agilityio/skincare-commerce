@@ -5,12 +5,12 @@ export const SORT_VALUES: SortValue[] = ['price_desc', 'price_asc', 'newest', 'p
 export const CATEGORY_VALUES: CategoryValue[] = [
   'cleanse',
   'exfoliate',
-  'treat&masque',
+  'treat-masque',
   'suncare',
   'toner',
   'shave',
   'hydrate',
-  'eyes&lips',
+  'eyes-lips',
 ];
 
 export const SKIN_TYPE_VALUES: SkinTypeValue[] = [

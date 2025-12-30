@@ -15,23 +15,23 @@ sections:
   - id: services
     title: 'Services'
     items:
-      - id: 1
+      - href: 'https://www.dior.com/en_vn/fashion/contact-couture'
         label: 'How can I obtain personalised product advice?'
-      - id: 2
+      - href: 'https://www.dior.com/en_int/fashion/contact-couture'
         label: 'Does Aesop offer Facial Treatments?'
   - id: general
     title: 'General product information'
     items:
-      - id: 3
+      - href: 'https://www.dior.com/en_vn/contact-couture?book=open'
         label: 'What is the shelf life of Aesop products?'
-      - id: 4
+      - href: 'https://www.dior.com/en_vn/fashion/faq-couture'
         label: 'Are your products tested on animals?'
   - id: ingredients
     title: 'Product ingredients'
     items:
-      - id: 5
+      - href: 'https://www.dior.com/en_vn/fashion/personal-data'
         label: 'Do your products contain parabens?'
-      - id: 6
+      - href: 'https://www.dior.com/fashion/stores/en_int/search'
         label: 'Which ingredients are natural or synthetic?'
 
 faqTitle: 'Cannot find what you are looking for? We warmly invite you to contact us.'

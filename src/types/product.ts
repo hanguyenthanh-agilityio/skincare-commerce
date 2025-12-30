@@ -29,12 +29,12 @@ export type SkinTypeValue = 'normal' | 'dry' | 'oily' | 'combination' | 'sensiti
 export type CategoryValue =
   | 'cleanse'
   | 'exfoliate'
-  | 'treat&masque'
+  | 'treat-masque'
   | 'suncare'
   | 'toner'
   | 'shave'
   | 'hydrate'
-  | 'eyes&lips';
+  | 'eyes-lips';
 
 export type SortValue = 'price_desc' | 'price_asc' | 'newest' | 'popularity';
 
@@ -60,7 +60,7 @@ export type TProduct = {
   stock: number;
   averageRating: number;
 
-  thumbnailUrl: string | null;
+  thumbnailUrl?: string | null;
   images: readonly StrapiImageType[];
 
   skinFeel?: string;

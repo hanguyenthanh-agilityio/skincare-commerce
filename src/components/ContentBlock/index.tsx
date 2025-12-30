@@ -1,5 +1,4 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib';
 
 // UIs
 import { Button, Icons } from '@/ui';
@@ -10,7 +9,7 @@ import { HeadingWrapper, LinkWrapper, TypographyWrapper } from '@/components';
 // Types
 import type { ContentBlockType } from '@/types';
 
-const ContentBlockWrapper: React.FC<ContentBlockType> = ({
+const ContentBlockWrapper = ({
   title,
   subTitle,
   description,
@@ -20,7 +19,7 @@ const ContentBlockWrapper: React.FC<ContentBlockType> = ({
   colorScheme = 'dark',
   variant = 'outlineSoft',
   className = '',
-}) => {
+}: ContentBlockType) => {
   // Alignment styles
   const alignment = {
     left: 'text-left items-start',

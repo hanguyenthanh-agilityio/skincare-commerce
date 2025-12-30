@@ -23,12 +23,12 @@ categoryFilter:
   options:
     cleanse: 'Cleanse'
     exfoliate: 'Exfoliate'
-    eyes&lips: 'Eyes & Lips'
+    eyes-lips: 'Eyes & Lips'
     hydrate: 'Hydrate'
     shave: 'Shave'
     suncare: 'Suncare'
     toner: 'Toner'
-    treat&masque: 'Treat & Masque'
+    treat-masque: 'Treat & Masque'
 
 skinTypeFilter:
   label: 'Skin Type'
