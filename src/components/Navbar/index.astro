@@ -1,17 +1,20 @@
 ---
-// Components
-import { DrawerMenu, DropdownMenu, Link } from '@/components';
-
 // Libs
 import { cn } from '@/lib';
 
+// Types
+import type { MenuItem, NavLink } from '@/types';
+
+// Components
+import { DrawerMenu, DropdownMenu, Link } from '@/components';
+
 interface Props {
-  navLinks: { label: string; href: string }[];
-  dropdownMenu: any[];
+  navLinks: NavLink[];
+  dropdownMenu: MenuItem[];
   className?: string;
 }
 
-const { navLinks, dropdownMenu, className = '' } = Astro.props;
+const { navLinks, dropdownMenu, className } = Astro.props;
 ---
 
 <nav

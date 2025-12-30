@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import DrawerMenu from '.';
+
+// Constants
 import { DROPDOWN_MENU_DATA, NAV_LINKS } from '@/constants';
+
+// Components
+import DrawerMenu from '.';
 
 const meta: Meta<typeof DrawerMenu> = {
   title: 'Components/DrawerMenu',

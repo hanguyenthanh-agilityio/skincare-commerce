@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // Icons
 import { ChevronLeft, Link } from 'lucide-react';
@@ -55,8 +55,8 @@ const DrawerMenuSub = ({ menu }: DrawerMenuSubProps) => (
         <p className="font-semibold mb-2 text-base">{col.heading}</p>
         <ul className="flex flex-col gap-2">
           {col.items.map((item) => (
-            <li key={item}>
-              <DrawerMenuItem label={item} href="#" />
+            <li key={item.href}>
+              <DrawerMenuItem label={item.label} href={item.href} />
             </li>
           ))}
         </ul>
