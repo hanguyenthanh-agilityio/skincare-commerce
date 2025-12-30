@@ -12,7 +12,7 @@ const { columns } = Astro.props;
 ---
 
 <div
-  class="grid md:grid-cols-[1fr_120px_140px_140px] lg:grid-cols-[1fr_180px_200px_180px] border-b pb-3 text-sm text-muted-foreground uppercase"
+  class="grid md:grid-cols-[1fr_120px_140px_120px] lg:grid-cols-[1fr_180px_200px_180px] border-b pb-3 text-sm text-muted-foreground uppercase"
 >
   {columns.map((col) => <Typography level="span" title={col.title} className={col.className} />)}
 </div>

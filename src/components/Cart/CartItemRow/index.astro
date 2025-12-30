@@ -5,6 +5,9 @@ import { Typography, QuantitySelect, StrapiImage } from '@/components';
 // Types
 import type { CartItem } from '@/types';
 
+// Utils
+import { getCartItemSubtotal } from '@/utils';
+
 interface Props {
   item: CartItem;
 }
@@ -13,7 +16,7 @@ const { item } = Astro.props as Props;
 ---
 
 <div
-  class="w-full grid grid-cols-6 gap-4 md:gap-0 md:grid-cols-[1fr_120px_140px_140px] lg:grid-cols-[1fr_180px_200px_180px] items-center border-b py-6"
+  class="w-full grid grid-cols-6 gap-4 md:gap-0 md:grid-cols-[1fr_120px_140px_120px] lg:grid-cols-[1fr_180px_200px_180px] items-center border-b py-6"
 >
   <!-- Product -->
   <div class="col-span-4 md:col-span-1 flex gap-4 items-center">
@@ -21,7 +24,7 @@ const { item } = Astro.props as Props;
 
     <div>
       <Typography level="p" className="font-bold" title={item.name} />
-      <Typography level="span" title={item.volume} />
+      <Typography level="span" title={item.volume ?? ''} />
       <!-- Price -->
       <Typography level="span" title={`$${item.price}`} className="md:hidden block" />
     </div>
@@ -36,5 +39,5 @@ const { item } = Astro.props as Props;
   </div>
 
   <!-- Subtotal -->
-  <Typography level="span" title={`$${item.price * item.quantity}`} className="hidden md:block" />
+  <Typography level="span" title={`$${getCartItemSubtotal(item)}`} className="hidden md:block" />
 </div>

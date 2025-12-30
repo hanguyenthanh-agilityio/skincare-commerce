@@ -46,3 +46,28 @@ export const MOCK_PRODUCTS: TProduct[] = [
     ],
   },
 ];
+
+export const CART_ITEMS = [
+  {
+    id: '1',
+    name: 'Reverence Aromatique Hand Balm',
+    volume: '75 ml',
+    price: 25,
+    image: {
+      url: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945',
+      alternativeText: 'Reverence Aromatique Hand Balm',
+    },
+    quantity: 1,
+  },
+  {
+    id: '2',
+    name: 'Classic Skin Care Kit',
+    volume: '300 ml',
+    price: 85,
+    image: {
+      url: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945',
+      alternativeText: 'Classic Skin Care Kit',
+    },
+    quantity: 1,
+  },
+];
