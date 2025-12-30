@@ -34,12 +34,16 @@ const { blogs } = await getBlogs({ locale });
 
   <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
 
-  <ArticleCard
-    documentId={blogs[0].documentId}
-    category={blogs[0].category}
-    title={blogs[0].title}
-    description={blogs[0].description}
-    imageSrc={blogs[0].images[0]}
-    ctaLabel={ctaLabel}
-  />
+  {
+    blogs.length > 0 && (
+      <ArticleCard
+        documentId={blogs[0].documentId}
+        category={blogs[0].category}
+        title={blogs[0].title}
+        description={blogs[0].description}
+        imageSrc={blogs[0].images[0]}
+        ctaLabel={ctaLabel}
+      />
+    )
+  }
 </BaseLayout>

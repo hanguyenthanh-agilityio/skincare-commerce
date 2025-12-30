@@ -30,7 +30,14 @@ const StrapiImage = ({
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
 }: StrapiImageProps) => {
   const imageNode: StrapiImageType | null =
-    typeof image === 'string' ? { url: image } : (image ?? null);
+    typeof image === 'string'
+      ? {
+          url: image,
+          width,
+          height,
+          alternativeText: '',
+        }
+      : (image ?? null);
 
   if (!imageNode?.url) {
     return (

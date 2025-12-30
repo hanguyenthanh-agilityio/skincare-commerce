@@ -4,6 +4,9 @@ import { cn } from '@/lib';
 // Types
 import type { TProduct } from '@/types';
 
+// Constants
+import { ROUTER } from '@/constants';
+
 // Components
 import { ProductCard, Typography } from '@/components';
 
@@ -35,7 +38,13 @@ const hasLimit = typeof limitDesktop === 'number' || typeof limitMobile === 'num
         {productsData.map((product, index) => {
           // If NO limits → show everything
           if (!hasLimit) {
-            return <ProductCard {...product} image={product.images?.[0]} />;
+            return (
+              <ProductCard
+                {...product}
+                image={product.images?.[0]}
+                href={`${ROUTER.PRODUCTS}/${product.documentId}`}
+              />
+            );
           }
 
           // Homepage responsive limits
@@ -50,7 +59,11 @@ const hasLimit = typeof limitDesktop === 'number' || typeof limitMobile === 'num
 
           return (
             <div class={visibilityClass}>
-              <ProductCard {...product} image={product.images?.[0]} />
+              <ProductCard
+                {...product}
+                image={product.images?.[0]}
+                href={`${ROUTER.PRODUCTS}/${product.documentId}`}
+              />
             </div>
           );
         })}

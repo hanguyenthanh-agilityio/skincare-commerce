@@ -1,7 +1,14 @@
 ---
-import type { TBlog } from '@/types';
-import { BlogCard, Typography } from '@/components';
 import { cn } from '@/lib';
+
+// Types
+import type { TBlog } from '@/types';
+
+// Constants
+import { ROUTER } from '@/constants';
+
+// Components
+import { BlogCard, Typography } from '@/components';
 
 interface Props {
   blogs: TBlog[];
@@ -38,7 +45,11 @@ const hasBlogs = blogList.length > 0;
 
           return (
             <div class={visibilityClass}>
-              <BlogCard {...blog} image={blog.images?.[0]} />
+              <BlogCard
+                {...blog}
+                image={blog.images?.[0]}
+                href={`${ROUTER.BLOGS}/${blog.documentId}`}
+              />
             </div>
           );
         })}
