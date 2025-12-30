@@ -35,14 +35,15 @@ const featureList = [
       />
     ))
   }
+
   <div class="w-full h-highlight-mobile lg:h-highlight-xl overflow-hidden p-8 lg:p-12">
     <StrapiImage
       image={about.image}
       className="w-full h-full object-cover"
       fallbackAspectRatio={0}
-      client:idle
     />
   </div>
+
   <Quote
     title={about.quote.title}
     description={about.quote.description}
