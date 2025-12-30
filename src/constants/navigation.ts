@@ -10,7 +10,7 @@ export const DROPDOWN_MENU_DATA: MenuItem[] = [
           { label: 'Shop All', href: '/products' },
           { label: 'Cleanse', href: '/cleanse' },
           { label: 'Exfoliate', href: '/exfoliate' },
-          { label: 'Treat & Masque', href: '/treat&masque' },
+          { label: 'Treat & Masque', href: '/treat-masque' },
         ],
       },
       {
