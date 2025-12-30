@@ -21,3 +21,9 @@ export interface BlogDetailContent extends MarkdownData {
   description: string;
   images: BlogDetailGalleryImages;
 }
+
+export interface BlogPageData {
+  pageNotFound: boolean;
+  blogs: TBlog[];
+  blogDetail: TBlog | null;
+}

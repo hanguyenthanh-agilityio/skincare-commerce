@@ -1,7 +1,7 @@
 import { Effect, pipe, Schema } from 'effect';
 
 // Types
-import type { Locale, TBlog } from '@/types';
+import type { BlogPageData, Locale, TBlog } from '@/types';
 
 // Services
 import { BlogDecodeError, BlogFetchError, BlogNotFoundError } from '@/services';
@@ -113,18 +113,27 @@ export const getBlogByDocumentId = ({ id, locale }: Params) =>
     }),
   );
 
-export const getBlogPageData = async (id: string | undefined, locale: Locale) => {
-  if (!id) return { pageNotFound: true, blogs: [] };
+export const getBlogPageData = async (
+  id: string | undefined,
+  locale: Locale,
+): Promise<BlogPageData> => {
+  const baseResult: BlogPageData = {
+    pageNotFound: true,
+    blogs: [],
+    blogDetail: null,
+  };
+
+  if (!id) return baseResult;
 
   const { blogs } = await getBlogs({ locale });
-  if (!blogs) return { pageNotFound: true, blogs: [] };
 
   /**
    * Execute Effect in Astro SSR
    * Handle all failure cases explicitly
    * Never leak internal error details to UI
    */
-  let blogDetail;
+  let blogDetail: TBlog | null;
+
   try {
     blogDetail = await Effect.runPromise(
       getBlogByDocumentId({ id, locale }).pipe(
@@ -138,7 +147,11 @@ export const getBlogPageData = async (id: string | undefined, locale: Locale) =>
     blogDetail = null;
   }
 
-  if (!blogDetail) return { pageNotFound: true, blogs };
+  if (!blogDetail) return baseResult;
 
-  return { blogDetail, blogs, pageNotFound: false };
+  return {
+    blogDetail,
+    blogs,
+    pageNotFound: false,
+  };
 };
