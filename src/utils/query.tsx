@@ -41,11 +41,9 @@ export const updateQueryParam = (key: string, value?: string) => {
 export const getFilterParams = (url: URL): FilterParams => {
   const params = url.searchParams;
 
-  const category = (params.get('category') as CategoryValue) ?? '';
-
-  const skinType = (params.get('skinType') as SkinTypeValue) ?? '';
-
-  const sort = (params.get('sort') as SortValue) ?? '';
+  const category = (params.get('category') as CategoryValue) ?? null;
+  const skinType = (params.get('skinType') as SkinTypeValue) ?? null;
+  const sort = (params.get('sort') as SortValue) ?? null;
 
   const minPrice = Number(params.get('minPrice') ?? 0);
   const maxPrice = Number(params.get('maxPrice') ?? 2000);

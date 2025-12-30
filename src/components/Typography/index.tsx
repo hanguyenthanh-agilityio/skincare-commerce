@@ -1,7 +1,7 @@
 import { cn } from '@/lib';
 
 interface TypographyWrapperProps {
-  title: string;
+  title?: string;
   level: 'p' | 'span';
   className?: string;
 }

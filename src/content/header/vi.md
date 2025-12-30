@@ -49,7 +49,7 @@ dropdownMenu:
 navLinks:
   - label: 'Về Chúng Tôi'
     href: '/vi/about-us'
-  - label: 'Blog'
+  - label: 'Liên hệ'
     href: '/vi/contact-us'
   - label: 'FAQ'
     href: '/vi/faq'

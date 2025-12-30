@@ -39,9 +39,9 @@ export type CategoryValue =
 export type SortValue = 'price_desc' | 'price_asc' | 'newest' | 'popularity';
 
 export interface FilterParams {
-  category: CategoryValue;
-  skinType: SkinTypeValue;
-  sort: SortValue;
+  category?: CategoryValue;
+  skinType?: SkinTypeValue;
+  sort?: SortValue;
   minPrice: number;
   maxPrice: number;
   page: number;
@@ -49,30 +49,22 @@ export interface FilterParams {
 
 export type TProduct = {
   documentId: string;
-
   name: string;
   subTitle?: string;
   description?: string;
-
   price: number;
   volume?: string;
-
   stock: number;
   averageRating: number;
-
   thumbnailUrl?: string | null;
   images: readonly StrapiImageType[];
-
   skinFeel?: string;
   ingredients?: readonly RichTextBlock[];
-
   reviews?: UIReview[];
-
   category?: {
     name: string;
     slug: string;
   };
-
   skinType?: {
     name: string;
     slug: string;
@@ -95,18 +87,6 @@ export interface ProductContent extends MarkdownData {
   blog: BlogSection;
 }
 
-export interface ProductContextContent extends MarkdownData {
-  titleSuffix: string;
-  description: string;
-  backText: string;
-}
-
-export type ProductContextType = 'category' | 'skinType';
-
-export interface ProductContext {
-  type: ProductContextType;
-  value: CategoryValue | SkinTypeValue;
-}
 export interface ProductDetailContent extends MarkdownData {
   review: {
     title: string;

@@ -6,13 +6,13 @@ import type { CategoryValue, Locale, ProductContent, SkinTypeValue, SortValue } 
 import { PriceRange, SortDropdown, CategoryFilter, SkinTypeFilter } from '@/components';
 
 interface Props {
-  category: ProductContent['categoryFilter'];
-  skinType: ProductContent['skinTypeFilter'];
-  sort: ProductContent['sort'];
+  category?: ProductContent['categoryFilter'];
+  skinType?: ProductContent['skinTypeFilter'];
+  sort?: ProductContent['sort'];
   priceRange: ProductContent['priceRange'];
-  sortValue: SortValue;
-  categoryValue: CategoryValue;
-  skinTypeValue: SkinTypeValue;
+  sortValue?: SortValue;
+  categoryValue?: CategoryValue;
+  skinTypeValue?: SkinTypeValue;
   locale: Locale;
 }
 
@@ -30,9 +30,9 @@ const { category, skinType, sort, priceRange, sortValue, categoryValue, skinType
         <CategoryFilter {locale} value={categoryValue} content={category} client:load />
 
         <SkinTypeFilter {locale} value={skinTypeValue} content={skinType} client:load />
-
-        <SortDropdown {locale} value={sortValue} content={sort} client:load />
       </div>
+
+      <SortDropdown {locale} value={sortValue} content={sort} client:load />
     </div>
 
     <!-- ROW 2: Price -->

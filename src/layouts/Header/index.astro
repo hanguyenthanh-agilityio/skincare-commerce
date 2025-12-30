@@ -20,7 +20,7 @@ interface Props {
 }
 
 const { locale, pathname } = Astro.props;
-const headerData = await loadContent<HeaderContent>('header', locale);
+const headerData = loadContent<HeaderContent>('header', locale);
 
 const navLinks: HeaderContent['navLinks'] = headerData.navLinks as HeaderContent['navLinks'];
 const dropdownMenu: HeaderContent['dropdownMenu'] =
