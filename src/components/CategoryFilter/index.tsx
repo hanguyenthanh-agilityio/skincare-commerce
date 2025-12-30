@@ -10,15 +10,13 @@ import { CATEGORY_VALUES, EMPTY_LABEL } from '@/constants';
 import { RadioDropdown } from '@/components';
 
 interface Props {
-  content: CategoryContent;
-  value: CategoryValue;
+  content?: CategoryContent;
+  value?: CategoryValue;
   locale: Locale;
   className?: string;
 }
 
 const CategoryFilter = ({ content, value, locale, className }: Props) => {
-  const { label, options } = content;
-
   const handleChange = (next: CategoryValue) => {
     if (next === value) {
       updateQueryParam('category');
@@ -29,9 +27,9 @@ const CategoryFilter = ({ content, value, locale, className }: Props) => {
 
   return (
     <RadioDropdown<CategoryValue>
-      label={label}
+      label={content?.label}
       value={value}
-      options={options}
+      options={content?.options}
       values={CATEGORY_VALUES}
       emptyLabel={EMPTY_LABEL[locale]}
       onChange={handleChange}

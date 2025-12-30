@@ -22,8 +22,8 @@ import { ProductListResponseSchema } from '@/schemas';
 export interface ProductFilters {
   category?: string;
   skinType?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  minPrice: number;
+  maxPrice: number;
 }
 
 type FetchProductsParams = {
@@ -86,6 +86,7 @@ export const getProducts = async ({
   if (sort) {
     params.set('sort', SORT_MAP[sort]);
   }
+
   // Filters
   applyProductFilters(params, filters);
 

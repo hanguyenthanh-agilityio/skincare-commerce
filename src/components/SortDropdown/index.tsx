@@ -11,15 +11,13 @@ import { updateQueryParam } from '@/utils';
 import { RadioDropdown } from '@/components';
 
 interface SortDropdownProps {
-  content: SortContent;
-  value: SortValue;
+  content?: SortContent;
+  value?: SortValue;
   locale: Locale;
   className?: string;
 }
 
 const SortDropdown = ({ content, value, locale, className }: SortDropdownProps) => {
-  const { label, options } = content;
-
   const handleChange = (next: SortValue) => {
     if (next === value) {
       updateQueryParam('sort');
@@ -30,9 +28,9 @@ const SortDropdown = ({ content, value, locale, className }: SortDropdownProps) 
 
   return (
     <RadioDropdown<SortValue>
-      label={label}
+      label={content?.label}
       value={value}
-      options={options}
+      options={content?.options}
       values={SORT_VALUES}
       emptyLabel={EMPTY_LABEL[locale]}
       onChange={handleChange}

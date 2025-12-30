@@ -11,15 +11,13 @@ import { updateQueryParam } from '@/utils';
 import { RadioDropdown } from '@/components';
 
 interface Props {
-  content: SkinTypeContent;
-  value: SkinTypeValue;
+  content?: SkinTypeContent;
+  value?: SkinTypeValue;
   locale: Locale;
   className?: string;
 }
 
 const SkinTypeFilter = ({ content, value, locale, className }: Props) => {
-  const { label, options } = content;
-
   const handleChange = (next: SkinTypeValue) => {
     if (next === value) {
       updateQueryParam('skinType');
@@ -30,9 +28,9 @@ const SkinTypeFilter = ({ content, value, locale, className }: Props) => {
 
   return (
     <RadioDropdown<SkinTypeValue>
-      label={label}
+      label={content?.label}
       value={value}
-      options={options}
+      options={content?.options}
       values={SKIN_TYPE_VALUES}
       emptyLabel={EMPTY_LABEL[locale]}
       onChange={handleChange}
