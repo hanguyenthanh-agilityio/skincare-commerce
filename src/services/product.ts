@@ -68,47 +68,86 @@ const SORT_MAP: Record<SortValue, string> = {
   popularity: 'salesCount:desc',
 };
 
-export const getProducts = async ({
+export const getProductsEffect = ({
   page = 1,
   pageSize = PAGE_SIZE.LISTING,
   locale = LOCALES.EN,
   sort,
   filters,
-}: FetchProductsParams) => {
-  const params = new URLSearchParams({
-    'pagination[page]': String(page),
-    'pagination[pageSize]': String(pageSize),
-    populate: '*',
-    locale,
-  });
+}: FetchProductsParams) =>
+  pipe(
+    Effect.tryPromise({
+      try: async () => {
+        const params = new URLSearchParams({
+          'pagination[page]': String(page),
+          'pagination[pageSize]': String(pageSize),
+          populate: '*',
+          locale,
+        });
 
-  // Sorting
-  if (sort) {
-    params.set('sort', SORT_MAP[sort]);
+        // Sorting
+        if (sort) {
+          params.set('sort', SORT_MAP[sort]);
+        }
+
+        // Filters
+        applyProductFilters(params, filters);
+
+        const res = await fetch(`${STRAPI_BASE_URL}/api/products?${params.toString()}`);
+
+        if (!res.ok) {
+          throw new ProductFetchError({
+            status: res.status,
+            message: ERROR_MESSAGES.PRODUCT_FETCH_FAILED,
+          });
+        }
+
+        return res.json();
+      },
+      catch: (e) =>
+        e instanceof ProductFetchError
+          ? e
+          : new ProductFetchError({
+              status: 500,
+              message: ERROR_MESSAGES.UNKNOWN,
+            }),
+    }),
+
+    // Runtime schema validation
+    Effect.flatMap((json) =>
+      pipe(
+        json,
+        Schema.decodeUnknown(ProductListResponseSchema),
+        Effect.mapError((reason) => new ProductDecodeError({ reason })),
+      ),
+    ),
+
+    // Map to UI-ready products
+    Effect.map((decoded) => ({
+      products: decoded.data.map(mapProductToDetail),
+      pagination: {
+        page,
+        pageSize,
+        total: decoded.data.length,
+        pageCount: 1,
+      },
+    })),
+  );
+
+export const getProducts = async (params: FetchProductsParams) => {
+  try {
+    return await Effect.runPromise(getProductsEffect(params));
+  } catch {
+    return {
+      products: [],
+      pagination: {
+        page: params.page ?? 1,
+        pageSize: params.pageSize ?? PAGE_SIZE.LISTING,
+        total: 0,
+        pageCount: 1,
+      },
+    };
   }
-
-  // Filters
-  applyProductFilters(params, filters);
-
-  const url = `${STRAPI_BASE_URL}/api/products?${params.toString()}`;
-
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch products (${res.status}): ${res.statusText}`);
-  }
-
-  const { data, meta } = await res.json();
-
-  return {
-    products: data as TProduct[],
-    pagination: meta?.pagination ?? {
-      page,
-      pageSize,
-      total: 0,
-      pageCount: 1,
-    },
-  };
 };
 
 /**

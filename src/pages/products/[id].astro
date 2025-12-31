@@ -17,7 +17,13 @@ import { loadContent } from '@/i18n';
 import { getProductPageData, getBlogs } from '@/services';
 
 // Types
-import type { HomeContent, ProductDetailContent, NotFoundContent, Attribute } from '@/types';
+import type {
+  HomeContent,
+  ProductDetailContent,
+  NotFoundContent,
+  Attribute,
+  BlogContent,
+} from '@/types';
 
 // Utils
 import { richTextToPlainText, getRatingBreakdown } from '@/utils';
@@ -27,6 +33,7 @@ const { id } = Astro.params;
 
 // Load static content
 const homePage = loadContent<HomeContent>('home', locale);
+const blogList = loadContent<BlogContent>('blog', locale);
 const productDetailPage = loadContent<ProductDetailContent>('products-slug', locale);
 const notFoundContent = loadContent<NotFoundContent>('404', locale);
 
@@ -84,7 +91,12 @@ const breakdown = getRatingBreakdown(reviews);
           />
         )}
 
-        <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
+        <Blog
+          {...blog}
+          blogs={blogs}
+          ctaLabel={blogList.ctaLabel}
+          className="mx-5 md:mx-8 py-11 md:py-24"
+        />
       </>
     )
   }

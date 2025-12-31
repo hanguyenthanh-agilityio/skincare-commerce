@@ -10,7 +10,7 @@ interface Props {
   title: string;
   subtitle: string;
   description?: string;
-  ctaLabel?: string;
+  ctaLabel: string;
   ctaHref?: string;
   blogs: TBlog[];
   className?: string;
@@ -20,5 +20,5 @@ const { title, subtitle, description, ctaHref, ctaLabel, blogs, className } = As
 ---
 
 <SectionWrapper {title} {subtitle} {description} {ctaHref} {ctaLabel} {className}>
-  <BlogList blogs={blogs} />
+  <BlogList blogs={blogs} ctaLabel={ctaLabel} />
 </SectionWrapper>

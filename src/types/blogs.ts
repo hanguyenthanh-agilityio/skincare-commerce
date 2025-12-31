@@ -16,6 +16,10 @@ export type BlogDetailGalleryImages = {
   side: StrapiImageType;
 };
 
+export interface BlogContent extends MarkdownData {
+  ctaLabel: string;
+}
+
 export interface BlogDetailContent extends MarkdownData {
   title: string;
   description: string;

@@ -1,9 +1,6 @@
 ---
 // Types
-import type { Locale, StrapiImageType } from '@/types';
-
-// I18n
-import { loadContent } from '@/i18n';
+import type { StrapiImageType } from '@/types';
 
 // Components
 import { Link, Typography, StrapiImage } from '@/components';
@@ -14,12 +11,10 @@ interface Props {
   image: StrapiImageType;
   title: string;
   category: string;
-  locale: Locale;
+  ctaLabel: string;
 }
 
-const { href, image, title, category, locale } = Astro.props;
-
-const blogCard = loadContent<{ ctaLabel: string }>('blog', locale);
+const { href, image, title, category, ctaLabel } = Astro.props;
 ---
 
 <div class="w-166 h-350 md:w-331 md:h-461 hover:shadow-lg flex flex-col gap-10 text-left">
@@ -47,7 +42,7 @@ const blogCard = loadContent<{ ctaLabel: string }>('blog', locale);
     ariaLabel={`Go to ${title} blog detail`}
     className="text-left text-sm hover:text-chart-2 hover:underline"
   >
-    {blogCard.ctaLabel}
+    {ctaLabel}
     <Icons.Arrow />
   </Link>
 </div>

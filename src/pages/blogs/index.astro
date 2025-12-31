@@ -6,7 +6,7 @@ import { BaseLayout } from '@/layouts';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { HighlightSection, HomeContent } from '@/types';
+import type { BlogContent, HighlightSection, HomeContent } from '@/types';
 
 import { Blog, Highlight, ArticleCard } from '@/sections';
 
@@ -19,6 +19,7 @@ import { getBlogs } from '@/services';
 const locale = LOCALES.EN;
 
 const homePage = loadContent<HomeContent>('home', locale);
+const blogPage = loadContent<BlogContent>('blog', locale);
 const { highlight, ctaLabel } = loadContent<{ highlight: HighlightSection; ctaLabel: string }>(
   'blog',
   locale,
@@ -32,7 +33,12 @@ const { blogs } = await getBlogs({ locale });
 <BaseLayout {locale}>
   <Highlight data={highlight} />
 
-  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
+  <Blog
+    {...blog}
+    blogs={blogs}
+    ctaLabel={blogPage.ctaLabel}
+    className="mx-5 md:mx-8 py-11 md:py-24"
+  />
 
   {
     blogs.length > 0 && (

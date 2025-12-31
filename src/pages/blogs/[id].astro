@@ -20,20 +20,22 @@ import { loadContent } from '@/i18n';
 import { getBlogPageData } from '@/services';
 
 // Types
-import type { BlogDetailContent, HomeContent, NotFoundContent } from '@/types';
+import type { BlogContent, HomeContent, NotFoundContent } from '@/types';
 
 const locale = LOCALES.EN;
 const { id } = Astro.params;
 
+// Load global content (safe)
 const homePage = loadContent<HomeContent>('home', locale);
-const blogDetailPage = loadContent<BlogDetailContent>('blogDetail', locale);
+
+const blogPage = loadContent<BlogContent>('blog', locale);
+
 const notFoundContent = loadContent<NotFoundContent>('404', locale);
 
-const { blog } = homePage;
-const { title, description, images } = blogDetailPage;
-
+// Fetch data
 const result = await getBlogPageData(id, locale);
 
+// Handle 404
 if (result.pageNotFound) {
   Astro.response.status = 404;
 }
@@ -62,9 +64,18 @@ const heroImage = result.blogDetail?.images?.[0];
           className="object-cover h-highlight-mobile md:h-highlight-xl lg:h-highlight-3xl w-full"
         />
 
-        <BlogDetailGallery title={title} description={description} images={images} />
+        <BlogDetailGallery
+          title={result.blogDetail?.title}
+          description={result.blogDetail?.description}
+          images={result.blogDetail?.images}
+        />
 
-        <Blog {...blog} blogs={result.blogs} className="py-11 md:py-20" />
+        <Blog
+          {...homePage.blog}
+          blogs={result.blogs}
+          ctaLabel={blogPage.ctaLabel}
+          className="py-11 md:py-20"
+        />
       </div>
     )
   }
