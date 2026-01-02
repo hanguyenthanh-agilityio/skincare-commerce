@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 // Libs
 import { cn } from '@/lib';
 
@@ -8,16 +6,15 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 
 interface Props {
   value: number;
+  onChange: (value: number) => void;
   className?: string;
 }
 
 const QUANTITIES = [1, 2, 3, 4, 5];
 
-const QuantitySelect = ({ value, className }: Props) => {
-  const [quantity, setQuantity] = useState(String(value));
-
+const QuantitySelect = ({ value, onChange, className }: Props) => {
   return (
-    <Select value={quantity} onValueChange={setQuantity}>
+    <Select value={String(value)} onValueChange={(val) => onChange(Number(val))}>
       <SelectTrigger className={cn('h-10 w-16', className)}>
         <SelectValue />
       </SelectTrigger>

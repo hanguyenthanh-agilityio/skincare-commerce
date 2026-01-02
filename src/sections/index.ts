@@ -1,5 +1,6 @@
 // Export with tsx file
 export { default as RoutineList } from './Routine';
+export { default as CartInfo } from './CartInfo';
 
 // Export with astro file
 export { default as UserVoice } from './UserVoice/index.astro';
@@ -18,4 +19,3 @@ export { default as ContactUs } from './ContactUs/index.astro';
 export { default as BlogDetailGallery } from './BlogDetailGallery/index.astro';
 export { default as ArticleCard } from './ArticleCard/index.astro';
 export { default as NotFound } from './NotFound/index.astro';
-export { default as CartInfo } from './CartInfo/index.astro';
