@@ -3,15 +3,13 @@
 import { BaseLayout } from '@/layouts';
 
 // Sections
-import { UserVoice, Highlight, Feature, Quote, Product, Blog } from '@/sections';
+import { UserVoice, Highlight, Feature, Quote, Carousel, Product, Blog } from '@/sections';
 
 // I18n
 import { loadContent } from '@/i18n';
 
 // Types
 import type { HomeContent } from '@/types';
-
-import { Carousel } from '@/sections';
 
 // Constants
 import { LOCALES } from '@/constants';
@@ -21,11 +19,12 @@ import { getBlogs, getProducts } from '@/services';
 
 const locale = LOCALES.VI;
 
-const page = loadContent<HomeContent>('home', locale);
+const homePage = loadContent<HomeContent>('home', locale);
 
-const { carousel, feature, highlight, quote, product, blog } = page;
+const { carousel, feature, highlight, quote, product, blog } = homePage;
 
 const { blogs } = await getBlogs({ locale });
+console.log(blog);
 
 const { products } = await getProducts({ locale });
 ---
@@ -54,6 +53,7 @@ const { products } = await getProducts({ locale });
     className="py-15 px-5 md:px-15"
     sectionClassName="h-highlight-md md:h-highlight-lg"
   />
+
   <UserVoice />
 
   <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
