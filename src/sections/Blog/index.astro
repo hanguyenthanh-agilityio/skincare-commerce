@@ -10,15 +10,14 @@ interface Props {
   title: string;
   subtitle: string;
   description?: string;
-  ctaLabel: string;
   ctaHref?: string;
   blogs: TBlog[];
   className?: string;
 }
 
-const { title, subtitle, description, ctaHref, ctaLabel, blogs, className } = Astro.props;
+const { title, subtitle, description, ctaHref, blogs, className } = Astro.props;
 ---
 
-<SectionWrapper {title} {subtitle} {description} {ctaHref} {ctaLabel} {className}>
-  <BlogList blogs={blogs} ctaLabel={ctaLabel} />
+<SectionWrapper {title} {subtitle} {description} {ctaHref} {className}>
+  <BlogList blogs={blogs} />
 </SectionWrapper>

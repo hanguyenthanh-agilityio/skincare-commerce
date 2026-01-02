@@ -1,20 +1,29 @@
 ---
 // Types
-import type { StrapiImageType } from '@/types';
+import type { BlogContent, StrapiImageType } from '@/types';
 
 // Components
 import { Link, Typography, StrapiImage } from '@/components';
 import { Icons } from '@/ui';
+
+// I18n
+import { loadContent } from '@/i18n';
+import { LOCALES } from '@/constants';
 
 interface Props {
   href: string;
   image: StrapiImageType;
   title: string;
   category: string;
-  ctaLabel: string;
 }
 
-const { href, image, title, category, ctaLabel } = Astro.props;
+const { href, image, title, category } = Astro.props;
+
+const locale = LOCALES.EN;
+
+const blogPage = loadContent<BlogContent>('blog', locale);
+
+const { ctaLabel } = blogPage;
 ---
 
 <div class="w-166 h-350 md:w-331 md:h-461 hover:shadow-lg flex flex-col gap-10 text-left">

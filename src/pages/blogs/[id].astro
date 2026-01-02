@@ -20,15 +20,13 @@ import { loadContent } from '@/i18n';
 import { getBlogPageData } from '@/services';
 
 // Types
-import type { BlogContent, HomeContent, NotFoundContent } from '@/types';
+import type { HomeContent, NotFoundContent } from '@/types';
 
 const locale = LOCALES.EN;
 const { id } = Astro.params;
 
 // Load global content (safe)
 const homePage = loadContent<HomeContent>('home', locale);
-
-const blogPage = loadContent<BlogContent>('blog', locale);
 
 const notFoundContent = loadContent<NotFoundContent>('404', locale);
 
@@ -70,12 +68,7 @@ const heroImage = result.blogDetail?.images?.[0];
           images={result.blogDetail?.images}
         />
 
-        <Blog
-          {...homePage.blog}
-          blogs={result.blogs}
-          ctaLabel={blogPage.ctaLabel}
-          className="py-11 md:py-20"
-        />
+        <Blog {...homePage.blog} blogs={result.blogs} className="py-11 md:py-20" />
       </div>
     )
   }

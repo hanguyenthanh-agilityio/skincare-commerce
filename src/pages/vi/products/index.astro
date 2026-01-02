@@ -9,7 +9,7 @@ import { Blog, Highlight, ProductToolbar } from '@/sections';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { BlogContent, ProductContent } from '@/types';
+import type { ProductContent } from '@/types';
 
 // Constants
 import { LOCALES } from '@/constants';
@@ -25,7 +25,6 @@ const locale = LOCALES.VI;
 const url = new URL(Astro.request.url);
 
 const productPage = loadContent<ProductContent>('products', locale);
-const blogList = loadContent<BlogContent>('blog', locale);
 
 const {
   highlight,
@@ -70,10 +69,5 @@ const { blogs } = await getBlogs({ locale });
 
   <ProductLayout {products} {product} page={pagination.page} pageCount={pagination.pageCount} />
 
-  <Blog
-    {...blog}
-    blogs={blogs}
-    ctaLabel={blogList.ctaLabel}
-    className="mx-5 md:mx-8 py-11 md:py-24"
-  />
+  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
 </BaseLayout>

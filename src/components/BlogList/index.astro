@@ -12,12 +12,11 @@ import { BlogCard, Typography } from '@/components';
 
 interface Props {
   blogs: TBlog[];
-  ctaLabel: string;
   limitDesktop?: number;
   limitMobile?: number;
 }
 
-const { blogs, limitDesktop = 4, limitMobile = 2, ctaLabel } = Astro.props;
+const { blogs, limitDesktop = 4, limitMobile = 2 } = Astro.props;
 
 const blogList: TBlog[] = Array.isArray(blogs) ? blogs : [];
 
@@ -50,7 +49,6 @@ const hasBlogs = blogList.length > 0;
                 {...blog}
                 image={blog.images?.[0]}
                 href={`${ROUTER.BLOGS}/${blog.documentId}`}
-                ctaLabel={ctaLabel}
               />
             </div>
           );

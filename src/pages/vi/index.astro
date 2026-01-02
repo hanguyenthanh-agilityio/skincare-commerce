@@ -9,7 +9,7 @@ import { UserVoice, Highlight, Feature, Quote } from '@/sections';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { BlogContent, HomeContent } from '@/types';
+import type { HomeContent } from '@/types';
 
 import { Carousel, Product, Blog } from '@/sections';
 
@@ -22,8 +22,6 @@ import { getBlogs, getProducts } from '@/services';
 const locale = LOCALES.VI;
 
 const homePage = loadContent<HomeContent>('home', locale);
-
-const blogList = loadContent<BlogContent>('blog', locale);
 
 const { carousel, feature, highlight, quote, product, blog } = homePage;
 
@@ -60,10 +58,5 @@ const { products } = await getProducts({ locale });
 
   <UserVoice />
 
-  <Blog
-    {...blog}
-    blogs={blogs}
-    ctaLabel={blogList.ctaLabel}
-    className="mx-5 md:mx-8 py-11 md:py-24"
-  />
+  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
 </BaseLayout>
