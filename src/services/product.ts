@@ -2,13 +2,7 @@
 import { ERROR_MESSAGES, LOCALES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
 
 // Types
-import {
-  mapProductToDetail,
-  type Locale,
-  type ProductPageData,
-  type SortValue,
-  type TProduct,
-} from '@/types';
+import { mapProductToDetail, type Locale, type ProductPageData, type SortValue } from '@/types';
 
 // Effect
 import { Effect, pipe, Schema } from 'effect';
@@ -221,9 +215,7 @@ export const getProductPageData = async (
     productDetail: null,
   };
 
-  if (!id) {
-    return baseResult;
-  }
+  if (!id) return baseResult;
 
   const { products } = await getProducts({ locale });
 
@@ -232,24 +224,16 @@ export const getProductPageData = async (
    * Handle all failure cases explicitly
    * Never leak internal error details to UI
    */
-  let productDetail: TProduct | null;
+  const productDetail = await Effect.runPromise(
+    getProductByDocumentId({ id, locale }).pipe(
+      Effect.match({
+        onSuccess: (product) => product,
+        onFailure: () => null, // Product not found
+      }),
+    ),
+  );
 
-  try {
-    productDetail = await Effect.runPromise(
-      getProductByDocumentId({ id, locale }).pipe(
-        Effect.match({
-          onSuccess: (b) => b,
-          onFailure: () => null, // Product not found
-        }),
-      ),
-    );
-  } catch {
-    productDetail = null;
-  }
-
-  if (!productDetail) {
-    return baseResult;
-  }
+  if (!productDetail) return baseResult;
 
   return {
     productDetail,
