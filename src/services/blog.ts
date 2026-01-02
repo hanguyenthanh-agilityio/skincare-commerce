@@ -4,7 +4,12 @@ import { Effect, pipe, Schema } from 'effect';
 import type { BlogPageData, Locale, TBlog } from '@/types';
 
 // Services
-import { BlogDecodeError, BlogFetchError, BlogNotFoundError } from '@/services';
+import {
+  BlogDecodeError,
+  BlogFetchError,
+  BlogNotFoundError,
+  fetchByDocumentIdEffect,
+} from '@/services';
 
 // Constants
 import { ERROR_MESSAGES, STRAPI_BASE_URL } from '@/constants';
@@ -84,67 +89,16 @@ export const getBlogs = async ({ locale }: { locale: Locale }): Promise<GetBlogs
 
 // Get data Blog detail
 export const getBlogByDocumentId = ({ id, locale }: Params) =>
-  pipe(
-    /**
-     * Fetch data from Strapi
-     * Convert all failures into BlogFetchError
-     */
-    Effect.tryPromise({
-      try: async () => {
-        const params = new URLSearchParams({
-          locale,
-          'filters[documentId][$eq]': id,
-          populate: '*',
-        });
-
-        const res = await fetch(`${STRAPI_BASE_URL}/api/blogs?${params}`);
-
-        if (!res.ok) {
-          throw new BlogFetchError({
-            status: res.status,
-            message: ERROR_MESSAGES.BLOG_FETCH_FAILED,
-          });
-        }
-
-        return res.json();
-      },
-      catch: (error) =>
-        error instanceof BlogFetchError
-          ? error
-          : new BlogFetchError({
-              status: 500,
-              message: ERROR_MESSAGES.UNKNOWN,
-            }),
-    }),
-
-    /**
-     * Decode unknown JSON into typed data
-     * Runtime validation using Schema
-     * Fail with BlogDecodeError if shape is invalid
-     */
-    Effect.flatMap((json) =>
-      pipe(
-        json,
-        Schema.decodeUnknown(BlogListResponseSchema),
-        Effect.mapError((reason) => new BlogDecodeError({ reason })),
-      ),
-    ),
-
-    /**
-     * Business rule
-     * Ensure blog exists
-     * Fail explicitly if not found
-     */
-    Effect.flatMap((decoded) => {
-      const blog = decoded.data[0];
-
-      if (!blog) {
-        return Effect.fail(new BlogNotFoundError({ documentId: id }));
-      }
-
-      return Effect.succeed(blog as TBlog);
-    }),
-  );
+  fetchByDocumentIdEffect({
+    endpoint: 'blogs',
+    documentId: id,
+    locale,
+    schema: BlogListResponseSchema,
+    fetchError: (ctx) => new BlogFetchError(ctx),
+    decodeError: (reason) => new BlogDecodeError({ reason }),
+    notFoundError: () => new BlogNotFoundError({ documentId: id }),
+    mapItem: (blog) => blog as TBlog,
+  });
 
 export const getBlogPageData = async (
   id: string | undefined,
@@ -166,20 +120,14 @@ export const getBlogPageData = async (
    * Handle all failure cases explicitly
    * Never leak internal error details to UI
    */
-  let blogDetail: TBlog | null;
-
-  try {
-    blogDetail = await Effect.runPromise(
-      getBlogByDocumentId({ id, locale }).pipe(
-        Effect.match({
-          onSuccess: (b) => b,
-          onFailure: () => null, // Blog not found
-        }),
-      ),
-    );
-  } catch {
-    blogDetail = null;
-  }
+  const blogDetail = await Effect.runPromise(
+    getBlogByDocumentId({ id, locale }).pipe(
+      Effect.match({
+        onSuccess: (blog) => blog,
+        onFailure: () => null, // Blog not found
+      }),
+    ),
+  );
 
   if (!blogDetail) return baseResult;
 

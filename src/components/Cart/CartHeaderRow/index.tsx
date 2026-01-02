@@ -1,0 +1,19 @@
+// Components
+import { TypographyWrapper } from '@/components';
+
+interface Props {
+  columns: {
+    title: string;
+    className?: string;
+  }[];
+}
+
+const CartHeaderRow = ({ columns }: Props) => (
+  <div className="grid md:grid-cols-[1fr_120px_140px_120px] lg:grid-cols-[1fr_180px_200px_180px] border-b pb-3 text-sm text-muted-foreground uppercase">
+    {columns.map((col) => (
+      <TypographyWrapper key={col.title} level="span" title={col.title} className={col.className} />
+    ))}
+  </div>
+);
+
+export default CartHeaderRow;
