@@ -23,5 +23,5 @@ const content = loadContent<CartContent>('cart', locale);
 ---
 
 <BaseLayout {locale}>
-  <CartInfo content={content} items={CART_ITEMS} />
+  <CartInfo content={content} items={CART_ITEMS} client:load />
 </BaseLayout>
