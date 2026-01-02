@@ -18,13 +18,13 @@ import { getBlogs } from '@/services';
 
 const locale = LOCALES.VI;
 
-const homePage = loadContent<HomeContent>('home', locale);
+const blogContent = loadContent<HomeContent>('home', locale);
 const { highlight, ctaLabel } = loadContent<{ highlight: HighlightSection; ctaLabel: string }>(
   'blog',
   locale,
 );
 
-const { blog } = homePage;
+const { blog } = blogContent;
 
 const { blogs } = await getBlogs({ locale });
 ---

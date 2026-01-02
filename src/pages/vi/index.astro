@@ -3,15 +3,13 @@
 import { BaseLayout } from '@/layouts';
 
 // Sections
-import { UserVoice, Highlight, Feature, Quote } from '@/sections';
+import { UserVoice, Highlight, Feature, Quote, Carousel, Product, Blog } from '@/sections';
 
 // I18n
 import { loadContent } from '@/i18n';
 
 // Types
 import type { HomeContent } from '@/types';
-
-import { Carousel, Product, Blog } from '@/sections';
 
 // Constants
 import { LOCALES } from '@/constants';
@@ -42,8 +40,8 @@ const { products } = await getProducts({ locale });
   <Product
     {...product}
     products={products}
-    limitMobile={2}
     limitDesktop={4}
+    limitMobile={2}
     className="mx-5 md:mx-8 py-11 md:py-24"
   />
 
