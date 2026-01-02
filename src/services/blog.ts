@@ -27,26 +27,59 @@ interface Params {
   locale: Locale;
 }
 
+export const getBlogsEffect = ({ locale }: { locale: Locale }) =>
+  pipe(
+    Effect.tryPromise({
+      try: async () => {
+        const params = new URLSearchParams({
+          locale,
+          populate: '*',
+        });
+
+        const res = await fetch(`${STRAPI_BASE_URL}/api/blogs?${params.toString()}`);
+
+        if (!res.ok) {
+          throw new BlogFetchError({
+            status: res.status,
+            message: ERROR_MESSAGES.BLOG_FETCH_FAILED,
+          });
+        }
+
+        return res.json();
+      },
+      catch: (e) =>
+        e instanceof BlogFetchError
+          ? e
+          : new BlogFetchError({
+              status: 500,
+              message: ERROR_MESSAGES.UNKNOWN,
+            }),
+    }),
+
+    // Runtime validation
+    Effect.flatMap((json) =>
+      pipe(
+        json,
+        Schema.decodeUnknown(BlogListResponseSchema),
+        Effect.mapError((reason) => new BlogDecodeError({ reason })),
+      ),
+    ),
+
+    Effect.map((decoded) => ({
+      blogs: decoded.data as TBlog[],
+      pagination: null,
+    })),
+  );
+
 export const getBlogs = async ({ locale }: { locale: Locale }): Promise<GetBlogsResponse> => {
-  const params = new URLSearchParams({
-    locale,
-  });
-
-  const url = `${STRAPI_BASE_URL}/api/blogs?${params}&populate=*`;
-
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    console.error('Strapi fetch failed:', await res.text());
-    return { blogs: [], pagination: null };
+  try {
+    return await Effect.runPromise(getBlogsEffect({ locale }));
+  } catch {
+    return {
+      blogs: [],
+      pagination: null,
+    };
   }
-
-  const json = await res.json();
-
-  return {
-    blogs: json.data as TBlog[],
-    pagination: json.meta?.pagination || null,
-  };
 };
 
 // Get data Blog detail

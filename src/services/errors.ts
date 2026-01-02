@@ -3,6 +3,21 @@ import { Data } from 'effect';
 // Constants
 import { ERROR_TAGS } from '@/constants';
 
+/* -------------------------------------------------------------------------- */
+/*                                   BLOG                                     */
+/* -------------------------------------------------------------------------- */
+
+// List
+export class BlogListFetchError extends Data.TaggedError(ERROR_TAGS.BLOG_LIST_FETCH)<{
+  status: number;
+  message: string;
+}> {}
+
+export class BlogListDecodeError extends Data.TaggedError(ERROR_TAGS.BLOG_LIST_DECODE)<{
+  reason: unknown;
+}> {}
+
+// Detail
 export class BlogNotFoundError extends Data.TaggedError(ERROR_TAGS.BLOG_NOT_FOUND)<{
   documentId: string;
 }> {}
@@ -16,7 +31,21 @@ export class BlogDecodeError extends Data.TaggedError(ERROR_TAGS.BLOG_DECODE)<{
   reason: unknown;
 }> {}
 
-// Products
+/* -------------------------------------------------------------------------- */
+/*                                  PRODUCT                                   */
+/* -------------------------------------------------------------------------- */
+
+// List
+export class ProductListFetchError extends Data.TaggedError(ERROR_TAGS.PRODUCT_LIST_FETCH)<{
+  status: number;
+  message: string;
+}> {}
+
+export class ProductListDecodeError extends Data.TaggedError(ERROR_TAGS.PRODUCT_LIST_DECODE)<{
+  reason: unknown;
+}> {}
+
+// Detail
 export class ProductNotFoundError extends Data.TaggedError(ERROR_TAGS.PRODUCT_NOT_FOUND)<{
   documentId: string;
 }> {}
