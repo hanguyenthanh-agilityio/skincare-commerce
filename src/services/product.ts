@@ -8,7 +8,12 @@ import { mapProductToDetail, type Locale, type ProductPageData, type SortValue }
 import { Effect, pipe, Schema } from 'effect';
 
 // Services
-import { ProductDecodeError, ProductFetchError, ProductNotFoundError } from '@/services';
+import {
+  fetchByDocumentIdEffect,
+  ProductDecodeError,
+  ProductFetchError,
+  ProductNotFoundError,
+} from '@/services';
 
 // Schema
 import { ProductListResponseSchema } from '@/schemas';
@@ -152,54 +157,16 @@ export const getProducts = async (params: FetchProductsParams) => {
  */
 
 export const getProductByDocumentId = ({ id, locale }: Params) =>
-  pipe(
-    Effect.tryPromise({
-      try: async () => {
-        const params = new URLSearchParams({
-          locale,
-          'filters[documentId][$eq]': id,
-          populate: '*',
-        });
-
-        const res = await fetch(`${STRAPI_BASE_URL}/api/products?${params}`);
-
-        if (!res.ok) {
-          throw new ProductFetchError({
-            status: res.status,
-            message: ERROR_MESSAGES.PRODUCT_FETCH_FAILED,
-          });
-        }
-
-        return res.json();
-      },
-
-      catch: (error) =>
-        error instanceof ProductFetchError
-          ? error
-          : new ProductFetchError({
-              status: 500,
-              message: ERROR_MESSAGES.UNKNOWN,
-            }),
-    }),
-
-    Effect.flatMap((json) =>
-      pipe(
-        json,
-        Schema.decodeUnknown(ProductListResponseSchema),
-        Effect.mapError((reason) => new ProductDecodeError({ reason })),
-      ),
-    ),
-
-    Effect.flatMap((decoded) => {
-      const product = decoded.data[0];
-
-      if (!product) {
-        return Effect.fail(new ProductNotFoundError({ documentId: id }));
-      }
-
-      return Effect.succeed(mapProductToDetail(product));
-    }),
-  );
+  fetchByDocumentIdEffect({
+    endpoint: 'products',
+    documentId: id,
+    locale,
+    schema: ProductListResponseSchema,
+    fetchError: (ctx) => new ProductFetchError(ctx),
+    decodeError: (reason) => new ProductDecodeError({ reason }),
+    notFoundError: () => new ProductNotFoundError({ documentId: id }),
+    mapItem: mapProductToDetail,
+  });
 
 /**
  * Fetch all data required for the Product Detail page
