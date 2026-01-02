@@ -13,18 +13,16 @@ interface Props {
   onQuantityChange: (id: string, quantity: number) => void;
 }
 
-const CartTable = ({ columns, items, onQuantityChange }: Props) => {
-  return (
-    <>
-      <div className="hidden md:block">
-        <CartHeaderRow columns={columns} />
-      </div>
+const CartTable = ({ columns, items, onQuantityChange }: Props) => (
+  <>
+    <div className="hidden md:block">
+      <CartHeaderRow columns={columns} />
+    </div>
 
-      {items.map((item) => (
-        <CartItemRow key={item.id} item={item} onQuantityChange={onQuantityChange} />
-      ))}
-    </>
-  );
-};
+    {items.map((item) => (
+      <CartItemRow key={item.id} item={item} onQuantityChange={onQuantityChange} />
+    ))}
+  </>
+);
 
 export default CartTable;
