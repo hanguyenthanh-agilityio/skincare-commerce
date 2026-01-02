@@ -166,20 +166,14 @@ export const getBlogPageData = async (
    * Handle all failure cases explicitly
    * Never leak internal error details to UI
    */
-  let blogDetail: TBlog | null;
-
-  try {
-    blogDetail = await Effect.runPromise(
-      getBlogByDocumentId({ id, locale }).pipe(
-        Effect.match({
-          onSuccess: (b) => b,
-          onFailure: () => null, // Blog not found
-        }),
-      ),
-    );
-  } catch {
-    blogDetail = null;
-  }
+  const blogDetail = await Effect.runPromise(
+    getBlogByDocumentId({ id, locale }).pipe(
+      Effect.match({
+        onSuccess: (blog) => blog,
+        onFailure: () => null, // Blog not found
+      }),
+    ),
+  );
 
   if (!blogDetail) return baseResult;
 
