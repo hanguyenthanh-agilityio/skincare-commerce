@@ -173,13 +173,10 @@ export const getProductPageData = async (
   // Default return
   const baseResult: ProductPageData = {
     pageNotFound: true,
-    products: [],
     productDetail: null,
   };
 
   if (!id) return baseResult;
-
-  const { products } = await getProducts({ locale });
 
   /**
    * Execute Effect in Astro SSR
@@ -199,7 +196,6 @@ export const getProductPageData = async (
 
   return {
     productDetail,
-    products,
     pageNotFound: false,
   };
 };
