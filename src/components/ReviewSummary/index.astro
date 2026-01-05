@@ -56,7 +56,11 @@ const { labels, average, totalReviews, breakdown } = Astro.props;
               />
             </div>
 
-            <Typography level="span" title={`${percentage}%`} className="opacity-55" />
+            <Typography
+              level="span"
+              title={`${percentage}%`}
+              className="text-destructive-foreground/70"
+            />
           </div>
         </div>
       ))

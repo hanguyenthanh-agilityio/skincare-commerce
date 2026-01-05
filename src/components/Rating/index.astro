@@ -18,6 +18,7 @@ const sizeClass = size === 'md' ? 'h-5 w-5' : 'h-4 w-4';
 
 <div
   class={cn('flex items-center gap-1.5', className)}
+  role="img"
   aria-label={`Rating: ${value} out of ${max}`}
 >
   {
@@ -27,6 +28,7 @@ const sizeClass = size === 'md' ? 'h-5 w-5' : 'h-4 w-4';
           `${index < value ? 'text-destructive-foreground' : 'text-quill-grey'}`,
           sizeClass,
         )}
+        aria-hidden="true"
       />
     ))
   }

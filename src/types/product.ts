@@ -60,6 +60,8 @@ export type TProduct = {
   images: readonly StrapiImageType[];
   skinFeel?: string;
   ingredients?: readonly RichTextBlock[];
+  benefits?: readonly RichTextBlock[];
+  usages?: readonly RichTextBlock[];
   reviews?: UIReview[];
   category?: {
     name: string;
@@ -121,14 +123,11 @@ export interface ProductPageData {
 
 export const mapProductToDetail = (product: RawProduct): TProduct => ({
   documentId: product.documentId,
-
   name: product.name,
   subTitle: product.subTitle,
   description: product.description,
-
   price: product.price,
   volume: product.volume,
-
   stock: product.stock ? Number(product.stock) : 0,
   averageRating:
     product.reviews && product.reviews.length > 0
@@ -136,30 +135,21 @@ export const mapProductToDetail = (product: RawProduct): TProduct => ({
           (product.reviews.reduce((s, r) => s + r.rating, 0) / product.reviews.length).toFixed(1),
         )
       : 0,
-
   thumbnailUrl: product.images[0]?.formats?.thumbnail?.url ?? product.images[0]?.url ?? null,
   images: product.images,
-
   skinFeel: product.skinFeel,
-  ingredients: product.ingredients,
-
+  ingredients: product.ingredients as RichTextBlock[] | undefined,
+  benefits: product.benefits as RichTextBlock[] | undefined,
+  usages: product.usages as RichTextBlock[] | undefined,
   reviews: product.reviews?.map((r) => ({
     rating: r.rating,
     comment: r.comment,
     date: new Date(),
   })),
-
   category: product.category
-    ? {
-        name: product.category.name,
-        slug: product.category.slug,
-      }
+    ? { name: product.category.name, slug: product.category.slug }
     : undefined,
-
   skinType: product.skin_type
-    ? {
-        name: product.skin_type.name,
-        slug: product.skin_type.slug,
-      }
+    ? { name: product.skin_type.name, slug: product.skin_type.slug }
     : undefined,
 });
