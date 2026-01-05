@@ -1,0 +1,72 @@
+---
+// Types
+import type { CheckoutContent } from '@/types';
+
+// Components
+import { Button, Input } from '@/ui';
+
+import { Image } from '@/components';
+
+// Props
+const { t } = Astro.props as {
+  t: CheckoutContent;
+};
+
+// Payment methods
+import paypalImg from '@/assets/payment/paypal.png';
+import amexImg from '@/assets/payment/amex.png';
+import visaImg from '@/assets/payment/visa.png';
+import mastercardImg from '@/assets/payment/mastercard.png';
+
+import type { StaticImageSrc } from '@/components/Image/index.astro';
+
+const paymentMethods: { src: StaticImageSrc; key: keyof CheckoutContent['paymentMethods'] }[] = [
+  { src: paypalImg, key: 'paypal' },
+  { src: amexImg, key: 'amex' },
+  { src: visaImg, key: 'visa' },
+  { src: mastercardImg, key: 'mastercard' },
+];
+---
+
+<section
+  aria-labelledby="checkout-heading"
+  class="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md space-y-6"
+>
+  <h2 id="checkout-heading" class="text-xl font-semibold">{t.title}</h2>
+
+  <!-- Payment Methods -->
+  <div class="flex space-x-2">
+    {
+      paymentMethods.map(({ src, key }) => (
+        <Button
+          variant="ghost"
+          type="button"
+          className="flex items-center justify-center border rounded hover:shadow-md transition h-auto px-1 md: px-5"
+          aria-label={t.paymentMethods[key]}
+          key={key}
+        >
+          <Image src={src} alt={t.paymentMethods[key]} class="h-12 w-12 md:h-20 md:w-20" />
+        </Button>
+      ))
+    }
+  </div>
+
+  <!-- Card Form -->
+  <div class="space-y-6">
+    <Input id="name" placeholder={t.form.namePlaceholder} label={t.form.nameLabel} />
+    <Input
+      id="cardNumber"
+      placeholder={t.form.cardNumberPlaceholder}
+      label={t.form.cardNumberLabel}
+    />
+
+    <div class="flex space-x-4">
+      <Input id="expDate" placeholder={t.form.expDatePlaceholder} label={t.form.expDateLabel} />
+      <Input id="cvc" placeholder={t.form.cvcPlaceholder} label={t.form.cvcLabel} />
+    </div>
+  </div>
+
+  <Button className="w-full mt-4" variant="default">
+    {t.form.confirmButton}
+  </Button>
+</section>

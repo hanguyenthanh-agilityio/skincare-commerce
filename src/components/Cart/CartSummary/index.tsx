@@ -1,5 +1,5 @@
 // Components
-import { HeadingWrapper, TypographyWrapper } from '@/components';
+import { HeadingWrapper, LinkWrapper, TypographyWrapper } from '@/components';
 
 // UIs
 import { Button } from '@/ui';
@@ -29,10 +29,11 @@ const CartSummary = ({ total, label, shippingNote, checkoutText }: Props) => (
         />
       </div>
     </div>
-
-    <Button aria-label={`${checkoutText}, total $${total}`} className="w-full rounded-none h-14">
-      {checkoutText}
-    </Button>
+    <LinkWrapper href="/checkout">
+      <Button aria-label={`${checkoutText}, total $${total}`} className="w-full rounded-none h-14">
+        {checkoutText}
+      </Button>
+    </LinkWrapper>
   </aside>
 );
 
