@@ -9,7 +9,7 @@ import { loadContent } from '@/i18n';
 import type { CheckoutContent } from '@/types';
 
 // Section
-import { CheckoutForm } from '@/sections';
+import { CheckoutForm, OrderSummary } from '@/sections';
 
 // Constants
 import { LOCALES } from '@/constants';
@@ -20,5 +20,8 @@ const checkout = loadContent<CheckoutContent>('checkout', locale);
 ---
 
 <BaseLayout {locale}>
-  <CheckoutForm t={checkout} />
+  <div class="mx-auto grid md:grid-cols-2 gap-10">
+    <CheckoutForm t={checkout} />
+    <OrderSummary />
+  </div>
 </BaseLayout>
