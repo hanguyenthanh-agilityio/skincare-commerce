@@ -11,9 +11,16 @@ form:
   cardNumberLabel: 'Số thẻ'
   cardNumberPlaceholder: 'Nhập số thẻ'
   expDateLabel: 'Ngày hết hạn'
-  expDatePlaceholder: 'MM/YY'
+  expDatePlaceholder: 'MM/YY (Tháng/Năm)'
   cvcLabel: 'CVC'
   cvcPlaceholder: 'CVC'
   saveInfoLabel: 'Lưu thông tin để thanh toán nhanh hơn'
   confirmButton: 'Xác nhận thanh toán'
+
+summary:
+  title: Tóm tắt đơn hàng
+  subtotal: Tạm tính
+  discount: Giảm giá
+  tax: Thuế
+  total: Tổng cộng
 ---
