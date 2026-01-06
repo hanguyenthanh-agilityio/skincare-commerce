@@ -1,0 +1,24 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { CheckoutContent } from '@/types';
+
+// Section
+import { CheckoutForm } from '@/sections';
+
+// Constants
+import { LOCALES } from '@/constants';
+
+const locale = LOCALES.VI;
+
+const checkout = loadContent<CheckoutContent>('checkout', locale);
+---
+
+<BaseLayout {locale}>
+  <CheckoutForm t={checkout} />
+</BaseLayout>

@@ -1,0 +1,67 @@
+---
+// Types
+import type { CheckoutContent } from '@/types';
+
+// Components
+import { Button, Input } from '@/ui';
+
+import { Heading, Image } from '@/components';
+
+// Payment methods
+import paypal from '@/assets/payment/paypal.png';
+import amex from '@/assets/payment/amex.png';
+import visa from '@/assets/payment/visa.png';
+import mastercard from '@/assets/payment/mastercard.png';
+
+// Props
+const { t } = Astro.props as {
+  t: CheckoutContent;
+};
+
+const PAYMENT_METHODS = [
+  { key: 'paypal', src: paypal },
+  { key: 'amex', src: amex },
+  { key: 'visa', src: visa },
+  { key: 'mastercard', src: mastercard },
+] as const;
+---
+
+<section aria-labelledby="checkout-heading" class="max-w-md w-full mx-auto p-6 space-y-6">
+  <Heading level="h2" className="font-semibold" title={t.title} />
+
+  <!-- Payment Methods -->
+  <div class="flex space-x-2">
+    {
+      PAYMENT_METHODS.map(({ src, key }) => (
+        <Button
+          variant="ghost"
+          type="button"
+          className="flex items-center justify-center border rounded hover:shadow-md transition h-auto px-1 md: px-5"
+          aria-label={t.paymentMethods[key]}
+          key={key}
+        >
+          <Image src={src} alt={t.paymentMethods[key]} class="h-12 w-12 md:h-20 md:w-20" />
+        </Button>
+      ))
+    }
+  </div>
+
+  <!-- Card Form -->
+  <div class="space-y-6">
+    <Input id="name" placeholder={t.form.namePlaceholder} label={t.form.nameLabel} />
+    <Input
+      id="cardNumber"
+      placeholder={t.form.cardNumberPlaceholder}
+      label={t.form.cardNumberLabel}
+    />
+
+    <div class="flex space-x-4">
+      <Input id="expDate" placeholder={t.form.expDatePlaceholder} label={t.form.expDateLabel} />
+      <Input id="cvc" placeholder={t.form.cvcPlaceholder} label={t.form.cvcLabel} />
+    </div>
+  </div>
+
+  <Button className="w-full mt-4" variant="default">
+    {t.form.confirmButton}
+  </Button>
+</section>
