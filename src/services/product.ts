@@ -101,7 +101,7 @@ export const getProductsEffect = ({
           });
         }
 
-        return res.json();
+        return await res.json();
       },
       catch: (e) =>
         e instanceof ProductFetchError
@@ -124,12 +124,7 @@ export const getProductsEffect = ({
     // Map to UI-ready products
     Effect.map((decoded) => ({
       products: decoded.data.map(mapProductToDetail),
-      pagination: {
-        page,
-        pageSize,
-        total: decoded.data.length,
-        pageCount: 1,
-      },
+      pagination: decoded.meta.pagination,
     })),
   );
 

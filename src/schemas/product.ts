@@ -80,10 +80,19 @@ export const RawProductSchema = Schema.Struct({
   category: Schema.optional(TaxonomySchema),
 });
 
-// API Response
+export const PaginationSchema = Schema.Struct({
+  page: Schema.Number,
+  pageSize: Schema.Number,
+  pageCount: Schema.Number,
+  total: Schema.Number,
+});
 
+// API Response
 export const ProductListResponseSchema = Schema.Struct({
   data: Schema.Array(RawProductSchema),
+  meta: Schema.Struct({
+    pagination: PaginationSchema,
+  }),
 });
 
 // Types
