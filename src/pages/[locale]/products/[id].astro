@@ -1,8 +1,6 @@
 ---
 export const prerender = false;
 
-import { Effect } from 'effect';
-
 // Layouts
 import { BaseLayout } from '@/layouts';
 
@@ -13,7 +11,7 @@ import { Blog, ProductDetail, RoutineList, Reviews, Benefits } from '@/sections'
 import { buildRoute, loadContent } from '@/i18n';
 
 // Services
-import { getBlogs, getProductByDocumentId } from '@/services';
+import { getBlogs, getProductPageData } from '@/services';
 
 // Types
 import type { HomeContent, ProductDetailContent, Attribute } from '@/types';
@@ -34,17 +32,7 @@ if (!id || !locale) {
   return Astro.redirect(ROUTER.NOT_FOUND);
 }
 
-const product = await Effect.runPromise(
-  getProductByDocumentId({
-    id,
-    locale,
-  }).pipe(
-    Effect.match({
-      onSuccess: (product) => product,
-      onFailure: () => null,
-    }),
-  ),
-);
+const { productDetail: product } = await getProductPageData(id, locale);
 
 if (!product) {
   return Astro.redirect(ROUTER.NOT_FOUND);
