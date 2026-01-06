@@ -18,7 +18,7 @@ export { default as FaqAccordion } from './FaqAccordion';
 export { default as RadioDropdown } from './RadioDropdown';
 export { default as CategoryFilter } from './CategoryFilter';
 export { default as SkinTypeFilter } from './SkinTypeFilter';
-export { default as QuantitySelect } from './QuantitySelect';
+export { default as QuantityInput } from './QuantityInput';
 export { default as CartItemRow } from './Cart/CartItemRow';
 export { default as CartTable } from './Cart/CartTable';
 export { default as CartSummary } from './Cart/CartSummary';

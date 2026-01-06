@@ -1,5 +1,5 @@
 // Components
-import { QuantitySelect, StrapiImage, TypographyWrapper } from '@/components';
+import { QuantityInput, StrapiImage, TypographyWrapper } from '@/components';
 
 // Types
 import type { CartItem } from '@/types';
@@ -30,7 +30,7 @@ const CartItemRow = ({ item, onQuantityChange }: Props) => (
 
     {/* Quantity */}
     <div className="col-span-2 md:col-span-1 flex justify-end md:justify-start">
-      <QuantitySelect
+      <QuantityInput
         value={item.quantity}
         onChange={(value) => onQuantityChange(item.id, value)}
         className="rounded-none bg-white"
