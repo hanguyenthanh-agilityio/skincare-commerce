@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { cn } from '@/lib';
 
 type AstroImageProps = Parameters<typeof Image>[0];
-export type StaticImageSrc = Exclude<AstroImageProps['src'], string | Promise<unknown>>;
+type StaticImageSrc = Exclude<AstroImageProps['src'], string | Promise<unknown>>;
 
 export interface Props {
   src?: StaticImageSrc | null;

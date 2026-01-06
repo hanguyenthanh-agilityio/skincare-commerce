@@ -11,7 +11,7 @@ form:
   cardNumberLabel: 'Số thẻ'
   cardNumberPlaceholder: 'Nhập số thẻ'
   expDateLabel: 'Ngày hết hạn'
-  expDatePlaceholder: 'MM/YY'
+  expDatePlaceholder: 'MM/YY (Tháng/Năm)'
   cvcLabel: 'CVC'
   cvcPlaceholder: 'CVC'
   saveInfoLabel: 'Lưu thông tin để thanh toán nhanh hơn'

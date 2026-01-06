@@ -5,39 +5,34 @@ import type { CheckoutContent } from '@/types';
 // Components
 import { Button, Input } from '@/ui';
 
-import { Image } from '@/components';
+import { Heading, Image } from '@/components';
+
+// Payment methods
+import paypal from '@/assets/payment/paypal.png';
+import amex from '@/assets/payment/amex.png';
+import visa from '@/assets/payment/visa.png';
+import mastercard from '@/assets/payment/mastercard.png';
 
 // Props
 const { t } = Astro.props as {
   t: CheckoutContent;
 };
 
-// Payment methods
-import paypalImg from '@/assets/payment/paypal.png';
-import amexImg from '@/assets/payment/amex.png';
-import visaImg from '@/assets/payment/visa.png';
-import mastercardImg from '@/assets/payment/mastercard.png';
-
-import type { StaticImageSrc } from '@/components/Image/index.astro';
-
-const paymentMethods: { src: StaticImageSrc; key: keyof CheckoutContent['paymentMethods'] }[] = [
-  { src: paypalImg, key: 'paypal' },
-  { src: amexImg, key: 'amex' },
-  { src: visaImg, key: 'visa' },
-  { src: mastercardImg, key: 'mastercard' },
-];
+const PAYMENT_METHODS = [
+  { key: 'paypal', src: paypal },
+  { key: 'amex', src: amex },
+  { key: 'visa', src: visa },
+  { key: 'mastercard', src: mastercard },
+] as const;
 ---
 
-<section
-  aria-labelledby="checkout-heading"
-  class="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md space-y-6"
->
-  <h2 id="checkout-heading" class="text-xl font-semibold">{t.title}</h2>
+<section aria-labelledby="checkout-heading" class="max-w-md w-full mx-auto p-6 space-y-6">
+  <Heading level="h2" className="font-semibold" title={t.title} />
 
   <!-- Payment Methods -->
   <div class="flex space-x-2">
     {
-      paymentMethods.map(({ src, key }) => (
+      PAYMENT_METHODS.map(({ src, key }) => (
         <Button
           variant="ghost"
           type="button"
