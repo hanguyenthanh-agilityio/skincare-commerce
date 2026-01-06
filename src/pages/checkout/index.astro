@@ -1,0 +1,55 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { CartItem, CheckoutContent } from '@/types';
+
+// Section
+import { CheckoutForm, OrderSummary } from '@/sections';
+
+// Constants
+import { LOCALES } from '@/constants';
+
+const locale = LOCALES.EN;
+
+const checkout = loadContent<CheckoutContent>('checkout', locale);
+
+// Will update and remove it
+export const MOCK_CHECKOUT_ITEMS: CartItem[] = [
+  {
+    id: '1',
+    name: 'Hydrating Face Cream',
+    price: 29.99,
+    quantity: 2,
+    image: {
+      url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
+      alternativeText: 'Hydrating Face Cream',
+      width: 500,
+      height: 500,
+    },
+  },
+  {
+    id: '2',
+    name: 'Gentle Cleansing Foam',
+    price: 19.99,
+    quantity: 1,
+    image: {
+      url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
+      alternativeText: 'Hydrating Face Cream',
+      width: 500,
+      height: 500,
+    },
+  },
+];
+---
+
+<BaseLayout {locale}>
+  <div class="mx-auto grid md:grid-cols-2 gap-10">
+    <CheckoutForm t={checkout} />
+    <OrderSummary items={MOCK_CHECKOUT_ITEMS} t={checkout} />
+  </div>
+</BaseLayout>

@@ -19,3 +19,5 @@ export { default as ContactUs } from './ContactUs/index.astro';
 export { default as BlogDetailGallery } from './BlogDetailGallery/index.astro';
 export { default as ArticleCard } from './ArticleCard/index.astro';
 export { default as NotFound } from './NotFound/index.astro';
+export { default as CheckoutForm } from './CheckoutForm/index.astro';
+export { default as OrderSummary } from './OrderSummary/index.astro';

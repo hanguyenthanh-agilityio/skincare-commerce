@@ -38,3 +38,35 @@ export interface CartContent extends MarkdownData {
     checkout: string;
   };
 }
+
+export interface CheckoutContent extends MarkdownData {
+  title: string;
+
+  paymentMethods: {
+    paypal: string;
+    amex: string;
+    visa: string;
+    mastercard: string;
+  };
+
+  form: {
+    nameLabel: string;
+    namePlaceholder: string;
+    cardNumberLabel: string;
+    cardNumberPlaceholder: string;
+    expDateLabel: string;
+    expDatePlaceholder: string;
+    cvcLabel: string;
+    cvcPlaceholder: string;
+    saveInfoLabel: string;
+    confirmButton: string;
+  };
+
+  summary: {
+    title: string;
+    subtotal: string;
+    discount: string;
+    tax: string;
+    total: string;
+  };
+}

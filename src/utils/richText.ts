@@ -5,3 +5,9 @@ export const richTextToPlainText = (blocks?: readonly RichTextBlock[]) =>
     ?.flatMap((block) => block.children)
     .map((child) => child.text)
     .join(', ') ?? '';
+
+export const richTextToMutable = (blocks?: readonly RichTextBlock[]) =>
+  blocks?.map((block) => ({
+    type: block.type,
+    children: block.children.map((child) => ({ text: child.text })),
+  })) ?? [];

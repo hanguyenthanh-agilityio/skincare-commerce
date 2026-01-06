@@ -2,10 +2,11 @@ import { Schema } from 'effect';
 
 // Rich text (ingredients, benefits, usages)
 export const RichTextChildSchema = Schema.Struct({
-  text: Schema.String,
   type: Schema.Literal('text'),
+  text: Schema.String,
 });
 
+// Rich text block (paragraph node)
 export const RichTextBlockSchema = Schema.Struct({
   type: Schema.Literal('paragraph'),
   children: Schema.Array(RichTextChildSchema),
@@ -89,4 +90,5 @@ export const ProductListResponseSchema = Schema.Struct({
 // Types
 
 export type RawProduct = Schema.Schema.Type<typeof RawProductSchema>;
-export type RichTextBlock = Schema.Schema.Type<typeof RichTextBlockSchema>;
+export type RichTextChild = Readonly<Schema.Schema.Type<typeof RichTextChildSchema>>;
+export type RichTextBlock = Readonly<Schema.Schema.Type<typeof RichTextBlockSchema>>;
