@@ -14,14 +14,21 @@ import { CartInfo } from '@/sections';
 // Constants
 import { LOCALES } from '@/constants';
 
-// Mocks
-import { CART_ITEMS } from '@/mocks';
+// Service
+import { getCartByUser } from '@/services';
 
 const locale = LOCALES.EN;
 
 const content = loadContent<CartContent>('cart', locale);
+
+// Will update when handle Login
+const USER_DOCUMENT_ID = 'vv32wq5ctzuk15aypvm747qd';
+
+const items = await getCartByUser({
+  userDocumentId: USER_DOCUMENT_ID,
+});
 ---
 
 <BaseLayout {locale}>
-  <CartInfo content={content} items={CART_ITEMS} client:load />
+  <CartInfo content={content} items={items} client:load />
 </BaseLayout>
