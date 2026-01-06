@@ -61,4 +61,12 @@ export interface CheckoutContent extends MarkdownData {
     saveInfoLabel: string;
     confirmButton: string;
   };
+
+  summary: {
+    title: string;
+    subtotal: string;
+    discount: string;
+    tax: string;
+    total: string;
+  };
 }

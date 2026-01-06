@@ -16,4 +16,11 @@ form:
   cvcPlaceholder: 'CVC'
   saveInfoLabel: 'Save my information for faster checkout'
   confirmButton: 'Confirm Payment'
+
+summary:
+  title: Order Summary
+  subtotal: Subtotal
+  discount: Coupon Discount
+  tax: Tax
+  total: Total
 ---

@@ -1,0 +1,60 @@
+---
+import { Heading, StrapiImage, Typography } from '@/components';
+
+import type { CartItem, CheckoutContent } from '@/types';
+import { getCartTotal } from '@/utils';
+
+const { items = [], t } = Astro.props as {
+  items?: CartItem[];
+  t?: CheckoutContent;
+};
+
+const summary = t?.summary;
+
+const subtotal = getCartTotal(items);
+const tax = 5;
+const total = subtotal + tax;
+---
+
+<section
+  aria-labelledby="order-summary-heading"
+  class="max-w-md w-full mx-auto p-6 bg-blue-50 space-y-6"
+>
+  <Heading level="h2" className="font-semibold" title={summary?.title} />
+
+  <!-- Items -->
+  <div class="divide-y divide-gray-200 m-0">
+    {
+      items.map((item) => (
+        <div class="flex items-center gap-4 py-4">
+          <StrapiImage image={item.image} className="w-16 h-16 rounded object-cover" />
+          <div class="flex-1">
+            <Typography level="p" className="font-medium" title={item.name} />
+            <Typography level="p" className="font-semibold" title={`$${item.price.toFixed(2)}`} />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Summary -->
+  <div class="border-t divide-y divide-gray-200">
+    {
+      [
+        { label: summary?.subtotal, value: subtotal.toFixed(2) },
+        { label: summary?.discount, value: '0%' },
+        { label: summary?.tax, value: tax.toFixed(2) },
+      ].map((row) => (
+        <div class="flex justify-between py-3">
+          <Typography level="span" title={row.label ?? ''} />
+          <Typography level="span" title={row.value ?? ''} />
+        </div>
+      ))
+    }
+
+    <div class="flex justify-between py-3 text-lg font-semibold">
+      <Typography level="span" title={summary?.total ?? ''} />
+      <Typography level="span" title={`$${total.toFixed(2)}`} />
+    </div>
+  </div>
+</section>

@@ -24,6 +24,8 @@ const PAYMENT_METHODS = [
   { key: 'visa', src: visa },
   { key: 'mastercard', src: mastercard },
 ] as const;
+
+const form = t?.form;
 ---
 
 <section aria-labelledby="checkout-heading" class="max-w-md w-full mx-auto p-6 space-y-6">
@@ -36,7 +38,7 @@ const PAYMENT_METHODS = [
         <Button
           variant="ghost"
           type="button"
-          className="flex items-center justify-center border rounded hover:shadow-md transition h-auto px-1 md: px-5"
+          className="flex items-center justify-center border rounded hover:shadow-md transition h-auto px-1 md:px-5"
           aria-label={t.paymentMethods[key]}
           key={key}
         >
@@ -48,20 +50,16 @@ const PAYMENT_METHODS = [
 
   <!-- Card Form -->
   <div class="space-y-6">
-    <Input id="name" placeholder={t.form.namePlaceholder} label={t.form.nameLabel} />
-    <Input
-      id="cardNumber"
-      placeholder={t.form.cardNumberPlaceholder}
-      label={t.form.cardNumberLabel}
-    />
+    <Input id="name" placeholder={form.namePlaceholder} label={form.nameLabel} />
+    <Input id="cardNumber" placeholder={form.cardNumberPlaceholder} label={form.cardNumberLabel} />
 
     <div class="flex space-x-4">
-      <Input id="expDate" placeholder={t.form.expDatePlaceholder} label={t.form.expDateLabel} />
-      <Input id="cvc" placeholder={t.form.cvcPlaceholder} label={t.form.cvcLabel} />
+      <Input id="expDate" placeholder={form.expDatePlaceholder} label={form.expDateLabel} />
+      <Input id="cvc" placeholder={form.cvcPlaceholder} label={form.cvcLabel} />
     </div>
   </div>
 
   <Button className="w-full mt-4" variant="default">
-    {t.form.confirmButton}
+    {form.confirmButton}
   </Button>
 </section>
