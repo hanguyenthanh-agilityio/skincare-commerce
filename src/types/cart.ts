@@ -38,6 +38,11 @@ export interface CartContent extends MarkdownData {
     shippingNote: string;
     checkout: string;
   };
+  empty: {
+    title: string;
+    description: string;
+    action: string;
+  };
 }
 
 export interface CheckoutContent extends MarkdownData {

@@ -12,4 +12,8 @@ summary:
   totalLabel: Total
   shippingNote: Shipping Fee will be calculated at the time of purchase
   checkout: Checkout
+empty:
+  title: You have no items in your cart
+  description: Start shopping to add products to your cart
+  action: Start shopping
 ---
