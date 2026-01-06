@@ -4,6 +4,6 @@ export const getCartItemSubtotal = (item: CartItem) => item.price * item.quantit
 
 export const getCartTotal = (items: CartItem[] = []) => {
   return items.reduce((total, item) => {
-    return total + item.price * item.quantity;
+    return total + getCartItemSubtotal(item);
   }, 0);
 };
