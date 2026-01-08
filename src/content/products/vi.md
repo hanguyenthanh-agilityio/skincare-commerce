@@ -49,5 +49,4 @@ blog:
   title: 'Nhật Ký Của Chúng Tôi'
   subtitle: 'Những Góc Nhìn Về Sức Khoẻ Và Hạnh Phúc'
   ctaLabel: 'Xem Tất Cả Bài Viết'
-  ctaHref: '/blogs'
 ---
