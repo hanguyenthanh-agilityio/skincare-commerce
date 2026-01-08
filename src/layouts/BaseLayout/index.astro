@@ -10,7 +10,8 @@ interface Props {
   locale: Locale;
 }
 
-const { locale = 'en' } = Astro.props;
+const { locale } = Astro.props;
+
 const pathname = Astro.url.pathname;
 ---
 

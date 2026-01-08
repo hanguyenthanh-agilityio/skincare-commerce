@@ -1,0 +1,62 @@
+---
+import { BaseLayout } from '@/layouts';
+
+// Sections
+import { Highlight, Feature, Quote } from '@/sections';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { AboutContent } from '@/types';
+
+// Constants
+import { isLocale, ROUTER } from '@/constants';
+
+import { StrapiImage } from '@/components';
+
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
+const about = loadContent<AboutContent>('about', locale);
+
+// Preprocessing
+const featureList = [
+  { ...about.feature, reverse: true },
+  { ...about.feature, reverse: false },
+];
+---
+
+<BaseLayout {locale}>
+  {
+    featureList.map((item) => (
+      <Feature
+        data={item}
+        reverse={item.reverse}
+        imageWrapperClass="h-highlight-mobile lg:h-highlight-lg xl:h-highlight-xl"
+      />
+    ))
+  }
+
+  <div class="w-full h-highlight-mobile lg:h-highlight-xl overflow-hidden p-8 lg:p-12">
+    <StrapiImage
+      image={about.image}
+      className="w-full h-full object-cover"
+      fallbackAspectRatio={0}
+    />
+  </div>
+
+  <Quote
+    title={about.quote.title}
+    description={about.quote.description}
+    className="py-15 px-5 md:px-15"
+    sectionClassName="h-highlight-md md:h-highlight-lg"
+  />
+
+  <div class="flex md:flex-row flex-col">
+    {about.highlight.map((item) => <Highlight data={item} />)}
+  </div>
+</BaseLayout>

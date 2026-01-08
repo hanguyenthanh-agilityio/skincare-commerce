@@ -1,11 +1,12 @@
 ---
 import { cn } from '@/lib';
+import { buildRoute } from '@/i18n';
 
 // Types
 import type { TBlog } from '@/types';
 
 // Constants
-import { ROUTER } from '@/constants';
+import { ROUTER, type Locale } from '@/constants';
 
 // Components
 import { BlogCard, Typography } from '@/components';
@@ -14,9 +15,10 @@ interface Props {
   blogs: TBlog[];
   limitDesktop?: number;
   limitMobile?: number;
+  locale: Locale;
 }
 
-const { blogs, limitDesktop = 4, limitMobile = 2 } = Astro.props;
+const { blogs, limitDesktop = 4, limitMobile = 2, locale } = Astro.props;
 
 const blogList: TBlog[] = Array.isArray(blogs) ? blogs : [];
 
@@ -48,7 +50,7 @@ const hasBlogs = blogList.length > 0;
               <BlogCard
                 {...blog}
                 image={blog.images?.[0]}
-                href={`${ROUTER.BLOGS}/${blog.documentId}`}
+                href={buildRoute(ROUTER.BLOGS_DETAIL, locale, { id: blog.documentId })}
               />
             </div>
           );

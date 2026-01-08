@@ -1,0 +1,23 @@
+---
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// Sections
+import { NotFound } from '@/sections';
+
+// Types
+import type { NotFoundContent } from '@/types';
+
+// I18n
+import { loadContent } from '@/i18n';
+
+const locale = Astro.url.pathname.startsWith('/vi') ? 'vi' : 'en';
+
+Astro.response.status = 404;
+
+const content = loadContent<NotFoundContent>('404', locale);
+---
+
+<BaseLayout {locale}>
+  <NotFound {...content} />
+</BaseLayout>

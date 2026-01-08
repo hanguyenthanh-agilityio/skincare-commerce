@@ -1,0 +1,41 @@
+---
+import { BaseLayout } from '@/layouts';
+
+// Sections
+import { FaqInfo } from '@/sections';
+
+// Constants
+import { isLocale, ROUTER } from '@/constants';
+
+// I18nI18n
+import { loadContent } from '@/i18n';
+
+// Types
+import type { FaqContent, Topic } from '@/types';
+
+// Utils
+import { getFaqIcon } from '@/utils';
+
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
+const {
+  topics: rawTopics,
+  sections,
+  faqTitle,
+  contactButton,
+} = loadContent<FaqContent>('faq', locale);
+
+// Map Icons
+const topics: Topic[] = rawTopics.map((t) => ({
+  ...t,
+  icon: getFaqIcon(t.id),
+}));
+---
+
+<BaseLayout {locale}>
+  <FaqInfo {locale} topics={topics} sections={sections} title={faqTitle} {contactButton} />
+</BaseLayout>

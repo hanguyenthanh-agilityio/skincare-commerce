@@ -1,0 +1,117 @@
+---
+export const prerender = false;
+
+// Layouts
+import { BaseLayout } from '@/layouts';
+
+// Sections
+import { Blog, ProductDetail, RoutineList, NotFound, Reviews, Benefits } from '@/sections';
+
+// I18n
+import { buildRoute, loadContent } from '@/i18n';
+
+// Services
+import { getProductPageData, getBlogs } from '@/services';
+
+// Types
+import type { HomeContent, ProductDetailContent, NotFoundContent, Attribute } from '@/types';
+
+// Utils
+import { richTextToPlainText, getRatingBreakdown, richTextToMutable } from '@/utils';
+
+// Constants
+import { isLocale, ROUTER } from '@/constants';
+
+const { id, locale } = Astro.params;
+
+if (!id || !locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
+// Load static content
+const homePage = loadContent<HomeContent>('home', locale);
+const productDetailPage = loadContent<ProductDetailContent>('products-slug', locale);
+const notFoundContent = loadContent<NotFoundContent>('404', locale);
+
+const { blog } = homePage;
+const { routine, review } = productDetailPage;
+
+// Fetch product data
+const result = await getProductPageData(id, locale);
+
+if (result.pageNotFound) {
+  Astro.response.status = 404;
+}
+
+// Fetch blogs
+const { blogs } = await getBlogs({ locale });
+
+const product = result.productDetail;
+
+// Attribute - Product Detail data
+const attributes: Attribute[] = product
+  ? [
+      ...(product.skinFeel ? [{ label: 'Skin feel', value: product.skinFeel }] : []),
+
+      ...(product.ingredients
+        ? [{ label: 'Ingredients', value: richTextToPlainText(product.ingredients) }]
+        : []),
+    ]
+  : [];
+
+// Reviews data
+const reviews = product?.reviews ?? [];
+
+const reviewAverage = product?.averageRating ?? 0;
+const totalReviews = reviews.length;
+const breakdown = getRatingBreakdown(reviews);
+
+// Labels fallback
+const benefitsLabels = productDetailPage.labels ?? {
+  sections: { ingredients: 'Ingredients', benefits: 'Benefits', usages: 'Usages' },
+};
+
+// Convert readonly API RichTextBlock to mutable for Benefits
+const benefitsData = {
+  ingredients: richTextToMutable(product?.ingredients),
+  benefits: richTextToMutable(product?.benefits),
+  usages: richTextToMutable(product?.usages),
+};
+
+// Image - benefits
+const benefitsImage = product?.images?.[0] ?? productDetailPage.image;
+---
+
+<BaseLayout {locale}>
+  {
+    result.pageNotFound || !result.productDetail ? (
+      <NotFound {...notFoundContent} />
+    ) : (
+      <>
+        <ProductDetail product={result.productDetail} attributes={attributes} />
+
+        <RoutineList steps={routine.steps} title={routine.title} subTitle={routine.subTitle} />
+
+        <Benefits labels={benefitsLabels} data={benefitsData} image={benefitsImage} />
+
+        {reviews.length > 0 && (
+          <Reviews
+            labels={review}
+            average={reviewAverage}
+            totalReviews={totalReviews}
+            reviews={reviews}
+            breakdown={breakdown}
+          />
+        )}
+
+        <Blog
+          {locale}
+          {...blog}
+          ctaHref={buildRoute(ROUTER.BLOGS, locale)}
+          {blogs}
+          className="mx-5 md:mx-8 py-11 md:py-24"
+        />
+      </>
+    )
+  }
+</BaseLayout>
