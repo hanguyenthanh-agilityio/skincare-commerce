@@ -5,7 +5,7 @@ dropdownMenu:
       - heading: 'Danh mục'
         items:
           - label: 'Tất cả sản phẩm'
-            href: 'products'
+            href: '/vi/products'
           - label: 'Làm sạch'
             href: '/products/cleanse'
           - label: 'Tẩy tế bào chết'

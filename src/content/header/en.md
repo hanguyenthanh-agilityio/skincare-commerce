@@ -5,6 +5,7 @@ dropdownMenu:
       - heading: 'Category'
         items:
           - label: 'Shop All'
+            href: '/en/products'
           - label: 'Cleanse'
             href: '/products/cleanse'
           - label: 'Exfoliate'
