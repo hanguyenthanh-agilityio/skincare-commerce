@@ -4,14 +4,11 @@ export const prerender = false;
 // Layouts
 import { BaseLayout } from '@/layouts';
 
-// Constants
-import { LOCALES } from '@/constants';
-
 // Sections
 import { Blog, ProductDetail, RoutineList, NotFound, Reviews, Benefits } from '@/sections';
 
 // I18n
-import { loadContent } from '@/i18n';
+import { buildRoute, loadContent } from '@/i18n';
 
 // Services
 import { getProductPageData, getBlogs } from '@/services';
@@ -22,8 +19,14 @@ import type { HomeContent, ProductDetailContent, NotFoundContent, Attribute } fr
 // Utils
 import { richTextToPlainText, getRatingBreakdown, richTextToMutable } from '@/utils';
 
-const locale = LOCALES.EN;
-const { id } = Astro.params;
+// Constants
+import { isLocale, ROUTER } from '@/constants';
+
+const { id, locale } = Astro.params;
+
+if (!id || !locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
 
 // Load static content
 const homePage = loadContent<HomeContent>('home', locale);
@@ -101,7 +104,13 @@ const benefitsImage = product?.images?.[0] ?? productDetailPage.image;
           />
         )}
 
-        <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
+        <Blog
+          {locale}
+          {...blog}
+          ctaHref={buildRoute(ROUTER.BLOGS, locale)}
+          {blogs}
+          className="mx-5 md:mx-8 py-11 md:py-24"
+        />
       </>
     )
   }

@@ -12,7 +12,7 @@ import { Link, Typography, StrapiImage } from '@/components';
 import { Icons } from '@/ui';
 
 // Constants
-import { LOCALES } from '@/constants';
+import { isLocale, ROUTER } from '@/constants';
 
 interface Props {
   href: string;
@@ -23,7 +23,11 @@ interface Props {
 
 const { href, image, title, category } = Astro.props;
 
-const locale = LOCALES.EN;
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
 
 const blogPage = loadContent<BlogContent>('blog', locale);
 

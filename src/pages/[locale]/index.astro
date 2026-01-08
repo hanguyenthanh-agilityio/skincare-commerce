@@ -3,7 +3,7 @@
 import { BaseLayout } from '@/layouts';
 
 // Sections
-import { UserVoice, Highlight, Feature, Quote, Carousel, Product, Blog } from '@/sections';
+import { UserVoice, Highlight, Feature, Quote } from '@/sections';
 
 // I18n
 import { loadContent } from '@/i18n';
@@ -11,20 +11,24 @@ import { loadContent } from '@/i18n';
 // Types
 import type { HomeContent } from '@/types';
 
-// Constants
-import { LOCALES } from '@/constants';
+import { Carousel, Product, Blog } from '@/sections';
 
 // Services
 import { getBlogs, getProducts } from '@/services';
 
-const locale = LOCALES.VI;
+import { isLocale, ROUTER } from '@/constants';
+
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
 
 const homePage = loadContent<HomeContent>('home', locale);
 
 const { carousel, feature, highlight, quote, product, blog } = homePage;
 
 const { blogs } = await getBlogs({ locale });
-console.log(blog);
 
 const { products } = await getProducts({ locale });
 ---
@@ -39,9 +43,10 @@ const { products } = await getProducts({ locale });
 
   <Product
     {...product}
+    ctaHref={ROUTER.PRODUCTS}
     products={products}
-    limitDesktop={4}
     limitMobile={2}
+    limitDesktop={4}
     className="mx-5 md:mx-8 py-11 md:py-24"
   />
 
@@ -56,5 +61,11 @@ const { products } = await getProducts({ locale });
 
   <UserVoice />
 
-  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
+  <Blog
+    {locale}
+    {...blog}
+    ctaHref={ROUTER.BLOGS}
+    blogs={blogs}
+    className="mx-5 md:mx-8 py-11 md:py-24"
+  />
 </BaseLayout>

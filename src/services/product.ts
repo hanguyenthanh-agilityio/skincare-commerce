@@ -1,5 +1,5 @@
 // Constants
-import { ERROR_MESSAGES, LOCALES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
+import { ERROR_MESSAGES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
 
 // Types
 import { mapProductToDetail, type Locale, type ProductPageData, type SortValue } from '@/types';
@@ -28,7 +28,7 @@ export interface ProductFilters {
 type FetchProductsParams = {
   page?: number;
   pageSize?: number;
-  locale?: Locale;
+  locale: Locale;
   sort?: SortValue;
   filters?: ProductFilters;
 };
@@ -70,7 +70,7 @@ const SORT_MAP: Record<SortValue, string> = {
 export const getProductsEffect = ({
   page = 1,
   pageSize = PAGE_SIZE.LISTING,
-  locale = LOCALES.EN,
+  locale,
   sort,
   filters,
 }: FetchProductsParams) =>

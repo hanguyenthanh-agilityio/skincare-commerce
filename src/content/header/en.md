@@ -5,7 +5,7 @@ dropdownMenu:
       - heading: 'Category'
         items:
           - label: 'Shop All'
-            href: '/products'
+            href: '/en/products'
           - label: 'Cleanse'
             href: '/products/cleanse'
           - label: 'Exfoliate'
@@ -48,9 +48,9 @@ dropdownMenu:
 
 navLinks:
   - label: 'About Us'
-    href: '/about-us'
+    href: '/en/about-us'
   - label: 'Contact Us'
-    href: '/contact-us'
+    href: '/en/contact-us'
   - label: 'FAQ'
-    href: '/faq'
+    href: '/en/faq'
 ---

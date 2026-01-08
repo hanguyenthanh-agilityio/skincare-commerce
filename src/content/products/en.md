@@ -49,5 +49,4 @@ blog:
   title: 'Our Journal'
   subtitle: 'Insights into Health and Well-being'
   ctaLabel: 'All Blog Posts'
-  ctaHref: '/blogs'
 ---

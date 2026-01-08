@@ -11,11 +11,16 @@ import { loadContent } from '@/i18n';
 import type { AboutContent } from '@/types';
 
 // Constants
-import { LOCALES } from '@/constants';
+import { isLocale, ROUTER } from '@/constants';
 
 import { StrapiImage } from '@/components';
 
-const locale = LOCALES.VI;
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
 const about = loadContent<AboutContent>('about', locale);
 
 // Preprocessing

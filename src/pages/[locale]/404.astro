@@ -5,16 +5,13 @@ import { BaseLayout } from '@/layouts';
 // Sections
 import { NotFound } from '@/sections';
 
-// Constants
-import { LOCALES } from '@/constants';
-
 // Types
 import type { NotFoundContent } from '@/types';
 
 // I18n
 import { loadContent } from '@/i18n';
 
-const locale = Astro.url.pathname.startsWith('/vi') ? LOCALES.VI : LOCALES.EN;
+const locale = Astro.url.pathname.startsWith('/vi') ? 'vi' : 'en';
 
 Astro.response.status = 404;
 

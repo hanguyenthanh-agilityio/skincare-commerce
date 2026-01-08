@@ -5,7 +5,7 @@ import { BaseLayout } from '@/layouts';
 import { FaqInfo } from '@/sections';
 
 // Constants
-import { LOCALES } from '@/constants';
+import { isLocale, ROUTER } from '@/constants';
 
 // I18nI18n
 import { loadContent } from '@/i18n';
@@ -16,9 +16,18 @@ import type { FaqContent, Topic } from '@/types';
 // Utils
 import { getFaqIcon } from '@/utils';
 
-const locale = LOCALES.EN;
+const { locale } = Astro.params;
 
-const { topics: rawTopics, sections, faqTitle } = loadContent<FaqContent>('faq', locale);
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
+const {
+  topics: rawTopics,
+  sections,
+  faqTitle,
+  contactButton,
+} = loadContent<FaqContent>('faq', locale);
 
 // Map Icons
 const topics: Topic[] = rawTopics.map((t) => ({
@@ -28,5 +37,5 @@ const topics: Topic[] = rawTopics.map((t) => ({
 ---
 
 <BaseLayout {locale}>
-  <FaqInfo topics={topics} sections={sections} title={faqTitle} />
+  <FaqInfo {locale} topics={topics} sections={sections} title={faqTitle} {contactButton} />
 </BaseLayout>

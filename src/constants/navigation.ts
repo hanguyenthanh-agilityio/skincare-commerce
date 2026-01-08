@@ -1,4 +1,5 @@
 import type { MenuItem } from '@/types';
+import { ROUTER } from './router';
 
 export const DROPDOWN_MENU_DATA: MenuItem[] = [
   {
@@ -7,7 +8,7 @@ export const DROPDOWN_MENU_DATA: MenuItem[] = [
       {
         heading: 'Category',
         items: [
-          { label: 'Shop All', href: '/products' },
+          { label: 'Shop All', href: ROUTER.PRODUCTS },
           { label: 'Cleanse', href: '/cleanse' },
           { label: 'Exfoliate', href: '/exfoliate' },
           { label: 'Treat & Masque', href: '/treat-masque' },
@@ -26,7 +27,7 @@ export const DROPDOWN_MENU_DATA: MenuItem[] = [
       {
         heading: 'Body',
         items: [
-          { label: 'Shop All', href: '/products' },
+          { label: 'Shop All', href: ROUTER.PRODUCTS },
           { label: 'Body Creams', href: '/body' },
           { label: 'Shower Gel', href: '/gel' },
           { label: 'Balms', href: '/balms' },
@@ -47,7 +48,7 @@ export const DROPDOWN_MENU_DATA: MenuItem[] = [
 ];
 
 export const NAV_LINKS = [
-  { label: 'About Us', href: '/about-us' },
-  { label: 'Contact us', href: '/contact-us' },
-  { label: 'FAQ', href: '/faq' },
+  { label: 'About Us', href: ROUTER.ABOUT_US },
+  { label: 'Contact us', href: ROUTER.CONTACT_US },
+  { label: 'FAQ', href: ROUTER.FAQ },
 ];

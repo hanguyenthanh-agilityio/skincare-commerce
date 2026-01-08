@@ -12,9 +12,13 @@ import { ContactUs } from '@/sections';
 import type { ContactContent } from '@/types';
 
 // Constants
-import { LOCALES } from '@/constants';
+import { isLocale, ROUTER } from '@/constants';
 
-const locale = LOCALES.EN;
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
 
 const data = loadContent<ContactContent>('contact', locale);
 ---

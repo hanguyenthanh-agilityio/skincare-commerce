@@ -12,9 +12,13 @@ import type { CartItem, CheckoutContent } from '@/types';
 import { CheckoutForm, OrderSummary } from '@/sections';
 
 // Constants
-import { LOCALES } from '@/constants';
+import { isLocale, ROUTER } from '@/constants';
 
-const locale = LOCALES.VI;
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
 
 const checkout = loadContent<CheckoutContent>('checkout', locale);
 
