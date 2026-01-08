@@ -117,7 +117,6 @@ export type Attribute = {
 
 export interface ProductPageData {
   pageNotFound: boolean;
-  products: TProduct[];
   productDetail: TProduct | null;
 }
 
