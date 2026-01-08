@@ -75,12 +75,7 @@ const DrawerMenu = ({ data, navLinks }: DrawerMenuProps) => {
     <Sheet>
       {/* Hamburger button */}
       <SheetTrigger asChild>
-        <Button
-          variant="ghost"
-          className="p-2"
-          aria-label="Open navigation drawer"
-          aria-expanded={activeMenu !== null}
-        >
+        <Button variant="ghost" className="p-2" aria-label="Open navigation drawer">
           <Icons.Hamburger />
         </Button>
       </SheetTrigger>
