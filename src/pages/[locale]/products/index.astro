@@ -6,13 +6,13 @@ import { BaseLayout, ProductLayout } from '@/layouts';
 import { Blog, Highlight, ProductToolbar } from '@/sections';
 
 // I18n
-import { loadContent } from '@/i18n';
+import { buildRoute, loadContent } from '@/i18n';
 
 // Types
 import type { ProductContent } from '@/types';
 
 // Constants
-import { LOCALES } from '@/constants';
+import { isLocale, ROUTER } from '@/constants';
 
 // Utils
 import { getFilterParams } from '@/utils';
@@ -20,7 +20,11 @@ import { getFilterParams } from '@/utils';
 // Services
 import { getBlogs, getProducts } from '@/services';
 
-const locale = LOCALES.VI;
+const { locale } = Astro.params;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
 
 const url = new URL(Astro.request.url);
 
@@ -69,5 +73,11 @@ const { blogs } = await getBlogs({ locale });
 
   <ProductLayout {products} {product} page={pagination.page} pageCount={pagination.pageCount} />
 
-  <Blog {...blog} blogs={blogs} className="mx-5 md:mx-8 py-11 md:py-24" />
+  <Blog
+    {locale}
+    {...blog}
+    ctaHref={buildRoute(ROUTER.BLOGS, locale)}
+    blogs={blogs}
+    className="mx-5 md:mx-8 py-11 md:py-24"
+  />
 </BaseLayout>

@@ -1,6 +1,6 @@
 ---
 // Types
-import type { TBlog } from '@/types';
+import type { Locale, TBlog } from '@/types';
 
 // Components
 import { BlogList } from '@/components';
@@ -13,12 +13,13 @@ interface Props {
   ctaLabel?: string;
   ctaHref?: string;
   blogs: TBlog[];
+  locale: Locale;
   className?: string;
 }
 
-const { title, subtitle, description, ctaHref, ctaLabel, blogs, className } = Astro.props;
+const { title, subtitle, description, ctaHref, ctaLabel, blogs, locale, className } = Astro.props;
 ---
 
 <SectionWrapper {title} {subtitle} {description} {ctaHref} {ctaLabel} {className}>
-  <BlogList blogs={blogs} />
+  <BlogList {locale} {blogs} />
 </SectionWrapper>

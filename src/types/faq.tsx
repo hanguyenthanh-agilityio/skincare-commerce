@@ -20,4 +20,5 @@ export interface FaqContent extends MarkdownData {
   topics: Topic[];
   sections: FaqSection[];
   faqTitle: string;
+  contactButton: string;
 }

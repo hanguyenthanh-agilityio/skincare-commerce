@@ -35,4 +35,6 @@ sections:
         label: 'Which ingredients are natural or synthetic?'
 
 faqTitle: 'Cannot find what you are looking for? We warmly invite you to contact us.'
+
+contactButton: 'Contact'
 ---

@@ -35,4 +35,6 @@ sections:
         label: 'Các thành phần nào là tự nhiên hoặc tổng hợp?'
 
 faqTitle: 'Không tìm thấy thông tin bạn cần? Chúng tôi mời bạn liên hệ với chúng tôi.'
+
+contactButton: 'Liên hệ'
 ---

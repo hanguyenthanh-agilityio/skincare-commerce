@@ -33,7 +33,7 @@ const dropdownMenu: HeaderContent['dropdownMenu'] =
       <div class="flex-1 flex justify-start items-center gap-2">
         <Navbar navLinks={navLinks} dropdownMenu={dropdownMenu} className="text-sm text-primary" />
         <div class="md:hidden">
-          <LanguageSwitcher {locale} pathname={pathname} client:idle />
+          <LanguageSwitcher {locale} pathname={pathname} client:load />
         </div>
       </div>
 
@@ -49,7 +49,7 @@ const dropdownMenu: HeaderContent['dropdownMenu'] =
 
       <div class="flex-1 flex justify-end items-center gap-6">
         <div class="hidden md:flex">
-          <LanguageSwitcher {locale} pathname={pathname} client:idle />
+          <LanguageSwitcher {locale} pathname={pathname} client:load />
         </div>
         <MainNav />
       </div>
