@@ -28,10 +28,6 @@ if (!id || !locale || !isLocale(locale)) {
   return Astro.redirect(ROUTER.NOT_FOUND);
 }
 
-if (!id || !locale) {
-  return Astro.redirect(ROUTER.NOT_FOUND);
-}
-
 const { productDetail: product } = await getProductPageData(id, locale);
 
 if (!product) {
@@ -89,15 +85,17 @@ const benefitsImage = product?.images?.[0] ?? productDetailPage.image;
 
   <Benefits labels={benefitsLabels} data={benefitsData} image={benefitsImage} />
 
-  {reviews.length > 0 && (
-    <Reviews
-      labels={review}
-      average={reviewAverage}
-      totalReviews={totalReviews}
-      reviews={reviews}
-      breakdown={breakdown}
-    />
-  )}
+  {
+    reviews.length > 0 && (
+      <Reviews
+        labels={review}
+        average={reviewAverage}
+        totalReviews={totalReviews}
+        reviews={reviews}
+        breakdown={breakdown}
+      />
+    )
+  }
 
   <Blog
     {locale}
