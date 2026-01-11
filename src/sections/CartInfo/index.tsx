@@ -8,9 +8,11 @@ import { Button } from '@/ui';
 
 // Types
 import type { CartColumn, CartContent, CartItem } from '@/types';
-
 // Utils
 import { getCartTotal } from '@/utils';
+
+// Services
+import { updateCartQuantity } from '@/services';
 
 interface Props {
   content: CartContent;
@@ -19,9 +21,29 @@ interface Props {
 
 const CartInfo = ({ content, items }: Props) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(items);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
-  const handleQuantityChange = (id: string, quantity: number) => {
-    setCartItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)));
+  const handleQuantityChange = async (id: string, quantity: number) => {
+    const prev = cartItems;
+
+    // Optimistic UI
+    setCartItems((items) => items.map((item) => (item.id === id ? { ...item, quantity } : item)));
+
+    setUpdatingId(id);
+
+    try {
+      // Persist to Strapi
+      await updateCartQuantity({
+        cartDocumentId: id,
+        quantity,
+      });
+    } catch (error) {
+      // Rollback if fail
+      setCartItems(prev);
+      console.error(error);
+    } finally {
+      setUpdatingId(null);
+    }
   };
 
   const total = useMemo(() => getCartTotal(cartItems), [cartItems]);
@@ -47,7 +69,12 @@ const CartInfo = ({ content, items }: Props) => {
       </header>
 
       <div className="flex flex-col">
-        <CartTable columns={columns} items={cartItems} onQuantityChange={handleQuantityChange} />
+        <CartTable
+          columns={columns}
+          items={cartItems}
+          onQuantityChange={handleQuantityChange}
+          updatingId={updatingId}
+        />
 
         <div className="flex justify-end py-10">
           <CartSummary

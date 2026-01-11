@@ -6,16 +6,17 @@ import type { StrapiImageType } from '@/types';
 import { Link, Typography, AddToCartButton, StrapiImage } from '@/components';
 
 interface Props {
-	href: string;
-	image: StrapiImageType;
-	name: string;
-	subTitle?: string;
-	volume?: string;
-	price: number;
-	badge?: string;
+  documentId: string;
+  href: string;
+  image: StrapiImageType;
+  name: string;
+  subTitle?: string;
+  volume?: string;
+  price: number;
+  badge?: string;
 }
 
-const { image, name, subTitle, volume = '', price, badge, href } = Astro.props;
+const { documentId, image, name, subTitle, volume = '', price, badge, href } = Astro.props;
 ---
 
 <div
@@ -66,6 +67,6 @@ const { image, name, subTitle, volume = '', price, badge, href } = Astro.props;
 		</div>
 	</Link>
 
-	<!-- CTA Button -->
-	<AddToCartButton client:load />
+  <!-- CTA Button -->
+  <AddToCartButton client:load productDocumentId={documentId} />
 </div>

@@ -8,11 +8,12 @@ interface Props {
   value: number;
   min?: number;
   max?: number;
-  onChange: (value: number) => void;
+  disabled?: boolean;
   className?: string;
+  onChange: (value: number) => void;
 }
 
-const QuantityInput = ({ value, min = 1, max, onChange, className }: Props) => {
+const QuantityInput = ({ value, min = 1, max, className, disabled, onChange }: Props) => {
   const normalizeQuantity = (v: number) => Math.max(min, max ? Math.min(v, max) : v);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +30,7 @@ const QuantityInput = ({ value, min = 1, max, onChange, className }: Props) => {
         max={max}
         value={value}
         className={cn('h-10 w-14', className)}
+        disabled={disabled}
         onChange={handleChange}
       />
     </div>

@@ -66,3 +66,13 @@ export class CartFetchError extends Data.TaggedError(ERROR_TAGS.CART_FETCH)<{
   status: number;
   message: string;
 }> {}
+
+export class CartAddError extends Data.TaggedError(ERROR_TAGS.CART_ADD)<{
+  status: number;
+  message: string;
+}> {}
+
+export class CartUpdateError extends Data.TaggedError(ERROR_TAGS.CART_UPDATE)<{
+  status: number;
+  message: string;
+}> {}

@@ -63,6 +63,7 @@ const hasLimit = typeof limitDesktop === 'number' || typeof limitMobile === 'num
                 {...product}
                 image={product.images?.[0]}
                 href={`${ROUTER.PRODUCTS}/${product.documentId}`}
+                documentId={product.documentId}
               />
             </div>
           );

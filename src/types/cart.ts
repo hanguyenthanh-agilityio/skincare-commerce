@@ -13,6 +13,7 @@ export interface CartColumn {
 }
 
 export interface CartProduct {
+  documentId: string;
   id: string;
   name: string;
   volume?: string;
@@ -91,8 +92,8 @@ export interface StrapiResponse<T> {
 
 export interface StrapiProduct {
   documentId: string;
-  title?: string | null;
-  price?: number | null;
+  name: string;
+  price: number;
   volume?: string | null;
   thumbnail?: StrapiImageType | null;
 }
@@ -106,14 +107,18 @@ export interface StrapiCart {
 export function mapStrapiCartToCartItem(cart: StrapiCart): CartItem {
   const product = cart.products?.[0];
 
+  if (!product) {
+    throw new Error(`Cart ${cart.documentId} has no product`);
+  }
+
   return {
     id: cart.documentId,
-    quantity: Number(cart.quantity) || 0,
+    documentId: cart.documentId,
+    quantity: Number(cart.quantity),
 
-    // Defensive mapping
-    name: product?.title ?? '',
-    price: product?.price ?? 0,
-    volume: product?.volume ?? undefined,
-    image: product?.thumbnail ?? undefined,
+    name: product.name,
+    price: product.price,
+    volume: product.volume ?? undefined,
+    image: product.thumbnail ?? undefined,
   };
 }
