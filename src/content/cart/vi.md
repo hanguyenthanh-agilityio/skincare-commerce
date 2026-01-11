@@ -12,4 +12,8 @@ summary:
   totalLabel: Tổng cộng
   shippingNote: Phí vận chuyển sẽ được tính tại bước thanh toán
   checkout: Thanh toán
+empty:
+  title: Bạn chưa có sản phẩm nào trong giỏ hàng
+  description: Hãy bắt đầu mua sắm để thêm sản phẩm vào giỏ hàng
+  action: Bắt đầu mua sắm
 ---

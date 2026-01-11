@@ -12,6 +12,9 @@ export const ERROR_TAGS = {
   PRODUCT_NOT_FOUND: 'ProductNotFoundError',
   PRODUCT_FETCH: 'ProductFetchError',
   PRODUCT_DECODE: 'ProductDecodeError',
+
+  // Cart
+  CART_FETCH: 'CartFetchError',
 } as const;
 
 export type ErrorTag = (typeof ERROR_TAGS)[keyof typeof ERROR_TAGS];

@@ -89,15 +89,17 @@ const benefitsImage = product?.images?.[0] ?? productDetailPage.image;
 
   <Benefits labels={benefitsLabels} data={benefitsData} image={benefitsImage} />
 
-  {reviews.length > 0 && (
-    <Reviews
-      labels={review}
-      average={reviewAverage}
-      totalReviews={totalReviews}
-      reviews={reviews}
-      breakdown={breakdown}
-    />
-  )}
+  {
+    reviews.length > 0 && (
+      <Reviews
+        labels={review}
+        average={reviewAverage}
+        totalReviews={totalReviews}
+        reviews={reviews}
+        breakdown={breakdown}
+      />
+    )
+  }
 
   <Blog
     {locale}

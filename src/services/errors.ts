@@ -58,3 +58,11 @@ export class ProductFetchError extends Data.TaggedError(ERROR_TAGS.PRODUCT_FETCH
 export class ProductDecodeError extends Data.TaggedError(ERROR_TAGS.PRODUCT_DECODE)<{
   reason: unknown;
 }> {}
+
+/* -------------------------------------------------------------------------- */
+/*                                  CART                                   */
+/* -------------------------------------------------------------------------- */
+export class CartFetchError extends Data.TaggedError(ERROR_TAGS.CART_FETCH)<{
+  status: number;
+  message: string;
+}> {}

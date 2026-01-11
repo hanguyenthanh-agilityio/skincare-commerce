@@ -12,4 +12,7 @@ export const ERROR_MESSAGES = {
   PRODUCT_FETCH_FAILED: 'Failed to fetch product data',
   PRODUCT_NOT_FOUND: 'Product not found',
   PRODUCT_DECODE_FAILED: 'Failed to decode product response',
+
+  // Cart
+  CART_FETCH_FAILED: 'Failed to fetch cart',
 } as const;

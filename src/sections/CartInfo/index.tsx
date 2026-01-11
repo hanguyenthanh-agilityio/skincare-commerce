@@ -3,6 +3,9 @@ import { useMemo, useState } from 'react';
 // Components
 import { CartSummary, CartTable, HeadingWrapper, TypographyWrapper } from '@/components';
 
+// UIs
+import { Button } from '@/ui';
+
 // Types
 import type { CartColumn, CartContent, CartItem } from '@/types';
 
@@ -29,6 +32,12 @@ const CartInfo = ({ content, items }: Props) => {
     { key: 'quantity', title: content.columns.quantity },
     { key: 'subtotal', title: content.columns.subtotal },
   ];
+
+  if (items.length === 0)
+    <div className="flex flex-col items-center justify-center gap-5">
+      <TypographyWrapper level="p" title={content.empty.title} />
+      <Button>{content.empty.action}</Button>
+    </div>;
 
   return (
     <section aria-labelledby="cart-heading" className="container-lg py-10 md:py-20 px-5">
