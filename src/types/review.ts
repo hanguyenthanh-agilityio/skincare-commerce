@@ -1,7 +1,7 @@
 import type { Locale } from './locale';
 
 export interface RatingBreakdown {
-  stars: 5 | 4 | 3 | 2 | 1;
+  stars: number[];
   percentage: number;
 }
 
