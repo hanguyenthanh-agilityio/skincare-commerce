@@ -6,13 +6,14 @@ import { BaseLayout } from '@/layouts';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { CartItem, CheckoutContent } from '@/types';
+import type { CheckoutContent } from '@/types';
 
 // Section
 import { CheckoutForm, OrderSummary } from '@/sections';
 
 // Constants
 import { isLocale, ROUTER } from '@/constants';
+import { getCartByUser } from '@/services';
 
 const { locale } = Astro.params;
 
@@ -22,38 +23,16 @@ if (!locale || !isLocale(locale)) {
 
 const checkout = loadContent<CheckoutContent>('checkout', locale);
 
-// Will update and remove it
-export const MOCK_CHECKOUT_ITEMS: CartItem[] = [
-  {
-    id: '1',
-    name: 'Hydrating Face Cream',
-    price: 29.99,
-    quantity: 2,
-    image: {
-      url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
-      alternativeText: 'Hydrating Face Cream',
-      width: 500,
-      height: 500,
-    },
-  },
-  {
-    id: '2',
-    name: 'Gentle Cleansing Foam',
-    price: 19.99,
-    quantity: 1,
-    image: {
-      url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
-      alternativeText: 'Hydrating Face Cream',
-      width: 500,
-      height: 500,
-    },
-  },
-];
+const USER_DOCUMENT_ID = import.meta.env.PUBLIC_STRAPI_USER_DOCUMENT_ID;
+
+const cartItems = await getCartByUser({
+  userDocumentId: USER_DOCUMENT_ID,
+});
 ---
 
 <BaseLayout {locale}>
   <div class="mx-auto grid md:grid-cols-2 gap-10">
     <CheckoutForm t={checkout} />
-    <OrderSummary items={MOCK_CHECKOUT_ITEMS} t={checkout} />
+    <OrderSummary items={cartItems} t={checkout} />
   </div>
 </BaseLayout>
