@@ -1,27 +1,36 @@
-import { useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
 // Components
 import { CartSummary, CartTable, HeadingWrapper, TypographyWrapper } from '@/components';
-
-// UIs
 import { Button } from '@/ui';
 
 // Types
-import type { CartColumn, CartContent, CartItem } from '@/types';
+import type { CartContent, CartItem, CartColumn } from '@/types';
 
-// Utils
+// Utils & Services
 import { getCartTotal } from '@/utils';
-
-// Hooks
-import { useCart } from '@/hooks';
+import { getCartByUser, updateCartQuantity, deleteCartItem } from '@/services';
 
 interface Props {
   content: CartContent;
-  items: CartItem[];
 }
 
-const CartInfo = ({ content, items }: Props) => {
-  const { items: cartItems, updatingId, updateQuantity, removeItem } = useCart(items);
+const CartInfo = ({ content }: Props) => {
+  const USER_DOCUMENT_ID = 'w9vowcg1y2rrph1h6eaiic7y';
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  // --- Fetch cart khi mount ---
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
+        setCartItems(items);
+      } catch (err) {
+        console.error('Failed to fetch cart:', err);
+      }
+    };
+    fetchCart();
+  }, []);
 
   const total = useMemo(() => getCartTotal(cartItems), [cartItems]);
 
@@ -32,11 +41,35 @@ const CartInfo = ({ content, items }: Props) => {
     { key: 'subtotal', title: content.columns.subtotal },
   ];
 
+  const handleQuantityChange = useCallback(async (id: string, quantity: number) => {
+    try {
+      await updateCartQuantity({ cartDocumentId: id, quantity });
+      const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
+      setCartItems(items);
+    } catch (err) {
+      console.error('Failed to update cart:', err);
+    }
+  }, []);
+
+  const handleDelete = useCallback(async (id: string) => {
+    try {
+      await deleteCartItem(id);
+      const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
+      setCartItems(items);
+    } catch (err) {
+      console.error('Failed to delete cart item:', err);
+    }
+  }, []);
+
+  console.log('data:', cartItems);
+
   if (cartItems.length === 0)
-    <div className="flex flex-col items-center justify-center gap-5">
-      <TypographyWrapper level="p" title={content.empty.title} />
-      <Button>{content.empty.action}</Button>
-    </div>;
+    return (
+      <div className="flex flex-col items-center justify-center gap-5 py-20">
+        <TypographyWrapper level="p" title={content.empty.title} />
+        <Button>{content.empty.action}</Button>
+      </div>
+    );
 
   return (
     <section aria-labelledby="cart-heading" className="container-lg py-10 md:py-20 px-5">
@@ -49,9 +82,9 @@ const CartInfo = ({ content, items }: Props) => {
         <CartTable
           columns={columns}
           items={cartItems}
-          onQuantityChange={updateQuantity}
-          onDelete={removeItem}
-          updatingId={updatingId}
+          onQuantityChange={handleQuantityChange}
+          onDelete={handleDelete}
+          updatingId={null}
         />
 
         <div className="flex justify-end py-10">

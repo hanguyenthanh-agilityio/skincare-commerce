@@ -63,9 +63,19 @@ const createAuthJsonHeaders = (token: string) => ({
 // Fetch cart data from Strapi with query parameters
 const fetchCartWithParams = async (
   params: URLSearchParams,
+  token?: string,
 ): Promise<StrapiResponse<StrapiCart>> => {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
   const res = await fetch(`${CART_API_URL}?${params.toString()}`, {
     cache: 'no-store',
+    headers,
   });
 
   if (!res.ok) {
@@ -109,7 +119,7 @@ const findCartItemByProduct = async ({
   productDocumentId,
 }: FindCartParams): Promise<CartItem | null> => {
   const params = new URLSearchParams({
-    'filters[users_permissions_user][documentId][$eq]': userDocumentId,
+    'filters[user][documentId][$eq]': userDocumentId,
     'filters[products][documentId][$eq]': productDocumentId,
     populate: '*',
   });
@@ -124,11 +134,12 @@ export const getCartByUser = async ({
   userDocumentId,
 }: GetCartByUserParams): Promise<CartItem[]> => {
   const params = new URLSearchParams({
-    'filters[users_permissions_user][documentId][$eq]': userDocumentId,
+    'filters[user][documentId][$eq]': userDocumentId,
     'populate[products][populate]': '*',
   });
 
-  const { data } = await fetchCartWithParams(params);
+  const token = import.meta.env.PUBLIC_STRAPI_JWT;
+  const { data } = await fetchCartWithParams(params, token);
 
   return data.map(mapStrapiCartToCartItem);
 };
@@ -169,7 +180,7 @@ export const addToCart = async ({
     body: {
       data: {
         quantity,
-        users_permissions_user: {
+        user: {
           connect: [userDocumentId],
         },
         products: {
