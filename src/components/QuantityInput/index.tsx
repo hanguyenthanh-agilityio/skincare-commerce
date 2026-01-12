@@ -1,4 +1,6 @@
-// UIs
+import { useEffect, useState } from 'react';
+
+// Libs
 import { cn } from '@/lib';
 
 // UIs
@@ -13,27 +15,53 @@ interface Props {
   onChange: (value: number) => void;
 }
 
-const QuantityInput = ({ value, min = 1, max, className, disabled, onChange }: Props) => {
-  const normalizeQuantity = (v: number) => Math.max(min, max ? Math.min(v, max) : v);
+// Handles number input correctly
+const QuantityInput = ({ value, min = 1, max, disabled, className, onChange }: Props) => {
+  // Internal string state is required because:
+  const [inputValue, setInputValue] = useState<string>(String(value));
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const next = Number(e.target.value);
-    if (Number.isNaN(next)) return;
+  // Keep internal state in sync when the controlled value
+  useEffect(() => {
+    setInputValue(String(value));
+  }, [value]);
 
-    onChange(normalizeQuantity(next));
+  // Clamp the value to allowed boundaries
+  const clamp = (next: number) => Math.max(min, max !== undefined ? Math.min(next, max) : next);
+
+  // Commit the current input value
+  const commitValue = () => {
+    const parsed = Number(inputValue);
+
+    // Reset to previous value if input is invalid
+    if (Number.isNaN(parsed)) {
+      setInputValue(String(value));
+      return;
+    }
+
+    const normalized = clamp(parsed);
+    setInputValue(String(normalized));
+
+    if (normalized !== value) {
+      onChange(normalized);
+    }
   };
+
   return (
-    <div className="flex gap-2">
-      <Input
-        type="number"
-        min={min}
-        max={max}
-        value={value}
-        className={cn('h-10 w-14', className)}
-        disabled={disabled}
-        onChange={handleChange}
-      />
-    </div>
+    <Input
+      type="number"
+      value={inputValue}
+      min={min}
+      max={max}
+      disabled={disabled}
+      className={cn('h-10 w-14', className)}
+      onChange={(e) => setInputValue(e.target.value)}
+      onBlur={commitValue}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          commitValue();
+        }
+      }}
+    />
   );
 };
 
