@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 // Components
 import { CartSummary, CartTable, HeadingWrapper, TypographyWrapper } from '@/components';
@@ -8,11 +8,12 @@ import { Button } from '@/ui';
 
 // Types
 import type { CartColumn, CartContent, CartItem } from '@/types';
+
 // Utils
 import { getCartTotal } from '@/utils';
 
-// Services
-import { deleteCartItem, updateCartQuantity } from '@/services';
+// Hooks
+import { useCart } from '@/hooks/useCart';
 
 interface Props {
   content: CartContent;
@@ -20,31 +21,7 @@ interface Props {
 }
 
 const CartInfo = ({ content, items }: Props) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(items);
-  const [updatingId, setUpdatingId] = useState<string | null>(null);
-
-  const handleQuantityChange = async (id: string, quantity: number) => {
-    const prev = cartItems;
-
-    // Optimistic UI
-    setCartItems((items) => items.map((item) => (item.id === id ? { ...item, quantity } : item)));
-
-    setUpdatingId(id);
-
-    try {
-      // Persist to Strapi
-      await updateCartQuantity({
-        cartDocumentId: id,
-        quantity,
-      });
-    } catch (error) {
-      // Rollback if fail
-      setCartItems(prev);
-      console.error(error);
-    } finally {
-      setUpdatingId(null);
-    }
-  };
+  const { items: cartItems, updatingId, updateQuantity, removeItem } = useCart(items);
 
   const total = useMemo(() => getCartTotal(cartItems), [cartItems]);
 
@@ -61,24 +38,6 @@ const CartInfo = ({ content, items }: Props) => {
       <Button>{content.empty.action}</Button>
     </div>;
 
-  const handleDelete = async (id: string) => {
-    const prev = cartItems;
-
-    // Optimistic remove
-    setCartItems((items) => items.filter((item) => item.id !== id));
-    setUpdatingId(id);
-
-    try {
-      await deleteCartItem(id);
-    } catch (error) {
-      // Rollback
-      setCartItems(prev);
-      console.error(error);
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
   return (
     <section aria-labelledby="cart-heading" className="container-lg py-10 md:py-20 px-5">
       <header className="max-w-411 mb-12 mx-auto text-center">
@@ -90,8 +49,8 @@ const CartInfo = ({ content, items }: Props) => {
         <CartTable
           columns={columns}
           items={cartItems}
-          onQuantityChange={handleQuantityChange}
-          onDelete={handleDelete}
+          onQuantityChange={updateQuantity}
+          onDelete={removeItem}
           updatingId={updatingId}
         />
 
