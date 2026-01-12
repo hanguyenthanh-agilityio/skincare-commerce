@@ -12,13 +12,21 @@ interface UseCartState {
   error: string | null;
 }
 
-export function useCart(initialItems: CartItem[]) {
+// Custom hook to manage cart state with optimistic updates
+export const useCart = (initialItems: CartItem[]) => {
   const [state, setState] = useState<UseCartState>({
     items: initialItems,
     updatingId: null,
     error: null,
   });
 
+  /**
+   * Optimistic update helper
+   * @param id: cart item id being updated
+   * @param optimisticUpdate: function to immediately apply optimistic change
+   * @param rollback: function to revert state if API fails
+   * @param effect: async API call
+   */
   const optimistic = async (
     id: string,
     optimisticUpdate: () => void,
@@ -40,6 +48,11 @@ export function useCart(initialItems: CartItem[]) {
     }
   };
 
+  /**
+   * Update cart item quantity
+   * @param cartId: id of cart item
+   * @param quantity: new quantity
+   */
   const updateQuantity = useCallback(
     (cartId: string, quantity: number) => {
       const prev = state.items;
@@ -68,6 +81,10 @@ export function useCart(initialItems: CartItem[]) {
     [state.items],
   );
 
+  /**
+   * Remove cart item
+   * @param cartId: id of cart item to remove
+   */
   const removeItem = useCallback(
     (cartId: string) => {
       const prev = state.items;
@@ -99,4 +116,4 @@ export function useCart(initialItems: CartItem[]) {
     updateQuantity,
     removeItem,
   };
-}
+};
