@@ -2,11 +2,7 @@
 // Components
 import { Button, Icons } from '@/ui';
 import { Rating, Typography } from '..';
-
-interface RatingBreakdown {
-  stars: number;
-  percentage: number;
-}
+import type { RatingBreakdown } from '@/types';
 
 interface Labels {
   title: string;
@@ -46,7 +42,7 @@ const { labels, average, totalReviews, breakdown } = Astro.props;
     {
       breakdown.map(({ stars, percentage }) => (
         <div class="flex items-center gap-14">
-          <Rating value={stars} />
+          <Rating value={stars.length} />
 
           <div class="flex items-center gap-4">
             <div class="relative w-32 h-3.5 border border-quill-grey bg-white">
