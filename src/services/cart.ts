@@ -125,7 +125,7 @@ export const getCartByUser = async ({
 }: GetCartByUserParams): Promise<CartItem[]> => {
   const params = new URLSearchParams({
     'filters[users_permissions_user][documentId][$eq]': userDocumentId,
-    populate: '*',
+    'populate[products][populate]': '*',
   });
 
   const { data } = await fetchCartWithParams(params);

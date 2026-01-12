@@ -96,6 +96,7 @@ export interface StrapiProduct {
   price: number;
   volume?: string | null;
   thumbnail?: StrapiImageType | null;
+  images?: StrapiImageType[];
 }
 
 export interface StrapiCart {
@@ -111,6 +112,8 @@ export function mapStrapiCartToCartItem(cart: StrapiCart): CartItem {
     throw new Error(`Cart ${cart.documentId} has no product`);
   }
 
+  const firstImage = product.images?.[0] ?? product.thumbnail;
+
   return {
     id: cart.documentId,
     documentId: cart.documentId,
@@ -119,6 +122,6 @@ export function mapStrapiCartToCartItem(cart: StrapiCart): CartItem {
     name: product.name,
     price: product.price,
     volume: product.volume ?? undefined,
-    image: product.thumbnail ?? undefined,
+    image: firstImage ?? undefined,
   };
 }
