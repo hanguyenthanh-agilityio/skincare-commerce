@@ -18,4 +18,5 @@ export const ERROR_MESSAGES = {
   CART_FETCH_FAILED: 'Failed to fetch cart',
   CART_ADD_FAILED: 'Add to cart failed',
   CART_UPDATE_FAILED: 'Update cart quantity failed',
+  CART_DELETE_FAILED: 'Delete cart failed',
 } as const;

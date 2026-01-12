@@ -12,7 +12,7 @@ import type { CartColumn, CartContent, CartItem } from '@/types';
 import { getCartTotal } from '@/utils';
 
 // Services
-import { updateCartQuantity } from '@/services';
+import { deleteCartItem, updateCartQuantity } from '@/services';
 
 interface Props {
   content: CartContent;
@@ -55,11 +55,29 @@ const CartInfo = ({ content, items }: Props) => {
     { key: 'subtotal', title: content.columns.subtotal },
   ];
 
-  if (items.length === 0)
+  if (cartItems.length === 0)
     <div className="flex flex-col items-center justify-center gap-5">
       <TypographyWrapper level="p" title={content.empty.title} />
       <Button>{content.empty.action}</Button>
     </div>;
+
+  const handleDelete = async (id: string) => {
+    const prev = cartItems;
+
+    // Optimistic remove
+    setCartItems((items) => items.filter((item) => item.id !== id));
+    setUpdatingId(id);
+
+    try {
+      await deleteCartItem(id);
+    } catch (error) {
+      // Rollback
+      setCartItems(prev);
+      console.error(error);
+    } finally {
+      setUpdatingId(null);
+    }
+  };
 
   return (
     <section aria-labelledby="cart-heading" className="container-lg py-10 md:py-20 px-5">
@@ -73,6 +91,7 @@ const CartInfo = ({ content, items }: Props) => {
           columns={columns}
           items={cartItems}
           onQuantityChange={handleQuantityChange}
+          onDelete={handleDelete}
           updatingId={updatingId}
         />
 

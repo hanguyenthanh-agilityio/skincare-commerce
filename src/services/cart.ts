@@ -10,7 +10,13 @@ import {
 } from '@/types';
 
 // Services / Errors
-import { CartAddError, CartFetchError, CartUpdateError, getAuthToken } from '@/services';
+import {
+  CartAddError,
+  CartDeleteError,
+  CartFetchError,
+  CartUpdateError,
+  getAuthToken,
+} from '@/services';
 
 // Base Strapi Cart API endpoint
 const CART_API_URL = `${STRAPI_BASE_URL}/api/carts`;
@@ -194,4 +200,22 @@ export const updateCartQuantity = async ({
     errorClass: CartUpdateError,
     errorMessage: ERROR_MESSAGES.CART_UPDATE_FAILED,
   });
+};
+
+export const deleteCartItem = async (cartDocumentId: string): Promise<void> => {
+  const token = getAuthToken();
+
+  const res = await fetch(`${CART_API_URL}/${cartDocumentId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new CartDeleteError({
+      status: res.status,
+      message: ERROR_MESSAGES.CART_DELETE_FAILED,
+    });
+  }
 };

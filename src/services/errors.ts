@@ -76,3 +76,8 @@ export class CartUpdateError extends Data.TaggedError(ERROR_TAGS.CART_UPDATE)<{
   status: number;
   message: string;
 }> {}
+
+export class CartDeleteError extends Data.TaggedError(ERROR_TAGS.CART_DELETE)<{
+  status: number;
+  message: string;
+}> {}
