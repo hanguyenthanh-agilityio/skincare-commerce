@@ -13,7 +13,7 @@ import type { CartColumn, CartContent, CartItem } from '@/types';
 import { getCartTotal } from '@/utils';
 
 // Hooks
-import { useCart } from '@/hooks/useCart';
+import { useCart } from '@/hooks';
 
 interface Props {
   content: CartContent;
