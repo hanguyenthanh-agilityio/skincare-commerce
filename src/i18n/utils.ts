@@ -1,4 +1,7 @@
-import { ROUTER } from '@/constants';
+import { LOCALES, ROUTER } from '@/constants';
+
+// Types
+import type { Locale } from '@/types';
 
 export const buildRoute = (
   path: (typeof ROUTER)[keyof typeof ROUTER],
@@ -13,3 +16,7 @@ export const buildRoute = (
 
   return `/${lang}/${finalPath}`;
 };
+
+export function getAllLocales(): Locale[] {
+  return [...LOCALES];
+}
