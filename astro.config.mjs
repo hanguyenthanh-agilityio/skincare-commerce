@@ -5,9 +5,13 @@ import tailwindcss from '@tailwindcss/vite';
 
 import cloudflare from '@astrojs/cloudflare';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react({ experimentalReactChildren: true })],
+  site: "https://skincare-commerce.pages.dev",
+
+  integrations: [react({ experimentalReactChildren: true }), sitemap()],
 
   vite: {
     plugins: [tailwindcss()],

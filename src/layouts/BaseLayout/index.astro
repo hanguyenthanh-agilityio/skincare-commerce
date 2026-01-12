@@ -1,16 +1,42 @@
 ---
 import '@/styles/global.css';
+import { URL } from 'url';
+import { DEFAULT_META } from '@/lib';
 
-// Types
-import type { Locale } from '@/types';
+// Constants
+import { isLocale, ROUTER } from '@/constants';
 
+// Layouts
 import { TopBar, Footer, Header } from '@/layouts';
+import type { Locale } from '@/types';
 
 interface Props {
   locale: Locale;
+  content?: {
+    title?: string;
+    description?: string;
+    image?: string;
+  };
 }
 
-const { locale } = Astro.props;
+const { content, locale } = Astro.props;
+
+if (!locale || !isLocale(locale)) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
+const meta = DEFAULT_META[locale] ?? DEFAULT_META.en;
+
+const title = content?.title ? `${content.title} | ${meta.title}` : meta.title;
+
+const description = content?.description || meta.description;
+
+// Base site URL from astro.config.mjs
+const baseUrl = Astro.site || new URL(Astro.url).origin;
+
+// Fallback image handling
+const imagePath = content?.image || '/images/serum.png';
+const image = imagePath.startsWith('http') ? imagePath : `${baseUrl}${imagePath}`;
 
 const pathname = Astro.url.pathname;
 ---
@@ -20,8 +46,26 @@ const pathname = Astro.url.pathname;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>{title}</title>
+
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url.href} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
   </head>
 
   <body>
