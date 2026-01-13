@@ -46,6 +46,10 @@ if (!id || !locale || !isLocale(locale)) {
   return Astro.redirect(ROUTER.NOT_FOUND);
 }
 
+if (!id || !locale) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
+
 const { productDetail: product } = await getProductPageData(id, locale);
 
 if (!product) {
