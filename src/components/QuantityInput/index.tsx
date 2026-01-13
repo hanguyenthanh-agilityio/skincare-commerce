@@ -17,7 +17,6 @@ interface Props {
 
 // Handles number input correctly
 const QuantityInput = ({ value, min = 1, max, disabled, className, onChange }: Props) => {
-  // Internal string state is required because:
   const [inputValue, setInputValue] = useState(String(value));
 
   // Keep internal state in sync when the controlled value
