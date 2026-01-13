@@ -10,6 +10,7 @@ import type { CartContent, CartItem, CartColumn } from '@/types';
 // Utils & Services
 import { getCartTotal } from '@/utils';
 import { getCartByUser, updateCartQuantity, deleteCartItem } from '@/services';
+import { ERROR_MESSAGES } from '@/constants';
 
 interface Props {
   content: CartContent;
@@ -18,20 +19,29 @@ interface Props {
 const CartInfo = ({ content }: Props) => {
   const USER_DOCUMENT_ID = 'w9vowcg1y2rrph1h6eaiic7y';
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  // --- Fetch cart khi mount ---
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
-        setCartItems(items);
-      } catch (err) {
-        console.error('Failed to fetch cart:', err);
-      }
-    };
-    fetchCart();
+  const handleError = useCallback((message: string) => {
+    setError(message);
   }, []);
 
+  // Fetches cart items of the current user
+  const fetchCart = useCallback(async () => {
+    try {
+      const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
+      setCartItems(items);
+      setError(null);
+    } catch {
+      handleError(ERROR_MESSAGES.CART_FETCH_FAILED);
+    }
+  }, [USER_DOCUMENT_ID, handleError]);
+
+  // Initial cart fetch when component mounts
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
+  // Cart total price
   const total = useMemo(() => getCartTotal(cartItems), [cartItems]);
 
   const columns: CartColumn[] = [
@@ -41,32 +51,38 @@ const CartInfo = ({ content }: Props) => {
     { key: 'subtotal', title: content.columns.subtotal },
   ];
 
-  const handleQuantityChange = useCallback(async (id: string, quantity: number) => {
-    try {
-      await updateCartQuantity({ cartDocumentId: id, quantity });
-      const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
-      setCartItems(items);
-    } catch (err) {
-      console.error('Failed to update cart:', err);
-    }
-  }, []);
+  // Handles quantity change of a cart item
+  const handleQuantityChange = useCallback(
+    async (cartDocumentId: string, quantity: number) => {
+      try {
+        await updateCartQuantity({ cartDocumentId, quantity });
+        await fetchCart();
+      } catch {
+        handleError(ERROR_MESSAGES.CART_UPDATE_FAILED);
+      }
+    },
+    [fetchCart, handleError],
+  );
 
-  const handleDelete = useCallback(async (id: string) => {
-    try {
-      await deleteCartItem(id);
-      const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
-      setCartItems(items);
-    } catch (err) {
-      console.error('Failed to delete cart item:', err);
-    }
-  }, []);
+  // Delete cart item
+  const handleDelete = useCallback(
+    async (cartId: string) => {
+      try {
+        await deleteCartItem(cartId);
+        await fetchCart();
+      } catch {
+        handleError(ERROR_MESSAGES.CART_DELETE_FAILED);
+      }
+    },
+    [fetchCart, handleError],
+  );
 
   console.log('data:', cartItems);
 
   if (cartItems.length === 0)
     return (
       <div className="flex flex-col items-center justify-center gap-5 py-20">
-        <TypographyWrapper level="p" title={content.empty.title} />
+        <TypographyWrapper level="p" title={error ?? content.empty.title} />
         <Button>{content.empty.action}</Button>
       </div>
     );
