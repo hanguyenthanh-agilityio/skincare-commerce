@@ -10,7 +10,7 @@ import { getCartByUser, updateCartQuantity, deleteCartItem } from '@/services';
 import { getCartTotal } from '@/utils';
 
 // Constants
-import { ERROR_MESSAGES } from '@/constants';
+import { ERROR_MESSAGES, MAX_QUANTITY, MIN_QUANTITY } from '@/constants';
 
 const USER_DOCUMENT_ID = import.meta.env.PUBLIC_STRAPI_USER_DOCUMENT_ID;
 
@@ -41,10 +41,20 @@ export const useCart = () => {
 
   // Optimistic quantity update
   const updateQuantity = useCallback(
-    async (cartDocumentId: string, quantity: number) => {
-      const prevItems = cartItems;
-      setUpdatingId(cartDocumentId);
+    async (cartDocumentId: string, nextQuantity: number) => {
+      // Validate input
+      if (!Number.isFinite(nextQuantity)) {
+        setError(ERROR_MESSAGES.INVALID_QUANTITY);
+        return;
+      }
 
+      // Clamp quantity
+      const quantity = Math.max(MIN_QUANTITY, Math.min(nextQuantity, MAX_QUANTITY));
+
+      const prevItems = cartItems;
+
+      // Optimistic update
+      setUpdatingId(cartDocumentId);
       setCartItems((items) =>
         items.map((item) => (item.documentId === cartDocumentId ? { ...item, quantity } : item)),
       );
