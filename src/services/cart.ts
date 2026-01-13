@@ -214,9 +214,6 @@ export const updateCartQuantity = async ({
 };
 
 export const deleteCartItem = async (cartDocumentId: string): Promise<void> => {
-  console.log('[Service] deleteCartItem');
-  console.log('[Service] cartDocumentId:', cartDocumentId);
-
   const token = getAuthToken();
 
   const res = await fetch(`${CART_API_URL}/${cartDocumentId}`, {
@@ -225,8 +222,6 @@ export const deleteCartItem = async (cartDocumentId: string): Promise<void> => {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  console.log('[Service] response status:', res.status);
 
   if (!res.ok) {
     throw new CartDeleteError({
