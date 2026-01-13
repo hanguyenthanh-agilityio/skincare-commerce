@@ -100,7 +100,6 @@ export interface StrapiProduct {
 }
 
 export interface StrapiCart {
-  id: number;
   documentId: string;
   quantity: number | string;
   products?: StrapiProduct[] | null;
@@ -116,7 +115,7 @@ export function mapStrapiCartToCartItem(cart: StrapiCart): CartItem {
   const firstImage = product.images?.[0] ?? product.thumbnail;
 
   return {
-    id: String(cart.id),
+    id: cart.documentId,
     documentId: cart.documentId,
     quantity: Number(cart.quantity),
 

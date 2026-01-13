@@ -12,7 +12,7 @@ interface Props {
   items: CartItem[];
   updatingId: string | null;
   onQuantityChange: (id: string, quantity: number) => void;
-  onDelete: (id: string) => void;
+  onDelete: (documentId: string) => void;
 }
 
 const CartTable = ({ columns, items, updatingId, onQuantityChange, onDelete }: Props) => (
@@ -23,11 +23,11 @@ const CartTable = ({ columns, items, updatingId, onQuantityChange, onDelete }: P
 
     {items.map((item) => (
       <CartItemRow
-        key={item.id}
+        key={item.documentId}
         item={item}
         onQuantityChange={onQuantityChange}
         onDelete={onDelete}
-        disabled={updatingId === item.id}
+        disabled={updatingId === item.documentId}
       />
     ))}
   </>
