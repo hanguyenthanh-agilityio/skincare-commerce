@@ -46,9 +46,9 @@ const CartInfo = ({ content }: Props) => {
   }
 
   return (
-    <section className="container-lg py-10 md:py-20 px-5">
+    <section aria-labelledby="cart-heading" className="container-lg py-10 md:py-20 px-5">
       <header className="max-w-411 mb-12 mx-auto text-center">
-        <HeadingWrapper level="h2" title={content.title} />
+        <HeadingWrapper level="h2" className="mb-2" title={content.title} />
         <TypographyWrapper level="p" title={content.description} />
       </header>
 
