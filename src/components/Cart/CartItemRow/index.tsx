@@ -19,7 +19,9 @@ interface Props {
 }
 
 const CartItemRow = ({ item, disabled, onQuantityChange, onDelete }: Props) => {
-  const handleOnDelete = () => onDelete(item.id);
+  const handleOnDelete = () => {
+    onDelete(item.id);
+  };
 
   return (
     <div className="w-full grid grid-cols-6 gap-4 md:gap-0 md:grid-cols-[1fr_120px_140px_120px] lg:grid-cols-[1fr_180px_200px_180px] items-center border-b py-6">

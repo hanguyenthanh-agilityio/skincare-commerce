@@ -68,7 +68,7 @@ const CartInfo = ({ content }: Props) => {
   const handleDelete = useCallback(
     async (cartId: string) => {
       try {
-        await deleteCartItem(cartId);
+        await deleteCartItem(Number(cartId));
         await fetchCart();
       } catch {
         handleError(ERROR_MESSAGES.CART_DELETE_FAILED);
@@ -76,8 +76,6 @@ const CartInfo = ({ content }: Props) => {
     },
     [fetchCart, handleError],
   );
-
-  console.log('data:', cartItems);
 
   if (cartItems.length === 0)
     return (

@@ -213,10 +213,10 @@ export const updateCartQuantity = async ({
   });
 };
 
-export const deleteCartItem = async (cartDocumentId: string): Promise<void> => {
+export const deleteCartItem = async (cartId: number): Promise<void> => {
   const token = getAuthToken();
 
-  const res = await fetch(`${CART_API_URL}/${cartDocumentId}`, {
+  const res = await fetch(`${CART_API_URL}/${cartId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
