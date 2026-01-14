@@ -14,9 +14,6 @@ import { CheckoutForm, OrderSummary } from '@/sections';
 // Constants
 import { isLocale, ROUTER } from '@/constants';
 
-// Services
-import { getCartByUser } from '@/services';
-
 const { locale } = Astro.params;
 
 if (!locale || !isLocale(locale)) {
@@ -25,11 +22,18 @@ if (!locale || !isLocale(locale)) {
 
 const checkout = loadContent<CheckoutContent>('checkout', locale);
 
-const USER_DOCUMENT_ID = import.meta.env.PUBLIC_STRAPI_USER_DOCUMENT_ID;
-
-const cartItems = await getCartByUser({
-  userDocumentId: USER_DOCUMENT_ID,
+const res = await fetch(new URL('/api/cart/get', Astro.url.origin), {
+  headers: {
+    cookie: Astro.request.headers.get('cookie') ?? '',
+  },
 });
+
+let cartItems = [];
+
+if (res.ok) {
+  const json = await res.json();
+  cartItems = json.data ?? [];
+}
 ---
 
 <BaseLayout {locale}>

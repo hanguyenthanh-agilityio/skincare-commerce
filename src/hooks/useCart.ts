@@ -3,16 +3,11 @@ import { useEffect, useState, useCallback, useMemo } from 'react';
 // types
 import type { CartItem } from '@/types';
 
-// Services
-import { getCartByUser, updateCartQuantity, deleteCartItem } from '@/services';
-
 // Utils
 import { getCartTotal } from '@/utils';
 
 // Constants
 import { ERROR_MESSAGES, MAX_QUANTITY, MIN_QUANTITY } from '@/constants';
-
-const USER_DOCUMENT_ID = import.meta.env.PUBLIC_STRAPI_USER_DOCUMENT_ID;
 
 export const useCart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -24,8 +19,11 @@ export const useCart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const items = await getCartByUser({ userDocumentId: USER_DOCUMENT_ID });
-        setCartItems(items);
+        const res = await fetch('/api/cart/get');
+
+        const { data: cartItems } = await res.json();
+
+        setCartItems(cartItems);
       } catch {
         setError(ERROR_MESSAGES.CART_FETCH_FAILED);
       } finally {
@@ -60,7 +58,16 @@ export const useCart = () => {
       );
 
       try {
-        await updateCartQuantity({ cartDocumentId, quantity });
+        await fetch('/api/cart/update', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cartDocumentId,
+            quantity,
+          }),
+        });
       } catch {
         setCartItems(prevItems);
         setError(ERROR_MESSAGES.CART_UPDATE_FAILED);
@@ -80,7 +87,11 @@ export const useCart = () => {
       setCartItems((items) => items.filter((item) => item.documentId !== cartDocumentId));
 
       try {
-        await deleteCartItem(cartDocumentId);
+        // await deleteCartItem(cartDocumentId);
+        await fetch('/api/cart/delete', {
+          method: 'DELETE',
+          body: JSON.stringify({ cartDocumentId }),
+        });
       } catch {
         setCartItems(prevItems);
         setError(ERROR_MESSAGES.CART_DELETE_FAILED);

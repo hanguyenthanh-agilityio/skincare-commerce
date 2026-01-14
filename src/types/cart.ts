@@ -125,3 +125,18 @@ export function mapStrapiCartToCartItem(cart: StrapiCart): CartItem {
     image: firstImage ?? undefined,
   };
 }
+
+export interface CartToastContent extends MarkdownData {
+  addSuccess: {
+    title: string;
+    description: string;
+  };
+  addFailed: {
+    title: string;
+    description: string;
+  };
+  loading: {
+    label: string;
+  };
+  ctaLabel: string;
+}
