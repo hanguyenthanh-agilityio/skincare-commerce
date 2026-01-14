@@ -3,3 +3,4 @@ export * from './product';
 export * from './errors';
 export * from './base/fetchByDocumentId';
 export * from './cart';
+export * from './strapi';

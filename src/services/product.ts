@@ -1,5 +1,5 @@
 // Constants
-import { ERROR_MESSAGES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
+import { ENDPOINT, ERROR_MESSAGES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
 
 // Types
 import { mapProductToDetail, type Locale, type ProductPageData, type SortValue } from '@/types';
@@ -92,7 +92,7 @@ export const getProductsEffect = ({
         // Filters
         applyProductFilters(params, filters);
 
-        const res = await fetch(`${STRAPI_BASE_URL}/api/products?${params.toString()}`);
+        const res = await fetch(`${STRAPI_BASE_URL}${ENDPOINT.PRODUCT}?${params.toString()}`);
 
         if (!res.ok) {
           throw new ProductFetchError({
