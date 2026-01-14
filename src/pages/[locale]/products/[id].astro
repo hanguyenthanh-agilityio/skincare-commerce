@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = false;
 
 // Layouts
 import { BaseLayout } from '@/layouts';
@@ -8,37 +8,19 @@ import { BaseLayout } from '@/layouts';
 import { Blog, ProductDetail, RoutineList, Reviews, Benefits } from '@/sections';
 
 // I18n
-import { buildRoute, loadContent, getAllLocales } from '@/i18n';
+import { buildRoute, loadContent } from '@/i18n';
 
 // Services
-import { getBlogs, getProductPageData, getProducts } from '@/services';
+import { getBlogs, getProductPageData } from '@/services';
 
 // Types
-import type { HomeContent, ProductDetailContent, Attribute, TProduct } from '@/types';
+import type { HomeContent, ProductDetailContent, Attribute } from '@/types';
 
 // Utils
 import { richTextToPlainText, getRatingBreakdown, richTextToMutable } from '@/utils';
 
 // Constants
 import { isLocale, ROUTER } from '@/constants';
-
-export async function getStaticPaths() {
-  const locales = getAllLocales();
-
-  const allProducts = await Promise.all(
-    locales.map(async (locale) => {
-      const { products } = await getProducts({ locale });
-      return products?.map((product: TProduct) => ({
-        params: { id: product.documentId, locale },
-        props: { locale },
-      }));
-    }),
-  );
-
-  const paths = allProducts.flat();
-
-  return paths;
-}
 
 const { id, locale } = Astro.params;
 
