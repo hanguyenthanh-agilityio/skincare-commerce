@@ -17,7 +17,12 @@ import { getBlogs, getProductPageData } from '@/services';
 import type { HomeContent, ProductDetailContent, Attribute } from '@/types';
 
 // Utils
-import { richTextToPlainText, getRatingBreakdown, richTextToMutable } from '@/utils';
+import {
+  richTextToPlainText,
+  getRatingBreakdown,
+  richTextToMutable,
+  calculateAverageRating,
+} from '@/utils';
 
 // Constants
 import { isLocale, ROUTER } from '@/constants';
@@ -61,7 +66,7 @@ const attributes: Attribute[] = [
 const reviews = product.reviews ?? [];
 const hasReviews = reviews.length > 0;
 
-const reviewAverage = product.averageRating ?? 0;
+const reviewAverage = calculateAverageRating(reviews);
 const totalReviewsCount = reviews.length;
 const ratingBreakdown = getRatingBreakdown(reviews);
 

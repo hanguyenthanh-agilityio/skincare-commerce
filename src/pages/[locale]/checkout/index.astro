@@ -28,17 +28,17 @@ const res = await fetch(new URL('/api/cart/get', Astro.url.origin), {
   },
 });
 
-let cartItems = [];
+let cartList = [];
 
 if (res.ok) {
   const json = await res.json();
-  cartItems = json.data ?? [];
+  cartList = json.data ?? [];
 }
 ---
 
 <BaseLayout {locale}>
   <div class="mx-auto grid md:grid-cols-2 gap-10">
     <CheckoutForm t={checkout} />
-    <OrderSummary items={cartItems} t={checkout} />
+    <OrderSummary {cartList} content={checkout} />
   </div>
 </BaseLayout>

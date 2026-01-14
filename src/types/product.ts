@@ -54,8 +54,7 @@ export type TProduct = {
   description?: string;
   price: number;
   volume?: string;
-  stock: number;
-  averageRating: number;
+  stock?: number;
   thumbnailUrl?: string | null;
   images: readonly StrapiImageType[];
   skinFeel?: string;
@@ -132,12 +131,6 @@ export const mapProductToDetail = (product: RawProduct): TProduct => ({
   price: product.price,
   volume: product.volume,
   stock: product.stock ? Number(product.stock) : 0,
-  averageRating:
-    product.reviews && product.reviews.length > 0
-      ? Number(
-          (product.reviews.reduce((s, r) => s + r.rating, 0) / product.reviews.length).toFixed(1),
-        )
-      : 0,
   thumbnailUrl: product.images[0]?.formats?.thumbnail?.url ?? product.images[0]?.url ?? null,
   images: product.images,
   skinFeel: product.skinFeel,

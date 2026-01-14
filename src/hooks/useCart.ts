@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useMemo } from 'react';
 import type { CartItem } from '@/types';
 
 // Utils
-import { getCartTotal } from '@/utils';
+import { calculateCartTotalPrice } from '@/utils';
 
 // Constants
 import { ERROR_MESSAGES, MAX_QUANTITY, MIN_QUANTITY } from '@/constants';
@@ -35,7 +35,7 @@ export const useCart = () => {
   }, []);
 
   // Derived state
-  const total = useMemo(() => getCartTotal(cartItems), [cartItems]);
+  const total = useMemo(() => calculateCartTotalPrice(cartItems), [cartItems]);
 
   // Optimistic quantity update
   const updateQuantity = useCallback(

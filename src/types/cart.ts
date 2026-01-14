@@ -2,7 +2,7 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type { StrapiImageType } from '@/types';
+import type { TProduct } from '@/types';
 
 export type CartColumnKey = 'product' | 'price' | 'quantity' | 'subtotal';
 
@@ -12,19 +12,12 @@ export interface CartColumn {
   className?: string;
 }
 
-export interface CartProduct {
+export interface CartItem {
   documentId: string;
-  id: string;
-  name: string;
-  volume?: string;
-  price: number;
-  quantity?: number;
-  image?: StrapiImageType;
-}
-
-export interface CartItem extends CartProduct {
+  product: TProduct;
   quantity: number;
 }
+
 export interface CartContent extends MarkdownData {
   title: string;
   description: string;
@@ -87,42 +80,6 @@ export interface StrapiResponse<T> {
       pageCount: number;
       total: number;
     };
-  };
-}
-
-export interface StrapiProduct {
-  documentId: string;
-  name: string;
-  price: number;
-  volume?: string | null;
-  thumbnail?: StrapiImageType | null;
-  images?: StrapiImageType[];
-}
-
-export interface StrapiCart {
-  documentId: string;
-  quantity: number | string;
-  products?: StrapiProduct[] | null;
-}
-
-export function mapStrapiCartToCartItem(cart: StrapiCart): CartItem {
-  const product = cart.products?.[0];
-
-  if (!product) {
-    throw new Error(`Cart ${cart.documentId} has no product`);
-  }
-
-  const firstImage = product.images?.[0] ?? product.thumbnail;
-
-  return {
-    id: cart.documentId,
-    documentId: cart.documentId,
-    quantity: Number(cart.quantity),
-
-    name: product.name,
-    price: product.price,
-    volume: product.volume ?? undefined,
-    image: firstImage ?? undefined,
   };
 }
 

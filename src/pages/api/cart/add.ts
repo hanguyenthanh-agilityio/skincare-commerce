@@ -3,6 +3,9 @@ import type { APIContext } from 'astro';
 // Constants
 import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
 
+// Types
+import type { CartItem } from '@/types';
+
 export async function POST({ cookies, request }: APIContext) {
   const token = cookies.get('jwt')?.value;
 
@@ -12,9 +15,17 @@ export async function POST({ cookies, request }: APIContext) {
     });
   }
 
-  const { productDocumentId, quantity = 1 } = await request.json();
+  const { productDocumentId } = await request.json();
 
-  // 🔐 Get current user
+  if (!productDocumentId) {
+    return new Response(JSON.stringify({ message: 'PRODUCT_REQUIRED' }), {
+      status: 400,
+    });
+  }
+
+  /* ---------------------------
+   * 1. Get current user
+   * --------------------------- */
   const meRes = await fetch(`${STRAPI_BASE_URL}${ENDPOINT.USER}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -23,11 +34,11 @@ export async function POST({ cookies, request }: APIContext) {
 
   const me = await meRes.json();
 
-  console.log('me:', me);
-
-  // 🔍 Check existing cart item
-  const existingRes = await fetch(
-    `${STRAPI_BASE_URL}${ENDPOINT.CART}?filters[user][id][$eq]=${me.id}&filters[products][documentId][$eq]=${productDocumentId}`,
+  /* ---------------------------
+   * 2. Get user's cart list
+   * --------------------------- */
+  const cartRes = await fetch(
+    `${STRAPI_BASE_URL}${ENDPOINT.CART}?filters[user][id][$eq]=${me.id}&populate[product][populate]=*`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -35,15 +46,23 @@ export async function POST({ cookies, request }: APIContext) {
     },
   );
 
-  const existing = await existingRes.json();
+  const cartData = await cartRes.json();
+  const cartList = cartData?.data ?? [];
 
-  const cartItem = existing?.data?.[0];
+  /* ---------------------------
+   * 3. Check existing cart item
+   * --------------------------- */
+  const existingItem = cartList.find(
+    (item: CartItem) => item.product?.documentId === productDocumentId,
+  );
 
-  // 🔁 UPDATE quantity if exists
-  if (cartItem) {
-    const newQuantity = Number(cartItem.quantity) + Number(quantity);
+  /* ---------------------------
+   * 4. Update quantity (+1)
+   * --------------------------- */
+  if (existingItem) {
+    const newQuantity = Number(existingItem.quantity) + 1;
 
-    await fetch(`${STRAPI_BASE_URL}${ENDPOINT.CART}${cartItem.documentId}`, {
+    await fetch(`${STRAPI_BASE_URL}${ENDPOINT.CART}/${existingItem.documentId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -56,12 +75,12 @@ export async function POST({ cookies, request }: APIContext) {
       }),
     });
 
-    return new Response(JSON.stringify({ updated: true }), {
-      status: 200,
-    });
+    return new Response(JSON.stringify({ updated: true }), { status: 200 });
   }
 
-  // ➕ CREATE new cart item
+  /* ---------------------------
+   * 5. Create new cart item
+   * --------------------------- */
   await fetch(`${STRAPI_BASE_URL}${ENDPOINT.CART}`, {
     method: 'POST',
     headers: {
@@ -71,13 +90,11 @@ export async function POST({ cookies, request }: APIContext) {
     body: JSON.stringify({
       data: {
         products: [productDocumentId],
-        quantity: Number(quantity),
+        quantity: 1,
         user: me.id,
       },
     }),
   });
 
-  return new Response(JSON.stringify({ created: true }), {
-    status: 200,
-  });
+  return new Response(JSON.stringify({ created: true }), { status: 200 });
 }
