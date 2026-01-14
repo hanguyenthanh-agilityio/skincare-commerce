@@ -1,0 +1,78 @@
+---
+import { cn } from '@/lib';
+
+// Types
+import type { UserActionsContent, Locale } from '@/types';
+
+import { loadContent } from '@/i18n';
+
+// Constants
+import { ROUTER } from '@/constants';
+
+// UIs
+import { Button, Icons } from '@/ui';
+
+// Components
+import { Link } from '@/components';
+
+interface Props {
+  locale: Locale;
+  className?: string;
+}
+
+const { locale, className } = Astro.props;
+
+// 🔐 Detect auth
+const token = Astro.cookies.get('jwt')?.value;
+const isAuthenticated = Boolean(token);
+
+const { login, logout, cart } = loadContent<UserActionsContent>('user-actions', locale);
+---
+
+<div class={cn('flex items-center gap-2 md:gap-5 text-gray-700', className)}>
+  <!-- CART -->
+  <Link href={ROUTER.CART} aria-label={cart.ariaLabel}>
+    <Button variant="ghost" size="icon" className="w-8 h-8">
+      <Icons.Cart width={18} height={18} />
+    </Button>
+  </Link>
+
+  <!-- AUTH AREA -->
+  {
+    isAuthenticated ? (
+      <div class="relative group">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="w-8 h-8"
+          aria-haspopup="menu"
+          aria-expanded="false"
+        >
+          <Icons.User width={18} height={18} />
+        </Button>
+
+        <div
+          class="absolute z-50 right-0 mt-2 w-40 rounded-md border bg-white shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150"
+          role="menu"
+        >
+          <form method="POST" action="/api/auth/logout">
+            <Button
+              variant="ghost"
+              type="submit"
+              className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 rounded-md cursor-pointer"
+              role="menuitem"
+            >
+              {logout.label}
+            </Button>
+          </form>
+        </div>
+      </div>
+    ) : (
+      <Link href={ROUTER.LOGIN} aria-label={login.ariaLabel}>
+        <Button variant="ghost" className="text-sm">
+          {login.label}
+        </Button>
+      </Link>
+    )
+  }
+</div>
