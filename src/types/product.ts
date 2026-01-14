@@ -90,6 +90,10 @@ export interface ProductContent extends MarkdownData {
 }
 
 export interface ProductDetailContent extends MarkdownData {
+  attributeLabels: {
+    skinFeel?: string;
+    ingredients?: string;
+  };
   review: {
     title: string;
     totalReviews: string;

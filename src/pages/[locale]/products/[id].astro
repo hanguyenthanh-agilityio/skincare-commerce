@@ -36,36 +36,34 @@ if (!product) {
 
 // Load static content
 const homePage = loadContent<HomeContent>('home', locale);
-const productDetailPage = loadContent<ProductDetailContent>('products-slug', locale);
+const productContent = loadContent<ProductDetailContent>('products-slug', locale);
 
 const { blog } = homePage;
-const { routine, review } = productDetailPage;
+const { attributeLabels, review: reviewContent, routine, labels, image } = productContent;
 
 // Fetch blogs
 const { blogs } = await getBlogs({ locale });
 
-// Attribute - Product Detail data
-const attributes: Attribute[] = product
-  ? [
-      ...(product.skinFeel ? [{ label: 'Skin feel', value: product.skinFeel }] : []),
+// Prepare Product Attributes
+const attributes: Attribute[] = [
+  product.skinFeel && attributeLabels.skinFeel
+    ? { label: attributeLabels.skinFeel, value: product.skinFeel }
+    : null,
+  product.ingredients && attributeLabels.ingredients
+    ? {
+        label: attributeLabels.ingredients,
+        value: richTextToPlainText(product.ingredients),
+      }
+    : null,
+].filter(Boolean) as Attribute[];
 
-      ...(product.ingredients
-        ? [{ label: 'Ingredients', value: richTextToPlainText(product.ingredients) }]
-        : []),
-    ]
-  : [];
+// Reviews
+const reviews = product.reviews ?? [];
+const hasReviews = reviews.length > 0;
 
-// Reviews data
-const reviews = product?.reviews ?? [];
-
-const reviewAverage = product?.averageRating ?? 0;
-const totalReviews = reviews.length;
-const breakdown = getRatingBreakdown(reviews);
-
-// Labels fallback
-const benefitsLabels = productDetailPage.labels ?? {
-  sections: { ingredients: 'Ingredients', benefits: 'Benefits', usages: 'Usages' },
-};
+const reviewAverage = product.averageRating ?? 0;
+const totalReviewsCount = reviews.length;
+const ratingBreakdown = getRatingBreakdown(reviews);
 
 // Convert readonly API RichTextBlock to mutable for Benefits
 const benefitsData = {
@@ -73,35 +71,31 @@ const benefitsData = {
   benefits: richTextToMutable(product?.benefits),
   usages: richTextToMutable(product?.usages),
 };
-
-// Image - benefits
-const benefitsImage = product?.images?.[0] ?? productDetailPage.image;
 ---
 
 <BaseLayout {locale}>
-  <ProductDetail product={product} attributes={attributes} />
+  <ProductDetail {locale} product={product} attributes={attributes} />
 
   <RoutineList steps={routine.steps} title={routine.title} subTitle={routine.subTitle} />
 
-  <Benefits labels={benefitsLabels} data={benefitsData} image={benefitsImage} />
+  <Benefits labels={labels} data={benefitsData} image={image} />
 
   {
-    reviews.length > 0 && (
+    hasReviews && (
       <Reviews
-        labels={review}
+        labels={reviewContent}
         average={reviewAverage}
-        totalReviews={totalReviews}
+        totalReviews={totalReviewsCount}
         reviews={reviews}
-        breakdown={breakdown}
+        breakdown={ratingBreakdown}
       />
     )
   }
-
   <Blog
     {locale}
     {...blog}
+    blogs={blogs}
     ctaHref={buildRoute(ROUTER.BLOGS, locale)}
-    {blogs}
     className="mx-5 md:mx-8 py-11 md:py-24"
   />
 </BaseLayout>
