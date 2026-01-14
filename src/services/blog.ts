@@ -12,7 +12,7 @@ import {
 } from '@/services';
 
 // Constants
-import { ERROR_MESSAGES, STRAPI_BASE_URL } from '@/constants';
+import { ENDPOINT, ERROR_MESSAGES, STRAPI_BASE_URL } from '@/constants';
 
 // Schemas
 import { BlogListResponseSchema } from '@/schemas';
@@ -41,7 +41,7 @@ export const getBlogsEffect = ({ locale }: { locale: Locale }) =>
           populate: '*',
         });
 
-        const res = await fetch(`${STRAPI_BASE_URL}/api/blogs?${params.toString()}`);
+        const res = await fetch(`${STRAPI_BASE_URL}${ENDPOINT.BLOG}?${params.toString()}`);
 
         if (!res.ok) {
           throw new BlogFetchError({
