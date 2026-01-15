@@ -3,8 +3,8 @@ import type { APIContext } from 'astro';
 // Constants
 import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
 
-//
-import { strapiFetch } from '@/services';
+// Services
+import { apiClient } from '@/services';
 
 export async function DELETE({ request, cookies }: APIContext) {
   const token = cookies.get('jwt')?.value;
@@ -19,10 +19,8 @@ export async function DELETE({ request, cookies }: APIContext) {
     return new Response('BAD REQUEST', { status: 400 });
   }
 
-  await strapiFetch(`${STRAPI_BASE_URL}${ENDPOINT.CART}/${cartDocumentId}`, {
-    method: 'DELETE',
+  await apiClient.delete(`${STRAPI_BASE_URL}${ENDPOINT.CART}/${cartDocumentId}`, {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });

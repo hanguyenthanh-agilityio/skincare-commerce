@@ -4,7 +4,7 @@ import type { APIContext } from 'astro';
 import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
 
 // Services
-import { strapiFetch } from '@/services';
+import { apiClient } from '@/services';
 
 export async function PUT({ request, cookies }: APIContext) {
   const token = cookies.get('jwt')?.value;
@@ -19,17 +19,16 @@ export async function PUT({ request, cookies }: APIContext) {
     return new Response('BAD REQUEST', { status: 400 });
   }
 
-  await strapiFetch(`${STRAPI_BASE_URL}${ENDPOINT.CART}/${cartDocumentId}`, {
-    method: 'PUT',
+  await apiClient.put(`${STRAPI_BASE_URL}${ENDPOINT.CART}/${cartDocumentId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({
+    body: {
       data: {
         quantity,
         publishedAt: new Date().toISOString(),
       },
-    }),
+    },
   });
 
   return new Response(null, { status: 204 });

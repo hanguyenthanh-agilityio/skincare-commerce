@@ -2,7 +2,12 @@ import type { APIContext } from 'astro';
 
 // Constants
 import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
-import type { StrapiCart } from '@/types';
+
+// Types
+import type { IUser, StrapiCart, StrapiResponse } from '@/types';
+
+// Services
+import { apiClient } from '@/services';
 
 export async function POST({ cookies, request }: APIContext) {
   const token = cookies.get('jwt')?.value;
@@ -24,19 +29,19 @@ export async function POST({ cookies, request }: APIContext) {
   /* ---------------------------
    * 1. Get current user
    * --------------------------- */
-  const meRes = await fetch(`${STRAPI_BASE_URL}${ENDPOINT.USER}`, {
+  const meRes = await apiClient.get<IUser>(`${STRAPI_BASE_URL}${ENDPOINT.USER}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  const me = await meRes.json();
+  const me = meRes.data;
 
   /* ---------------------------
    * 2. Get user's cart list
    * --------------------------- */
-  const cartRes = await fetch(
-    `${STRAPI_BASE_URL}${ENDPOINT.CART}?filters[user][id][$eq]=${me.id}&populate=*`,
+  const { data: strapiResponse } = await apiClient.get<StrapiResponse<StrapiCart>>(
+    `${STRAPI_BASE_URL}${ENDPOINT.CART}?filters[user][id][$eq]=${me?.id}&populate=*`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,8 +49,7 @@ export async function POST({ cookies, request }: APIContext) {
     },
   );
 
-  const cartData = await cartRes.json();
-  const cartList = cartData?.data ?? [];
+  const cartList = strapiResponse?.data ?? [];
 
   /* ---------------------------
    * 3. Check existing cart item
@@ -60,17 +64,15 @@ export async function POST({ cookies, request }: APIContext) {
   if (existingItem) {
     const newQuantity = Number(existingItem.quantity) + 1;
 
-    await fetch(`${STRAPI_BASE_URL}${ENDPOINT.CART}/${existingItem.documentId}`, {
-      method: 'PUT',
+    await apiClient.put(`${STRAPI_BASE_URL}${ENDPOINT.CART}/${existingItem.documentId}`, {
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
+      body: {
         data: {
           quantity: newQuantity,
         },
-      }),
+      },
     });
 
     return new Response(JSON.stringify({ updated: true }), { status: 200 });
@@ -79,19 +81,17 @@ export async function POST({ cookies, request }: APIContext) {
   /* ---------------------------
    * 5. Create new cart item
    * --------------------------- */
-  await fetch(`${STRAPI_BASE_URL}${ENDPOINT.CART}`, {
-    method: 'POST',
+  await apiClient.post(`${STRAPI_BASE_URL}${ENDPOINT.CART}`, {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({
+    body: {
       data: {
         product: productDocumentId,
         quantity: 1,
-        user: me.id,
+        user: me?.id,
       },
-    }),
+    },
   });
 
   return new Response(JSON.stringify({ created: true }), { status: 200 });

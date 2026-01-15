@@ -7,7 +7,7 @@ import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
 import type { CartItem, StrapiCart, StrapiResponse } from '@/types';
 
 // Services
-import { strapiFetch } from '@/services';
+import { apiClient } from '@/services';
 
 export const mapStrapiCartToCartItem = (cart: StrapiCart): CartItem => ({
   documentId: cart.documentId,
@@ -33,20 +33,19 @@ export async function GET({ cookies }: APIContext) {
   });
 
   try {
-    const response = await strapiFetch<StrapiResponse<StrapiCart>>(
+    const { data: strapiResponse, error } = await apiClient.get<StrapiResponse<StrapiCart>>(
       `${STRAPI_BASE_URL}${ENDPOINT.CART}?${params.toString()}`,
     );
 
-    // ✅ MAP Strapi → UI
-    const cartItems: CartItem[] = response.data.map(mapStrapiCartToCartItem);
+    // Handle API-level error from apiClient
+    if (error) {
+      return Response.json({ message: 'CART_FETCH_FAILED', error: error.message }, { status: 500 });
+    }
 
-    return new Response(JSON.stringify({ data: cartItems }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const cartItems: CartItem[] = (strapiResponse?.data ?? []).map(mapStrapiCartToCartItem);
+
+    return Response.json({ data: cartItems }, { status: 200 });
   } catch {
-    return new Response(JSON.stringify({ message: 'CART_FETCH_FAILED' }), {
-      status: 500,
-    });
+    return Response.json({ message: 'CART_FETCH_FAILED' }, { status: 500 });
   }
 }

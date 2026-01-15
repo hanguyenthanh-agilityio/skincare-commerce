@@ -9,6 +9,9 @@ import { calculateCartTotalPrice } from '@/utils';
 // Constants
 import { ERROR_MESSAGES, MAX_QUANTITY, MIN_QUANTITY } from '@/constants';
 
+// Services
+import { apiClient } from '@/services';
+
 export const useCart = () => {
   const [cartList, setCartList] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,16 +21,19 @@ export const useCart = () => {
   // Fetch cart once
   useEffect(() => {
     const fetchCart = async () => {
-      try {
-        const res = await fetch('/api/cart/get');
+      setIsLoading(true);
+      setError(null);
 
-        if (!res.ok) {
-          throw new Error('FETCH_FAILED');
+      try {
+        const { data: cartData, error } = await apiClient.get<{ data: CartItem[] }>(
+          '/api/cart/get',
+        );
+
+        if (error) {
+          throw new Error(error.message || ERROR_MESSAGES.CART_FETCH_FAILED);
         }
 
-        const { data } = await res.json();
-
-        setCartList(data);
+        setCartList(cartData?.data);
       } catch {
         setError(ERROR_MESSAGES.CART_FETCH_FAILED);
       } finally {
@@ -62,15 +68,11 @@ export const useCart = () => {
       );
 
       try {
-        await fetch('/api/cart/update', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
+        await apiClient.put('/api/cart/update', {
+          body: {
             cartDocumentId,
             quantity,
-          }),
+          },
         });
       } catch {
         setCartList(prevItems);
@@ -89,12 +91,11 @@ export const useCart = () => {
       setUpdatingId(cartDocumentId);
 
       setCartList((items) => items.filter((item) => item.documentId !== cartDocumentId));
-
       try {
-        // await deleteCartItem(cartDocumentId);
-        await fetch('/api/cart/delete', {
-          method: 'DELETE',
-          body: JSON.stringify({ cartDocumentId }),
+        await apiClient.delete('/api/cart/delete', {
+          body: {
+            cartDocumentId,
+          },
         });
       } catch {
         setCartList(prevItems);

@@ -24,33 +24,60 @@ class APIClient {
   ): Promise<SuccessResponse<T> | FailedResponse> => {
     const { method = 'GET', body, headers, ...rest } = init || {};
 
-    const hasBody = method === 'POST' || method === 'PUT';
+    // Include DELETE in methods that can have a body
+    const hasBody = method === 'POST' || method === 'PUT' || method === 'DELETE';
 
     const customHeader = {
       ...headers,
-      ...(hasBody && {
-        'Content-Type': 'application/json',
-      }),
+      ...(hasBody &&
+        body && {
+          'Content-Type': 'application/json',
+        }),
     };
 
     const options = {
       method,
       headers: customHeader,
-      ...(hasBody && {
-        body: JSON.stringify(body),
-      }),
+      ...(hasBody &&
+        body && {
+          body: JSON.stringify(body),
+        }),
       ...rest,
     };
-
-    console.log('api common', url);
 
     try {
       const res = await fetch(url, options);
 
-      if (!res.ok) return (await res.json()) as FailedResponse;
+      // Handle 204 No Content responses
+      if (res.status === 204) {
+        return {
+          data: null as T,
+          error: null,
+        };
+      }
+
+      // Get text first to check if there's content
+      const text = await res.text();
+
+      if (!res.ok) {
+        return text
+          ? JSON.parse(text)
+          : {
+              error: { message: `Request failed with status ${res.status}` },
+              data: null,
+            };
+      }
+
+      // If there's no content, return null
+      if (!text) {
+        return {
+          data: null as T,
+          error: null,
+        };
+      }
 
       return {
-        data: (await res.json()) as T,
+        data: JSON.parse(text) as T,
         error: null,
       };
     } catch (error) {

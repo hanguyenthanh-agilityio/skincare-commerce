@@ -9,6 +9,9 @@ import type { CartToastContent, Locale } from '@/types';
 // Constants
 import { ROUTER } from '@/constants';
 
+// Services
+import { apiClient } from '@/services';
+
 // Components
 import { Button } from '@/ui';
 
@@ -41,22 +44,17 @@ const AddToCartButton = ({
     const toastId = toast.loading(loading.label);
 
     try {
-      const res = await fetch('/api/cart/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ productDocumentId }),
+      const response = await apiClient.post('/api/cart/add', {
+        body: { productDocumentId },
       });
 
-      if (!res.ok) {
-        const error = await res.json();
-
-        if (res.status === 401) {
+      if (response.error) {
+        if (response.error.message?.toLowerCase().includes('unauthorized')) {
           window.location.href = buildRoute(ROUTER.LOGIN, locale);
+          return;
         }
 
-        throw new Error(error?.message || 'ADD_TO_CART_FAILED');
+        throw response.error;
       }
 
       // ✅ Success
@@ -65,7 +63,7 @@ const AddToCartButton = ({
         id: toastId,
       });
 
-      return res.json();
+      return response.data;
     } catch {
       setIsAdding(false);
 
