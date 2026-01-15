@@ -19,7 +19,7 @@ const { title, description, images } = Astro.props;
     <!-- Main image -->
     <div class="row-span-2 overflow-hidden">
       <StrapiImage
-        image={images.main}
+        image={images[0]}
         className="w-full h-highlight-mobile md:h-highlight-xl lg:h-highlight-2xl xl:h-highlight-3xl object-cover"
       />
     </div>
@@ -27,7 +27,7 @@ const { title, description, images } = Astro.props;
     <!-- Side image -->
     <div class="self-start overflow-hidden">
       <StrapiImage
-        image={images.side}
+        image={images[0]}
         className="w-full h-highlight-mobile md:h-highlight-xs xl:h-highlight-lg object-cover"
       />
     </div>
