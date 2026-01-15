@@ -1,6 +1,5 @@
 ---
 import '@/styles/global.css';
-import { URL } from 'url';
 import { DEFAULT_META } from '@/lib';
 
 // Constants
@@ -32,7 +31,7 @@ const title = content?.title ? `${content.title} | ${meta.title}` : meta.title;
 const description = content?.description || meta.description;
 
 // Base site URL from astro.config.mjs
-const baseUrl = Astro.site || new URL(Astro.url).origin;
+const baseUrl = new URL(Astro.request.url);
 
 // Fallback image handling
 const imagePath = content?.image || '/images/serum.png';
