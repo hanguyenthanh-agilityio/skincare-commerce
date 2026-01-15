@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://skincare-commerce.pages.dev",
+  site: 'https://skincare-commerce.pages.dev',
 
   integrations: [react({ experimentalReactChildren: true }), sitemap()],
 
@@ -17,6 +17,12 @@ export default defineConfig({
     plugins: [tailwindcss()],
     resolve: {
       conditions: ['workerd', 'worker', 'browser'],
+      // @ts-ignore
+      alias: import.meta.env.PROD
+        ? {
+            'react-dom/server': 'react-dom/server.edge',
+          }
+        : undefined,
     },
     build: {
       rollupOptions: {
@@ -46,7 +52,7 @@ export default defineConfig({
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
-      configPath: 'wrangler.jsonc',
+      configPath: 'wrangler.json',
       persist: {
         path: './.cache/wrangler/v3',
       },
