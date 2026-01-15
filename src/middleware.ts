@@ -14,7 +14,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const normalizedPath = pathname.replace(/^\/(en|vi)/, '');
 
   const isAuthPage = normalizedPath.startsWith('/login');
-  const isProtectedRoute = normalizedPath.startsWith(`/cart`);
+  const isProtectedRoute = normalizedPath.startsWith('/cart');
 
   // 🔐 Block unauthenticated users
   if (isProtectedRoute && !token) {

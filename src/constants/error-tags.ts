@@ -1,20 +1,23 @@
+// src/constants/error-tags.ts
 export const ERROR_TAGS = {
-  // Blog
+  // BLOG
   BLOG_LIST_FETCH: 'BLOG_LIST_FETCH',
   BLOG_LIST_DECODE: 'BLOG_LIST_DECODE',
-  BLOG_NOT_FOUND: 'BlogNotFoundError',
-  BLOG_FETCH: 'BlogFetchError',
-  BLOG_DECODE: 'BlogDecodeError',
+  BLOG_NOT_FOUND: 'BLOG_NOT_FOUND',
+  BLOG_FETCH: 'BLOG_FETCH',
+  BLOG_DECODE: 'BLOG_DECODE',
 
-  // Product
+  // PRODUCT
   PRODUCT_LIST_FETCH: 'PRODUCT_LIST_FETCH',
   PRODUCT_LIST_DECODE: 'PRODUCT_LIST_DECODE',
-  PRODUCT_NOT_FOUND: 'ProductNotFoundError',
-  PRODUCT_FETCH: 'ProductFetchError',
-  PRODUCT_DECODE: 'ProductDecodeError',
+  PRODUCT_NOT_FOUND: 'PRODUCT_NOT_FOUND',
+  PRODUCT_FETCH: 'PRODUCT_FETCH',
+  PRODUCT_DECODE: 'PRODUCT_DECODE',
 
-  // Cart
-  CART_FETCH: 'CartFetchError',
+  // CART
+  CART_FETCH: 'CART_FETCH',
+  CART_ADD: 'CART_ADD',
+  CART_UPDATE: 'CART_UPDATE',
 } as const;
 
 export type ErrorTag = (typeof ERROR_TAGS)[keyof typeof ERROR_TAGS];
