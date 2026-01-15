@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { cn } from '@/lib';
 
 // Types
-import type { Locale, LoginContent, TSignInFormData } from '@/types';
+import type { Locale, LoginContent, LoginResponse, TSignInFormData } from '@/types';
 
 import { loadContent } from '@/i18n';
 
 // Constants
 import { ROUTER } from '@/constants';
+
+// Services
+import { apiClient } from '@/services';
 
 // Components
 import { LinkWrapper, TypographyWrapper } from '@/components';
@@ -36,16 +39,15 @@ const LoginForm = ({ locale }: LoginProps) => {
   });
 
   const onSubmit = handleSubmit(async (data: TSignInFormData) => {
-    try {
-      setIsLoading(true);
+    setIsLoading(true);
+    setApiError(null);
 
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+    try {
+      const { data: loginData, error } = await apiClient.post<LoginResponse>('/api/auth/login', {
+        body: data,
       });
 
-      if (!res.ok) {
+      if (error || !loginData) {
         throw new Error('INVALID_CREDENTIALS');
       }
 
