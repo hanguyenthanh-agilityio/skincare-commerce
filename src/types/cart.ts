@@ -2,7 +2,7 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type { TProduct } from '@/types';
+import type { StrapiImageType, TProduct } from '@/types';
 
 export type CartColumnKey = 'product' | 'price' | 'quantity' | 'subtotal';
 
@@ -13,6 +13,15 @@ export interface CartColumn {
 }
 
 export interface CartItem {
+  documentId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image?: StrapiImageType;
+  volume?: string;
+}
+
+export interface StrapiCart {
   documentId: string;
   product: TProduct;
   quantity: number;

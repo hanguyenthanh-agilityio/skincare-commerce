@@ -16,7 +16,7 @@ interface Props {
 }
 
 const CartInfo = ({ content }: Props) => {
-  const { cartItems, total, isLoading, updatingId, error, updateQuantity, removeItem } = useCart();
+  const { cartList, total, isLoading, updatingId, error, updateQuantity, removeItem } = useCart();
 
   const columns: CartColumn[] = useMemo(
     () => [
@@ -36,7 +36,7 @@ const CartInfo = ({ content }: Props) => {
     );
   }
 
-  if (cartItems.length === 0) {
+  if (cartList.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-5 py-20">
         <TypographyWrapper level="p" title={error ?? content.empty.title} />
@@ -54,7 +54,7 @@ const CartInfo = ({ content }: Props) => {
 
       <CartTable
         columns={columns}
-        items={cartItems}
+        cartList={cartList}
         onQuantityChange={updateQuantity}
         onDelete={removeItem}
         updatingId={updatingId}

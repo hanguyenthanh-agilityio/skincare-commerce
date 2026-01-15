@@ -10,7 +10,7 @@ import { calculateCartTotalPrice } from '@/utils';
 import { ERROR_MESSAGES, MAX_QUANTITY, MIN_QUANTITY } from '@/constants';
 
 export const useCart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartList, setCartList] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -21,9 +21,13 @@ export const useCart = () => {
       try {
         const res = await fetch('/api/cart/get');
 
-        const { data: cartItems } = await res.json();
+        if (!res.ok) {
+          throw new Error('FETCH_FAILED');
+        }
 
-        setCartItems(cartItems);
+        const { data } = await res.json();
+
+        setCartList(data);
       } catch {
         setError(ERROR_MESSAGES.CART_FETCH_FAILED);
       } finally {
@@ -35,7 +39,7 @@ export const useCart = () => {
   }, []);
 
   // Derived state
-  const total = useMemo(() => calculateCartTotalPrice(cartItems), [cartItems]);
+  const total = useMemo(() => calculateCartTotalPrice(cartList), [cartList]);
 
   // Optimistic quantity update
   const updateQuantity = useCallback(
@@ -49,11 +53,11 @@ export const useCart = () => {
       // Clamp quantity
       const quantity = Math.max(MIN_QUANTITY, Math.min(nextQuantity, MAX_QUANTITY));
 
-      const prevItems = cartItems;
+      const prevItems = cartList;
 
       // Optimistic update
       setUpdatingId(cartDocumentId);
-      setCartItems((items) =>
+      setCartList((items) =>
         items.map((item) => (item.documentId === cartDocumentId ? { ...item, quantity } : item)),
       );
 
@@ -69,22 +73,22 @@ export const useCart = () => {
           }),
         });
       } catch {
-        setCartItems(prevItems);
+        setCartList(prevItems);
         setError(ERROR_MESSAGES.CART_UPDATE_FAILED);
       } finally {
         setUpdatingId(null);
       }
     },
-    [cartItems],
+    [cartList],
   );
 
   // Optimistic delete
   const removeItem = useCallback(
     async (cartDocumentId: string) => {
-      const prevItems = cartItems;
+      const prevItems = cartList;
       setUpdatingId(cartDocumentId);
 
-      setCartItems((items) => items.filter((item) => item.documentId !== cartDocumentId));
+      setCartList((items) => items.filter((item) => item.documentId !== cartDocumentId));
 
       try {
         // await deleteCartItem(cartDocumentId);
@@ -93,17 +97,17 @@ export const useCart = () => {
           body: JSON.stringify({ cartDocumentId }),
         });
       } catch {
-        setCartItems(prevItems);
+        setCartList(prevItems);
         setError(ERROR_MESSAGES.CART_DELETE_FAILED);
       } finally {
         setUpdatingId(null);
       }
     },
-    [cartItems],
+    [cartList],
   );
 
   return {
-    cartItems,
+    cartList,
     total,
     isLoading,
     updatingId,

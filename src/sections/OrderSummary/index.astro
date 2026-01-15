@@ -30,16 +30,12 @@ const total = subtotal + tax;
   <!-- Items -->
   <div class="divide-y divide-gray-200 m-0">
     {
-      cartList.map(({ product }) => (
+      cartList.map(({ image, name, price }) => (
         <div class="flex items-center gap-4 py-4">
-          <StrapiImage image={product.images[0]} className="w-16 h-16 rounded object-cover" />
+          <StrapiImage image={image} className="w-16 h-16 rounded object-cover" />
           <div class="flex-1">
-            <Typography level="p" className="font-medium" title={product.name} />
-            <Typography
-              level="p"
-              className="font-semibold"
-              title={`$${product.price.toFixed(2)}`}
-            />
+            <Typography level="p" className="font-medium" title={name} />
+            <Typography level="p" className="font-semibold" title={`$${price.toFixed(2)}`} />
           </div>
         </div>
       ))

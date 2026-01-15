@@ -71,7 +71,13 @@ const { blogs } = await getBlogs({ locale });
     {locale}
   />
 
-  <ProductLayout {products} {product} page={pagination.page} pageCount={pagination.pageCount} />
+  <ProductLayout
+    {locale}
+    {products}
+    {product}
+    page={pagination.page}
+    pageCount={pagination.pageCount}
+  />
 
   <Blog
     {locale}

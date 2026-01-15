@@ -9,22 +9,22 @@ interface Props {
     title: string;
     className?: string;
   }[];
-  items: CartItem[];
+  cartList: CartItem[];
   updatingId: string | null;
   onQuantityChange: (id: string, quantity: number) => void;
   onDelete: (documentId: string) => void;
 }
 
-const CartTable = ({ columns, items, updatingId, onQuantityChange, onDelete }: Props) => (
+const CartTable = ({ columns, cartList, updatingId, onQuantityChange, onDelete }: Props) => (
   <>
     <div className="hidden md:block">
       <CartHeaderRow columns={columns} />
     </div>
 
-    {items.map((item) => (
+    {cartList.map((item) => (
       <CartItemRow
         key={item.documentId}
-        item={item}
+        cartItem={item}
         onQuantityChange={onQuantityChange}
         onDelete={onDelete}
         disabled={updatingId === item.documentId}

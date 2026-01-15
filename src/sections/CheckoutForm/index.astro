@@ -14,8 +14,8 @@ import visa from '@/assets/payment/visa.png';
 import mastercard from '@/assets/payment/mastercard.png';
 
 // Props
-const { t } = Astro.props as {
-  t: CheckoutContent;
+const { content } = Astro.props as {
+  content: CheckoutContent;
 };
 
 const PAYMENT_METHODS = [
@@ -25,11 +25,23 @@ const PAYMENT_METHODS = [
   { key: 'mastercard', src: mastercard },
 ] as const;
 
-const form = t?.form;
+const { title, paymentMethods, form: formContent } = content;
+
+const {
+  namePlaceholder,
+  nameLabel,
+  cardNumberPlaceholder,
+  cardNumberLabel,
+  expDatePlaceholder,
+  expDateLabel,
+  cvcPlaceholder,
+  cvcLabel,
+  confirmButton,
+} = formContent;
 ---
 
 <section aria-labelledby="checkout-heading" class="max-w-md w-full mx-auto p-6 space-y-6">
-  <Heading level="h2" className="font-semibold" title={t.title} />
+  <Heading level="h2" className="font-semibold" title={title} />
 
   <!-- Payment Methods -->
   <div class="flex space-x-2">
@@ -39,10 +51,10 @@ const form = t?.form;
           variant="ghost"
           type="button"
           className="flex items-center justify-center border rounded hover:shadow-md transition h-auto px-1 md:px-5"
-          aria-label={t.paymentMethods[key]}
+          aria-label={paymentMethods[key]}
           key={key}
         >
-          <Image src={src} alt={t.paymentMethods[key]} class="h-12 w-12 md:h-20 md:w-20" />
+          <Image src={src} alt={paymentMethods[key]} class="h-12 w-12 md:h-20 md:w-20" />
         </Button>
       ))
     }
@@ -50,16 +62,16 @@ const form = t?.form;
 
   <!-- Card Form -->
   <div class="space-y-6">
-    <Input id="name" placeholder={form.namePlaceholder} label={form.nameLabel} />
-    <Input id="cardNumber" placeholder={form.cardNumberPlaceholder} label={form.cardNumberLabel} />
+    <Input id="name" placeholder={namePlaceholder} label={nameLabel} />
+    <Input id="cardNumber" placeholder={cardNumberPlaceholder} label={cardNumberLabel} />
 
     <div class="flex space-x-4">
-      <Input id="expDate" placeholder={form.expDatePlaceholder} label={form.expDateLabel} />
-      <Input id="cvc" placeholder={form.cvcPlaceholder} label={form.cvcLabel} />
+      <Input id="expDate" placeholder={expDatePlaceholder} label={expDateLabel} />
+      <Input id="cvc" placeholder={cvcPlaceholder} label={cvcLabel} />
     </div>
   </div>
 
   <Button className="w-full mt-4" variant="default">
-    {form.confirmButton}
+    {confirmButton}
   </Button>
 </section>

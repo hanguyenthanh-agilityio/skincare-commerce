@@ -2,9 +2,7 @@ import type { APIContext } from 'astro';
 
 // Constants
 import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
-
-// Types
-import type { CartItem } from '@/types';
+import type { StrapiCart } from '@/types';
 
 export async function POST({ cookies, request }: APIContext) {
   const token = cookies.get('jwt')?.value;
@@ -38,7 +36,7 @@ export async function POST({ cookies, request }: APIContext) {
    * 2. Get user's cart list
    * --------------------------- */
   const cartRes = await fetch(
-    `${STRAPI_BASE_URL}${ENDPOINT.CART}?filters[user][id][$eq]=${me.id}&populate[product][populate]=*`,
+    `${STRAPI_BASE_URL}${ENDPOINT.CART}?filters[user][id][$eq]=${me.id}&populate=*`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -53,7 +51,7 @@ export async function POST({ cookies, request }: APIContext) {
    * 3. Check existing cart item
    * --------------------------- */
   const existingItem = cartList.find(
-    (item: CartItem) => item.product?.documentId === productDocumentId,
+    (item: StrapiCart) => item.product?.documentId === productDocumentId,
   );
 
   /* ---------------------------
@@ -89,7 +87,7 @@ export async function POST({ cookies, request }: APIContext) {
     },
     body: JSON.stringify({
       data: {
-        products: [productDocumentId],
+        product: productDocumentId,
         quantity: 1,
         user: me.id,
       },

@@ -4,16 +4,27 @@ import type { APIContext } from 'astro';
 import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
 
 // Types
-import type { CartItem, StrapiResponse } from '@/types';
+import type { CartItem, StrapiCart, StrapiResponse } from '@/types';
 
 // Services
 import { strapiFetch } from '@/services';
+
+export const mapStrapiCartToCartItem = (cart: StrapiCart): CartItem => ({
+  documentId: cart.documentId,
+  name: cart.product.name,
+  price: cart.product.price,
+  quantity: Number(cart.quantity),
+  volume: cart.product.volume ?? undefined,
+  image: cart.product.images[0] ?? undefined,
+});
 
 export async function GET({ cookies }: APIContext) {
   const userId = cookies.get('user_document_id')?.value;
 
   if (!userId) {
-    return new Response(JSON.stringify({ message: 'UNAUTHORIZED' }), { status: 401 });
+    return new Response(JSON.stringify({ message: 'UNAUTHORIZED' }), {
+      status: 401,
+    });
   }
 
   const params = new URLSearchParams({
@@ -22,15 +33,20 @@ export async function GET({ cookies }: APIContext) {
   });
 
   try {
-    const response = await strapiFetch<StrapiResponse<CartItem>>(
+    const response = await strapiFetch<StrapiResponse<StrapiCart>>(
       `${STRAPI_BASE_URL}${ENDPOINT.CART}?${params.toString()}`,
     );
 
-    return new Response(JSON.stringify({ data: response }), {
+    // ✅ MAP Strapi → UI
+    const cartItems: CartItem[] = response.data.map(mapStrapiCartToCartItem);
+
+    return new Response(JSON.stringify({ data: cartItems }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch {
-    return new Response(JSON.stringify({ message: 'CART_FETCH_FAILED' }), { status: 500 });
+    return new Response(JSON.stringify({ message: 'CART_FETCH_FAILED' }), {
+      status: 500,
+    });
   }
 }

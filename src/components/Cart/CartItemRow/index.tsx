@@ -20,9 +20,7 @@ interface Props {
 }
 
 const CartItemRow = ({ cartItem, disabled, onQuantityChange, onDelete }: Props) => {
-  const { documentId, quantity, product } = cartItem;
-
-  const { images, name, volume, price } = product;
+  const { documentId, quantity, image, name, volume, price } = cartItem;
 
   const handleOnDelete = () => onDelete(documentId);
 
@@ -30,7 +28,7 @@ const CartItemRow = ({ cartItem, disabled, onQuantityChange, onDelete }: Props) 
     <div className="w-full grid grid-cols-6 gap-4 md:gap-0 md:grid-cols-[1fr_120px_140px_120px] lg:grid-cols-[1fr_180px_200px_180px] items-center border-b py-6">
       {/* Product */}
       <div className="col-span-4 md:col-span-1 flex gap-4 items-center">
-        <StrapiImage image={images[0]} className="h-16 w-12 object-contain" />
+        <StrapiImage image={image} className="h-16 w-12 object-contain" />
 
         <div>
           <TypographyWrapper level="p" className="font-bold" title={name} />
