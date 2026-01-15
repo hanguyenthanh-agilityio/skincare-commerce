@@ -2,6 +2,7 @@ export const ERROR_MESSAGES = {
   // Common
   UNKNOWN: 'Something went wrong. Please try again later.',
   MISSING_ID: 'Missing blog documentId',
+  ERROR_TO_FETCH_API: 'Error to fetch API',
 
   // Blog
   BLOG_FETCH_FAILED: 'Failed to fetch blog data',
