@@ -153,7 +153,7 @@ export const getProducts = async (params: FetchProductsParams) => {
 
 export const getProductByDocumentId = ({ id, locale }: Params) =>
   fetchByDocumentIdEffect({
-    endpoint: 'products',
+    endpoint: ENDPOINT.PRODUCT,
     documentId: id,
     locale,
     schema: ProductListResponseSchema,

@@ -53,7 +53,7 @@ export const fetchByDocumentIdEffect = <
           populate: '*',
         });
 
-        const res = await fetch(`${STRAPI_BASE_URL}/${endpoint}?${params.toString()}`);
+        const res = await fetch(`${STRAPI_BASE_URL}${endpoint}?${params.toString()}`);
 
         if (!res.ok) {
           throw fetchError({

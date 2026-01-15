@@ -90,7 +90,7 @@ export const getBlogs = async ({ locale }: { locale: Locale }): Promise<GetBlogs
 // Get data Blog detail
 export const getBlogByDocumentId = ({ id, locale }: Params) =>
   fetchByDocumentIdEffect({
-    endpoint: 'blogs',
+    endpoint: ENDPOINT.BLOG,
     documentId: id,
     locale,
     schema: BlogListResponseSchema,
