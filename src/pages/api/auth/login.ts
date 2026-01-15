@@ -3,21 +3,25 @@ import type { APIContext } from 'astro';
 // Constants
 import { STRAPI_BASE_URL } from '@/constants';
 
+// Types
+import type { LoginResponse } from '@/types';
+
+// Services
+import { apiClient } from '@/services';
+
 export async function POST({ request, cookies }: APIContext) {
   try {
     const body = await request.json();
 
-    const res = await fetch(`${STRAPI_BASE_URL}/auth/local`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+    const res = await apiClient.post<LoginResponse>(`${STRAPI_BASE_URL}/api/auth/local`, {
+      body,
     });
 
-    if (!res.ok) {
+    if (res.error) {
       return new Response(JSON.stringify({ message: 'INVALID_CREDENTIALS' }), { status: 401 });
     }
 
-    const data = await res.json();
+    const data = res.data;
 
     // ✅ SET COOKIE (this is where most 500s happen)
     cookies.set('jwt', data.jwt, {

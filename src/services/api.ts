@@ -1,10 +1,13 @@
 // Constants
 import { ERROR_MESSAGES } from '@/constants';
 
-type RequestOption = Omit<RequestInit, 'body'> & { body?: object };
+type RequestOption<TBody = unknown> = Omit<RequestInit, 'body'> & {
+  body?: TBody;
+};
 
 export type SuccessResponse<T> = { data: T; error: null };
 export type FailedResponse = { data: null; error: { message: string } };
+export type APIResponse<T> = SuccessResponse<T> | FailedResponse;
 
 class APIClient {
   private static _apiClient: APIClient;
@@ -18,62 +21,66 @@ class APIClient {
     return this._apiClient;
   }
 
-  private apiRequest = async <T>(
+  private async apiRequest<T, TBody = unknown>(
     url: string,
-    init?: RequestOption,
-  ): Promise<SuccessResponse<T> | FailedResponse> => {
+    init?: RequestOption<TBody>,
+  ): Promise<APIResponse<T>> {
     const { method = 'GET', body, headers, ...rest } = init || {};
 
     // Include DELETE in methods that can have a body
     const hasBody = method === 'POST' || method === 'PUT' || method === 'DELETE';
 
-    const customHeader = {
-      ...headers,
-      ...(hasBody &&
-        body && {
-          'Content-Type': 'application/json',
-        }),
-    };
+    const normalizedHeaders = new Headers(headers);
 
-    const options = {
+    if (hasBody && body && !normalizedHeaders.has('Content-Type')) {
+      normalizedHeaders.set('Content-Type', 'application/json');
+    }
+
+    const options: RequestInit = {
       method,
-      headers: customHeader,
-      ...(hasBody &&
-        body && {
-          body: JSON.stringify(body),
-        }),
+      headers: normalizedHeaders,
+      ...(hasBody && body ? { body: JSON.stringify(body) } : {}),
       ...rest,
     };
 
     try {
       const res = await fetch(url, options);
 
-      // Handle 204 No Content responses
       if (res.status === 204) {
-        return {
-          data: null as T,
-          error: null,
-        };
+        return { data: null as T, error: null };
       }
 
-      // Get text first to check if there's content
       const text = await res.text();
 
       if (!res.ok) {
-        return text
-          ? JSON.parse(text)
-          : {
-              error: { message: `Request failed with status ${res.status}` },
-              data: null,
-            };
+        if (!text) {
+          return {
+            data: null,
+            error: { message: `Request failed with status ${res.status}` },
+          };
+        }
+
+        try {
+          const parsed = JSON.parse(text);
+          return {
+            data: null,
+            error: {
+              message:
+                parsed?.error?.message ||
+                parsed?.message ||
+                `Request failed with status ${res.status}`,
+            },
+          };
+        } catch {
+          return {
+            data: null,
+            error: { message: text },
+          };
+        }
       }
 
-      // If there's no content, return null
       if (!text) {
-        return {
-          data: null as T,
-          error: null,
-        };
+        return { data: null as T, error: null };
       }
 
       return {
@@ -90,24 +97,21 @@ class APIClient {
         data: null,
       };
     }
-  };
-
-  async get<T>(url: string, init?: Omit<RequestOption, 'method'>) {
-    return this.apiRequest<T>(url, init);
+  }
+  get<T>(url: string, init?: Omit<RequestOption, 'method'>) {
+    return this.apiRequest<T>(url, { ...init, method: 'GET' });
   }
 
-  async post<T>(url: string, init?: Omit<RequestOption, 'method'>) {
-    const { ...rest } = init || {};
-
-    return this.apiRequest<T>(url, { ...rest, method: 'POST' });
+  post<T, TBody = unknown>(url: string, init?: Omit<RequestOption<TBody>, 'method'>) {
+    return this.apiRequest<T, TBody>(url, { ...init, method: 'POST' });
   }
 
-  async put<T>(url: string, init?: Omit<RequestOption, 'method'>) {
-    return this.apiRequest<T>(url, { ...init, method: 'PUT' });
+  put<T, TBody = unknown>(url: string, init?: Omit<RequestOption<TBody>, 'method'>) {
+    return this.apiRequest<T, TBody>(url, { ...init, method: 'PUT' });
   }
 
-  async delete(url: string, init?: Omit<RequestOption, 'method'>) {
-    return this.apiRequest(url, { ...init, method: 'DELETE' });
+  delete<T, TBody = unknown>(url: string, init?: Omit<RequestOption<TBody>, 'method'>) {
+    return this.apiRequest<T, TBody>(url, { ...init, method: 'DELETE' });
   }
 }
 
