@@ -1,3 +1,4 @@
+import { navigate } from 'astro:transitions/client';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -50,7 +51,7 @@ const AddToCartButton = ({
 
       if (response.error) {
         if (response.error.message?.toLowerCase().includes('unauthorized')) {
-          window.location.href = buildRoute(ROUTER.LOGIN, locale);
+          await navigate(buildRoute(ROUTER.LOGIN, locale));
           return;
         }
 
