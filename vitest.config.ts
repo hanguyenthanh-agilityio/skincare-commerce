@@ -15,5 +15,13 @@ export default getViteConfig({
     coverage: {
       reporter: ['text', 'json', 'html'],
     },
+    exclude: [
+      'node_modules',
+      'dist',
+      'src/layouts/**',
+      'src/sections/**',
+      'src/content/**',
+      'src/constants/**',
+    ],
   },
 });
