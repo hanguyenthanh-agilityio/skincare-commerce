@@ -18,6 +18,9 @@ export const ERROR_TAGS = {
   CART_FETCH: 'CART_FETCH',
   CART_ADD: 'CART_ADD',
   CART_UPDATE: 'CART_UPDATE',
+
+  // FROM STRAPI API
+  VALIDATION_ERROR: 'ValidationError',
 } as const;
 
 export type ErrorTag = (typeof ERROR_TAGS)[keyof typeof ERROR_TAGS];

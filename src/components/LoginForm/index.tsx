@@ -8,7 +8,7 @@ import type { Locale, LoginContent, LoginResponse, TSignInFormData } from '@/typ
 import { loadContent } from '@/i18n';
 
 // Constants
-import { ROUTER } from '@/constants';
+import { ERROR_TAGS, ROUTER } from '@/constants';
 
 // Services
 import { apiClient } from '@/services';
@@ -47,15 +47,24 @@ const LoginForm = ({ locale }: LoginProps) => {
         body: data,
       });
 
-      if (error || !loginData) {
-        throw new Error('INVALID_CREDENTIALS');
+      if (error) {
+        setApiError(
+          error.name === ERROR_TAGS.VALIDATION_ERROR ? errors.invalidCredentials : errors.something,
+        );
+        return;
       }
 
-      // ✅ Redirect after login
+      if (!loginData) {
+        setApiError(errors.something);
+        return;
+      }
+
+      // Redirect after login
       window.location.href = ROUTER.HOME;
     } catch {
+      setApiError(errors.something);
+    } finally {
       setIsLoading(false);
-      setApiError(errors.invalidCredentials);
     }
   });
 

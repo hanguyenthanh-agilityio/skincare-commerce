@@ -6,7 +6,7 @@ type RequestOption<TBody = unknown> = Omit<RequestInit, 'body'> & {
 };
 
 export type SuccessResponse<T> = { data: T; error: null };
-export type FailedResponse = { data: null; error: { message: string } };
+export type FailedResponse = { data: null; error: { message: string; name?: string } };
 export type APIResponse<T> = SuccessResponse<T> | FailedResponse;
 
 class APIClient {
@@ -62,15 +62,7 @@ class APIClient {
 
         try {
           const parsed = JSON.parse(text);
-          return {
-            data: null,
-            error: {
-              message:
-                parsed?.error?.message ||
-                parsed?.message ||
-                `Request failed with status ${res.status}`,
-            },
-          };
+          return parsed;
         } catch {
           return {
             data: null,

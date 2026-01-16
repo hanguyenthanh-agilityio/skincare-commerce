@@ -33,6 +33,7 @@ export interface LoginContent extends MarkdownData {
     required: string;
     invalidEmail: string;
     invalidCredentials: string;
+    something: string;
   };
   signup: {
     title: string;

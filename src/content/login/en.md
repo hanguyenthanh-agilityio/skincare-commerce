@@ -22,6 +22,7 @@ errors:
   required: 'This field is required'
   invalidEmail: 'Please enter a valid email address'
   invalidCredentials: 'Invalid email or password. Please try again.'
+  something: 'Something went wrong. Please try again.'
 
 signup:
   title: 'New to CEIN.?'
