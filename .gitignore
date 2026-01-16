@@ -29,3 +29,6 @@ storybook-static
 
 # Coverage directory used by testing tools
 /coverage
+
+# Cloudflare
+.wrangler

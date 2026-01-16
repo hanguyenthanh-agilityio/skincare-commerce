@@ -1,15 +1,13 @@
 {
-  "name": "skincare-e-commerce",
-  "main": "dist/_worker.js",
   "compatibility_date": "2024-12-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
   "kv_namespaces": [
     {
       "binding": "SESSION",
-      "id": "21fe10c5114845da95d576f5f4ff4eee",
-    },
-  ],
+      "id": "b7a2c153884a43b6a0341570a8575b3b"
+    }
+  ]
 }

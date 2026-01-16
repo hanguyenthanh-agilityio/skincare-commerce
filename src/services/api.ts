@@ -90,6 +90,7 @@ class APIClient {
       };
     }
   }
+
   get<T>(url: string, init?: Omit<RequestOption, 'method'>) {
     return this.apiRequest<T>(url, { ...init, method: 'GET' });
   }
