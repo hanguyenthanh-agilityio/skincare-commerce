@@ -7,7 +7,7 @@ import { ChevronLeft } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, Button, Icons } from '@/ui';
 
 // Components
-import { DrawerMenuItem, Link } from '@/components';
+import { DrawerMenuItem, LinkWrapper } from '@/components';
 
 // Types
 import type { DrawerMenuProps, MenuItem, NavLink } from '@/types';
@@ -96,9 +96,9 @@ const DrawerMenu = ({ data, navLinks }: DrawerMenuProps) => {
           ) : (
             <span className="w-5" />
           )}
-          <Link href={ROUTER.HOME} aria-label="Home">
+          <LinkWrapper href={ROUTER.HOME} aria-label="Home">
             <Icons.Logo className="h-6 w-auto mx-auto" />
-          </Link>
+          </LinkWrapper>
           <span className="w-5" />
         </SheetHeader>
 
