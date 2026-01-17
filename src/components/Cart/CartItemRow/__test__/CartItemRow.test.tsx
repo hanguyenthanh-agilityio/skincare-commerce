@@ -4,7 +4,20 @@ import '@testing-library/jest-dom';
 
 import { vi } from 'vitest';
 
+// Utils
+import { calculateCartItemTotal } from '@/utils';
+
+// Types
+import type { CartItem } from '@/types';
+
+// Components
+import { CartItemRow } from '@/components';
+
 // Mocks
+vi.mock('@/utils', () => ({
+  getCartItemSubtotal: vi.fn(),
+}));
+
 vi.mock('@/components', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/components')>();
 
@@ -24,30 +37,23 @@ vi.mock('@/components', async (importOriginal) => {
   };
 });
 
-vi.mock('@/utils', () => ({
-  getCartItemSubtotal: vi.fn(),
-}));
-
-import { getCartItemSubtotal } from '@/utils';
-import { CartItemRow } from '@/components';
-
 // Test data
-const mockItem = {
-  id: 'cart-1',
+const mockItem: CartItem = {
+  documentId: 'cart-1',
   name: 'Cleanser',
   volume: '100ml',
   price: 20,
   quantity: 2,
-  image: { url: '/image.png' },
-} as any;
+  image: { url: '/image.png', alternativeText: 'Cleanser' },
+};
 
 describe('CartItemRow', () => {
   beforeEach(() => {
-    vi.mocked(getCartItemSubtotal).mockReturnValue(40);
+    vi.mocked(calculateCartItemTotal).mockReturnValue(40);
   });
 
   it('renders product information correctly', () => {
-    render(<CartItemRow item={mockItem} onQuantityChange={vi.fn()} />);
+    render(<CartItemRow cartItem={mockItem} onQuantityChange={vi.fn()} onDelete={vi.fn()} />);
 
     expect(screen.getByText('Cleanser')).toBeInTheDocument();
     expect(screen.getByText('100ml')).toBeInTheDocument();
@@ -55,14 +61,14 @@ describe('CartItemRow', () => {
   });
 
   it('renders subtotal correctly', () => {
-    render(<CartItemRow item={mockItem} onQuantityChange={vi.fn()} />);
+    render(<CartItemRow cartItem={mockItem} onQuantityChange={vi.fn()} onDelete={vi.fn()} />);
 
     expect(screen.getByText('$40')).toBeInTheDocument();
-    expect(getCartItemSubtotal).toHaveBeenCalledWith(mockItem);
+    expect(calculateCartItemTotal).toHaveBeenCalledWith(mockItem);
   });
 
   it('renders quantity input with correct value', () => {
-    render(<CartItemRow item={mockItem} onQuantityChange={vi.fn()} />);
+    render(<CartItemRow cartItem={mockItem} onQuantityChange={vi.fn()} onDelete={vi.fn()} />);
 
     const input = screen.getByRole('spinbutton') as HTMLInputElement;
 
@@ -72,7 +78,9 @@ describe('CartItemRow', () => {
   it('calls onQuantityChange with correct params when quantity changes', () => {
     const onQuantityChange = vi.fn();
 
-    render(<CartItemRow item={mockItem} onQuantityChange={onQuantityChange} />);
+    render(
+      <CartItemRow cartItem={mockItem} onQuantityChange={onQuantityChange} onDelete={vi.fn()} />,
+    );
 
     fireEvent.change(screen.getByRole('spinbutton'), {
       target: { value: '3' },
@@ -87,7 +95,9 @@ describe('CartItemRow', () => {
       volume: undefined,
     };
 
-    render(<CartItemRow item={itemWithoutVolume} onQuantityChange={vi.fn()} />);
+    render(
+      <CartItemRow cartItem={itemWithoutVolume} onQuantityChange={vi.fn()} onDelete={vi.fn()} />,
+    );
 
     // Should NOT render "undefined" or "null"
     expect(screen.queryByText('undefined')).not.toBeInTheDocument();

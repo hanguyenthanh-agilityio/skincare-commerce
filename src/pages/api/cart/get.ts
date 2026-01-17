@@ -33,9 +33,11 @@ export async function GET({ cookies }: APIContext) {
   });
 
   try {
-    const { data: strapiResponse, error } = await apiClient.get<StrapiResponse<StrapiCart>>(
+    const res = await apiClient.get<StrapiResponse<StrapiCart>>(
       `${STRAPI_BASE_URL}${ENDPOINT.CART}?${params.toString()}`,
     );
+
+    const { data: strapiResponse, error } = res;
 
     // Handle API-level error from apiClient
     if (error) {

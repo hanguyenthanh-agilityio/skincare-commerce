@@ -13,7 +13,7 @@ export async function POST({ cookies, request }: APIContext) {
   const token = cookies.get('jwt')?.value;
 
   if (!token) {
-    return new Response(JSON.stringify({ message: 'UNAUTHORIZED' }), {
+    return new Response(JSON.stringify({ error: { message: 'UNAUTHORIZED' } }), {
       status: 401,
     });
   }
@@ -36,6 +36,12 @@ export async function POST({ cookies, request }: APIContext) {
   });
 
   const me = meRes.data;
+
+  if (!me) {
+    return new Response(JSON.stringify({ error: { message: 'UNAUTHORIZED' } }), {
+      status: 401,
+    });
+  }
 
   /* ---------------------------
    * 2. Get user's cart list

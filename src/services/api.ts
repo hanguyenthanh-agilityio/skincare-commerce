@@ -50,9 +50,9 @@ class APIClient {
         return { data: null as T, error: null };
       }
 
-      const text = await res.text();
-
       if (!res.ok) {
+        const text = await res.text();
+
         if (!text) {
           return {
             data: null,
@@ -71,12 +71,8 @@ class APIClient {
         }
       }
 
-      if (!text) {
-        return { data: null as T, error: null };
-      }
-
       return {
-        data: JSON.parse(text) as T,
+        data: (await res.json()) as T,
         error: null,
       };
     } catch (error) {

@@ -1,4 +1,3 @@
-import { navigate } from 'astro:transitions/client';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -44,37 +43,30 @@ const AddToCartButton = ({
     // 🔄 Loading toast
     const toastId = toast.loading(loading.label);
 
-    try {
-      const response = await apiClient.post('/api/cart/add', {
-        body: { productDocumentId },
-      });
+    const response = await apiClient.post('/api/cart/add', {
+      body: { productDocumentId },
+    });
 
-      if (response.error) {
-        if (response.error.message?.toLowerCase().includes('unauthorized')) {
-          await navigate(buildRoute(ROUTER.LOGIN, locale));
-          return;
-        }
+    setIsAdding(false);
 
-        throw response.error;
+    if (response.error) {
+      if (response.error.message === 'UNAUTHORIZED') {
+        window.location.href = buildRoute(ROUTER.LOGIN, locale);
+        return;
       }
-
-      // ✅ Success
-      toast.success(addSuccess.title, {
-        description: addSuccess.description,
-        id: toastId,
-      });
-
-      return response.data;
-    } catch {
-      setIsAdding(false);
 
       toast.error(addFailed.title, {
         description: addFailed.description,
         id: toastId,
       });
-    } finally {
-      setIsAdding(false);
+      return;
     }
+
+    // ✅ Success
+    toast.success(addSuccess.title, {
+      description: addSuccess.description,
+      id: toastId,
+    });
   };
 
   return (
