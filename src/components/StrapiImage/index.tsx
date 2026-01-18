@@ -55,7 +55,7 @@ const StrapiImage = ({
       ? url
       : `${STRAPI_BASE_URL}${url}`;
 
-  // srcset với Cloudinary
+  // srcset with Cloudinary
   const srcSet = isCloudinary
     ? srcSetWidths
         .map(
