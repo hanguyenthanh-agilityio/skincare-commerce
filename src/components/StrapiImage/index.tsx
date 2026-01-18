@@ -26,69 +26,71 @@ const StrapiImage = ({
   height = 800,
   fallbackAspectRatio = 16 / 9,
   priority = false,
-  srcSetWidths = [320, 640, 960, 1280, 1600],
-  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
+  srcSetWidths = [320, 480, 640, 960, 1200],
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px',
 }: StrapiImageProps) => {
-  // Normalize string → StrapiImageType
   const imageNode: StrapiImageType | null =
     typeof image === 'string'
-      ? {
-          url: image,
-          width,
-          height,
-          alternativeText: '',
-        }
+      ? { url: image, width, height, alternativeText: '' }
       : (image ?? null);
 
-  // Fallback UI
   if (!imageNode?.url) {
     return (
       <div
-        data-testid="strapi-image-fallback"
         className={cn('bg-gray-100 rounded-xl', className)}
         style={{ aspectRatio: fallbackAspectRatio }}
-        role="presentation"
       />
     );
   }
 
-  // Detect external URL (hotlink)
-  const isExternal = imageNode.url.startsWith('http');
+  const url = imageNode.url;
+  const isExternal = url.startsWith('http');
 
-  // Base URL only for Strapi local images
-  const baseUrl = isExternal ? '' : STRAPI_BASE_URL;
+  let fullUrl = isExternal ? url : `${STRAPI_BASE_URL}${url}`;
 
-  const fullUrl = `${baseUrl}${imageNode.url}`;
+  // Build responsive srcset for external CDNs (Shopify, Wix, Unsplash...)
+  let srcSet: string | undefined = undefined;
 
-  // Intrinsic sizes (fallback if Strapi does not provide)
-  const intrinsicWidth = imageNode.width || width;
-  const intrinsicHeight = imageNode.height || height;
+  if (isExternal) {
+    // If URL already has query params
+    const sep = fullUrl.includes('?') ? '&' : '?';
 
-  // srcSet ONLY for internal images
-  const srcSet = !isExternal
-    ? srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ')
-    : undefined;
-
-  // Maintain aspect ratio correctly
-  const style: React.CSSProperties = {};
-  if (fallbackAspectRatio !== 0) {
-    style.aspectRatio =
-      intrinsicWidth && intrinsicHeight ? intrinsicWidth / intrinsicHeight : fallbackAspectRatio;
+    // Shopify CDN supports `width=`
+    if (fullUrl.includes('cdn.shop')) {
+      srcSet = srcSetWidths.map((w) => `${fullUrl}${sep}width=${w} ${w}w`).join(', ');
+    }
+    // Unsplash supports `w=`
+    else if (fullUrl.includes('unsplash.com')) {
+      srcSet = srcSetWidths.map((w) => `${fullUrl}${sep}w=${w} ${w}w`).join(', ');
+    }
+    // Generic fallback (browser will ignore invalid URLs)
+    else {
+      srcSet = srcSetWidths.map((w) => `${fullUrl}${sep}w=${w} ${w}w`).join(', ');
+    }
+  } else {
+    // Local images (Strapi)
+    srcSet = srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ');
   }
+
+  const style: React.CSSProperties = {
+    aspectRatio:
+      imageNode.width && imageNode.height
+        ? imageNode.width / imageNode.height
+        : fallbackAspectRatio,
+  };
 
   return (
     <img
       src={fullUrl}
-      {...(srcSet ? { srcSet } : {})}
-      sizes={srcSet ? sizes : undefined}
-      width={intrinsicWidth}
-      height={intrinsicHeight}
+      srcSet={srcSet}
+      sizes={sizes}
+      width={imageNode.width || width}
+      height={imageNode.height || height}
       alt={imageNode.alternativeText || ''}
-      title={imageNode.alternativeText || undefined}
-      className={cn('w-full h-full object-contain', className)}
+      className={cn('w-full h-full object-cover', className)}
       decoding="async"
-      fetchPriority={priority ? 'high' : 'auto'}
       loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : 'auto'}
       style={style}
     />
   );
