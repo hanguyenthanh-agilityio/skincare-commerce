@@ -1,26 +1,26 @@
 export const USER_VOICE_DATA = [
   {
-    src: 'https://static.wixstatic.com/media/0d1c98_2aa43c6aad254d31a3b7591693028bb2~mv2.jpg/v1/fill/w_700,h_900,al_c,lg_1,q_85/DSC_2661.jpg',
+    src: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748121/laura-jaeger-xuhX0JjT9N4-unsplash_nfnrst.jpg',
     alt: 'Product bottle placed on stones with leaves.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1708642448328-37631ca58d65?auto=format&fit=crop&w=800&q=60',
+    src: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748115/fleur-kaan-e7jpGYe7OtU-unsplash_tqcvbp.jpg',
     alt: 'Cream texture close-up.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&w=800&q=60',
+    src: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748111/alexander-krivitskiy-5Srs1IiRnPA-unsplash_lmvcs5.jpg',
     alt: 'Serum bottle against warm background.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&w=800&q=60',
+    src: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748104/anthony-tran-Sd9A6NVHsd4-unsplash_gecpki.jpg',
     alt: 'Hands applying serum.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&w=800&q=60',
+    src: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748122/fleur-kaan-w4Dj3MshHQ0-unsplash_nx3wxi.jpg',
     alt: 'Model with cream on cheek.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&w=800&q=60',
+    src: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748121/kate-laine-6ZXJFyTCZ_w-unsplash_ishho4.jpg',
     alt: 'Hand holding serum bottle.',
   },
 ];

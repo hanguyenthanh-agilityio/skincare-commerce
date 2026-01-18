@@ -26,72 +26,57 @@ const StrapiImage = ({
   height = 800,
   fallbackAspectRatio = 16 / 9,
   priority = false,
-  srcSetWidths = [320, 480, 640, 960, 1200],
-  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px',
+  srcSetWidths = [320, 640, 960, 1280, 1600],
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
 }: StrapiImageProps) => {
   const imageNode: StrapiImageType | null =
     typeof image === 'string'
-      ? { url: image, width, height, alternativeText: '' }
+      ? {
+          url: image,
+          width,
+          height,
+          alternativeText: '',
+        }
       : (image ?? null);
 
   if (!imageNode?.url) {
     return (
       <div
+        data-testid="strapi-image-fallback"
         className={cn('bg-gray-100 rounded-xl', className)}
         style={{ aspectRatio: fallbackAspectRatio }}
+        role="presentation"
       />
     );
   }
 
-  const url = imageNode.url;
-  const isExternal = url.startsWith('http');
-  let fullUrl = isExternal ? url : `${STRAPI_BASE_URL}${url}`;
+  const baseUrl = imageNode.url.startsWith('http') ? '' : STRAPI_BASE_URL;
 
-  const buildSrcSet = () => {
-    const sep = fullUrl.includes('?') ? '&' : '?';
+  const fullUrl = `${baseUrl}${imageNode.url}`;
 
-    // Shopify CDN
-    if (fullUrl.includes('cdn.shop')) {
-      return srcSetWidths.map((w) => `${fullUrl}${sep}width=${w}&quality=75 ${w}w`).join(', ');
-    }
+  const intrinsicWidth = imageNode.width || width;
+  const intrinsicHeight = imageNode.height || height || width / fallbackAspectRatio;
 
-    // Wix static CDN
-    if (fullUrl.includes('wixstatic.com')) {
-      return srcSetWidths.map((w) => `${fullUrl}${sep}w=${w}&q=70 ${w}w`).join(', ');
-    }
+  const srcSet = srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ');
 
-    // Unsplash
-    if (fullUrl.includes('unsplash.com')) {
-      return srcSetWidths
-        .map((w) => `${fullUrl}${sep}w=${w}&auto=format&fit=crop&q=60 ${w}w`)
-        .join(', ');
-    }
-
-    // Fallback for unknown hotlink
-    return srcSetWidths.map((w) => `${fullUrl}${sep}w=${w} ${w}w`).join(', ');
-  };
-
-  const srcSet = buildSrcSet();
-
-  const style: React.CSSProperties = {
-    aspectRatio:
-      imageNode.width && imageNode.height
-        ? imageNode.width / imageNode.height
-        : fallbackAspectRatio,
-  };
+  const style: React.CSSProperties = {};
+  if (fallbackAspectRatio !== 0) {
+    style.aspectRatio = intrinsicWidth / intrinsicHeight;
+  }
 
   return (
     <img
       src={fullUrl}
       srcSet={srcSet}
       sizes={sizes}
-      width={imageNode.width || width}
-      height={imageNode.height || height}
+      width={intrinsicWidth}
+      height={intrinsicHeight}
       alt={imageNode.alternativeText || ''}
-      className={cn('w-full h-full object-cover', className)}
+      title={imageNode.alternativeText || undefined}
+      className={cn('w-full h-full object-contain', className)}
       decoding="async"
-      loading={priority ? 'eager' : 'lazy'}
       fetchPriority={priority ? 'high' : 'auto'}
+      loading={priority ? 'eager' : 'lazy'}
       style={style}
     />
   );

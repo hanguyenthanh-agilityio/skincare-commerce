@@ -7,10 +7,10 @@ highlight:
   buttonHref: 'products'
   colorScheme: 'light'
   align: 'left'
-  image: 'https://images.unsplash.com/photo-1644817880867-8dc9281dc167?auto=format&w=1200&q=80'
+  image: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768747225/natallia-photo-58BQs83uClo-unsplash_jlwg2n.jpg'
 
 carousel:
-  - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668478701806.png?v=1761330608&width=1200'
+  - image: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768747214/viktoriia-muzyka-1YxeE3mEpL0-unsplash_sogcn9.jpg'
     title: 'Highly Effective Body Care'
     description: 'A combination of natural and advanced technology, ensures you will enjoy a healthy and effective skin care experience.'
     buttonText: 'Discover More'
@@ -18,7 +18,7 @@ carousel:
     colorScheme: 'light'
     align: 'left'
 
-  - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019&width=1200'
+  - image: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768747206/lina-verovaya-rs03UjT1UYw-unsplash_kwvden.jpg'
     title: 'Gentle Skincare'
     description: 'Hydrate and nourish your skin with our gentle formulas.'
     buttonText: 'Discover More'
@@ -26,7 +26,7 @@ carousel:
     colorScheme: 'light'
     align: 'left'
 
-  - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668462285038_cd82d0bb-d3fd-4003-9808-ac35e1b04146.jpg?v=1760636983&width=1200'
+  - image: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768747221/tiffany-oakley-nBgZwJTdRLg-unsplash_prr1w7.jpg'
     title: 'Radiant Glow'
     description: 'Achieve a natural glow with our special skincare line.'
     buttonText: 'Shop Now'
@@ -43,7 +43,7 @@ feature:
   colorScheme: 'dark'
   variant: 'outlineSoft'
   align: 'left'
-  image: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945&width=1200'
+  image: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768747205/ela-de-pure-FDXaTYBajfc-unsplash_ybgtcr.jpg'
 
 quote:
   title: 'Countless answers lie within natures genius, awaiting our exploration and engagement.'
