@@ -31,12 +31,7 @@ const StrapiImage = ({
 }: StrapiImageProps) => {
   const imageNode: StrapiImageType | null =
     typeof image === 'string'
-      ? {
-          url: image,
-          width,
-          height,
-          alternativeText: '',
-        }
+      ? { url: image, width, height, alternativeText: '' }
       : (image ?? null);
 
   if (!imageNode?.url) {
@@ -50,33 +45,45 @@ const StrapiImage = ({
     );
   }
 
-  const baseUrl = imageNode.url.startsWith('http') ? '' : STRAPI_BASE_URL;
+  const url = imageNode.url;
 
-  const fullUrl = `${baseUrl}${imageNode.url}`;
+  const isCloudinary = url.includes('res.cloudinary.com') || url.includes('cloudinary.com');
 
-  const intrinsicWidth = imageNode.width || width;
-  const intrinsicHeight = imageNode.height || height || width / fallbackAspectRatio;
+  const baseUrl = isCloudinary
+    ? url.replace('/upload/', '/upload/f_auto,q_auto/') // AUTO OPTIMIZED
+    : url.startsWith('http')
+      ? url
+      : `${STRAPI_BASE_URL}${url}`;
 
-  const srcSet = srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ');
+  // srcset với Cloudinary
+  const srcSet = isCloudinary
+    ? srcSetWidths
+        .map(
+          (w) =>
+            baseUrl.replace('upload/f_auto,q_auto/', `upload/f_auto,q_auto,w_${w}/`) + ` ${w}w`,
+        )
+        .join(', ')
+    : srcSetWidths.map((w) => `${baseUrl}?w=${w} ${w}w`).join(', ');
 
-  const style: React.CSSProperties = {};
-  if (fallbackAspectRatio !== 0) {
-    style.aspectRatio = intrinsicWidth / intrinsicHeight;
-  }
+  const style: React.CSSProperties = {
+    aspectRatio:
+      imageNode.width && imageNode.height
+        ? imageNode.width / imageNode.height
+        : fallbackAspectRatio,
+  };
 
   return (
     <img
-      src={fullUrl}
+      src={baseUrl}
       srcSet={srcSet}
       sizes={sizes}
-      width={intrinsicWidth}
-      height={intrinsicHeight}
+      width={imageNode.width || width}
+      height={imageNode.height || height}
       alt={imageNode.alternativeText || ''}
-      title={imageNode.alternativeText || undefined}
-      className={cn('w-full h-full object-contain', className)}
+      className={cn('w-full h-full object-cover', className)}
       decoding="async"
-      fetchPriority={priority ? 'high' : 'auto'}
       loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : 'auto'}
       style={style}
     />
   );
