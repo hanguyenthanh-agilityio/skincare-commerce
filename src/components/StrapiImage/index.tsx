@@ -29,6 +29,7 @@ const StrapiImage = ({
   srcSetWidths = [320, 640, 960, 1280, 1600],
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
 }: StrapiImageProps) => {
+  // Normalize string → StrapiImageType
   const imageNode: StrapiImageType | null =
     typeof image === 'string'
       ? {
@@ -39,6 +40,7 @@ const StrapiImage = ({
         }
       : (image ?? null);
 
+  // Fallback UI
   if (!imageNode?.url) {
     return (
       <div
@@ -50,25 +52,35 @@ const StrapiImage = ({
     );
   }
 
-  const baseUrl = imageNode.url.startsWith('http') ? '' : STRAPI_BASE_URL;
+  // Detect external URL (hotlink)
+  const isExternal = imageNode.url.startsWith('http');
+
+  // Base URL only for Strapi local images
+  const baseUrl = isExternal ? '' : STRAPI_BASE_URL;
 
   const fullUrl = `${baseUrl}${imageNode.url}`;
 
+  // Intrinsic sizes (fallback if Strapi does not provide)
   const intrinsicWidth = imageNode.width || width;
-  const intrinsicHeight = imageNode.height || height || width / fallbackAspectRatio;
+  const intrinsicHeight = imageNode.height || height;
 
-  const srcSet = srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ');
+  // srcSet ONLY for internal images
+  const srcSet = !isExternal
+    ? srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ')
+    : undefined;
 
+  // Maintain aspect ratio correctly
   const style: React.CSSProperties = {};
   if (fallbackAspectRatio !== 0) {
-    style.aspectRatio = intrinsicWidth / intrinsicHeight;
+    style.aspectRatio =
+      intrinsicWidth && intrinsicHeight ? intrinsicWidth / intrinsicHeight : fallbackAspectRatio;
   }
 
   return (
     <img
       src={fullUrl}
-      srcSet={srcSet}
-      sizes={sizes}
+      {...(srcSet ? { srcSet } : {})}
+      sizes={srcSet ? sizes : undefined}
       width={intrinsicWidth}
       height={intrinsicHeight}
       alt={imageNode.alternativeText || ''}
