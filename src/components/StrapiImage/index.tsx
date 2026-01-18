@@ -45,32 +45,33 @@ const StrapiImage = ({
 
   const url = imageNode.url;
   const isExternal = url.startsWith('http');
-
   let fullUrl = isExternal ? url : `${STRAPI_BASE_URL}${url}`;
 
-  // Build responsive srcset for external CDNs (Shopify, Wix, Unsplash...)
-  let srcSet: string | undefined = undefined;
-
-  if (isExternal) {
-    // If URL already has query params
+  const buildSrcSet = () => {
     const sep = fullUrl.includes('?') ? '&' : '?';
 
-    // Shopify CDN supports `width=`
+    // Shopify CDN
     if (fullUrl.includes('cdn.shop')) {
-      srcSet = srcSetWidths.map((w) => `${fullUrl}${sep}width=${w} ${w}w`).join(', ');
+      return srcSetWidths.map((w) => `${fullUrl}${sep}width=${w}&quality=75 ${w}w`).join(', ');
     }
-    // Unsplash supports `w=`
-    else if (fullUrl.includes('unsplash.com')) {
-      srcSet = srcSetWidths.map((w) => `${fullUrl}${sep}w=${w} ${w}w`).join(', ');
+
+    // Wix static CDN
+    if (fullUrl.includes('wixstatic.com')) {
+      return srcSetWidths.map((w) => `${fullUrl}${sep}w=${w}&q=70 ${w}w`).join(', ');
     }
-    // Generic fallback (browser will ignore invalid URLs)
-    else {
-      srcSet = srcSetWidths.map((w) => `${fullUrl}${sep}w=${w} ${w}w`).join(', ');
+
+    // Unsplash
+    if (fullUrl.includes('unsplash.com')) {
+      return srcSetWidths
+        .map((w) => `${fullUrl}${sep}w=${w}&auto=format&fit=crop&q=60 ${w}w`)
+        .join(', ');
     }
-  } else {
-    // Local images (Strapi)
-    srcSet = srcSetWidths.map((w) => `${fullUrl}?w=${w} ${w}w`).join(', ');
-  }
+
+    // Fallback for unknown hotlink
+    return srcSetWidths.map((w) => `${fullUrl}${sep}w=${w} ${w}w`).join(', ');
+  };
+
+  const srcSet = buildSrcSet();
 
   const style: React.CSSProperties = {
     aspectRatio:
