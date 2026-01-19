@@ -7,7 +7,11 @@ export function getClientConsent(): CookieConsent {
 
   const match = document.cookie.split('; ').find((row) => row.startsWith(`${COOKIE_NAME}=`));
 
-  return match ? (match.split('=')[1] as CookieConsent) : null;
+  if (!match) return null;
+
+  const value = match.split('=')[1];
+
+  return value === 'accepted' || value === 'rejected' ? value : null;
 }
 
 export function setClientConsent(value: Exclude<CookieConsent, null>) {
