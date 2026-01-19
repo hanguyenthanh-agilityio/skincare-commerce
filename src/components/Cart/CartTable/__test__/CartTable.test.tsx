@@ -9,14 +9,21 @@ vi.mock('@/components/Cart/CartHeaderRow', () => ({
 
 vi.mock('@/components/Cart/CartItemRow', () => ({
   default: ({
-    item,
+    cartItem,
     onQuantityChange,
   }: {
-    item: any;
+    cartItem: {
+      documentId: string;
+      quantity: number;
+      name: string;
+    };
     onQuantityChange: (id: string, quantity: number) => void;
   }) => (
-    <div data-testid="cart-item" onClick={() => onQuantityChange(item.id, item.quantity + 1)}>
-      {item.name}
+    <div
+      data-testid="cart-item"
+      onClick={() => onQuantityChange(cartItem.documentId, cartItem.quantity + 1)}
+    >
+      {cartItem.name}
     </div>
   ),
 }));
@@ -36,14 +43,14 @@ describe('CartTable', () => {
 
   const items: CartItem[] = [
     {
-      id: '1',
+      documentId: '1',
       name: 'Cleanser',
       price: 20,
       quantity: 2,
       image: {} as any,
     },
     {
-      id: '2',
+      documentId: '2',
       name: 'Toner',
       price: 15,
       quantity: 1,
@@ -52,7 +59,15 @@ describe('CartTable', () => {
   ];
 
   it('renders CartHeaderRow with correct columns', () => {
-    render(<CartTable columns={columns} items={items} onQuantityChange={vi.fn()} />);
+    render(
+      <CartTable
+        columns={columns}
+        cartList={items}
+        updatingId={null}
+        onQuantityChange={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
 
     const header = screen.getByTestId('cart-header');
     expect(header).toBeInTheDocument();
@@ -63,14 +78,30 @@ describe('CartTable', () => {
   });
 
   it('renders one CartItemRow per item', () => {
-    render(<CartTable columns={columns} items={items} onQuantityChange={vi.fn()} />);
+    render(
+      <CartTable
+        columns={columns}
+        cartList={items}
+        updatingId={null}
+        onQuantityChange={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
 
     const rows = screen.getAllByTestId('cart-item');
     expect(rows).toHaveLength(items.length);
   });
 
   it('renders correct item names', () => {
-    render(<CartTable columns={columns} items={items} onQuantityChange={vi.fn()} />);
+    render(
+      <CartTable
+        columns={columns}
+        cartList={items}
+        updatingId={null}
+        onQuantityChange={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
 
     expect(screen.getByText('Cleanser')).toBeInTheDocument();
     expect(screen.getByText('Toner')).toBeInTheDocument();
@@ -79,17 +110,33 @@ describe('CartTable', () => {
   it('forwards onQuantityChange to CartItemRow', () => {
     const onQuantityChange = vi.fn();
 
-    render(<CartTable columns={columns} items={items} onQuantityChange={onQuantityChange} />);
+    render(
+      <CartTable
+        columns={columns}
+        cartList={items}
+        updatingId={null}
+        onDelete={vi.fn()}
+        onQuantityChange={onQuantityChange}
+      />,
+    );
 
     const firstRow = screen.getAllByTestId('cart-item')[0];
 
     fireEvent.click(firstRow);
 
-    expect(onQuantityChange).toHaveBeenCalledWith(items[0].id, items[0].quantity + 1);
+    expect(onQuantityChange).toHaveBeenCalledWith(items[0].documentId, items[0].quantity + 1);
   });
 
   it('renders correctly with empty items', () => {
-    render(<CartTable columns={columns} items={[]} onQuantityChange={vi.fn()} />);
+    render(
+      <CartTable
+        columns={columns}
+        cartList={[]}
+        updatingId={null}
+        onQuantityChange={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
 
     expect(screen.queryByTestId('cart-item')).not.toBeInTheDocument();
     expect(screen.getByTestId('cart-header')).toBeInTheDocument();
