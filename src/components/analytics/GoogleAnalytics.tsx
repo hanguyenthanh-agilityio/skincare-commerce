@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
-import { getClientConsent } from './cookie';
+
+// Utils
+import { getClientConsent } from '@/utils';
 
 declare global {
   interface Window {
@@ -30,7 +32,7 @@ function loadGA() {
   });
 }
 
-export default function GoogleAnalytics() {
+const GoogleAnalytics = () => {
   useEffect(() => {
     if (getClientConsent() === 'accepted') {
       loadGA();
@@ -45,4 +47,6 @@ export default function GoogleAnalytics() {
   }, []);
 
   return null;
-}
+};
+
+export default GoogleAnalytics;

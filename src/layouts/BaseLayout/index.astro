@@ -90,7 +90,7 @@ const pathname = Astro.url.pathname;
     <Toaster client:only />
 
     <!-- Analytics (client only, GDPR-safe) -->
-    <CookieConsent client:only="react" />
+    <CookieConsent locale={locale} client:only="react" />
     <GoogleAnalytics client:only="react" />
   </body>
 </html>
