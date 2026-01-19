@@ -17,7 +17,7 @@ carousel:
     buttonHref: 'products'
     colorScheme: 'light'
     align: 'left'
-  - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/Screenshot_2025-11-10_at_1.22.35_PM.png?v=1762807043'
+  - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019'
     title: 'Gentle Skincare'
     description: 'Hydrate and nourish your skin with our gentle formulas.'
     buttonText: 'Discover More'

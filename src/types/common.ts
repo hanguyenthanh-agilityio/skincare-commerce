@@ -98,3 +98,18 @@ export interface NotFoundContent extends MarkdownData {
   ctaLabel?: string;
   ctaHref: string;
 }
+
+export interface UserActionsContent extends MarkdownData {
+  login: {
+    label: string;
+    ariaLabel: string;
+  };
+  logout: {
+    label: string;
+    ariaLabel: string;
+  };
+  cart: {
+    label: string;
+    ariaLabel: string;
+  };
+}

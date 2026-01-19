@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = false;
 
 // Layouts
 import { BaseLayout } from '@/layouts';
@@ -14,32 +14,13 @@ import { ContentBlock, StrapiImage } from '@/components';
 import { Blog, BlogDetailGallery } from '@/sections';
 
 // I18n
-import { buildRoute, getAllLocales, loadContent } from '@/i18n';
+import { buildRoute, loadContent } from '@/i18n';
 
 // Services
-import { getBlogPageData, getBlogs } from '@/services';
+import { getBlogPageData } from '@/services';
 
 // Types
 import type { HomeContent } from '@/types';
-
-export async function getStaticPaths() {
-  const locales = getAllLocales();
-
-  const allPaths = await Promise.all(
-    locales.map(async (locale) => {
-      const { blogs } = await getBlogs({ locale });
-
-      return blogs?.map((blog) => ({
-        params: {
-          id: blog.documentId,
-          locale,
-        },
-      }));
-    }),
-  );
-
-  return allPaths.flat();
-}
 
 const { id, locale } = Astro.params;
 

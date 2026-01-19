@@ -5,6 +5,7 @@ import type { BlogPageData, Locale, TBlog } from '@/types';
 
 // Services
 import {
+  apiClient,
   BlogDecodeError,
   BlogFetchError,
   BlogNotFoundError,
@@ -12,7 +13,7 @@ import {
 } from '@/services';
 
 // Constants
-import { ERROR_MESSAGES, STRAPI_BASE_URL } from '@/constants';
+import { ENDPOINT, ERROR_MESSAGES, STRAPI_BASE_URL } from '@/constants';
 
 // Schemas
 import { BlogListResponseSchema } from '@/schemas';
@@ -41,16 +42,16 @@ export const getBlogsEffect = ({ locale }: { locale: Locale }) =>
           populate: '*',
         });
 
-        const res = await fetch(`${STRAPI_BASE_URL}/api/blogs?${params.toString()}`);
+        const res = await apiClient.get(`${STRAPI_BASE_URL}${ENDPOINT.BLOG}?${params.toString()}`);
 
-        if (!res.ok) {
+        if (res.error || !res.data) {
           throw new BlogFetchError({
-            status: res.status,
+            status: 500,
             message: ERROR_MESSAGES.BLOG_FETCH_FAILED,
           });
         }
 
-        return res.json();
+        return res.data;
       },
       catch: (e) =>
         e instanceof BlogFetchError
@@ -90,7 +91,7 @@ export const getBlogs = async ({ locale }: { locale: Locale }): Promise<GetBlogs
 // Get data Blog detail
 export const getBlogByDocumentId = ({ id, locale }: Params) =>
   fetchByDocumentIdEffect({
-    endpoint: 'blogs',
+    endpoint: ENDPOINT.BLOG,
     documentId: id,
     locale,
     schema: BlogListResponseSchema,

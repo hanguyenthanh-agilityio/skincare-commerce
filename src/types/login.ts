@@ -1,5 +1,13 @@
 import type { MarkdownData } from '@/i18n';
 
+// Types
+import type { IUser } from '@/types';
+
+export interface LoginResponse {
+  jwt: string;
+  user: IUser;
+}
+
 export interface LoginContent extends MarkdownData {
   title: string;
   fields: {
@@ -25,6 +33,7 @@ export interface LoginContent extends MarkdownData {
     required: string;
     invalidEmail: string;
     invalidCredentials: string;
+    something: string;
   };
   signup: {
     title: string;

@@ -14,9 +14,6 @@ import { CartInfo } from '@/sections';
 // Constants
 import { isLocale, ROUTER } from '@/constants';
 
-// Service
-import { getCartByUser } from '@/services';
-
 const { locale } = Astro.params;
 
 if (!locale || !isLocale(locale)) {
@@ -24,15 +21,8 @@ if (!locale || !isLocale(locale)) {
 }
 
 const content = loadContent<CartContent>('cart', locale);
-
-// Will update when handle Login
-const USER_DOCUMENT_ID = 'vv32wq5ctzuk15aypvm747qd';
-
-const items = await getCartByUser({
-  userDocumentId: USER_DOCUMENT_ID,
-});
 ---
 
 <BaseLayout {locale}>
-  <CartInfo content={content} items={items} client:load />
+  <CartInfo content={content} client:load />
 </BaseLayout>

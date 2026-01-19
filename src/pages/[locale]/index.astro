@@ -42,6 +42,7 @@ const { products } = await getProducts({ locale });
   />
 
   <Product
+    {locale}
     {...product}
     ctaHref={ROUTER.PRODUCTS}
     products={products}
