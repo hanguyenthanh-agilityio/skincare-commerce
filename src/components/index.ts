@@ -24,6 +24,8 @@ export { default as CartTable } from './Cart/CartTable';
 export { default as CartSummary } from './Cart/CartSummary';
 export { default as CartHeaderRow } from './Cart/CartHeaderRow';
 export { default as LoginForm } from './LoginForm';
+export { default as CookieConsent } from './analytics/CookieConsent';
+export { default as GoogleAnalytics } from './analytics/GoogleAnalytics';
 
 // Export with astro file
 export { default as Link } from './Link/index.astro';
