@@ -15,7 +15,7 @@ import { TopBar, Footer, Header } from '@/layouts';
 import { Toaster } from '@/ui';
 
 // Components
-import { CookieConsent, GoogleAnalytics } from '@/components';
+import { CookieConsent } from '@/components';
 
 interface Props {
   locale: Locale;
@@ -90,7 +90,6 @@ const pathname = Astro.url.pathname;
     <Toaster client:only />
 
     <!-- Analytics (client only, GDPR-safe) -->
-    <CookieConsent locale={locale} client:only="react" />
-    <GoogleAnalytics client:only="react" />
+    <CookieConsent client:only="react" locale={locale} />
   </body>
 </html>

@@ -1,25 +1,15 @@
-export const COOKIE_NAME = 'cookie_consent';
 export type CookieConsent = 'accepted' | 'rejected' | null;
 
-// Client-side read
+const COOKIE_NAME = 'cookie_consent';
+
 export function getClientConsent(): CookieConsent {
   if (typeof document === 'undefined') return null;
 
-  const match = document.cookie.match(new RegExp(`(^| )${COOKIE_NAME}=([^;]+)`));
+  const match = document.cookie.split('; ').find((row) => row.startsWith(`${COOKIE_NAME}=`));
 
-  return match ? (match[2] as CookieConsent) : null;
+  return match ? (match.split('=')[1] as CookieConsent) : null;
 }
 
-// Client-side write
-export function setClientConsent(value: 'accepted' | 'rejected') {
-  if (typeof document === 'undefined') return;
-
-  const isProd = location.protocol === 'https:';
-
-  document.cookie =
-    `cookie_consent=${value}; ` +
-    `Path=/; ` +
-    `Max-Age=31536000; ` +
-    `SameSite=Lax; ` +
-    (isProd ? 'Secure;' : '');
+export function setClientConsent(value: Exclude<CookieConsent, null>) {
+  document.cookie = `${COOKIE_NAME}=${value}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
 }
