@@ -3,14 +3,15 @@
 import { StrapiImage, ProductInfo } from '@/components';
 
 // Types
-import type { Attribute, TProduct } from '@/types';
+import type { Attribute, Locale, TProduct } from '@/types';
 
 interface Props {
   product: TProduct;
   attributes: Attribute[];
+  locale: Locale;
 }
 
-const { product, attributes = [] } = Astro.props as Props;
+const { product, attributes = [], locale } = Astro.props as Props;
 
 const mainImage = product.images?.[0];
 ---
@@ -37,7 +38,7 @@ const mainImage = product.images?.[0];
     <div
       class="md:col-span-4 flex flex-col justify-center items-start py-12 md:py-10 px-5 md:pl-0 lg:pr-20"
     >
-      <ProductInfo product={product} attributes={attributes} />
+      <ProductInfo {locale} product={product} attributes={attributes} />
     </div>
   </div>
 </section>

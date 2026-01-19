@@ -1,6 +1,6 @@
 ---
 // Types
-import type { ProductContent, TProduct } from '@/types';
+import type { Locale, ProductContent, TProduct } from '@/types';
 
 // Components
 import { Product } from '@/sections';
@@ -11,13 +11,14 @@ interface Props {
   pageCount: number;
   products: TProduct[];
   product: ProductContent['product'];
+  locale: Locale;
 }
 
-const { page, pageCount, products, product } = Astro.props;
+const { page, pageCount, products, product, locale } = Astro.props;
 ---
 
 <>
-  <Product {...product} {products} className="mx-5 md:mx-8" />
+  <Product {locale} {...product} {products} className="mx-5 md:mx-8" />
 
   <div class="flex justify-center pb-20">
     <PaginationControls client:load page={page} pageCount={pageCount} />

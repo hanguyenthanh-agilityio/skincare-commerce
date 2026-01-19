@@ -22,6 +22,8 @@ export default getViteConfig({
       'src/sections/**',
       'src/content/**',
       'src/constants/**',
+      'src/types/**',
+      'src/schemas/**',
     ],
   },
 });

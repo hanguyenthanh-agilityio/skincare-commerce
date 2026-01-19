@@ -3,7 +3,7 @@
   "include": ["src/types/astro.d.ts", "src/**/*", "../astro.config.mjs"],
   "exclude": ["dist"],
   "compilerOptions": {
-    "types": ["node", "vitest/globals", "astro/client"],
+    "types": ["node", "vitest/globals", "astro/client", "@testing-library/jest-dom"],
     "moduleResolution": "bundler",
     "module": "esnext",
     "jsx": "react-jsx",

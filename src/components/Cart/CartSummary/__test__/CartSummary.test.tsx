@@ -36,6 +36,6 @@ describe('CartSummary', () => {
     render(<CartSummary {...props} />);
 
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', '/checkout');
+    expect(link).toHaveAttribute('href', '/en/checkout');
   });
 });

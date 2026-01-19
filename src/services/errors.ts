@@ -1,7 +1,5 @@
 import { Data } from 'effect';
-
-// Constants
-import { ERROR_TAGS } from '@/constants';
+import { ERROR_TAGS } from '@/constants/error-tags';
 
 /* -------------------------------------------------------------------------- */
 /*                                   BLOG                                     */
@@ -35,7 +33,6 @@ export class BlogDecodeError extends Data.TaggedError(ERROR_TAGS.BLOG_DECODE)<{
 /*                                  PRODUCT                                   */
 /* -------------------------------------------------------------------------- */
 
-// List
 export class ProductListFetchError extends Data.TaggedError(ERROR_TAGS.PRODUCT_LIST_FETCH)<{
   status: number;
   message: string;
@@ -45,7 +42,6 @@ export class ProductListDecodeError extends Data.TaggedError(ERROR_TAGS.PRODUCT_
   reason: unknown;
 }> {}
 
-// Detail
 export class ProductNotFoundError extends Data.TaggedError(ERROR_TAGS.PRODUCT_NOT_FOUND)<{
   documentId: string;
 }> {}
@@ -60,9 +56,20 @@ export class ProductDecodeError extends Data.TaggedError(ERROR_TAGS.PRODUCT_DECO
 }> {}
 
 /* -------------------------------------------------------------------------- */
-/*                                  CART                                   */
+/*                                   CART                                     */
 /* -------------------------------------------------------------------------- */
+
 export class CartFetchError extends Data.TaggedError(ERROR_TAGS.CART_FETCH)<{
+  status: number;
+  message: string;
+}> {}
+
+export class CartAddError extends Data.TaggedError(ERROR_TAGS.CART_ADD)<{
+  status: number;
+  message: string;
+}> {}
+
+export class CartUpdateError extends Data.TaggedError(ERROR_TAGS.CART_UPDATE)<{
   status: number;
   message: string;
 }> {}

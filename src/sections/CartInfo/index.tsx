@@ -1,43 +1,49 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { Loader2 } from 'lucide-react';
 
 // Components
 import { CartSummary, CartTable, HeadingWrapper, TypographyWrapper } from '@/components';
-
-// UIs
 import { Button } from '@/ui';
 
 // Types
-import type { CartColumn, CartContent, CartItem } from '@/types';
+import type { CartContent, CartColumn } from '@/types';
 
-// Utils
-import { getCartTotal } from '@/utils';
+// Hook
+import { useCart } from '@/hooks';
 
 interface Props {
   content: CartContent;
-  items: CartItem[];
 }
 
-const CartInfo = ({ content, items }: Props) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(items);
+const CartInfo = ({ content }: Props) => {
+  const { cartList, total, isLoading, updatingId, error, updateQuantity, removeItem } = useCart();
 
-  const handleQuantityChange = (id: string, quantity: number) => {
-    setCartItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)));
-  };
+  const columns: CartColumn[] = useMemo(
+    () => [
+      { key: 'product', title: content.columns.cart },
+      { key: 'price', title: content.columns.price },
+      { key: 'quantity', title: content.columns.quantity },
+      { key: 'subtotal', title: content.columns.subtotal },
+    ],
+    [content.columns],
+  );
 
-  const total = useMemo(() => getCartTotal(cartItems), [cartItems]);
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20" aria-busy="true">
+        <Loader2 className="h-6 w-6 animate-spin text-gray-900" />
+      </div>
+    );
+  }
 
-  const columns: CartColumn[] = [
-    { key: 'product', title: content.columns.cart },
-    { key: 'price', title: content.columns.price },
-    { key: 'quantity', title: content.columns.quantity },
-    { key: 'subtotal', title: content.columns.subtotal },
-  ];
-
-  if (items.length === 0)
-    <div className="flex flex-col items-center justify-center gap-5">
-      <TypographyWrapper level="p" title={content.empty.title} />
-      <Button>{content.empty.action}</Button>
-    </div>;
+  if (cartList.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-5 py-20">
+        <TypographyWrapper level="p" title={error ?? content.empty.title} />
+        <Button>{content.empty.action}</Button>
+      </div>
+    );
+  }
 
   return (
     <section aria-labelledby="cart-heading" className="container-lg py-10 md:py-20 px-5">
@@ -46,17 +52,21 @@ const CartInfo = ({ content, items }: Props) => {
         <TypographyWrapper level="p" title={content.description} />
       </header>
 
-      <div className="flex flex-col">
-        <CartTable columns={columns} items={cartItems} onQuantityChange={handleQuantityChange} />
+      <CartTable
+        columns={columns}
+        cartList={cartList}
+        onQuantityChange={updateQuantity}
+        onDelete={removeItem}
+        updatingId={updatingId}
+      />
 
-        <div className="flex justify-end py-10">
-          <CartSummary
-            total={total.toString()}
-            label={content.summary.totalLabel}
-            shippingNote={content.summary.shippingNote}
-            checkoutText={content.summary.checkout}
-          />
-        </div>
+      <div className="flex justify-end py-10">
+        <CartSummary
+          total={total.toString()}
+          label={content.summary.totalLabel}
+          shippingNote={content.summary.shippingNote}
+          checkoutText={content.summary.checkout}
+        />
       </div>
     </section>
   );

@@ -1,46 +1,71 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from 'eslint-plugin-storybook';
+import globals from 'globals';
 
+// Core
 import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
+
+// TypeScript
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+
+// React
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
+
+// Import
 import importPlugin from 'eslint-plugin-import';
+
+// Astro
 import astroParser from 'astro-eslint-parser';
 import astroPlugin from 'eslint-plugin-astro';
-import prettier from 'eslint-config-prettier';
+
+// Storybook
+import storybook from 'eslint-plugin-storybook';
 
 export default [
+  // Ignore
   {
     ignores: ['dist', 'node_modules'],
   },
+
+  // Base JS rules
   js.configs.recommended,
 
-  // Global JS / TS env (ESLint 9 Flat Config)
+  // Global environment (Browser + Cloudflare Worker)
   {
     languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: {
-        fetch: 'readonly',
-        URL: 'readonly',
-        URLSearchParams: 'readonly',
-        console: 'readonly',
+        ...globals.browser,
+        ...globals.worker, // 👈 Cloudflare Workers
       },
     },
   },
+
+  // TypeScript
   {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
     },
     plugins: {
       '@typescript-eslint': tseslint,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
+
+      // Let TS handle undefined checks
+      'no-undef': 'off',
     },
   },
+
+  // React
   {
     files: ['**/*.{jsx,tsx}'],
     plugins: {
@@ -51,8 +76,6 @@ export default [
     },
     languageOptions: {
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
         ecmaFeatures: { jsx: true },
       },
     },
@@ -67,12 +90,15 @@ export default [
       ],
     },
   },
+
+  // Astro
   {
     files: ['**/*.astro'],
     languageOptions: {
       parser: astroParser,
       parserOptions: {
         parser: tsParser,
+        extraFileExtensions: ['.astro'],
       },
     },
     plugins: {
@@ -83,6 +109,10 @@ export default [
       'react/no-unknown-property': 'off',
     },
   },
-  prettier,
+
+  // Storybook
   ...storybook.configs['flat/recommended'],
+
+  // Prettier (must be last)
+  prettier,
 ];

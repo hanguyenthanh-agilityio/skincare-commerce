@@ -7,4 +7,6 @@ export const ROUTER = {
   FAQ: 'faq',
   BLOGS_DETAIL: 'blogs/:id',
   NOT_FOUND: '/404',
+  LOGIN: 'login',
+  CART: 'cart',
 };

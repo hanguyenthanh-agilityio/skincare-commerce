@@ -22,6 +22,7 @@ errors:
   required: 'Trường này là bắt buộc'
   invalidEmail: 'Vui lòng nhập địa chỉ email hợp lệ'
   invalidCredentials: 'Email hoặc mật khẩu không đúng. Vui lòng thử lại.'
+  something: 'Có lỗi xảy ra. Vui lòng thử lại sau.'
 
 signup:
   title: 'Bạn chưa có tài khoản?'

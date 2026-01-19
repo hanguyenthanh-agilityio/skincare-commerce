@@ -2,7 +2,7 @@
 import { cn } from '@/lib';
 
 // Types
-import type { TProduct } from '@/types';
+import type { Locale, TProduct } from '@/types';
 
 // Constants
 import { ROUTER } from '@/constants';
@@ -14,9 +14,10 @@ interface Props {
   products: TProduct[];
   limitDesktop?: number;
   limitMobile?: number;
+  locale: Locale;
 }
 
-const { products, limitDesktop, limitMobile } = Astro.props;
+const { products, limitDesktop, limitMobile, locale } = Astro.props;
 
 const productsData = Array.isArray(products) ? products : [];
 
@@ -40,6 +41,7 @@ const hasLimit = typeof limitDesktop === 'number' || typeof limitMobile === 'num
           if (!hasLimit) {
             return (
               <ProductCard
+                {locale}
                 {...product}
                 image={product.images?.[0]}
                 href={`${ROUTER.PRODUCTS}/${product.documentId}`}
@@ -60,9 +62,11 @@ const hasLimit = typeof limitDesktop === 'number' || typeof limitMobile === 'num
           return (
             <div class={visibilityClass}>
               <ProductCard
+                {locale}
                 {...product}
                 image={product.images?.[0]}
                 href={`${ROUTER.PRODUCTS}/${product.documentId}`}
+                documentId={product.documentId}
               />
             </div>
           );
