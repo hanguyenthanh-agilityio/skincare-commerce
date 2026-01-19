@@ -1,14 +1,21 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { cn } from '@/lib';
 
 // Types
-import type { Locale, LoginContent, TSignInFormData } from '@/types';
+import type { Locale, LoginContent, LoginResponse, TSignInFormData } from '@/types';
 
 import { loadContent } from '@/i18n';
 
+// Constants
+import { ERROR_TAGS, ROUTER } from '@/constants';
+
+// Services
+import { apiClient } from '@/services';
+
 // Components
-import { Button, Input } from '@/ui';
 import { LinkWrapper, TypographyWrapper } from '@/components';
+import { Button, Input } from '@/ui';
 import { Spinner } from '@/ui';
 
 interface LoginProps {
@@ -32,22 +39,38 @@ const LoginForm = ({ locale }: LoginProps) => {
   });
 
   const onSubmit = handleSubmit(async (data: TSignInFormData) => {
+    setIsLoading(true);
+    setApiError(null);
+
     try {
-      setIsLoading(true);
+      const { data: loginData, error } = await apiClient.post<LoginResponse>('/api/auth/login', {
+        body: data,
+      });
 
-      // TODO: call API sign in
-      console.log('data', data);
+      if (error) {
+        setApiError(
+          error.name === ERROR_TAGS.VALIDATION_ERROR ? errors.invalidCredentials : errors.something,
+        );
+        return;
+      }
 
-      // success flow here
-    } catch (error) {
-      console.error(error);
+      if (!loginData) {
+        setApiError(errors.something);
+        return;
+      }
+
+      // Redirect after login
+      window.location.href = ROUTER.HOME;
+    } catch {
+      setApiError(errors.something);
     } finally {
       setIsLoading(false);
-      setApiError(errors.invalidCredentials);
     }
   });
 
   const { title, fields, actions, signup, errors } = loadContent<LoginContent>('login', locale);
+
+  const isDisable = isSubmitting || isLoading;
 
   return (
     <div className="w-full">
@@ -107,14 +130,25 @@ const LoginForm = ({ locale }: LoginProps) => {
         </LinkWrapper>
 
         {/* Login button */}
-        <Button type="submit" disabled={isSubmitting} className="w-full h-12 mb-7">
+        <Button
+          type="submit"
+          disabled={isDisable}
+          className={cn(
+            'w-full h-12 mb-7',
+            isDisable ? 'cursor-not-allowed opacity-70' : 'cursor-pointer',
+          )}
+        >
           {isLoading ? (
             <div className="flex justify-center items-center gap-3">
               <Spinner />
-              <TypographyWrapper level="span" title={actions.submit.loadingLabel} />
+              <TypographyWrapper
+                level="span"
+                title={actions.submit.loadingLabel}
+                className="text-white"
+              />
             </div>
           ) : (
-            <TypographyWrapper level="span" title={actions.submit.label} />
+            <TypographyWrapper level="span" title={actions.submit.label} className="text-white" />
           )}
         </Button>
 

@@ -1,21 +1,63 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 // Component
 import AddToCartButton from '..';
 
-describe('AddToCartButton component', () => {
-  // TODO: not remove - use productId when handle logic add to cart
-  // const mockProductId = 'product-123';
+// Mock services
+vi.mock('@/services', () => ({
+  apiClient: {
+    post: vi.fn(),
+  },
+}));
 
-  it('render matching snapshot', () => {
-    const container = render(<AddToCartButton />);
+import { apiClient } from '@/services';
 
-    expect(container).toMatchSnapshot();
+describe('AddToCartButton', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
   });
 
-  it('should handle rapid clicks correctly', async () => {
-    render(<AddToCartButton />);
+  const renderComponent = (props?: Partial<React.ComponentProps<typeof AddToCartButton>>) => {
+    return render(<AddToCartButton productDocumentId="product-123" locale="en" {...props} />);
+  };
+
+  it('renders Add to cart button', () => {
+    renderComponent();
+
+    const button = screen.getByRole('button', {
+      name: /add to your cart/i,
+    });
+
+    expect(button).toBeInTheDocument();
+    expect(button).not.toBeDisabled();
+  });
+
+  it('disables button and shows loading text after click', async () => {
+    (
+      apiClient.post as unknown as { mockResolvedValueOnce: (val: unknown) => void }
+    ).mockResolvedValueOnce({});
+
+    renderComponent();
+
+    const button = screen.getByRole('button');
+
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(button).toBeDisabled();
+      expect(button).toHaveTextContent(/adding/i);
+    });
+
+    expect(apiClient.post).toHaveBeenCalledTimes(1);
+  });
+
+  it('prevents rapid multiple clicks', async () => {
+    (
+      apiClient.post as unknown as { mockResolvedValueOnce: (val: unknown) => void }
+    ).mockResolvedValueOnce({});
+
+    renderComponent();
 
     const button = screen.getByRole('button');
 
@@ -23,58 +65,52 @@ describe('AddToCartButton component', () => {
     fireEvent.click(button);
     fireEvent.click(button);
 
-    expect(button).toBeDisabled();
-    expect(screen.getByRole('button')).toHaveAttribute('aria-label', 'Add to your cart');
+    await waitFor(() => {
+      expect(button).toBeDisabled();
+      expect(apiClient.post).toHaveBeenCalledTimes(1);
+    });
   });
 
-  it('should merge custom className with default classes', () => {
-    render(<AddToCartButton className="custom-class" />);
+  it('merges custom className', () => {
+    renderComponent({ className: 'custom-class' });
 
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('w-full');
+
     expect(button).toHaveClass('custom-class');
   });
 
-  it('should not be disabled initially', () => {
-    render(<AddToCartButton />);
+  it('calls add to cart API with correct payload', async () => {
+    (
+      apiClient.post as unknown as { mockResolvedValueOnce: (val: unknown) => void }
+    ).mockResolvedValueOnce({});
 
-    expect(screen.getByRole('button')).not.toBeDisabled();
+    renderComponent();
+
+    fireEvent.click(screen.getByRole('button'));
+
+    await waitFor(() => {
+      expect(apiClient.post).toHaveBeenCalledWith('/api/cart/add', {
+        body: {
+          productDocumentId: 'product-123',
+        },
+      });
+    });
   });
 
-  it('should change text to "Added!" after click', () => {
-    render(<AddToCartButton />);
+  it('re-enables button after request finishes', async () => {
+    (
+      apiClient.post as unknown as { mockResolvedValueOnce: (val: unknown) => void }
+    ).mockResolvedValueOnce({});
 
-    const button = screen.getByRole('button');
-    expect(button).toHaveTextContent('Add to your cart');
-
-    fireEvent.click(button);
-
-    expect(button).toHaveTextContent('Added!');
-  });
-
-  it('should disable button after click', () => {
-    render(<AddToCartButton />);
-
-    const button = screen.getByRole('button');
-    expect(button).not.toBeDisabled();
-
-    fireEvent.click(button);
-
-    expect(button).toBeDisabled();
-  });
-
-  it('should update isAdding state on click', () => {
-    render(<AddToCartButton />);
+    renderComponent();
 
     const button = screen.getByRole('button');
 
-    // Initial state
-    expect(button).toHaveTextContent('Add to your cart');
-    expect(button).not.toBeDisabled();
-
-    // After click
     fireEvent.click(button);
-    expect(button).toHaveTextContent('Added!');
-    expect(button).toBeDisabled();
+
+    await waitFor(() => {
+      expect(button).not.toBeDisabled();
+      expect(button).toHaveTextContent(/add to your cart/i);
+    });
   });
 });

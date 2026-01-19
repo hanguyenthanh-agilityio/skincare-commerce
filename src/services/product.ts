@@ -1,5 +1,5 @@
 // Constants
-import { ERROR_MESSAGES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
+import { ENDPOINT, ERROR_MESSAGES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
 
 // Types
 import { mapProductToDetail, type Locale, type ProductPageData, type SortValue } from '@/types';
@@ -9,6 +9,7 @@ import { Effect, pipe, Schema } from 'effect';
 
 // Services
 import {
+  apiClient,
   fetchByDocumentIdEffect,
   ProductDecodeError,
   ProductFetchError,
@@ -92,16 +93,18 @@ export const getProductsEffect = ({
         // Filters
         applyProductFilters(params, filters);
 
-        const res = await fetch(`${STRAPI_BASE_URL}/api/products?${params.toString()}`);
+        const res = await apiClient.get(
+          `${STRAPI_BASE_URL}${ENDPOINT.PRODUCT}?${params.toString()}`,
+        );
 
-        if (!res.ok) {
+        if (res.error || !res.data) {
           throw new ProductFetchError({
-            status: res.status,
-            message: ERROR_MESSAGES.PRODUCT_FETCH_FAILED,
+            status: 500,
+            message: res.error?.message || ERROR_MESSAGES.PRODUCT_FETCH_FAILED,
           });
         }
 
-        return await res.json();
+        return res.data;
       },
       catch: (e) =>
         e instanceof ProductFetchError
@@ -153,7 +156,7 @@ export const getProducts = async (params: FetchProductsParams) => {
 
 export const getProductByDocumentId = ({ id, locale }: Params) =>
   fetchByDocumentIdEffect({
-    endpoint: 'products',
+    endpoint: ENDPOINT.PRODUCT,
     documentId: id,
     locale,
     schema: ProductListResponseSchema,

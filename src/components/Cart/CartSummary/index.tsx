@@ -29,7 +29,7 @@ const CartSummary = ({ total, label, shippingNote, checkoutText }: Props) => (
         />
       </div>
     </div>
-    <LinkWrapper href="/checkout">
+    <LinkWrapper href="/en/checkout">
       <Button aria-label={`${checkoutText}, total $${total}`} className="w-full rounded-none h-14">
         {checkoutText}
       </Button>

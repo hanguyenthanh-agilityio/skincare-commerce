@@ -1,22 +1,26 @@
-import { LOCALES, ROUTER } from '@/constants';
+// Constants
+import { LOCALES } from '@/constants';
 
 // Types
 import type { Locale } from '@/types';
 
 export const buildRoute = (
-  path: (typeof ROUTER)[keyof typeof ROUTER],
-  lang: string,
+  path: string,
+  locale: Locale,
   params: Record<string, string> = {},
-) => {
-  let finalPath = path;
+): string => {
+  let resolvedPath = path;
 
-  for (const [k, v] of Object.entries(params)) {
-    finalPath = finalPath.replace(`:${k}`, v);
-  }
+  Object.entries(params).forEach(([key, value]) => {
+    resolvedPath = resolvedPath.replace(`:${key}`, value);
+  });
 
-  return `/${lang}/${finalPath}`;
+  // Ensure path starts without leading slash
+  const normalizedPath = resolvedPath.startsWith('/') ? resolvedPath.slice(1) : resolvedPath;
+
+  return `/${locale}/${normalizedPath}`;
 };
 
-export function getAllLocales(): Locale[] {
+export const getAllLocales = (): Locale[] => {
   return [...LOCALES];
-}
+};

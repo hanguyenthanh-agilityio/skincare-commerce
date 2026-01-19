@@ -2,7 +2,7 @@
 import type { MarkdownData } from '@/i18n';
 
 // Types
-import type { StrapiImageType } from '@/types';
+import type { StrapiImageType, TProduct } from '@/types';
 
 export type CartColumnKey = 'product' | 'price' | 'quantity' | 'subtotal';
 
@@ -12,18 +12,21 @@ export interface CartColumn {
   className?: string;
 }
 
-export interface CartProduct {
-  id: string;
+export interface CartItem {
+  documentId: string;
   name: string;
-  volume?: string;
   price: number;
-  quantity?: number;
+  quantity: number;
   image?: StrapiImageType;
+  volume?: string;
 }
 
-export interface CartItem extends CartProduct {
+export interface StrapiCart {
+  documentId: string;
+  product: TProduct;
   quantity: number;
 }
+
 export interface CartContent extends MarkdownData {
   title: string;
   description: string;
@@ -89,31 +92,17 @@ export interface StrapiResponse<T> {
   };
 }
 
-export interface StrapiProduct {
-  documentId: string;
-  title?: string | null;
-  price?: number | null;
-  volume?: string | null;
-  thumbnail?: StrapiImageType | null;
-}
-
-export interface StrapiCart {
-  documentId: string;
-  quantity: number | string;
-  products?: StrapiProduct[] | null;
-}
-
-export function mapStrapiCartToCartItem(cart: StrapiCart): CartItem {
-  const product = cart.products?.[0];
-
-  return {
-    id: cart.documentId,
-    quantity: Number(cart.quantity) || 0,
-
-    // Defensive mapping
-    name: product?.title ?? '',
-    price: product?.price ?? 0,
-    volume: product?.volume ?? undefined,
-    image: product?.thumbnail ?? undefined,
+export interface CartToastContent extends MarkdownData {
+  addSuccess: {
+    title: string;
+    description: string;
   };
+  addFailed: {
+    title: string;
+    description: string;
+  };
+  loading: {
+    label: string;
+  };
+  ctaLabel: string;
 }

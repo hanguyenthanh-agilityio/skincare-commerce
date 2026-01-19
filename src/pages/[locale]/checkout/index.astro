@@ -6,7 +6,7 @@ import { BaseLayout } from '@/layouts';
 import { loadContent } from '@/i18n';
 
 // Types
-import type { CartItem, CheckoutContent } from '@/types';
+import type { CheckoutContent } from '@/types';
 
 // Section
 import { CheckoutForm, OrderSummary } from '@/sections';
@@ -22,38 +22,23 @@ if (!locale || !isLocale(locale)) {
 
 const checkout = loadContent<CheckoutContent>('checkout', locale);
 
-// Will update and remove it
-export const MOCK_CHECKOUT_ITEMS: CartItem[] = [
-  {
-    id: '1',
-    name: 'Hydrating Face Cream',
-    price: 29.99,
-    quantity: 2,
-    image: {
-      url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
-      alternativeText: 'Hydrating Face Cream',
-      width: 500,
-      height: 500,
-    },
+const res = await fetch(new URL('/api/cart/get', Astro.url.origin), {
+  headers: {
+    cookie: Astro.request.headers.get('cookie') ?? '',
   },
-  {
-    id: '2',
-    name: 'Gentle Cleansing Foam',
-    price: 19.99,
-    quantity: 1,
-    image: {
-      url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019',
-      alternativeText: 'Hydrating Face Cream',
-      width: 500,
-      height: 500,
-    },
-  },
-];
+});
+
+let cartList = [];
+
+if (res.ok) {
+  const json = await res.json();
+  cartList = json.data ?? [];
+}
 ---
 
 <BaseLayout {locale}>
   <div class="mx-auto grid md:grid-cols-2 gap-10">
-    <CheckoutForm t={checkout} />
-    <OrderSummary items={MOCK_CHECKOUT_ITEMS} t={checkout} />
+    <CheckoutForm content={checkout} />
+    <OrderSummary {cartList} content={checkout} />
   </div>
 </BaseLayout>

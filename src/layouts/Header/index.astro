@@ -3,7 +3,7 @@
 import { ROUTER } from '@/constants';
 
 // Components
-import { Link, MainNav, Navbar, LanguageSwitcher, Typography } from '@/components';
+import { Link, Navbar, LanguageSwitcher, Typography, UserActions } from '@/components';
 
 // UIs
 import { Icons } from '@/ui';
@@ -51,7 +51,8 @@ const dropdownMenu: HeaderContent['dropdownMenu'] =
         <div class="hidden md:flex">
           <LanguageSwitcher {locale} pathname={pathname} client:load />
         </div>
-        <MainNav />
+
+        <UserActions {locale} />
       </div>
     </div>
   </div>

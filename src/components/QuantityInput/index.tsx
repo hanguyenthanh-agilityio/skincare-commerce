@@ -1,4 +1,6 @@
-// UIs
+import { useEffect, useState } from 'react';
+
+// Libs
 import { cn } from '@/lib';
 
 // UIs
@@ -8,30 +10,46 @@ interface Props {
   value: number;
   min?: number;
   max?: number;
-  onChange: (value: number) => void;
+  disabled?: boolean;
   className?: string;
+  onChange: (value: number) => void;
 }
 
-const QuantityInput = ({ value, min = 1, max, onChange, className }: Props) => {
-  const normalizeQuantity = (v: number) => Math.max(min, max ? Math.min(v, max) : v);
+// Handles number input correctly
+const QuantityInput = ({ value, min = 1, max, disabled, className, onChange }: Props) => {
+  const [inputValue, setInputValue] = useState(String(value));
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const next = Number(e.target.value);
-    if (Number.isNaN(next)) return;
+  // Keep internal state in sync when the controlled value
+  useEffect(() => {
+    setInputValue(String(value));
+  }, [value]);
 
-    onChange(normalizeQuantity(next));
+  const commitValue = () => {
+    const next = Number(inputValue);
+
+    if (!Number.isFinite(next)) {
+      setInputValue(String(value));
+
+      return;
+    }
+
+    if (next !== value) {
+      onChange(next);
+    }
   };
+
   return (
-    <div className="flex gap-2">
-      <Input
-        type="number"
-        min={min}
-        max={max}
-        value={value}
-        className={cn('h-10 w-14', className)}
-        onChange={handleChange}
-      />
-    </div>
+    <Input
+      type="number"
+      value={inputValue}
+      min={min}
+      max={max}
+      disabled={disabled}
+      className={cn('h-10 w-14', className)}
+      onChange={(e) => setInputValue(e.target.value)}
+      onBlur={commitValue}
+      onKeyDown={(e) => e.key === 'Enter' && commitValue()}
+    />
   );
 };
 

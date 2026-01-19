@@ -1,17 +1,22 @@
 ---
 import { Heading, StrapiImage, Typography } from '@/components';
 
+// Types
 import type { CartItem, CheckoutContent } from '@/types';
-import { getCartTotal } from '@/utils';
 
-const { items = [], t } = Astro.props as {
-  items?: CartItem[];
-  t?: CheckoutContent;
-};
+// Utils
+import { calculateCartTotalPrice } from '@/utils';
 
-const summary = t?.summary;
+interface Props {
+  cartList?: CartItem[];
+  content: CheckoutContent;
+}
 
-const subtotal = getCartTotal(items);
+const { cartList = [], content } = Astro.props;
+
+const summary = content?.summary;
+
+const subtotal = calculateCartTotalPrice(cartList);
 const tax = 5;
 const total = subtotal + tax;
 ---
@@ -25,12 +30,12 @@ const total = subtotal + tax;
   <!-- Items -->
   <div class="divide-y divide-gray-200 m-0">
     {
-      items.map((item) => (
+      cartList.map(({ image, name, price }) => (
         <div class="flex items-center gap-4 py-4">
-          <StrapiImage image={item.image} className="w-16 h-16 rounded object-cover" />
+          <StrapiImage image={image} className="w-16 h-16 rounded object-cover" />
           <div class="flex-1">
-            <Typography level="p" className="font-medium" title={item.name} />
-            <Typography level="p" className="font-semibold" title={`$${item.price.toFixed(2)}`} />
+            <Typography level="p" className="font-medium" title={name} />
+            <Typography level="p" className="font-semibold" title={`$${price.toFixed(2)}`} />
           </div>
         </div>
       ))

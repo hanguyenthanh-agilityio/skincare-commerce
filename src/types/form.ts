@@ -1,5 +1,6 @@
 export interface IUser {
   id: number;
+  documentId: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -8,6 +9,7 @@ export interface IUser {
   username: string;
 }
 
-export type TSignInFormData = Pick<IUser, 'password'> & {
+export type TSignInFormData = {
   identifier: string;
+  password: string;
 };
