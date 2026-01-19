@@ -8,6 +8,8 @@ import {
   SelectContent,
   SelectItem,
   SelectSeparator,
+  SelectGroup,
+  SelectLabel,
 } from '@/ui/Select';
 
 function renderSelect(longList = false) {
@@ -18,8 +20,12 @@ function renderSelect(longList = false) {
       </SelectTrigger>
 
       <SelectContent>
-        <SelectItem value="apple">Apple</SelectItem>
-        <SelectItem value="orange">Orange</SelectItem>
+        <SelectGroup>
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="orange">Orange</SelectItem>
+        </SelectGroup>
+
         <SelectSeparator />
 
         {longList &&
@@ -53,8 +59,8 @@ describe('Select component', () => {
 
   it('renders options correctly', async () => {
     renderSelect();
-    fireEvent.click(screen.getByTestId('trigger'));
 
+    fireEvent.click(screen.getByTestId('trigger'));
     const listbox = await screen.findByRole('listbox');
 
     expect(within(listbox).getByText('Apple')).toBeInTheDocument();
@@ -65,31 +71,48 @@ describe('Select component', () => {
     renderSelect();
 
     fireEvent.click(screen.getByTestId('trigger'));
-
     const listbox = await screen.findByRole('listbox');
+
     fireEvent.click(within(listbox).getByText('Orange'));
 
-    // reopen to verify state
+    // reopen to verify updated state
     fireEvent.click(screen.getByTestId('trigger'));
-
     expect(screen.getByTestId('trigger')).toHaveTextContent('Orange');
+  });
+
+  it('renders select label', async () => {
+    renderSelect();
+
+    fireEvent.click(screen.getByTestId('trigger'));
+    expect(await screen.findByText('Fruits')).toBeInTheDocument();
   });
 
   it('renders separator', async () => {
     renderSelect();
+
     fireEvent.click(screen.getByTestId('trigger'));
 
-    const sep = document.querySelector('[data-slot="select-separator"]');
-    expect(sep).toBeTruthy();
+    const separator = document.querySelector('[data-slot="select-separator"]');
+    expect(separator).toBeTruthy();
+  });
+
+  it('renders grouped items correctly (SelectGroup)', async () => {
+    renderSelect();
+
+    fireEvent.click(screen.getByTestId('trigger'));
+    const listbox = await screen.findByRole('listbox');
+
+    const options = within(listbox).getAllByRole('option');
+    expect(options.length).toBeGreaterThanOrEqual(2);
   });
 
   it('does not crash when list is long', async () => {
     renderSelect(true);
+
     fireEvent.click(screen.getByTestId('trigger'));
-
     const listbox = await screen.findByRole('listbox');
-    const items = within(listbox).getAllByRole('option');
 
+    const items = within(listbox).getAllByRole('option');
     expect(items.length).toBeGreaterThan(20);
   });
 });
