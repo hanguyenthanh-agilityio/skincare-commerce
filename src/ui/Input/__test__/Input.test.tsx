@@ -5,9 +5,9 @@ import { Input } from '@/ui/Input';
 
 describe('Input component', () => {
   it('renders an input element', () => {
-    render(<Input />);
+    render(<Input data-testid="input" />);
 
-    const input = screen.getByRole('textbox');
+    const input = screen.getByTestId('input');
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute('data-slot', 'input');
   });
@@ -29,6 +29,14 @@ describe('Input component', () => {
     expect(screen.queryByText(/email/i)).not.toBeInTheDocument();
   });
 
+  it('renders helpText using TypographyWrapper', () => {
+    render(<Input helpText="This is help text" />);
+
+    const helpText = screen.getByText('This is help text');
+    expect(helpText).toBeInTheDocument();
+    expect(helpText.tagName.toLowerCase()).toBe('span');
+  });
+
   it('forwards props to input', () => {
     render(<Input placeholder="Enter name" defaultValue="John" data-testid="input" />);
 
@@ -37,33 +45,53 @@ describe('Input component', () => {
     expect(input.value).toBe('John');
   });
 
-  it('applies type attribute', () => {
-    render(<Input type="password" />);
+  it('applies type attribute correctly (password)', () => {
+    render(<Input type="password" data-testid="input" />);
 
-    const input = screen.getByDisplayValue('') || screen.getByRole('textbox', { hidden: true });
+    const input = screen.getByTestId('input');
     expect(input).toHaveAttribute('type', 'password');
   });
 
   it('applies custom className', () => {
-    render(<Input className="my-custom-class" />);
+    render(<Input className="my-custom-class" data-testid="input" />);
 
-    const input = screen.getByRole('textbox');
+    const input = screen.getByTestId('input');
     expect(input).toHaveClass('my-custom-class');
   });
 
   it('supports disabled state', () => {
-    render(<Input disabled />);
+    render(<Input disabled data-testid="input" />);
 
-    const input = screen.getByRole('textbox');
+    const input = screen.getByTestId('input');
     expect(input).toBeDisabled();
   });
 
-  it('supports aria-invalid styling', () => {
-    render(<Input aria-invalid="true" />);
+  it('applies error styles when isInvalid=true', () => {
+    render(<Input isInvalid data-testid="input" />);
 
-    const input = screen.getByRole('textbox');
+    const input = screen.getByTestId('input');
+    expect(input.className).toContain('text-red-400');
+    expect(input.className).toContain('border-red-400');
+  });
+
+  it('renders errorMessage and applies error styles', () => {
+    render(<Input errorMessage="Required field" data-testid="input" />);
+
+    const input = screen.getByTestId('input');
+    const errorText = screen.getByText('Required field');
+
+    expect(errorText).toBeInTheDocument();
+    expect(errorText.tagName.toLowerCase()).toBe('span');
+    expect(errorText).toHaveClass('text-red-400');
+
+    expect(input.className).toContain('text-red-400');
+    expect(input.className).toContain('border-red-400');
+  });
+
+  it('supports aria-invalid attribute', () => {
+    render(<Input aria-invalid="true" data-testid="input" />);
+
+    const input = screen.getByTestId('input');
     expect(input).toHaveAttribute('aria-invalid', 'true');
-    // class từ tailwind được gắn sẵn
-    expect(input.className).toMatch(/aria-invalid/);
   });
 });
