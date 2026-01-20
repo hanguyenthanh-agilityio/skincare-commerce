@@ -51,7 +51,8 @@
     "react-hook-form": "^7.70.0",
     "sharp": "^0.34.5",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "vanilla-cookieconsent": "^3.1.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "4.1.3",

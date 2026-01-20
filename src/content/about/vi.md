@@ -7,7 +7,7 @@ highlight:
     buttonHref: '/products'
     colorScheme: 'light'
     align: 'left'
-    image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019'
+    image: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748115/erik-mclean-4JaWGHzlwvk-unsplash_oglee3.jpg'
   - subTitle: 'Tái tạo cơ thể của bạn'
     title: 'Thành phần hiệu quả cho kết quả nhìn thấy được'
     description: 'Các sản phẩm chăm sóc cơ thể của chúng tôi giàu thành phần hiệu quả, mang lại kết quả rõ rệt, làm săn chắc da và khiến da mềm mại, mịn màng.'
@@ -18,7 +18,7 @@ highlight:
     image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668422930670.jpg?v=1758142869'
 
 image:
-  url: 'https://www.gloskinbeauty.com/cdn/shop/articles/668448456942_0f2549ad-4f14-4e19-81c6-23fa6fca465d.jpg?v=1760637019'
+  url: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768748122/fleur-kaan-w4Dj3MshHQ0-unsplash_nx3wxi.jpg'
 
 carousel:
   - image: 'https://www.gloskinbeauty.com/cdn/shop/articles/668478701806.png?v=1761330608'
@@ -52,7 +52,7 @@ feature:
   colorScheme: 'dark'
   variant: 'outlineSoft'
   align: 'left'
-  image: 'https://canada.gloskinbeauty.com/cdn/shop/files/egf-facial-23-stylized_3_f38ab37e-fc2a-4ed4-80bb-572e59481da7.jpg?v=1756303945'
+  image: 'https://res.cloudinary.com/du7fkhhid/image/upload/v1768747215/awal-uddin-sodri-MIac2Bq82XY-unsplash_gdyr4y.jpg'
 
 quote:
   title: 'Vô số câu trả lời nằm trong thiên nhiên, chờ chúng ta khám phá và tiếp cận.'

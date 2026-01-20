@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://skincare-commerce.pages.dev/sitemap-index.xml

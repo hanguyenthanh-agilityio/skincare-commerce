@@ -1,5 +1,7 @@
 ---
 import '@/styles/global.css';
+
+// Libs
 import { DEFAULT_META } from '@/lib';
 
 // Constants
@@ -11,6 +13,9 @@ import type { Locale } from '@/types';
 // Layouts
 import { TopBar, Footer, Header } from '@/layouts';
 import { Toaster } from '@/ui';
+
+// Components
+import { CookieConsent } from '@/components';
 
 interface Props {
   locale: Locale;
@@ -83,5 +88,8 @@ const pathname = Astro.url.pathname;
     </main>
 
     <Toaster client:only />
+
+    <!-- Analytics (client only, GDPR-safe) -->
+    <CookieConsent client:only="react" locale={locale} />
   </body>
 </html>
