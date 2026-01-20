@@ -17,9 +17,6 @@ const { src, link } = Astro.props;
   <div class="relative w-32 h-32 md:w-64 md:h-64">
     <StrapiImage
       image={src}
-      decorative
-      sizes="(max-width: 768px) 128px, 256px"
-      srcSetWidths={[128, 256]}
       className="object-cover transition-transform duration-300 group-hover:scale-105"
     />
 
