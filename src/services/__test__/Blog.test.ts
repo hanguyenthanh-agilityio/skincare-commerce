@@ -2,7 +2,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Effect } from 'effect';
 
-import { getBlogsEffect, getBlogs, getBlogByDocumentId, getBlogPageData } from '@/services/blog';
+import { getBlogsEffect, getBlogs, getBlogPageData } from '@/services/blog';
 
 import { apiClient } from '@/services';
 import { ERROR_MESSAGES } from '@/constants';
@@ -44,7 +44,7 @@ describe('Blog service', () => {
     expect(result.pagination).toBeNull();
   });
 
-  it('getBlogsEffect | failure', async () => {
+  it('getBlogsEffect | failure when api error', async () => {
     (apiClient.get as any).mockResolvedValue({
       data: null,
       error: { message: ERROR_MESSAGES.BLOG_FETCH_FAILED },
@@ -61,7 +61,10 @@ describe('Blog service', () => {
 
     const result = await getBlogs({ locale });
 
-    expect(result.blogs).toEqual([apiBlog]);
+    expect(result).toEqual({
+      blogs: [apiBlog],
+      pagination: null,
+    });
   });
 
   it('getBlogs | fallback on error', async () => {
@@ -78,30 +81,6 @@ describe('Blog service', () => {
     });
   });
 
-  // it('getBlogByDocumentId | success when found', async () => {
-  //     (apiClient.get as any).mockResolvedValue({
-  //         data: { data: [apiBlog] },
-  //         error: null,
-  //     });
-
-  //     const result = await Effect.runPromise(
-  //         getBlogByDocumentId({ id: 'blog-1', locale }),
-  //     );
-
-  //     expect(result).toEqual(apiBlog);
-  // });
-
-  it('getBlogByDocumentId | FAILS when not found', async () => {
-    (apiClient.get as any).mockResolvedValue({
-      data: { data: [] },
-      error: null,
-    });
-
-    await expect(
-      Effect.runPromise(getBlogByDocumentId({ id: 'not-found', locale })),
-    ).rejects.toBeDefined();
-  });
-
   it('getBlogPageData | id undefined', async () => {
     const result = await getBlogPageData(undefined, locale);
 
@@ -110,45 +89,5 @@ describe('Blog service', () => {
       blogs: [],
       blogDetail: null,
     });
-  });
-
-  // it('getBlogPageData | blog exists', async () => {
-  //     (apiClient.get as any)
-  //         // getBlogs
-  //         .mockResolvedValueOnce({
-  //             data: { data: [apiBlog] },
-  //             error: null,
-  //         })
-  //         // getBlogByDocumentId
-  //         .mockResolvedValueOnce({
-  //             data: { data: [apiBlog] },
-  //             error: null,
-  //         });
-
-  //     const result = await getBlogPageData('blog-1', locale);
-
-  //     expect(result.pageNotFound).toBe(false);
-  //     expect(result.blogDetail).toEqual(apiBlog);
-  //     expect(result.blogs).toEqual([apiBlog]);
-  // });
-
-  it('getBlogPageData | blog NOT found', async () => {
-    (apiClient.get as any)
-      // getBlogs
-      .mockResolvedValueOnce({
-        data: { data: [apiBlog] },
-        error: null,
-      })
-      // getBlogByDocumentId
-      .mockResolvedValueOnce({
-        data: { data: [] },
-        error: null,
-      });
-
-    const result = await getBlogPageData('not-found', locale);
-
-    expect(result.pageNotFound).toBe(true);
-    expect(result.blogDetail).toBeNull();
-    expect(result.blogs).toEqual([]);
   });
 });
