@@ -23,6 +23,7 @@ export default getViteConfig({
       'src/content/**',
       'src/constants/**',
       'src/types/**',
+      'src/types/product.ts',
       'src/schemas/**',
     ],
   },
