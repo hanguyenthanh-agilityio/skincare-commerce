@@ -10,6 +10,7 @@ import type { StrapiImageType } from '@/types';
 interface StrapiImageProps {
   image: StrapiImageType | string | null | undefined;
   alt?: string;
+  decorative?: boolean;
   className?: string;
   width?: number;
   height?: number;
@@ -23,6 +24,8 @@ interface StrapiImageProps {
 const StrapiImage = ({
   image,
   className = '',
+  alt,
+  decorative,
   width = 1200,
   height = 800,
   fallbackAspectRatio = 16 / 9,
@@ -73,6 +76,8 @@ const StrapiImage = ({
         : fallbackAspectRatio,
   };
 
+  const resolvedAlt = decorative ? '' : (alt ?? imageNode.alternativeText ?? '');
+
   return (
     <img
       src={baseUrl}
@@ -80,7 +85,8 @@ const StrapiImage = ({
       sizes={sizes}
       width={imageNode.width || width}
       height={imageNode.height || height}
-      alt={imageNode.alternativeText || ''}
+      alt={resolvedAlt}
+      role={decorative ? 'presentation' : undefined}
       className={cn('w-full h-full object-cover', className)}
       decoding="async"
       loading={priority ? 'eager' : 'lazy'}

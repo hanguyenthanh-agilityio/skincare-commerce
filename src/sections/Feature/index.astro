@@ -30,7 +30,13 @@ const { subTitle, title, description, buttonText, buttonHref, align, colorScheme
         imageWrapperClass,
       )}
     >
-      <StrapiImage image={image} className="w-full h-full object-cover" fallbackAspectRatio={0} />
+      <StrapiImage
+        image={image}
+        alt={title}
+        priority
+        className="w-full h-full object-cover"
+        fallbackAspectRatio={0}
+      />
     </div>
 
     <!-- Content -->
