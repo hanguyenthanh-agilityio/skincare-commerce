@@ -24,7 +24,6 @@ const DropdownMenu = memo(({ data, className }: DropdownMenuProps) => {
 
   return (
     <NavigationMenu className={cn('relative z-50', className)}>
-      {/* TRIGGERS */}
       <NavigationMenuList className="flex gap-6">
         {data.map((menu) => (
           <NavigationMenuItem key={menu.title}>
@@ -32,7 +31,6 @@ const DropdownMenu = memo(({ data, className }: DropdownMenuProps) => {
               {menu.title}
             </NavigationMenuTrigger>
 
-            {/* CONTENT – CHỈ LÀ NỘI DUNG */}
             <NavigationMenuContent>
               <div className="dropdown-mega">
                 <div className="grid grid-cols-[1fr_280px] gap-10 dropdown-mega-content">
@@ -58,7 +56,6 @@ const DropdownMenu = memo(({ data, className }: DropdownMenuProps) => {
                     ))}
                   </div>
 
-                  {/* RIGHT IMAGE */}
                   <div className="relative">
                     <StrapiImage
                       image={menu.imageUrl}
@@ -73,21 +70,7 @@ const DropdownMenu = memo(({ data, className }: DropdownMenuProps) => {
         ))}
       </NavigationMenuList>
 
-      {/* ✅ VIEWPORT = KHUNG DROPDOWN */}
-      <NavigationMenuViewport
-        className="
-          absolute
-          top-full
-          left-0
-          mt-2
-          w-full
-          max-w-screen-lg
-          bg-white
-          border
-          shadow-lg
-          rounded-xl
-        "
-      />
+      <NavigationMenuViewport className="absolute top-full left-0 mt-2 w-full max-w-screen-lg bg-white border shadow-lg rounded-xl" />
     </NavigationMenu>
   );
 });

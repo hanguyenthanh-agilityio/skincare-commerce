@@ -1,32 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-
 import DropdownMenu from '..';
 
-// Mock UI components
 vi.mock('@/ui', () => ({
-  HoverCard: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  HoverCardTrigger: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  HoverCardContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  Button: ({
-    children,
-    ...props
-  }: { children: React.ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-    <button {...props}>{children}</button>
+  NavigationMenu: ({ children, className }: any) => (
+    <nav data-testid="navigation-menu" className={className}>
+      {children}
+    </nav>
   ),
+
+  NavigationMenuList: ({ children }: any) => <ul>{children}</ul>,
+  NavigationMenuItem: ({ children }: any) => <li>{children}</li>,
+
+  NavigationMenuTrigger: ({ children }: any) => <button type="button">{children}</button>,
+
+  NavigationMenuContent: ({ children }: any) => <div data-testid="menu-content">{children}</div>,
+
+  NavigationMenuViewport: () => <div data-testid="menu-viewport" />,
 }));
 
-// Mock shared components
 vi.mock('@/components', () => ({
-  LinkWrapper: ({ href, children }: { href: string; children: React.ReactNode }) => (
-    <a href={href}>{children}</a>
-  ),
-  StrapiImage: ({ image }: { image: { url?: string } | undefined }) => (
-    <img alt="menu-image" src={image?.url || ''} />
-  ),
+  LinkWrapper: ({ href, children }: any) => <a href={href}>{children}</a>,
+
+  StrapiImage: () => <div data-testid="strapi-image" />,
 }));
 
-// Mock utility
 vi.mock('@/lib', () => ({
   cn: (...classes: string[]) => classes.filter(Boolean).join(' '),
 }));
@@ -34,21 +33,13 @@ vi.mock('@/lib', () => ({
 const mockData = [
   {
     title: 'Shop',
-    imageUrl: {
-      url: '/image.jpg',
-    },
+    imageUrl: '/image.jpg',
     columns: [
       {
         heading: 'Category',
         items: [
-          {
-            label: 'Skincare',
-            href: '/skincare',
-          },
-          {
-            label: 'Makeup',
-            href: '/makeup',
-          },
+          { label: 'Skincare', href: '/skincare' },
+          { label: 'Makeup', href: '/makeup' },
         ],
       },
     ],
@@ -56,80 +47,48 @@ const mockData = [
 ];
 
 describe('DropdownMenu', () => {
-  it('renders navigation container', () => {
-    render(
-      <DropdownMenu
-        data={mockData.map((item) => ({
-          ...item,
-          imageUrl: item.imageUrl.url,
-        }))}
-      />,
-    );
-
-    expect(
-      screen.getByRole('navigation', {
-        name: /primary mega navigation/i,
-      }),
-    ).toBeInTheDocument();
+  it('returns null when data is empty', () => {
+    const { container } = render(<DropdownMenu data={[]} />);
+    expect(container.firstChild).toBeNull();
   });
 
-  it('renders menu title button', () => {
-    render(
-      <DropdownMenu
-        data={mockData.map((item) => ({
-          ...item,
-          imageUrl: item.imageUrl.url,
-        }))}
-      />,
-    );
+  it('renders navigation menu wrapper', () => {
+    render(<DropdownMenu data={mockData} />);
+
+    expect(screen.getByTestId('navigation-menu')).toBeInTheDocument();
+  });
+
+  it('renders menu trigger title', () => {
+    render(<DropdownMenu data={mockData} />);
 
     expect(screen.getByRole('button', { name: 'Shop' })).toBeInTheDocument();
   });
 
-  it('renders submenu column heading', () => {
-    render(
-      <DropdownMenu
-        data={mockData.map((item) => ({
-          ...item,
-          imageUrl: item.imageUrl.url,
-        }))}
-      />,
-    );
+  it('renders column heading', () => {
+    render(<DropdownMenu data={mockData} />);
 
     expect(screen.getByText('Category')).toBeInTheDocument();
   });
 
   it('renders submenu links with correct href', () => {
-    render(
-      <DropdownMenu
-        data={mockData.map((item) => ({
-          ...item,
-          imageUrl: item.imageUrl.url,
-        }))}
-      />,
-    );
+    render(<DropdownMenu data={mockData} />);
 
-    const skincareLink = screen.getByText('Skincare');
-    expect(skincareLink).toBeInTheDocument();
-    expect(skincareLink.closest('a')).toHaveAttribute('href', '/skincare');
+    const skincare = screen.getByText('Skincare').closest('a');
+    const makeup = screen.getByText('Makeup').closest('a');
 
-    const makeupLink = screen.getByText('Makeup');
-    expect(makeupLink).toBeInTheDocument();
-    expect(makeupLink.closest('a')).toHaveAttribute('href', '/makeup');
+    expect(skincare).toHaveAttribute('href', '/skincare');
+    expect(makeup).toHaveAttribute('href', '/makeup');
   });
 
-  it('applies custom className when provided', () => {
-    render(
-      <DropdownMenu
-        data={mockData.map((item) => ({
-          ...item,
-          imageUrl: item.imageUrl.url,
-        }))}
-        className="custom-class"
-      />,
-    );
+  it('renders Strapi image', () => {
+    render(<DropdownMenu data={mockData} />);
 
-    const nav = screen.getByRole('navigation');
-    expect(nav).toHaveClass('custom-class');
+    expect(screen.getByTestId('strapi-image')).toBeInTheDocument();
+  });
+
+  it('applies custom className to navigation menu', () => {
+    render(<DropdownMenu data={mockData} className="custom-class" />);
+
+    expect(screen.getByTestId('navigation-menu')).toHaveClass('custom-class');
   });
 });
