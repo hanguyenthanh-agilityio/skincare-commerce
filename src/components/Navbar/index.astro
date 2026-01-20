@@ -22,7 +22,7 @@ const { navLinks, dropdownMenu, className } = Astro.props;
   aria-label="Site navigation"
 >
   {/* Desktop Menu */}
-  <div class="hidden md:flex items-center gap-6">
+  <div class="hidden md:flex items-center md:gap-3 lg:gap-6">
     <DropdownMenu client:load data={dropdownMenu} />
     {navLinks.map((link) => <Link href={link.href}>{link.label}</Link>)}
   </div>
