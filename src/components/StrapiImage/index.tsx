@@ -21,7 +21,7 @@ interface StrapiImageProps {
   sizes?: string;
 }
 
-const DEFAULT_SRCSET = [320, 480, 640, 800];
+const DEFAULT_SRCSET = [480, 640, 960, 1280];
 
 const StrapiImage = ({
   image,
@@ -56,7 +56,7 @@ const StrapiImage = ({
   const isCloudinary = url.includes('res.cloudinary.com') || url.includes('cloudinary.com');
 
   const baseUrl = isCloudinary
-    ? url.replace('/upload/', '/upload/f_auto,q_auto/') // AUTO OPTIMIZED
+    ? url.replace('/upload/', '/upload/f_auto,q_auto:eco/') // AUTO OPTIMIZED
     : url.startsWith('http')
       ? url
       : `${STRAPI_BASE_URL}${url}`;
