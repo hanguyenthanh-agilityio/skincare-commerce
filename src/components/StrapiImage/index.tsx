@@ -21,6 +21,8 @@ interface StrapiImageProps {
   sizes?: string;
 }
 
+const DEFAULT_SRCSET = [320, 480, 640, 800];
+
 const StrapiImage = ({
   image,
   className = '',
@@ -30,8 +32,8 @@ const StrapiImage = ({
   height = 800,
   fallbackAspectRatio = 16 / 9,
   priority = false,
-  srcSetWidths = [320, 640, 960, 1280, 1600],
-  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px',
+  srcSetWidths = DEFAULT_SRCSET,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 70vw, 700px',
 }: StrapiImageProps) => {
   const imageNode: StrapiImageType | null =
     typeof image === 'string'
