@@ -1,12 +1,94 @@
-/* eslint-disable no-undef */
 import { describe, it, expect, beforeEach } from 'vitest';
 
 // Utils
-import { updateQueryParam } from '../query';
+import { getFilterParams, updateQueryParam } from '../query';
 
-describe('updateQueryParam util', () => {
+describe('getFilterParams', () => {
+  it('should return default values when no params are provided', () => {
+    const url = new URL('https://example.com/products');
+
+    const result = getFilterParams(url);
+
+    expect(result).toEqual({
+      category: null,
+      skinType: null,
+      sort: null,
+      minPrice: 0,
+      maxPrice: 2000,
+      page: 1,
+    });
+  });
+
+  it('should correctly parse all valid filter params', () => {
+    const url = new URL(
+      'https://example.com/products?category=hydrate&skinType=oily&sort=price_asc&minPrice=100&maxPrice=500&page=2',
+    );
+
+    const result = getFilterParams(url);
+
+    expect(result).toEqual({
+      category: 'hydrate',
+      skinType: 'oily',
+      sort: 'price_asc',
+      minPrice: 100,
+      maxPrice: 500,
+      page: 2,
+    });
+  });
+
+  it('should fallback minPrice to 0 when value is NaN', () => {
+    const url = new URL('https://example.com/products?minPrice=abc');
+
+    const result = getFilterParams(url);
+
+    expect(result.minPrice).toBe(0);
+  });
+
+  it('should fallback maxPrice to 2000 when value is NaN', () => {
+    const url = new URL('https://example.com/products?maxPrice=xyz');
+
+    const result = getFilterParams(url);
+
+    expect(result.maxPrice).toBe(2000);
+  });
+
+  it('should fallback page to 1 when page is missing', () => {
+    const url = new URL('https://example.com/products?category=cleanse');
+
+    const result = getFilterParams(url);
+
+    expect(result.page).toBe(1);
+  });
+
+  it('should normalize page to minimum value of 1', () => {
+    const url = new URL('https://example.com/products?page=0');
+
+    const result = getFilterParams(url);
+
+    expect(result.page).toBe(1);
+  });
+
+  it('should normalize negative page number to 1', () => {
+    const url = new URL('https://example.com/products?page=-5');
+
+    const result = getFilterParams(url);
+
+    expect(result.page).toBe(1);
+  });
+
+  it('should keep category, skinType, sort as null when params are missing', () => {
+    const url = new URL('https://example.com/products?minPrice=50');
+
+    const result = getFilterParams(url);
+
+    expect(result.category).toBeNull();
+    expect(result.skinType).toBeNull();
+    expect(result.sort).toBeNull();
+  });
+});
+
+describe('updateQueryParam', () => {
   beforeEach(() => {
-    // Reset URL before each test
     window.history.pushState({}, '', '/products');
   });
 
