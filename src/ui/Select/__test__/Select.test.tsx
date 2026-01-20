@@ -115,4 +115,37 @@ describe('Select component', () => {
     const items = within(listbox).getAllByRole('option');
     expect(items.length).toBeGreaterThan(20);
   });
+
+  it('applies popper positioning classes when position="popper"', async () => {
+    render(
+      <Select defaultValue="apple">
+        <SelectTrigger>Trigger</SelectTrigger>
+        <SelectContent position="popper">
+          <SelectItem value="apple">Apple</SelectItem>
+        </SelectContent>
+      </Select>,
+    );
+
+    fireEvent.click(screen.getByText('Trigger'));
+
+    const content = await screen.findByRole('listbox');
+
+    expect(content.className).toContain('translate-y-1');
+  });
+
+  it('applies viewport size classes when position is popper', async () => {
+    render(
+      <Select defaultValue="apple">
+        <SelectTrigger>Trigger</SelectTrigger>
+        <SelectContent position="popper">
+          <SelectItem value="apple">Apple</SelectItem>
+        </SelectContent>
+      </Select>,
+    );
+
+    fireEvent.click(screen.getByText('Trigger'));
+
+    const viewport = document.querySelector('[data-radix-select-viewport]');
+    expect(viewport?.className).toContain('min-w-');
+  });
 });

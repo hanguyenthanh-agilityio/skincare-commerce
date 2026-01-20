@@ -3,9 +3,6 @@ import { describe, it, expect, vi } from 'vitest';
 
 import QuantityInput from '..';
 
-// =====================
-// Mocks
-// =====================
 vi.mock('@/ui', () => ({
   Input: ({
     value,
@@ -35,9 +32,6 @@ vi.mock('@/lib', () => ({
   cn: (...classes: string[]) => classes.filter(Boolean).join(' '),
 }));
 
-// =====================
-// Tests
-// =====================
 describe('QuantityInput', () => {
   it('renders input with correct initial value', () => {
     render(<QuantityInput value={2} onChange={vi.fn()} />);
@@ -129,5 +123,18 @@ describe('QuantityInput', () => {
     const input = screen.getByTestId('quantity-input');
 
     expect(input).toBeDisabled();
+  });
+
+  it('calls onChange with 0 when input is cleared by browser', () => {
+    const onChange = vi.fn();
+
+    render(<QuantityInput value={5} onChange={onChange} />);
+
+    const input = screen.getByTestId('quantity-input');
+
+    fireEvent.change(input, { target: { value: 'abc' } });
+    fireEvent.blur(input);
+
+    expect(onChange).toHaveBeenCalledWith(0);
   });
 });

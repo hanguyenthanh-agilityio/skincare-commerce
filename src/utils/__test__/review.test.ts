@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 import type { Review } from '@/types';
 
 // Utils
-import { getRatingBreakdown } from '../review';
+import { calculateAverageRating, getRatingBreakdown } from '../review';
 
 const createReview = (rating: number): Review => ({
   rating,
@@ -74,5 +74,35 @@ describe('getRatingBreakdown', () => {
 
     expect(getRatingBreakdown(reviews, 0)).toEqual([]);
     expect(getRatingBreakdown(reviews, -3)).toEqual([]);
+  });
+
+  it('should return 0 when reviews array is empty', () => {
+    expect(calculateAverageRating([])).toBe(0);
+  });
+
+  it('should return correct average for integer result', () => {
+    const reviews = [{ rating: 5 }, { rating: 5 }, { rating: 5 }];
+
+    expect(calculateAverageRating(reviews)).toBe(5);
+  });
+
+  it('should return correct average rounded to 1 decimal', () => {
+    const reviews = [{ rating: 5 }, { rating: 4 }, { rating: 4 }];
+
+    // (5 + 4 + 4) / 3 = 4.333... -> 4.3
+    expect(calculateAverageRating(reviews)).toBe(4.3);
+  });
+
+  it('should handle mixed ratings correctly', () => {
+    const reviews = [{ rating: 1 }, { rating: 2 }, { rating: 3 }, { rating: 4 }, { rating: 5 }];
+
+    expect(calculateAverageRating(reviews)).toBe(3);
+  });
+
+  it('should handle ratings with zero values', () => {
+    const reviews = [{ rating: 0 }, { rating: 0 }, { rating: 5 }];
+
+    // (0 + 0 + 5) / 3 = 1.666... -> 1.7
+    expect(calculateAverageRating(reviews)).toBe(1.7);
   });
 });
