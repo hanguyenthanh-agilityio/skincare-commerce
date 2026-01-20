@@ -9,6 +9,7 @@ import type { StrapiImageType } from '@/types';
 
 interface StrapiImageProps {
   image: StrapiImageType | string | null | undefined;
+  alt?: string;
   className?: string;
   width?: number;
   height?: number;

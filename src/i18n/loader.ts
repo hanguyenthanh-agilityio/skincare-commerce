@@ -12,7 +12,7 @@ export type LoadContentResult<T extends MarkdownData> = T & {
 };
 
 // Import raw markdown at build time (Vite)
-const markdownFiles = import.meta.glob('/src/content/**/**/*.md', {
+export const markdownFiles = import.meta.glob('/src/content/**/**/*.md', {
   eager: true,
   query: '?raw',
   import: 'default',
