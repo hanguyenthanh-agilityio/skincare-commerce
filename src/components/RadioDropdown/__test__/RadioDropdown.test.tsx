@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 
@@ -16,10 +17,43 @@ vi.mock('@/ui', () => ({
       <svg data-testid="down-arrow" {...props} />
     ),
   },
-  DropdownMenu: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  DropdownMenu: ({
+    children,
+    onOpenChange,
+  }: {
+    children: React.ReactNode;
+    onOpenChange?: (open: boolean) => void;
+  }) => (
+    <div data-testid="dropdown" onClick={() => onOpenChange?.(true)}>
+      {children}
+    </div>
+  ),
   DropdownMenuTrigger: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   DropdownMenuContent: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  DropdownMenuRadioGroup: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  DropdownMenuRadioGroup: ({
+    children,
+    onValueChange,
+  }: {
+    children: React.ReactNode;
+    onValueChange?: (value: string) => void;
+  }) => (
+    <div>
+      {Array.isArray(children)
+        ? children.map((child: any) =>
+            child
+              ? {
+                  ...child,
+                  props: {
+                    ...child.props,
+                    onClick: () => onValueChange?.(child.props.value),
+                  },
+                }
+              : child,
+          )
+        : children}
+    </div>
+  ),
+
   DropdownMenuRadioItem: ({
     children,
     value,
@@ -130,5 +164,56 @@ describe('RadioDropdown', () => {
 
     const button = screen.getByRole('button');
     expect(button).toHaveClass('custom-class');
+  });
+
+  it('renders empty string when no value and no emptyLabel are provided', () => {
+    render(
+      <RadioDropdown<SortValue> options={OPTIONS} values={['asc', 'desc']} onChange={vi.fn()} />,
+    );
+
+    const button = screen.getByRole('button');
+
+    expect(button.textContent).toBe('');
+  });
+
+  it('rotates down arrow when dropdown is open', async () => {
+    render(
+      <RadioDropdown<SortValue>
+        value="asc"
+        options={OPTIONS}
+        values={['asc', 'desc']}
+        onChange={vi.fn()}
+      />,
+    );
+
+    const arrow = screen.getByTestId('down-arrow');
+
+    // Initially not rotated
+    expect(arrow).not.toHaveClass('rotate-180');
+
+    // Click dropdown to open
+    await screen.getByTestId('dropdown').click();
+
+    expect(arrow).toHaveClass('rotate-180');
+  });
+
+  it('calls onChange when a radio option is selected', () => {
+    const onChange = vi.fn();
+
+    render(
+      <RadioDropdown<SortValue>
+        value="asc"
+        options={OPTIONS}
+        values={['asc', 'desc']}
+        onChange={onChange}
+      />,
+    );
+
+    const radioItems = screen.getAllByRole('menuitemradio');
+
+    // Click "Descending"
+    radioItems[1].click();
+
+    expect(onChange).toHaveBeenCalledWith('desc');
   });
 });

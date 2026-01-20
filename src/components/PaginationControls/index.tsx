@@ -30,7 +30,6 @@ const PaginationControls = ({ page, pageCount }: PaginationControlsProps) => {
         <PaginationItem>
           <PaginationPrevious
             href={!isFirst ? `?page=${currentPage - 1}` : undefined}
-            aria-disabled={isFirst}
             className={cn(isFirst && 'pointer-events-none opacity-50')}
           />
         </PaginationItem>

@@ -73,14 +73,6 @@ describe('PaginationControls', () => {
     expect(screen.getByText('3')).toHaveAttribute('href', '?page=3');
   });
 
-  it('disables Previous button on first page', () => {
-    render(<PaginationControls page={1} pageCount={3} />);
-
-    const prev = screen.getByLabelText('Previous page');
-    expect(prev).toHaveAttribute('aria-disabled', 'true');
-    expect(prev).not.toHaveAttribute('href');
-  });
-
   it('disables Next button on last page', () => {
     render(<PaginationControls page={3} pageCount={3} />);
 

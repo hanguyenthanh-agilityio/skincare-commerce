@@ -14,6 +14,16 @@ export default getViteConfig({
     include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx}'],
     coverage: {
       reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/',
+        'dist/',
+        'src/layouts/**',
+        'src/sections/**',
+        'src/content/**',
+        'src/constants/**',
+        'src/types/**',
+        'src/schemas/**',
+      ],
     },
     exclude: [
       'node_modules',

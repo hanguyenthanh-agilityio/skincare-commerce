@@ -18,7 +18,7 @@ describe('Pagination component', () => {
     const nav = screen.getByRole('navigation');
 
     expect(nav).toBeInTheDocument();
-    expect(nav).toHaveAttribute('aria-label', 'pagination');
+    expect(nav).toHaveAttribute('aria-label', 'Pagination');
     expect(nav).toHaveAttribute('data-slot', 'pagination');
   });
 
@@ -161,5 +161,38 @@ describe('Pagination integration', () => {
     expect(screen.getByLabelText('Go to previous page')).toBeInTheDocument();
     expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
     expect(screen.getByText('More pages')).toBeInTheDocument();
+  });
+
+  it('removes href when disabled', () => {
+    render(
+      <PaginationLink href="/page/2" disabled>
+        2
+      </PaginationLink>,
+    );
+
+    const link = screen.getByText('2');
+
+    expect(link).not.toHaveAttribute('href');
+  });
+
+  it('sets tabIndex to -1 when disabled', () => {
+    render(
+      <PaginationLink href="/page/2" disabled>
+        2
+      </PaginationLink>,
+    );
+
+    const link = screen.getByText('2');
+
+    expect(link).toHaveAttribute('tabindex', '-1');
+  });
+
+  it('applies disabled styles when disabled', () => {
+    render(<PaginationLink disabled>2</PaginationLink>);
+
+    const link = screen.getByText('2');
+
+    expect(link).toHaveClass('pointer-events-none');
+    expect(link).toHaveClass('opacity-50');
   });
 });

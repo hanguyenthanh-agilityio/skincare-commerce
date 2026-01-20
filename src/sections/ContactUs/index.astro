@@ -8,9 +8,6 @@ import { Heading, Link, Typography } from '@/components';
 // Types
 import type { ContactContent } from '@/types';
 
-// UIs
-import { Button } from '@/ui';
-
 // Utils
 import { getContactIcon } from '@/utils';
 
@@ -45,13 +42,13 @@ const { data } = Astro.props as Props;
             const Icon = getContactIcon(id);
             return (
               <article
-                class="flex flex-col items-center p-6 bg-primary/10 rounded-xl shadow hover:shadow-xl transition-shadow w-full"
+                class="flex flex-col items-center p-6 bg-card text-card-foreground rounded-xl shadow hover:shadow-xl transition-shadow w-full"
                 role="region"
                 aria-label={label}
               >
                 <Icon className="w-10 h-10 text-primary mb-3" aria-hidden="true" />
                 <Heading level="h3" className="font-semibold text-primary mb-1" title={label} />
-                <Typography level="p" className="text-muted-foreground" title={value} />
+                <Typography level="p" className="text-foreground" title={value} />
               </article>
             );
           })
@@ -59,11 +56,12 @@ const { data } = Astro.props as Props;
       </div>
 
       <!-- FAQ Button -->
-      <Link href={ROUTER.FAQ} className="flex justify-center pt-5">
-        <Button className="gap-3 px-8 py-4 cursor-pointer">
-          {data.faqButton}
-          <HelpCircle className="w-6 h-6 animate-bounce" aria-hidden="true" />
-        </Button>
+      <Link
+        href={ROUTER.FAQ}
+        className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition"
+      >
+        {data.faqButton}
+        <HelpCircle className="w-6 h-6 animate-bounce" aria-hidden="true" />
       </Link>
     </div>
   </div>
