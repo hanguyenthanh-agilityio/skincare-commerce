@@ -21,7 +21,7 @@ interface StrapiImageProps {
   sizes?: string;
 }
 
-const DEFAULT_SRCSET = [480, 640, 960, 1280];
+const DEFAULT_SRCSET = [320, 480, 640, 800];
 
 const StrapiImage = ({
   image,
