@@ -300,3 +300,33 @@
     margin-inline: auto;
   }
 }
+
+@layer components {
+  /* Dropdown menu width */
+  .dropdown-mega {
+    min-width: 700px;
+  }
+
+  @media (min-width: 1024px) {
+    .dropdown-mega {
+      min-width: 900px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .dropdown-mega {
+      min-width: 1200px;
+    }
+  }
+
+  /* Dropdown menu content height */
+  .dropdown-mega-content {
+    min-height: 200px;
+  }
+
+  @media (min-width: 1024px) {
+    .dropdown-mega-content {
+      min-height: 360px;
+    }
+  }
+}
