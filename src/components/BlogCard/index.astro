@@ -6,7 +6,8 @@ import type { BlogContent, StrapiImageType } from '@/types';
 import { loadContent } from '@/i18n';
 
 // Components
-import { Link, Typography, StrapiImage } from '@/components';
+import { Link, Typography } from '@/components';
+import StrapiImage from '@/components/StrapiImage';
 
 // Icons
 import { Icons } from '@/ui';
@@ -23,13 +24,13 @@ interface Props {
 
 const { href, image, title, category } = Astro.props;
 
-const { locale } = Astro.params;
+const rawLocale = Astro.params?.locale ?? 'en';
 
-if (!locale || !isLocale(locale)) {
+if (!isLocale(rawLocale)) {
   return Astro.redirect(ROUTER.NOT_FOUND);
 }
 
-const blogPage = loadContent<BlogContent>('blog', locale);
+const blogPage = loadContent<BlogContent>('blog', rawLocale);
 
 const { ctaLabel } = blogPage;
 ---

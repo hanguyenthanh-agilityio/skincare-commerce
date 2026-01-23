@@ -1,0 +1,5 @@
+---
+const { url, alternativeText } = Astro.props;
+---
+
+<img data-testid="strapi-image" src={url ?? ''} alt={alternativeText ?? ''} />

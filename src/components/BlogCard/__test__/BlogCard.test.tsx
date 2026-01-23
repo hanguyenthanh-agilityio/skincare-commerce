@@ -1,53 +1,50 @@
+/// <reference types="astro/client" />
+
 import { BlogCard } from '@/components';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-import { describe, it, expect, vi, beforeAll } from 'vitest';
+import { describe, it, expect, beforeAll, vi } from 'vitest';
 
-vi.mock('@/components/StrapiImage', () => {
-  return {
-    default: () => null,
-  };
-});
+vi.mock('@/ui', () => ({
+  Icons: {
+    Arrow: '<svg data-testid="arrow-icon" aria-hidden="true"></svg>',
+  },
+}));
 
-describe('BlogCard component', () => {
+describe('BlogCard', () => {
   let container: Awaited<ReturnType<typeof AstroContainer.create>>;
 
   beforeAll(async () => {
     container = await AstroContainer.create();
   });
 
-  it('renders blog title and category', async () => {
-    const result = await container.renderToString(BlogCard, {
-      params: {
-        locale: 'en',
-      },
+  it('renders title, category and image', async () => {
+    const html = await container.renderToString(BlogCard, {
       props: {
-        href: '/blog/hello',
-        title: 'Hello World',
+        href: '/blog/test',
+        title: 'Test Blog',
         category: 'Tech',
         image: {
-          url: '/image.png',
-          alternativeText: 'Blog image',
+          url: '/img.jpg',
+          alternativeText: 'test',
         },
       },
     });
 
-    expect(result).toContain('Hello World');
-    expect(result).toContain('Tech');
+    expect(html).toContain('Test Blog');
+    expect(html).toContain('Tech');
+    expect(html).toContain('data-testid="strapi-image"');
   });
 
-  it('renders CTA link with correct href', async () => {
-    const result = await container.renderToString(BlogCard, {
-      params: {
-        locale: 'en',
-      },
+  it('renders CTA link', async () => {
+    const html = await container.renderToString(BlogCard, {
       props: {
-        href: '/blog/hello',
-        title: 'Hello World',
+        href: '/blog/test',
+        title: 'Test Blog',
         category: 'Tech',
         image: {},
       },
     });
 
-    expect(result).toMatch(/href="\/blog\/hello"/);
+    expect(html).toContain('href="/blog/test"');
   });
 });
