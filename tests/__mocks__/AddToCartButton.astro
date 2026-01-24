@@ -1,0 +1,7 @@
+---
+const { productDocumentId, locale } = Astro.props;
+---
+
+<button data-testid="add-to-cart" data-product-id={productDocumentId} data-locale={locale}>
+  Add to cart
+</button>

@@ -9,6 +9,7 @@ export default getViteConfig({
   resolve: {
     alias: {
       '@/components/StrapiImage': '/tests/__mocks__/StrapiImage.astro',
+      '@/components/AddToCartButton': '/tests/__mocks__/AddToCartButton.astro',
     },
   },
 
