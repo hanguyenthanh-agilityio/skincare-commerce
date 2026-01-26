@@ -14,15 +14,7 @@ import { buildRoute, loadContent } from '@/i18n';
 import { getBlogs, getProductPageData } from '@/services';
 
 // Types
-import type { HomeContent, ProductDetailContent, Attribute } from '@/types';
-
-// Utils
-import {
-  richTextToPlainText,
-  getRatingBreakdown,
-  richTextToMutable,
-  calculateAverageRating,
-} from '@/utils';
+import type { HomeContent, ProductDetailContent, ProductDetailUI } from '@/types';
 
 // Constants
 import { isLocale, ROUTER } from '@/constants';
@@ -30,12 +22,6 @@ import { isLocale, ROUTER } from '@/constants';
 const { id, locale } = Astro.params;
 
 if (!id || !locale || !isLocale(locale)) {
-  return Astro.redirect(ROUTER.NOT_FOUND);
-}
-
-const { productDetail: product } = await getProductPageData(id, locale);
-
-if (!product) {
   return Astro.redirect(ROUTER.NOT_FOUND);
 }
 
@@ -49,53 +35,32 @@ const { attributeLabels, review: reviewContent, routine, labels, image } = produ
 // Fetch blogs
 const { blogs } = await getBlogs({ locale });
 
-// Prepare Product Attributes
-const attributes: Attribute[] = [
-  product.skinFeel && attributeLabels.skinFeel
-    ? { label: attributeLabels.skinFeel, value: product.skinFeel }
-    : null,
-  product.ingredients && attributeLabels.ingredients
-    ? {
-        label: attributeLabels.ingredients,
-        value: richTextToPlainText(product.ingredients),
-      }
-    : null,
-].filter(Boolean) as Attribute[];
+const productDetail: ProductDetailUI | null = await getProductPageData(id, locale, attributeLabels);
 
-// Reviews
-const reviews = product.reviews ?? [];
-const hasReviews = reviews.length > 0;
-
-const reviewAverage = calculateAverageRating(reviews);
-const totalReviewsCount = reviews.length;
-const ratingBreakdown = getRatingBreakdown(reviews);
-
-// Convert readonly API RichTextBlock to mutable for Benefits
-const benefitsData = {
-  ingredients: richTextToMutable(product?.ingredients),
-  benefits: richTextToMutable(product?.benefits),
-  usages: richTextToMutable(product?.usages),
-};
+if (!productDetail) {
+  return Astro.redirect(ROUTER.NOT_FOUND);
+}
 ---
 
 <BaseLayout {locale}>
-  <ProductDetail {locale} product={product} attributes={attributes} />
+  <ProductDetail {locale} product={productDetail.product} attributes={productDetail.attributes} />
 
   <RoutineList steps={routine.steps} title={routine.title} subTitle={routine.subTitle} />
 
-  <Benefits labels={labels} data={benefitsData} image={image} />
+  <Benefits labels={labels} data={productDetail.benefits} image={image} />
 
   {
-    hasReviews && (
+    productDetail.reviews.hasReviews && (
       <Reviews
         labels={reviewContent}
-        average={reviewAverage}
-        totalReviews={totalReviewsCount}
-        reviews={reviews}
-        breakdown={ratingBreakdown}
+        average={productDetail.reviews.average}
+        totalReviews={productDetail.reviews.total}
+        reviews={productDetail.reviews.items}
+        breakdown={productDetail.reviews.breakdown}
       />
     )
   }
+
   <Blog
     {locale}
     {...blog}
