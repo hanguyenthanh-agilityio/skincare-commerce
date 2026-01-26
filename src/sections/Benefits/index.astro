@@ -1,20 +1,18 @@
 ---
 import type { StrapiImageType, SectionKey } from '@/types';
+import type { RichTextBlock } from '@/schemas';
 
 // Components
 import { StrapiImage, Typography } from '@/components';
-import { Icons } from '@/ui';
 
-type RichTextBlock = {
-  type: string;
-  children: { text: string }[];
-};
+// UIs
+import { Icons } from '@/ui';
 
 interface Props {
   labels: {
     sections: Record<SectionKey, string>;
   };
-  data: Partial<Record<SectionKey, RichTextBlock[]>>;
+  data: Partial<Record<SectionKey, readonly RichTextBlock[]>>;
   image: StrapiImageType;
 }
 

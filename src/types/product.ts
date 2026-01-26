@@ -8,6 +8,7 @@ import type {
   ProductSection,
   BlogSection,
   Review as UIReview,
+  RatingBreakdown,
 } from '@/types';
 
 // Schema
@@ -149,3 +150,24 @@ export const mapProductToDetail = (product: RawProduct): TProduct => ({
     ? { name: product.skin_type.name, slug: product.skin_type.slug }
     : undefined,
 });
+
+export interface ProductReviewsUI {
+  items: UIReview[];
+  hasReviews: boolean;
+  average: number;
+  total: number;
+  breakdown: RatingBreakdown[];
+}
+
+export interface ProductBenefitsUI {
+  ingredients?: RichTextBlock[];
+  benefits?: RichTextBlock[];
+  usages?: RichTextBlock[];
+}
+
+export interface ProductDetailUI {
+  product: TProduct;
+  attributes: Attribute[];
+  reviews: ProductReviewsUI;
+  benefits: ProductBenefitsUI;
+}
