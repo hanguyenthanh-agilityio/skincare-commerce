@@ -2,7 +2,7 @@
 import { ENDPOINT, ERROR_MESSAGES, PAGE_SIZE, STRAPI_BASE_URL } from '@/constants';
 
 // Types
-import { mapProductToDetail, type Locale, type ProductPageData, type SortValue } from '@/types';
+import { mapProductToDetail, type Locale, type ProductDetailUI, type SortValue } from '@/types';
 
 // Effect
 import { Effect, pipe, Schema } from 'effect';
@@ -18,6 +18,9 @@ import {
 
 // Schema
 import { ProductListResponseSchema } from '@/schemas';
+
+// Mappers
+import { mapProductToProductDetailUI } from '@/mappers/product/productDetail';
 
 export interface ProductFilters {
   category?: string;
@@ -172,33 +175,23 @@ export const getProductByDocumentId = ({ id, locale }: Params) =>
 export const getProductPageData = async (
   id: string | undefined,
   locale: Locale,
-): Promise<ProductPageData> => {
-  // Default return
-  const baseResult: ProductPageData = {
-    pageNotFound: true,
-    productDetail: null,
-  };
+  attributeLabels: {
+    skinFeel?: string;
+    ingredients?: string;
+  },
+): Promise<ProductDetailUI | null> => {
+  if (!id) return null;
 
-  if (!id) return baseResult;
-
-  /**
-   * Execute Effect in Astro SSR
-   * Handle all failure cases explicitly
-   * Never leak internal error details to UI
-   */
-  const productDetail = await Effect.runPromise(
+  const product = await Effect.runPromise(
     getProductByDocumentId({ id, locale }).pipe(
       Effect.match({
         onSuccess: (product) => product,
-        onFailure: () => null, // Product not found
+        onFailure: () => null,
       }),
     ),
   );
 
-  if (!productDetail) return baseResult;
+  if (!product) return null;
 
-  return {
-    productDetail,
-    pageNotFound: false,
-  };
+  return mapProductToProductDetailUI(product, attributeLabels);
 };

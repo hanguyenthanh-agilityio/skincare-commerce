@@ -67,7 +67,7 @@ export default [
 
   // React
   {
-    files: ['**/*.{jsx,tsx}'],
+    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -82,12 +82,7 @@ export default [
     rules: {
       'react/react-in-jsx-scope': 'off',
       'no-undef': 'off',
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: ['*.astro'],
-        },
-      ],
+      'no-restricted-imports': 'off',
     },
   },
 

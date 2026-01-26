@@ -1,0 +1,7 @@
+---
+const { image, className } = Astro.props;
+
+const src = typeof image === 'string' ? image : (image?.url ?? '');
+---
+
+<img data-testid="strapi-image" data-src={src} class={className} />

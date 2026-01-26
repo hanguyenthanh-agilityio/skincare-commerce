@@ -1,6 +1,7 @@
 ---
 // Components
-import { Link, StrapiImage } from '@/components';
+import { Link } from '@/components';
+import StrapiImage from '@/components/StrapiImage';
 
 // Icons
 import { Icons } from '@/ui';
@@ -21,7 +22,10 @@ const { src, link } = Astro.props;
     />
 
     <!-- Instagram icon -->
-    <div class="absolute bottom-2 right-2 text-white pointer-events-none z-50">
+    <div
+      class="absolute bottom-2 right-2 text-white pointer-events-none z-50"
+      data-testid="instagram-icon"
+    >
       <Icons.Instagram aria-hidden="true" className="w-3 h-3 md:w-4.5 md:h-4.5" />
     </div>
   </div>

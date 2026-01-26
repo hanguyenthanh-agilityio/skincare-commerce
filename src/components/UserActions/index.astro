@@ -35,8 +35,9 @@ const { login, logout, cart } = loadContent<UserActionsContent>('user-actions', 
     href={buildRoute(ROUTER.CART, locale)}
     aria-label={cart.ariaLabel}
     className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    data-testid="cart-link"
   >
-    <Icons.Cart width={18} height={18} />
+    <Icons.Cart data-testid="cart-icon" width={18} height={18} />
   </Link>
 
   <!-- AUTH AREA -->
@@ -49,13 +50,15 @@ const { login, logout, cart } = loadContent<UserActionsContent>('user-actions', 
           className="w-8 h-8"
           aria-haspopup="menu"
           aria-expanded="false"
+          data-testid="user-menu-trigger"
         >
-          <Icons.User width={18} height={18} />
+          <Icons.User data-testid="user-icon" width={18} height={18} />
         </Button>
 
         <div
           class="absolute z-50 right-0 mt-2 w-40 rounded-md border bg-white shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150"
           role="menu"
+          data-testid="user-menu"
         >
           <form method="POST" action="/api/auth/logout">
             <Button
@@ -63,6 +66,7 @@ const { login, logout, cart } = loadContent<UserActionsContent>('user-actions', 
               type="submit"
               className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 rounded-md cursor-pointer"
               role="menuitem"
+              data-testid="logout-button"
             >
               {logout.label}
             </Button>
@@ -70,8 +74,12 @@ const { login, logout, cart } = loadContent<UserActionsContent>('user-actions', 
         </div>
       </div>
     ) : (
-      <Link href={buildRoute(ROUTER.LOGIN, locale)} aria-label={login.ariaLabel}>
-        <Button variant="ghost" className="text-sm">
+      <Link
+        href={buildRoute(ROUTER.LOGIN, locale)}
+        aria-label={login.ariaLabel}
+        data-testid="login-link"
+      >
+        <Button variant="ghost" className="text-sm" data-testid="login-button">
           {login.label}
         </Button>
       </Link>

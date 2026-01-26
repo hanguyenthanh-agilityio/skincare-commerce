@@ -6,6 +6,13 @@ import react from '@vitejs/plugin-react';
 export default getViteConfig({
   plugins: [react(), tsconfigPaths()],
 
+  resolve: {
+    alias: {
+      '@/components/StrapiImage': '/tests/__mocks__/StrapiImage.astro',
+      '@/components/AddToCartButton': '/tests/__mocks__/AddToCartButton.astro',
+    },
+  },
+
   // @ts-expect-error: 'test' is a Vitest config, not a Vite config
   test: {
     globals: true,
@@ -25,6 +32,7 @@ export default getViteConfig({
         'src/schemas/**',
       ],
     },
+
     exclude: [
       'node_modules',
       'dist',
