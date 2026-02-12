@@ -23,7 +23,7 @@ interface Props {
 const { locale, className } = Astro.props;
 
 // 🔐 Detect auth
-const token = Astro.cookies.get('jwt')?.value;
+const token = await Astro.locals.session.get('jwt');
 const isAuthenticated = Boolean(token);
 
 const { login, logout, cart } = loadContent<UserActionsContent>('user-actions', locale);

@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-import { buildRoute, loadContent } from '@/i18n';
+import { loadContent } from '@/i18n';
 
 // Types
 import type { CartToastContent, Locale } from '@/types';
 
-// Constants
-import { ROUTER } from '@/constants';
-
 // Services
-import { apiClient } from '@/services';
+import { addToCart } from '@/services';
 
 // Components
 import { Button } from '@/ui';
@@ -40,21 +37,13 @@ const AddToCartButton = ({
 
     setIsAdding(true);
 
-    // 🔄 Loading toast
     const toastId = toast.loading(loading.label);
 
-    const response = await apiClient.post('/api/cart/add', {
-      body: { productDocumentId },
-    });
+    const response = await addToCart(productDocumentId);
 
     setIsAdding(false);
 
     if (response.error) {
-      if (response.error.message === 'UNAUTHORIZED') {
-        window.location.href = buildRoute(ROUTER.LOGIN, locale);
-        return;
-      }
-
       toast.error(addFailed.title, {
         description: addFailed.description,
         id: toastId,

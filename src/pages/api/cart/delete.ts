@@ -6,8 +6,9 @@ import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
 // Services
 import { apiClient } from '@/services';
 
-export async function DELETE({ request, cookies }: APIContext) {
-  const token = cookies.get('jwt')?.value;
+export async function DELETE({ request, locals }: APIContext) {
+  const session = locals.session;
+  const token = session ? await session.get('jwt') : null;
 
   if (!token) {
     return new Response('UNAUTHORIZED', { status: 401 });

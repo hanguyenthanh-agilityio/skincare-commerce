@@ -18,8 +18,9 @@ export const mapStrapiCartToCartItem = (cart: StrapiCart): CartItem => ({
   image: cart.product.images[0] ?? undefined,
 });
 
-export async function GET({ cookies }: APIContext) {
-  const userId = cookies.get('user_document_id')?.value;
+export async function GET({ locals }: APIContext) {
+  const session = locals.session;
+  const userId = await session.get('user_document_id');
 
   if (!userId) {
     return new Response(JSON.stringify({ message: 'UNAUTHORIZED' }), {
@@ -39,7 +40,6 @@ export async function GET({ cookies }: APIContext) {
 
     const { data: strapiResponse, error } = res;
 
-    // Handle API-level error from apiClient
     if (error) {
       return Response.json({ message: 'CART_FETCH_FAILED', error: error.message }, { status: 500 });
     }

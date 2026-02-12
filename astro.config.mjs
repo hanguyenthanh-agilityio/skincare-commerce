@@ -2,12 +2,12 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
-
 import cloudflare from '@astrojs/cloudflare';
-
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
+// @ts-ignore
+const isProd = import.meta.env.PROD;
+
 export default defineConfig({
   site: 'https://skincare-commerce.pages.dev',
 
@@ -16,24 +16,19 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     resolve: {
-      conditions: ['workerd', 'worker', 'browser'],
-      // @ts-ignore
-      alias: import.meta.env.PROD
+      conditions: isProd ? ['workerd', 'worker', 'browser'] : ['browser', 'node'],
+      alias: isProd
         ? {
             'react-dom/server': 'react-dom/server.edge',
           }
-        : undefined,
+        : {},
     },
     build: {
       rollupOptions: {
-        onwarn(warning, warn) {
-          if (warning.code === 'EVAL') return;
-          warn(warning);
-        },
+        external: ['cloudflare'],
       },
     },
   },
-
   i18n: {
     locales: ['en', 'vi'],
     defaultLocale: 'en',
@@ -49,7 +44,10 @@ export default defineConfig({
   },
 
   output: 'server',
+
   adapter: cloudflare({
+    // @ts-ignore
+    mode: 'directory',
     platformProxy: {
       enabled: true,
       configPath: 'wrangler.json',
@@ -58,10 +56,15 @@ export default defineConfig({
       },
     },
   }),
+
   image: {
     service: {
       entrypoint: 'astro/assets/services/compile',
       config: {},
     },
+  },
+
+  session: {
+    driver: isProd ? 'cloudflare' : 'memory',
   },
 });
