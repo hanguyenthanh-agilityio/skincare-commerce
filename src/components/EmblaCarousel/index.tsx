@@ -91,7 +91,7 @@ const EmblaCarousel = ({ slides, autoPlayInterval = 8000 }: EmblaCarouselProps) 
             onClick={() => emblaApi?.scrollTo(idx)}
             data-active={idx === selectedIndex}
             aria-label={`Go to slide ${idx + 1}`}
-            className="w-3 h-3 rounded-full bg-white/40 data-[active=true]:bg-white transition"
+            className="w-3 h-3 rounded-full bg-white/40 data-[active=true]:bg-white transition cursor-pointer"
           />
         ))}
       </div>

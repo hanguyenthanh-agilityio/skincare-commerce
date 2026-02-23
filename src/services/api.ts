@@ -51,6 +51,16 @@ class APIClient {
       }
 
       if (!res.ok) {
+        // Auto redirect on 401
+        if (res.status === 401 && typeof window !== 'undefined') {
+          const path = window.location.pathname;
+
+          const localeMatch = path.match(/^\/(en|vi)/);
+          const locale = localeMatch ? localeMatch[1] : 'en';
+
+          window.location.href = `/${locale}/login?redirect=${encodeURIComponent(path)}`;
+        }
+
         const text = await res.text();
 
         if (!text) {

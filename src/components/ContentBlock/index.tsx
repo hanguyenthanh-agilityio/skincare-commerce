@@ -71,7 +71,7 @@ const ContentBlockWrapper = ({
         <LinkWrapper
           href={buttonHref}
           className={cn(
-            'flex items-center border border-white py-5 px-6 gap-10 text-sm',
+            'flex items-center border border-white py-5 px-6 gap-10 text-sm transition-all duration-200 hover:bg-white/10 hover:border-white/80',
             scheme.icon,
           )}
         >

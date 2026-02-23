@@ -7,7 +7,7 @@ import type { UserActionsContent, Locale } from '@/types';
 import { buildRoute, loadContent } from '@/i18n';
 
 // Constants
-import { ROUTER } from '@/constants';
+import { ROUTER, SESSION_KEYS } from '@/constants';
 
 // UIs
 import { Button, Icons } from '@/ui';
@@ -23,7 +23,7 @@ interface Props {
 const { locale, className } = Astro.props;
 
 // 🔐 Detect auth
-const token = Astro.cookies.get('jwt')?.value;
+const token = await Astro.locals.session.get(SESSION_KEYS.JWT);
 const isAuthenticated = Boolean(token);
 
 const { login, logout, cart } = loadContent<UserActionsContent>('user-actions', locale);

@@ -1,7 +1,7 @@
 import type { APIContext } from 'astro';
 
 // Constants
-import { STRAPI_BASE_URL } from '@/constants';
+import { SESSION_KEYS, STRAPI_BASE_URL } from '@/constants';
 
 // Types
 import type { LoginResponse } from '@/types';
@@ -9,7 +9,7 @@ import type { LoginResponse } from '@/types';
 // Services
 import { apiClient } from '@/services';
 
-export async function POST({ request, cookies }: APIContext) {
+export async function POST({ request, locals }: APIContext) {
   const body = await request.json();
 
   const res = await apiClient.post<LoginResponse>(`${STRAPI_BASE_URL}/api/auth/local`, {
@@ -19,22 +19,11 @@ export async function POST({ request, cookies }: APIContext) {
   const data = res.data;
 
   if (data) {
-    // ✅ SET COOKIE (this is where most 500s happen)
-    cookies.set('jwt', data.jwt, {
-      httpOnly: true,
-      secure: import.meta.env.PROD,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+    const session = locals.session;
 
-    cookies.set('user_document_id', data.user.documentId, {
-      httpOnly: true,
-      secure: import.meta.env.PROD,
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7,
-    });
+    // Save auth into Astro session (stored in KV)
+    await session.set(SESSION_KEYS.JWT, data.jwt);
+    await session.set(SESSION_KEYS.USER_DOCUMENT_ID, data.user.documentId);
   }
 
   return new Response(JSON.stringify(res), { status: res.error ? 401 : 200 });

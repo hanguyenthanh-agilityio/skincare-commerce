@@ -27,7 +27,7 @@ const DropdownMenu = memo(({ data, className }: DropdownMenuProps) => {
       <NavigationMenuList className="flex gap-6">
         {data.map((menu) => (
           <NavigationMenuItem key={menu.title}>
-            <NavigationMenuTrigger className="px-0 py-2 font-medium bg-transparent">
+            <NavigationMenuTrigger className="px-2 py-2 font-medium bg-transparent hover:bg-accent cursor-pointer">
               {menu.title}
             </NavigationMenuTrigger>
 
