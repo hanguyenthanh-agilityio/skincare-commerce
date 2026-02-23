@@ -1,7 +1,7 @@
 import type { APIContext } from 'astro';
 
 // Constants
-import { ENDPOINT, STRAPI_BASE_URL } from '@/constants';
+import { ENDPOINT, SESSION_KEYS, STRAPI_BASE_URL } from '@/constants';
 
 // Types
 import type { IUser, StrapiCart, StrapiResponse } from '@/types';
@@ -9,8 +9,9 @@ import type { IUser, StrapiCart, StrapiResponse } from '@/types';
 // Services
 import { apiClient } from '@/services';
 
-export async function POST({ cookies, request }: APIContext) {
-  const token = cookies.get('jwt')?.value;
+export async function POST({ locals, request }: APIContext) {
+  const session = locals.session;
+  const token = session ? await session.get(SESSION_KEYS.JWT) : null;
 
   if (!token) {
     return new Response(JSON.stringify({ error: { message: 'UNAUTHORIZED' } }), {
