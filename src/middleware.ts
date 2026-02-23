@@ -1,4 +1,5 @@
 import { defineMiddleware } from 'astro/middleware';
+import { SESSION_KEYS } from './constants';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, redirect, locals } = context;
@@ -7,7 +8,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const session = context.session;
   locals.session = session;
 
-  const token = session ? await session.get('jwt') : null;
+  const token = session ? await session.get(SESSION_KEYS.JWT) : null;
 
   const pathname = url.pathname;
 

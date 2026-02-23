@@ -1,7 +1,7 @@
 import type { APIContext } from 'astro';
 
 // Constants
-import { STRAPI_BASE_URL } from '@/constants';
+import { SESSION_KEYS, STRAPI_BASE_URL } from '@/constants';
 
 // Types
 import type { LoginResponse } from '@/types';
@@ -22,8 +22,8 @@ export async function POST({ request, locals }: APIContext) {
     const session = locals.session;
 
     // Save auth into Astro session (stored in KV)
-    await session.set('jwt', data.jwt);
-    await session.set('user_document_id', data.user.documentId);
+    await session.set(SESSION_KEYS.JWT, data.jwt);
+    await session.set(SESSION_KEYS.USER_DOCUMENT_ID, data.user.documentId);
   }
 
   return new Response(JSON.stringify(res), { status: res.error ? 401 : 200 });
